@@ -10,7 +10,7 @@ const Block = (props: BlockProps) => (
   </div>
 );
 
-export const App = () => (
+export const Home = () => (
   <div className="absolute flex h-full w-full items-center justify-center gap-10 bg-gray-400">
     <Block>
       {"hello, friend."}
