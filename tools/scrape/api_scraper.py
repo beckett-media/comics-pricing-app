@@ -1,3 +1,6 @@
+import queue
+import threading
+
 import httpx
 
 letters = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ@"
@@ -6,6 +9,7 @@ letters = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ@"
 def publishers(letter, page):
     r = httpx.post(
         "https://comicspriceguide.com/Publisher/publishersReturn",
+        timeout=None,
         headers={
             "accept": "application/json, text/javascript, */*; q=0.01",
             "accept-language": "en-US,en;q=0.9",
@@ -38,7 +42,12 @@ def publishers(letter, page):
         },
     )
 
-    data = r.json()
+    try:
+        data = r.json()
+    except:
+        print("failed to decode", r.text)
+        raise
+
     return {
         "items": [
             {"name": item["nameSEO"], "id": item["id"]} for item in data["items"] or []
@@ -66,6 +75,7 @@ def titles(publisher, letter, page):
 
     r = httpx.post(
         "https://comicspriceguide.com/Publisher/TitlesReturn",
+        timeout=None,
         headers={
             "accept": "application/json, text/javascript, */*; q=0.01",
             "accept-language": "en-US,en;q=0.9",
@@ -97,31 +107,61 @@ def titles(publisher, letter, page):
         },
     )
 
-    data = r.json()
+    try:
+        data = r.json()
+    except:
+        print("failed to decode", r.text)
+        raise
+
     return {
         "items": [item["nameSEO"] for item in data["items"] or []],
         "pages": data["pages"],
     }
 
 
-def all_titles():
+def enqueue_titles(q, publisher, letter):
+    data = titles(publisher, letter, 1)
+
+    for page in range(1, data["pages"] + 1):
+        q.put(({"publisher": publisher, "letter": letter, "page": page}, "TITLE"))
+
+
+def worker(q):
+    while True:
+        (item, job) = q.get()
+        # print("processing:", item, job)
+
+        try:
+            if job == "PUBLISHER":
+                for letter in letters:
+                    q.put(({"publisher": item, "letter": letter}, "PUBLISHER_LETTER"))
+
+            elif job == "TITLE":
+                ts = titles(item["publisher"], item["letter"], item["page"])
+                print(ts["items"])
+
+            elif job == "PUBLISHER_LETTER":
+                enqueue_titles(q, item["publisher"], item["letter"])
+        except:
+            pass
+
+        q.task_done()
+
+
+def all_titles_async():
+    q = queue.Queue()
+
+    for _ in range(50):
+        threading.Thread(target=worker, daemon=True, args=(q,)).start()
+
     for publisher in all_publishers():
-        for letter in letters:
-            page = 1
-            pages = 1
+        q.put((publisher, "PUBLISHER"))
 
-            while page <= pages:
-                data = titles(publisher, letter, page)
-
-                yield from data["items"]
-
-                page += 1
-                pages = data["pages"]
+    q.join()
 
 
 def main():
-    for title in all_titles():
-        print(title)
+    all_titles_async()
 
 
 if __name__ == "__main__":
