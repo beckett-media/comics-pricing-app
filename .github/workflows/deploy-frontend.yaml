@@ -2,9 +2,11 @@ name: Deploy Frontend
 
 on: workflow_dispatch
 
+# TODO(enricozb): checkout contexts, see if these have to be env vars
 env:
-  DOCKER_BUILD_CONTEXT: ./frontend
-  DOCKER_FILE: ./deploy/docker/frontend.Dockerfile
+  GHA_DOCKER_IMAGE_NAME: comics-frontend
+  GHA_DOCKER_BUILD_CONTEXT: ./frontend
+  GHA_DOCKER_FILE: ./deploy/docker/frontend.Dockerfile
 
 jobs:
   build:
@@ -15,23 +17,23 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: arn:aws:iam::566886264221:role/comic-github-deploy-stack-Role-1WDFSAU02JDWZ
-        aws-region: us-east-1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::566886264221:role/comic-github-deploy-stack-Role-1WDFSAU02JDWZ
+          aws-region: us-east-1
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build & Push Image to Amazon ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: comics-frontend
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKER_FILE $DOCKER_BUILD_CONTEXT
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - uses: ./.github/actions/docker
+        with:
+          context: ${{ env.GHA_DOCKER_BUILD_CONTEXT }}
+          dockerfile: ${{ env.GHA_DOCKER_FILE }}
+          use-cache: ${{ github.event.inputs.use-cache == 'true' }}
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.DOCKER_IMAGE_NAME }}:latest
