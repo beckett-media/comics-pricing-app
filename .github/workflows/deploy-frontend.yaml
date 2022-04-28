@@ -1,0 +1,32 @@
+name: Deploy Frontend
+
+on: workflow_dispatch
+
+env:
+  DOCKER_BUILD_CONTEXT: ./frontend
+  DOCKER_FILE: ./deploy/docker/frontend.Dockerfile
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::566886264221:role/comic-github-deploy-stack-Role-1WDFSAU02JDWZ
+        aws-regions: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build & Push Image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: comics-frontend
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKER_FILE $DOCKER_BUILD_CONTEXT
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
