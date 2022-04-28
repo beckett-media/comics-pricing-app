@@ -16,7 +16,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: arn:aws:iam::566886264221:role/comic-github-deploy-stack-Role-1WDFSAU02JDWZ
-        aws-regions: us-east-1
+        aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
