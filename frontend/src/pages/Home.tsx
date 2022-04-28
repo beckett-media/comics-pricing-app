@@ -12,8 +12,6 @@ const Block = (props: BlockProps) => (
 
 export const Home = () => (
   <div className="absolute flex h-full w-full items-center justify-center gap-10 bg-gray-400">
-    <Block>
-      {"hello, friend."}
-    </Block>
+    <Block>{"hello, friend."}</Block>
   </div>
 );
