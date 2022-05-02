@@ -133,6 +133,84 @@ def all_titles(publisher_id):
         page += 1
 
 
+def parse_issue(item):
+    age = item["age"]
+    date = item["dates"]
+    covers = item["coverScans"]
+
+    try:
+        return {
+            "id": item["id"],
+            "id_enc": item["idENC"],
+            "number": item["number"],
+            # this will be present for number collisions
+            "alternate": item["dupChar"],
+            "comments": item["comments"],
+            "cover_price": item["coverPrice"],
+            "age": {"name": age["name"], "url_name": age["nameSEO"]},
+            "date": {"month": date["month"], "year": date["year"]},
+            "cover": covers["lrgScan"],
+            "cover_small": covers["thmScan"],
+            "value": item["value"],
+            "values": item["values"],
+            "upc": item["upc"],
+            "isbn10": item["isbn10"],
+            "isbn13": item["isbn13"],
+        }
+    except TypeError:
+        print(f"error on {item}")
+        return None
+
+
+def issues(publisher_id, title_id, page):
+    r = httpx.post(
+        "https://comicspriceguide.com/Title/TitleReturn",
+        timeout=20,
+        headers={
+            "accept": "application/json, text/javascript, */*; q=0.01",
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "cookie": f"__RequestVerificationToken={header_verification_token}",
+            "user-agent": "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
+            "x-requested-with": "XMLHttpRequest",
+        },
+        data={
+            "filter[page]": page,
+            "filter[per_page]": "200",
+            "filter[direction]": "asc",
+            "filter[filterBy]": "",
+            "filter[searchBy]": "",
+            "filter[ShowKey]": False,
+            "filter[showVariant]": True,
+            "filter[searchTabs]": "priceguide",
+            "info[pid]": publisher_id,
+            "info[tid]": title_id,
+            "info[uid]": request_uid,
+            "info[sec]": publisher_id,
+            "__RequestVerificationToken": form_verification_token,
+        },
+    )
+
+    data = r.json()
+    items = data["items"] or []
+
+    return {
+        "items": [parsed for item in items if (parsed := parse_issue(item))],
+        "pages": data["pages"],
+    }
+
+
+def all_issues(publisher_id, title_id):
+    page = 1
+    pages = 1
+
+    while page <= pages:
+        data = issues(publisher_id, title_id, page)
+        yield from data["items"]
+
+        pages = data["pages"]
+        page += 1
+
+
 def main():
     publishers = []
     with open("data/clean/publishers.txt", "w", buffering=1) as publishers_file:
@@ -153,15 +231,15 @@ def main():
                 i += 1
 
 
-def restart():
+def restart_titles():
     publishers = []
     with open("data/clean/publishers.txt") as publishers_file:
         for line in publishers_file:
             publishers.append(eval(line.strip()))
 
     titles = []
-    with open("data/clean/titles.txt") as publishers_file:
-        for line in publishers_file:
+    with open("data/clean/titles.txt") as titles_file:
+        for line in titles_file:
             titles.append(eval(line.strip()))
 
     publisher_ids = {publisher["id"] for publisher in publishers}
@@ -180,5 +258,32 @@ def restart():
                 i += 1
 
 
+def restart_issues():
+    titles = {}
+    with open("data/clean/titles.txt") as titles_file:
+        for line in titles_file:
+            title = eval(line.strip())
+            titles[title["id"]] = title
+
+    issues = []
+    with open("data/clean/issues.txt") as issues_file:
+        for line in issues_file:
+            issues.append(eval(line.strip()))
+
+    for issue in issues:
+        titles.pop(issue["title_id"], None)
+
+    with open("data/clean/issues.txt", "a", buffering=1) as issues_file:
+        i = len(issues) + 1
+
+        for title in titles.values():
+            for issue in all_issues(title["publisher_id"], title["id"]):
+                issue["title_id"] = title["id"]
+                issues_file.write(f"{issue}\n")
+                i += 1
+
+                print(f"writing issue {i}")
+
+
 if __name__ == "__main__":
-    restart()
+    restart_issues()
