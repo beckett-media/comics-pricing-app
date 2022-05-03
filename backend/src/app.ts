@@ -1,8 +1,6 @@
-import { config } from "dotenv"
 import express from "express"
 import { load } from "./loader"
 
-config()
 
 const app = express()
 load(app)
