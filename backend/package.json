@@ -20,6 +20,7 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "postgres": "^3.1.0",
     "verror": "^1.10.1"
   },
   "devDependencies": {

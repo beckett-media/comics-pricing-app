@@ -1,22 +1,34 @@
-import { logError } from "./util/errorHandling";
-import express, { ErrorRequestHandler, Express } from "express";
-import { HttpCode } from "./constants/httpCode";
-import logger from "morgan";
-import cookieParser from "cookie-parser";
-import { router as testAPIRouter } from "./routes/testAPI";
-import userRoutes from "./routes/user.route";
-import VError from "verror";
+import { logError } from "./util/errorHandling"
+import express, { ErrorRequestHandler, Express } from "express"
+import { HttpCode } from "./constants/httpCode"
+import logger from "morgan"
+import cookieParser from "cookie-parser"
+import { testAPIRoutes } from "./routes/testAPI"
+import { userRoutes } from "./routes/user.route"
+import VError from "verror"
+import postgres from "postgres"
+import { issueRoutes } from "./routes/issue"
+import { config } from "dotenv"
+
+config()
+
+export const sql = postgres({
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
 
 const setupRoutes = (app: Express) => {
   const apiRouter = express.Router();
   app.use("/api", apiRouter);
-  apiRouter.use("/testAPI", testAPIRouter);
+  apiRouter.use("/testAPI", testAPIRoutes);
   apiRouter.use("/user", userRoutes);
+  apiRouter.use("/issue", issueRoutes);
 };
 
 export const load = (app: Express) => {
   // Error handling middleware, we delegate the handling to the centralized error handler
-
   app.use(logger("dev"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
@@ -27,7 +39,6 @@ export const load = (app: Express) => {
       res.status(VError.info(e).code ?? 500).send(e);
     } else res.status(HttpCode.SERVER_ERROR).send(e);
   }) as ErrorRequestHandler);
-
 
   setupRoutes(app);
 };
