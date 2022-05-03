@@ -1,8 +1,8 @@
 CREATE EXTENSION "uuid-ossp";
 
-CREATE TABLE emails(
+CREATE TABLE emails (
   email TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
+  name TEXT NOT NULL
 );
 
 CREATE TABLE publisher_kind (
@@ -49,4 +49,3 @@ CREATE TABLE prices (
   price REAL NOT NULL,
   date TIMESTAMP NOT NULL
 );
-
