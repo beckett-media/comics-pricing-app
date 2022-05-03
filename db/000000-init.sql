@@ -1,15 +1,8 @@
 CREATE EXTENSION "uuid-ossp";
 
-CREATE TABLE users (
-  email TEXT PRIMARY KEY DEFAULT,
+CREATE TABLE emails(
+  email TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-);
-
-INSERT INTO users(userid, email, name, password)
-values
-(
-  'me@plainspokendigital.com',
-  'me',
 );
 
 CREATE TABLE publisher_kind (
