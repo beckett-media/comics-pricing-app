@@ -3,3 +3,4 @@
 shell.nix
 .idea
 .env
+.DS_Store

@@ -1,5 +1,21 @@
 CREATE EXTENSION "uuid-ossp";
 
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  password TEXT NOT NULL
+);
+
+INSERT INTO users(userid, email, name, password)
+values
+(
+  'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+  'me@plainspokendigital.com',
+  'user1',
+  'unsaltedpw'
+);
+
 CREATE TABLE publisher_kind (
   kind TEXT PRIMARY KEY
 );
@@ -44,3 +60,4 @@ CREATE TABLE prices (
   price REAL NOT NULL,
   date TIMESTAMP NOT NULL
 );
+
