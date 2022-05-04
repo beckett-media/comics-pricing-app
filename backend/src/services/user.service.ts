@@ -3,6 +3,11 @@ import {HttpCode} from "../constants/httpCode"
 import { sql } from "../loader"
 import VError from "verror"
 
+type Emails = {
+  email: string,
+  name: string
+}
+
 const saltRounds = 10
 
 const genToken = (email: string) => {
@@ -49,34 +54,26 @@ export const login = async (email: string, password: string) => {
   // return genToken(userInfo.email)
 }
 
-export const signup = async (email: string, username: string) => {
-  const issues = await sql`select * from users limit 10`
-  console.log(issues)
-  // try {
-  //   // const existingUser = await UserModel.findOne({email})
-  //   if (!existingUser) {
-  //     await UserModel.create({
-  //       email,
-  //       username,
-  //       password: await bcrypt.hash(password, saltRounds),
-  //     })
-  //     return genToken(email)
-  //   }
-  // } catch (e) {
-  //   throw new VError(
-  //     {
-  //       name: "DBError",
-  //       info: {code: HttpCode.SERVER_ERROR},
-  //       cause: e,
-  //     },
-  //     "Failed creating account"
-  //   )
-  // }
-  // throw new VError(
-  //   {
-  //     name: "DBError",
-  //     info: {code: HttpCode.BAD_REQUEST},
-  //   },
-  //   "User already exists"
-  // )
+export const signup = async (email: string, name: string) => {
+  try {
+    return sql<Emails[]>`
+        INSERT INTO emails
+            (email, name)
+        VALUES
+            (${email}, ${name})
+        RETURNING
+            email, name
+        ON CONFLICT DO NOTHING/UPDATE
+    `;
+  } catch (e) {
+    
+  }
+
+  // return sql<EmailsDetails[]>`
+  //   insert into emails
+  //     (email, name)
+  //   values
+  //     (${ email }, ${ name })
+  //   returning email, name
+  // `;
 }
