@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def image_url(url):
-    if url == "/img/spacer.gif":
+    if url == "/img/spacer.gif" or url == "/img/missing_lrg.jpg":
         return None
     elif url.startswith("/"):
         return f"https://comicspriceguide.com{url}"
@@ -18,7 +18,7 @@ def download(url, path):
     if url and not os.path.isfile(path):
         try:
             subprocess.run(
-                f"curl {url} > {path}",
+                f"curl {url} > /tmp/{path} && mv /tmp/{path} {path}",
                 shell=True,
                 capture_output=True,
                 check=True,
@@ -41,7 +41,7 @@ def titles():
 
 
 def issues():
-    with open("data/upload-cache/issues_dict.txt") as issues_file:
+    with open("data/upload-cache/issues_images_dict.txt") as issues_file:
         return eval(issues_file.read())
 
 
@@ -72,8 +72,8 @@ def download_titles():
 
 
 def process_issue(item):
-    uid, issue = item
-    download(image_url(issue["cover"]), f"data/images/issues/{uid}")
+    uid, issue_cover = item
+    download(image_url(issue_cover), f"data/images/issues/{uid}")
 
 
 def download_issues():
