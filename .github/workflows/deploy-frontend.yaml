@@ -1,39 +1,49 @@
 name: Deploy Frontend
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      use-cache:
+        type: boolean
+        default: true
+  push:
+    branches:
+      - michael/gha
 
 # TODO(enricozb): checkout contexts, see if these have to be env vars
 env:
-  GHA_DOCKER_IMAGE_NAME: comics-frontend
-  GHA_DOCKER_BUILD_CONTEXT: ./frontend
-  GHA_DOCKER_FILE: ./deploy/docker/frontend.Dockerfile
+  ECR_REGISTRY_HOST: 566886264221.dkr.ecr.us-east-1.amazonaws.com
+  GHA_DOCKER_CONTEXT: ./frontend/
+  GHA_DOCKER_IMAGE_NAME: frontend
+  GHA_DOCKERFILE: ./deploy/docker/frontend.Dockerfile
 
 jobs:
-  build:
+  job:
     runs-on: ubuntu-latest
-
-    permissions:
-      id-token: write
-      contents: read
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - uses: ./.github/actions/publish-ecr
         with:
-          role-to-assume: arn:aws:iam::566886264221:role/comic-github-deploy-stack-Role-1WDFSAU02JDWZ
-          aws-region: us-east-1
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - uses: ./.github/actions/docker
-        with:
-          context: ${{ env.GHA_DOCKER_BUILD_CONTEXT }}
-          dockerfile: ${{ env.GHA_DOCKER_FILE }}
-          use-cache: ${{ github.event.inputs.use-cache == 'true' }}
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          context: ${{ env.GHA_DOCKER_CONTEXT }}
+          dockerfile: ${{ env.GHA_DOCKERFILE }}
+          registry-host: ${{ env.ECR_REGISTRY_HOST }}
           tags: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.GHA_DOCKER_IMAGE_NAME }}:${{ github.sha }}
-            ${{ steps.login-ecr.outputs.registry }}/${{ env.GHA_DOCKER_IMAGE_NAME }}:latest
+            ${{ env.ECR_REGISTRY_HOST }}/${{ env.GHA_DOCKER_IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.ECR_REGISTRY_HOST }}/${{ env.GHA_DOCKER_IMAGE_NAME }}:latest
+          use-cache: ${{ github.event.inputs.use-cache == 'true' }}
+
+      - uses: ./.github/actions/configure-eks
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          cluster-name: ${{ env.K8S_CLUSTER_NAME }}
+          region: ${{ env.K8S_REGION }}
+          run:
+            kubectl apply -f frontend/deployment.yaml
+            kubectl apply -f frontend/service.yaml
+            kubectl apply -f ingress.yaml
+            kubectl rollout restart deployment frontend-deployment
+          working-directory: ${{ env.K8S_WORKING_DIR }}
