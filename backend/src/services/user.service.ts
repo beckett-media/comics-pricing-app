@@ -3,7 +3,7 @@ import {HttpCode} from "../constants/httpCode"
 import { sql } from "../loader"
 import VError from "verror"
 
-type Emails = {
+type Email = {
   email: string,
   name: string
 }
@@ -55,7 +55,7 @@ export const login = async (email: string, password: string) => {
 
 export const signup = async (email: string, name: string) => {
   try {
-    return sql<Emails[]>`
+    return sql<Email[]>`
         INSERT INTO emails
             (email, name)
         VALUES

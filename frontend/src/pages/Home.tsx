@@ -13,18 +13,15 @@ const SignUp = () => {
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {
-      const emailEntry = {
-        email: email,
-        name: name,
-      }
-      const res = await axios.post("/api/user/signup", emailEntry)
+      const emailEntry = {email, name}
+      const res = await axios.post("/api/user/waitlist", emailEntry)
     } catch (e) {
       console.log("Failed to add the new emails.")
     }
   }
 
   return (
-    <div className="rounded-2xl shadow-xl hover:shadow-2xl flex h-1/2 w-1/2 flex items-center justify-center">
+    <div >
       <form onSubmit={(e) => submit(e)} className="px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label>
@@ -68,12 +65,15 @@ const Block = (props: BlockProps) => (
 )
 
 export const Home = () => {
-  const { data, error } = useSWR("/api/testAPI")
+  const { data } = useSWR("/api/testAPI")
   return (
     <div className="absolute flex h-full w-full items-center justify-center gap-10 bg-slate-800">
-      <Block>{"Get the latest from Comic Pricing App!"}</Block>
+      <Block>
+        {"Sign up to get the latest from Comic Pricing App!"}
+        <SignUp />
+
+      </Block>
       <Block>{data}💪</Block>
-      <SignUp />
     </div>
   )
 }
