@@ -1,5 +1,10 @@
 CREATE EXTENSION "uuid-ossp";
 
+CREATE TABLE emails (
+  email TEXT PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE publisher_kind (
   kind TEXT PRIMARY KEY
 );
