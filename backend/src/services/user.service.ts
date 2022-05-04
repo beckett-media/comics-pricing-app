@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import {HttpCode} from "../constants/httpCode"
+import { sql } from "../loader"
 import VError from "verror"
 
 const saltRounds = 10
@@ -48,7 +49,9 @@ export const login = async (email: string, password: string) => {
   // return genToken(userInfo.email)
 }
 
-export const signup = async (email: string, username: string, password: string) => {
+export const signup = async (email: string, username: string) => {
+  const issues = await sql`select * from users limit 10`
+  console.log(issues)
   // try {
   //   // const existingUser = await UserModel.findOne({email})
   //   if (!existingUser) {
