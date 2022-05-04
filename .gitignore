@@ -1,6 +1,9 @@
 .direnv
-.envrc
-shell.nix
-.idea
-.env
 .DS_Store
+.env
+.envrc
+.idea
+shell.nix
+
+secret/
+tools/scrape/data/
