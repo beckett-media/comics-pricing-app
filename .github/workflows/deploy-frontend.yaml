@@ -38,9 +38,9 @@ jobs:
       - uses: ./.github/actions/configure-eks
         with:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-region: ${{ env.K8S_REGION }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
           cluster-name: ${{ env.K8S_CLUSTER_NAME }}
-          region: ${{ env.K8S_REGION }}
           run:
             kubectl apply -f frontend/deployment.yaml
             kubectl apply -f frontend/service.yaml
