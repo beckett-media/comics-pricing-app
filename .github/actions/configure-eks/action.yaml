@@ -35,7 +35,7 @@ runs:
     - shell: bash
       run: |
         curl -LO https://dl.k8s.io/release/v1.23.0/bin/linux/amd64/kubectl
-        install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+        install -m 0755 kubectl /usr/local/bin/kubectl
         aws eks --region "${{ inputs.aws-region }}" update-kubeconfig --name "${{ inputs.cluster-name }}"
 
     - shell: bash
