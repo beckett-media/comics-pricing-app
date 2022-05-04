@@ -14,9 +14,6 @@ on:
       use-cache:
         type: boolean
         default: true
-  push:
-    branches:
-      - michael/gha
 
 # TODO(enricozb): checkout contexts, see if these have to be env vars
 env:
