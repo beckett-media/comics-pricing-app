@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: us-east4-docker.pkg.dev/email-342619/docker/frontend:latest
+          image: 566886264221.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
           imagePullPolicy: Always
       restartPolicy: Always
