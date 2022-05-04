@@ -18,11 +18,8 @@ const SignUp = () => {
         name: name
       };
       const res = await axios.post("/api/user/signup", emailEntry);
-      console.log(res)
-      console.log("Successfully added the new email.");
     } catch (e) {
       console.log("Failed to add the new emails.");
-      console.log(e)
     }
   };
 
@@ -32,7 +29,6 @@ const SignUp = () => {
         onSubmit={e => submit(e)}
         className="px-8 pt-6 pb-8 mb-4"
       >
-        <h3 className="text-white mb-4">Sign Up</h3>
         <div className="mb-4">
           <label>
             <input type="email" placeholder={"email"}
