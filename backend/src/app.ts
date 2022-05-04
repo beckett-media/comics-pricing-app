@@ -1,7 +1,6 @@
 import express from "express"
 import { load } from "./loader"
 
-
 const app = express()
 load(app)
 
