@@ -1,0 +1,43 @@
+name: configure-eks
+description: configure-eks
+
+inputs:
+  aws-access-key-id:
+    required: true
+
+  aws-region:
+    required: true
+
+  aws-secret-access-key:
+    required: true
+
+  cluster-name:
+    required: true
+
+  run:
+    required: true
+
+  working-directory:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+
+    # [https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux]
+    # [https://aws.amazon.com/premiumsupport/knowledge-center/eks-cluster-connection/]
+    # [https://github.com/kodermax/kubectl-aws-eks/issues/17#issuecomment-1116762886]
+    - shell: bash
+      run: |
+        curl -LO https://dl.k8s.io/release/v1.23.0/bin/linux/amd64/kubectl
+        install -m 0755 kubectl /usr/local/bin/kubectl
+        aws eks --region "${{ inputs.aws-region }}" update-kubeconfig --name "${{ inputs.cluster-name }}"
+
+    - shell: bash
+      run: ${{ inputs.run }}
+      working-directory: ${{ inputs.working-directory }}

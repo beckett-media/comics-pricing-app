@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 import {HttpCode} from "../constants/httpCode"
 import { sql } from "../loader"
+import { HttpCode } from "../constants/httpCode"
 import VError from "verror"
 
 type Emails = {
@@ -11,9 +12,9 @@ type Emails = {
 const saltRounds = 10
 
 const genToken = (email: string) => {
-  const options = {expiresIn: 1000 * 60 * 60 * 24}
+  const options = { expiresIn: 1000 * 60 * 60 * 24 }
   return {
-    token: jwt.sign({email}, process.env.JWT_SECRET!, options),
+    token: jwt.sign({ email }, process.env.JWT_SECRET!, options),
     maxAge: options.expiresIn,
   }
 }
@@ -21,13 +22,12 @@ const genToken = (email: string) => {
 export const login = async (email: string, password: string) => {
   let userInfo
   try {
-
   } catch (e) {
     throw new VError(
       {
         name: "DBError",
-        info: {code: HttpCode.BAD_REQUEST},
-        cause: e as Error
+        info: { code: HttpCode.BAD_REQUEST },
+        cause: e as Error,
       },
       "Failed searching database"
     )
@@ -37,7 +37,7 @@ export const login = async (email: string, password: string) => {
     throw new VError(
       {
         name: "DBError",
-        info: {code: HttpCode.BAD_REQUEST},
+        info: { code: HttpCode.BAD_REQUEST },
       },
       "Email not found"
     )
@@ -66,7 +66,7 @@ export const signup = async (email: string, name: string) => {
         ON CONFLICT DO NOTHING/UPDATE
     `;
   } catch (e) {
-    
+
   }
 
   // return sql<EmailsDetails[]>`
