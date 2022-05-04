@@ -12,7 +12,7 @@ const Block = (props: BlockProps) => (
 )
 
 export const Home = () => {
-  const { data, error } = useSWR("/api/testAPI")
+  const { data } = useSWR("/api/testAPI")
   return (
     <div className="absolute flex h-full w-full items-center justify-center gap-10 bg-slate-800">
       <Block>{"hello, 😉."}</Block>
