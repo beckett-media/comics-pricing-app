@@ -1,0 +1,52 @@
+name: publish-ecr
+description: publish-ecr
+
+inputs:
+  aws-access-key-id:
+    required: true
+
+  aws-secret-access-key:
+    required: true
+
+  build-args:
+    required: false
+    default: ""
+
+  context:
+    required: true
+
+  dockerfile:
+    required: true
+
+  registry-host:
+    required: true
+
+  tags:
+    required: true
+
+  use-cache:
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - uses: docker/login-action@v1
+      with:
+        registry: ${{ inputs.registry-host }}
+        username: ${{ inputs.aws-access-key-id }}
+        password: ${{ inputs.aws-secret-access-key }}
+
+    - uses: docker/setup-buildx-action@v1
+
+    - uses: docker/build-push-action@v2
+      with:
+        build-args: ${{ inputs.build-args }}
+        builder: ${{ steps.buildx.outputs.name }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        context: ${{ inputs.context }}
+        file: ${{ inputs.dockerfile }}
+        no-cache: ${{ inputs.use-cache != 'true' }}
+        push: true
+        tags: ${{ inputs.tags }}
