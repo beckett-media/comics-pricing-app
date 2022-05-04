@@ -1,10 +1,8 @@
 import { Router } from "express"
 import * as userService from "../services/user.service"
-import { LOGIN_TOKEN } from "../constants"
-import { RequestWithBody} from "../types"
+import { RequestWithBody } from "../types"
 
-const userRoutes = Router()
-export default userRoutes
+export const userRoutes = Router()
 
 userRoutes.post(
   "/login",

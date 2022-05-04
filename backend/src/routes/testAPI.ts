@@ -1,12 +1,8 @@
-import express, { Response } from "express"
-import {RequestWithBody} from "../types";
-export const router = express.Router()
+import express from "express"
+import { RequestWithBody } from "../types"
 
+export const testAPIRoutes = express.Router()
 
-router.get("/", function (
-  req: RequestWithBody<null>,
-  res: express.Response,
-  next: any
-) {
+testAPIRoutes.get("/", function (req: RequestWithBody<null>, res: express.Response) {
   res.send("API is working properly")
 })

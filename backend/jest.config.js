@@ -1,7 +1,7 @@
 const tsPreset = require("ts-jest/jest-preset")
 module.exports = {
   ...tsPreset,
-  testEnvironment: "node"
+  testEnvironment: "node",
   //this stuff was to mock mongo client, but we use mongoose...
   // ...mongoPreset,
   // mongodbMemoryServerOptions: {
