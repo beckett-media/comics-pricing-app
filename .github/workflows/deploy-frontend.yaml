@@ -21,9 +21,12 @@ on:
 # TODO(enricozb): checkout contexts, see if these have to be env vars
 env:
   ECR_REGISTRY_HOST: 566886264221.dkr.ecr.us-east-1.amazonaws.com
+  EKS_CLUSTER_NAME: prod-cluster
+  EKS_REGION: us-east-1
   GHA_DOCKER_CONTEXT: ./frontend/
   GHA_DOCKER_IMAGE_NAME: frontend
   GHA_DOCKERFILE: ./deploy/docker/frontend.Dockerfile
+  K8S_WORKING_DIR: ./deploy/k8s/
 
 jobs:
   job:
@@ -46,9 +49,9 @@ jobs:
       - uses: ./.github/actions/configure-eks
         with:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
-          aws-region: ${{ env.K8S_REGION }}
+          aws-region: ${{ env.EKS_REGION }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
-          cluster-name: ${{ env.K8S_CLUSTER_NAME }}
+          cluster-name: ${{ env.EKS_CLUSTER_NAME }}
           run:
             kubectl apply -f frontend/deployment.yaml
             kubectl apply -f frontend/service.yaml
