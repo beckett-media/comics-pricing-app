@@ -52,7 +52,7 @@ jobs:
           aws-region: ${{ env.EKS_REGION }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
           cluster-name: ${{ env.EKS_CLUSTER_NAME }}
-          run:
+          run: |
             kubectl apply -f frontend/deployment.yaml
             kubectl apply -f frontend/service.yaml
             kubectl apply -f ingress.yaml
