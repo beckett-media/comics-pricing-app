@@ -33,7 +33,7 @@ runs:
     # [https://aws.amazon.com/premiumsupport/knowledge-center/eks-cluster-connection/]
     # [https://github.com/kodermax/kubectl-aws-eks/issues/17#issuecomment-1116762886]
     - shell: bash
-      run:
+      run: |
         curl -LO https://dl.k8s.io/release/v1.23.0/bin/linux/amd64/kubectl
         install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
         aws eks --region "${{ inputs.aws-region }}" update-kubeconfig --name "${{ inputs.cluster-name }}"
