@@ -16,9 +16,9 @@ userRoutes.post(
 userRoutes.post("/signup", async (req: RequestWithBody<any>, res) => {
   // TODO: verif all this is correct (use joi probably)
   const out = await userService.signup(
-    req.body.username,
-    req.body.email
+    req.body.email,
+    req.body.name
   )
   // res.cookie(LOGIN_TOKEN, out.token, { maxAge: out.maxAge })
-  res.send("Logged In")
+  res.send("Signed Up")
 })
