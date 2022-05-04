@@ -3,6 +3,14 @@ name: Deploy Frontend
 on:
   workflow_dispatch:
     inputs:
+      configure-eks:
+        type: boolean
+        default: true
+
+      publish-ecr:
+        type: boolean
+        default: true
+
       use-cache:
         type: boolean
         default: true
