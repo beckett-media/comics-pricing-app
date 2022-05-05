@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken"
-import {HttpCode} from "../constants/httpCode"
+import { HttpCode } from "../constants/httpCode"
 import { sql } from "../loader"
 import VError from "verror"
 
 type Email = {
-  email: string,
+  email: string
   name: string
 }
 
@@ -61,12 +61,12 @@ export const signup = async (email: string, name: string) => {
         VALUES
             (${email}, ${name})
         ON CONFLICT (email) DO NOTHING
-    `;
+    `
   } catch (e) {
     throw new VError(
       {
         name: "DBError",
-        info: {code: HttpCode.BAD_REQUEST},
+        info: { code: HttpCode.BAD_REQUEST },
         cause: e as Error,
       },
       "Failed to add email or name"
