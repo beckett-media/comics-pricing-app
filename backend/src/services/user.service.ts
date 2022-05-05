@@ -1,6 +1,12 @@
 import jwt from "jsonwebtoken"
 import { HttpCode } from "../constants/httpCode"
+import { sql } from "../loader"
 import VError from "verror"
+
+type Email = {
+  email: string
+  name: string
+}
 
 const saltRounds = 10
 
@@ -47,32 +53,23 @@ export const login = async (email: string, password: string) => {
   // return genToken(userInfo.email)
 }
 
-export const signup = async (email: string, username: string, password: string) => {
-  // try {
-  //   // const existingUser = await UserModel.findOne({email})
-  //   if (!existingUser) {
-  //     await UserModel.create({
-  //       email,
-  //       username,
-  //       password: await bcrypt.hash(password, saltRounds),
-  //     })
-  //     return genToken(email)
-  //   }
-  // } catch (e) {
-  //   throw new VError(
-  //     {
-  //       name: "DBError",
-  //       info: {code: HttpCode.SERVER_ERROR},
-  //       cause: e,
-  //     },
-  //     "Failed creating account"
-  //   )
-  // }
-  // throw new VError(
-  //   {
-  //     name: "DBError",
-  //     info: {code: HttpCode.BAD_REQUEST},
-  //   },
-  //   "User already exists"
-  // )
+export const signup = async (email: string, name: string) => {
+  try {
+    return sql<Email[]>`
+        INSERT INTO emails
+            (email, name)
+        VALUES
+            (${email}, ${name})
+        ON CONFLICT (email) DO NOTHING
+    `
+  } catch (e) {
+    throw new VError(
+      {
+        name: "DBError",
+        info: { code: HttpCode.BAD_REQUEST },
+        cause: e as Error,
+      },
+      "Failed to add email or name"
+    )
+  }
 }

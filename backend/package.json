@@ -7,7 +7,8 @@
     "start": "npm run build:live",
     "build": "tsc",
     "test": "jest",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec NODE_ENV='dev' ts-node src/app.ts"
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec NODE_ENV='dev' ts-node src/app.ts",
+    "pretty": "prettier --write ."
   },
   "dependencies": {
     "axios": "^0.27.1",

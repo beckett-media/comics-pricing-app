@@ -13,13 +13,9 @@ userRoutes.post(
   }
 )
 
-userRoutes.post("/signup", async (req: RequestWithBody<any>, res) => {
-  //Todo verif all this is correct (use joi probably)
-  const out = await userService.signup(
-    req.body.email,
-    req.body.username,
-    req.body.password
-  )
+userRoutes.post("/waitlist", async (req: RequestWithBody<any>, res) => {
+  // TODO: verify all this is correct (use joi probably https://joi.dev/)
+  const out = await userService.signup(req.body.email, req.body.name)
   // res.cookie(LOGIN_TOKEN, out.token, { maxAge: out.maxAge })
-  res.send("Logged In")
+  res.send(out)
 })
