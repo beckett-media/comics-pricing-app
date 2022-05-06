@@ -1,5 +1,5 @@
 {
-  "name": "comics-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "license": "UNLICENSED",
   "private": true,
@@ -22,7 +22,6 @@
     "trailingComma": "es5",
     "useTabs": false
   },
-  "proxy": "http://localhost:9000/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -45,11 +44,11 @@
     "@types/eslint": "^7.28.2"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "react-router-dom": "^6.3.0",
     "@fortawesome/fontawesome-free": "^6.0.0",
+    "axios": "^0.27.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0",
     "swr": "^1.3.0"
   },
   "devDependencies": {

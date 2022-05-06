@@ -1,10 +1,10 @@
-import { Route, Routes } from "react-router-dom"
-import { Home } from "./pages/Home"
-import Dashboard from "./pages/Dashboard"
-import Search from "./pages/Search"
-import IssueDetails from "./pages/IssueDetails"
 import axios from "axios"
+import { Route, Routes } from "react-router-dom"
 import { SWRConfig } from "swr"
+import Dashboard from "./pages/Dashboard"
+import Home from "./pages/Home"
+import IssueDetails from "./pages/IssueDetails"
+import Search from "./pages/Search"
 
 export default function App() {
   return (

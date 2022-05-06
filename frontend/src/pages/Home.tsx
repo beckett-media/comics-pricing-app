@@ -14,7 +14,7 @@ const SignUp = () => {
     event.preventDefault()
     try {
       const emailEntry = {email, name}
-      const res = await axios.post("/api/user/waitlist", emailEntry)
+      await axios.post("/api/user/waitlist", emailEntry)
     } catch (e) {
       console.log("Failed to add the new emails.")
     }
@@ -64,7 +64,7 @@ const Block = (props: BlockProps) => (
   </div>
 )
 
-export const Home = () => {
+export default function Home() {
   const { data } = useSWR("/api/testAPI")
   return (
     <div className="absolute flex h-full w-full items-center justify-center gap-10 bg-slate-800">
