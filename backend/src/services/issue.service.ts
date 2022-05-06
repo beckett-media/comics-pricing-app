@@ -23,9 +23,26 @@ export const getDetails = async (id: string) => {
         JOIN publishers ON publishers.id = titles.publisher_id
         WHERE issues.id = ${id}
     `
-  return {
-    ...issue[0],
-    imgUrl:
-      "https://static.wikia.nocookie.net/yugioh/images/2/23/SetoKaiba-DL.png/revision/latest/scale-to-width-down/562?cb=20190614200609",
-  }
+  return issue[0]
+}
+
+export const getRelatedIssues = async (id: string) => {
+  return sql`
+        SELECT B.id id, B.name name, B.title_id, titles.name title_name
+        FROM issues A, issues B
+        JOIN titles on B.title_id = titles.id
+        WHERE A.title_id = B.title_id AND A.id = ${id} and A.id != B.id
+        LIMIT 5
+    `
+}
+
+export const getRelatedTitles = async (id: string) => {
+  return sql`
+        SELECT titles_B.id id, titles_B.name
+        FROM issues 
+        JOIN titles as titles_A on issues.title_id = titles_A.id
+        JOIN titles as titles_B on titles_B.publisher_id = titles_A.publisher_id
+        WHERE issues.id = ${id} AND titles_A.id != titles_B.id 
+        LIMIT 3
+    `
 }
