@@ -13,7 +13,7 @@ const SignUp = () => {
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {
-      const emailEntry = {email, name}
+      const emailEntry = { email, name }
       await axios.post("/api/user/waitlist", emailEntry)
     } catch (e) {
       console.log("Failed to add the new emails.")
@@ -21,7 +21,7 @@ const SignUp = () => {
   }
 
   return (
-    <div >
+    <div>
       <form onSubmit={(e) => submit(e)} className="px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label>
@@ -71,7 +71,6 @@ export default function Home() {
       <Block>
         {"Sign up to get the latest from Comic Pricing App!"}
         <SignUp />
-
       </Block>
       <Block>{data}💪</Block>
     </div>
