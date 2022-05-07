@@ -22,6 +22,7 @@
     "trailingComma": "es5",
     "useTabs": false
   },
+  "proxy": "http://localhost:9000/",
   "eslintConfig": {
     "extends": [
       "react-app",
