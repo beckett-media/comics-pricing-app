@@ -1,8 +1,4 @@
-// TODO(michael): remove
-/* eslint jsx-a11y/anchor-is-valid: "off" */
-
 import algoliasearch from "algoliasearch/lite"
-import { ReactNode } from "react"
 import {
   Configure,
   Hits,
@@ -19,10 +15,6 @@ const REFINEMENT_LIST_LIMIT = 16
 
 const searchClient = algoliasearch("SGT5R38GFV", "30905cb33c45654eb5159c7f1197bb43")
 
-type BackgroundProps = {
-  children?: ReactNode
-}
-
 type RefinementProps = {
   title: string
   attribute: string
@@ -33,27 +25,12 @@ type ToggleRefinementListProps = {
   toggleConfigs: { label: string; attribute: string }[]
 }
 
-function Background(props: BackgroundProps) {
-  // TODO(michael): better way to do this
-  document.body.classList.add("bg-slate-100")
-
-  return (
-    <div className="absolute flex h-full w-full items-center justify-center gap-10">
-      {props.children}
-    </div>
-  )
-}
-
 function SubmitIcon() {
   return (
     <div className="bg-slate-300 w-[100px] h-[30px] flex items-center justify-center">
       <i className="fa-solid fa-magnifying-glass text-white" />
     </div>
   )
-}
-
-function Empty() {
-  return <></>
 }
 
 function SignIn() {
@@ -106,7 +83,7 @@ function Hit({ hit }: any) {
   const imgSrc = `https://comics-scans.s3.amazonaws.com/issues/${hit.issue_id}`
 
   return (
-    <a href="#">
+    <a href={`/details/${hit.issue_id}`}>
       <div className="bg-slate-200 w-[500px] flex my-3 px-3 py-3 gap-3 hover:scale-[1.02]">
         <img src={imgSrc} alt="" className="w-[80px] h-auto" />
         <div className="flex flex-col mt-2">
@@ -120,7 +97,7 @@ function Hit({ hit }: any) {
 
 export default function Search() {
   return (
-    <Background>
+    <div className="absolute flex h-full w-full items-center justify-center gap-10">
       <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
         <Configure hitsPerPage={HITS_PER_PAGE} />
         <div className="flex flex-col items-center w-full h-full">
@@ -130,7 +107,7 @@ export default function Search() {
               placeholder={PLACEHOLDER}
               classNames={{ input: "px-3 border-slate-300 border-2 w-[200px] h-[30px]" }}
               submitIconComponent={SubmitIcon}
-              resetIconComponent={Empty}
+              resetIconComponent={() => (<></>)}
             />
             <SignIn />
           </div>
@@ -154,13 +131,13 @@ export default function Search() {
               <div className="flex flex-col gap-3 ml-20">
                 <p className="font-extrabold text-xl uppercase">Hot Comics</p>
                 <div className="flex flex-col gap-10">
-                  <a href="#">
+                  <a href="/">
                     <div className="bg-slate-500 w-[160px] h-[200px] hover:scale-[1.02]" />
                   </a>
-                  <a href="#">
+                  <a href="/">
                     <div className="bg-slate-400 w-[160px] h-[200px] hover:scale-[1.02]" />
                   </a>
-                  <a href="#">
+                  <a href="/">
                     <div className="bg-slate-300 w-[160px] h-[200px] hover:scale-[1.02]" />
                   </a>
                 </div>
@@ -169,6 +146,6 @@ export default function Search() {
           </div>
         </div>
       </InstantSearch>
-    </Background>
+    </div>
   )
 }
