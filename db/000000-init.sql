@@ -31,6 +31,7 @@ CREATE TABLE titles (
 CREATE TABLE issues (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL,
+  name_modifier TEXT NOT NULL,
   title_id UUID REFERENCES titles(id) NOT NULL,
 
   metadata JSONB
