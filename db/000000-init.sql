@@ -50,5 +50,5 @@ CREATE TABLE prices (
   issue_id UUID REFERENCES issues(id) NOT NULL,
   grade TEXT NOT NULL,
   price REAL NOT NULL,
-  date TIMESTAMP NOT NULL
+  date DATE NOT NULL
 );
