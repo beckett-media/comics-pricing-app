@@ -1,3 +1,5 @@
+import Gallery from "./Gallery"
+
 export default function PopularPublishers() {
-  return <div>PopularPublishers</div>
+  return <Gallery title="Popular Publishers" />
 }

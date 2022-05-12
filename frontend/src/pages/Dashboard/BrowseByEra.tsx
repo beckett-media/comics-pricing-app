@@ -1,3 +1,3 @@
 export default function BrowseByEra() {
-  return <div>BrowseByEra</div>
+  return <h1>Browse By Era</h1>
 }
