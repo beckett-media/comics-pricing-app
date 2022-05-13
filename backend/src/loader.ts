@@ -1,15 +1,17 @@
-import { logError } from "./util/errorHandling"
-import express, { ErrorRequestHandler, Express } from "express"
-import { HttpCode } from "./constants/httpCode"
-import logger from "morgan"
+import { config } from "dotenv"
 import cookieParser from "cookie-parser"
+import express, { ErrorRequestHandler, Express } from "express"
+import logger from "morgan"
+import postgres from "postgres"
+import VError from "verror"
+
+import { HttpCode } from "./constants/httpCode"
+import { issueRoutes } from "./routes/issue"
+import { authenticate } from "./middleware/cognito"
+import { logError } from "./util/errorHandling"
+import { publisherRoutes } from "./routes/publisher.route"
 import { testAPIRoutes } from "./routes/testAPI"
 import { userRoutes } from "./routes/user.route"
-import VError from "verror"
-import postgres from "postgres"
-import { issueRoutes } from "./routes/issue"
-import { config } from "dotenv"
-import { authenticate } from "./middleware/cognito"
 
 config()
 
@@ -25,6 +27,7 @@ const setupRoutes = (app: Express) => {
   app.use("/api", apiRouter)
   apiRouter.use("/testAPI", testAPIRoutes)
   apiRouter.use("/user", userRoutes)
+  apiRouter.use("/publisher", authenticate, publisherRoutes)
   apiRouter.use("/issue", authenticate, issueRoutes)
 }
 
