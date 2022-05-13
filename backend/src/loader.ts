@@ -9,6 +9,7 @@ import VError from "verror"
 import postgres from "postgres"
 import { issueRoutes } from "./routes/issue"
 import { config } from "dotenv"
+import { authenticate } from "./middleware/cognito"
 
 config()
 
@@ -24,7 +25,7 @@ const setupRoutes = (app: Express) => {
   app.use("/api", apiRouter)
   apiRouter.use("/testAPI", testAPIRoutes)
   apiRouter.use("/user", userRoutes)
-  apiRouter.use("/issue", issueRoutes)
+  apiRouter.use("/issue", authenticate, issueRoutes)
 }
 
 export const load = (app: Express) => {

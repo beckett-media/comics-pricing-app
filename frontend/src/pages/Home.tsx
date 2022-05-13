@@ -1,6 +1,6 @@
 import axios from "axios"
-import React, { useState, ReactNode } from "react"
-import useSWR from "swr"
+import React, { ReactNode, useState } from "react"
+import { LoginButton } from "./Login"
 
 type BlockProps = {
   children?: ReactNode
@@ -65,14 +65,15 @@ const Block = (props: BlockProps) => (
 )
 
 export default function Home() {
-  const { data } = useSWR("/api/testAPI")
   return (
     <div className="absolute flex h-full w-full items-center justify-center gap-10 bg-slate-800">
       <Block>
         {"Sign up to get the latest from Comic Pricing App!"}
         <SignUp />
       </Block>
-      <Block>{data}💪</Block>
+      <Block>
+        <LoginButton />
+      </Block>
     </div>
   )
 }
