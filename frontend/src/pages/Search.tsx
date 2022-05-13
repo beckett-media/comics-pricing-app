@@ -107,7 +107,7 @@ export default function Search() {
               placeholder={PLACEHOLDER}
               classNames={{ input: "px-3 border-slate-300 border-2 w-[200px] h-[30px]" }}
               submitIconComponent={SubmitIcon}
-              resetIconComponent={() => (<></>)}
+              resetIconComponent={() => <></>}
             />
             <SignIn />
           </div>
