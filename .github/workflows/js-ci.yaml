@@ -20,14 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./.github/actions/js-ci
-        with:
-          filter-paths: |
-            src:
-              - backend/**
-              - .github/workflows/js-ci.yaml
-              - .github/actions/js-ci/action.yaml
-          working-directory: ./backend
+      # - uses: ./.github/actions/js-ci
+      #   with:
+      #     filter-paths: |
+      #       src:
+      #         - backend/**
+      #         - .github/workflows/js-ci.yaml
+      #         - .github/actions/js-ci/action.yaml
+      #     working-directory: ./backend
 
       - uses: ./.github/actions/js-ci
         with:
