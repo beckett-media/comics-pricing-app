@@ -5,7 +5,7 @@ type Publisher = {
   name: string
 }
 
-export const getPopularPublishers = async () => {
+export const getPopularPublishers = async (): Promise<Publisher[]> => {
   return await sql<Publisher[]>`
     SELECT
       publishers.id,

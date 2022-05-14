@@ -21,7 +21,7 @@ export const sql = postgres({
   database: process.env.DB_NAME,
 })
 
-const setupRoutes = (app: Express) => {
+const setupRoutes = (app: Express): void => {
   const apiRouter = express.Router()
   app.use("/api", apiRouter)
   apiRouter.use("/testAPI", testAPIRoutes)
@@ -30,7 +30,7 @@ const setupRoutes = (app: Express) => {
   apiRouter.use("/publisher", publisherRoutes)
 }
 
-export const load = (app: Express) => {
+export const load = (app: Express): void => {
   // Error handling middleware, we delegate the handling to the centralized error handler
   app.use(logger("dev"))
   app.use(express.json())

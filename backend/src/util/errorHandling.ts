@@ -3,7 +3,7 @@ import { HttpCode } from "../constants/httpCode"
 import VError from "verror"
 
 /** @deprecated */
-class AppError extends Error {
+class _AppError extends Error {
   public readonly name: string
   public readonly httpCode: number
   public readonly isOperational: boolean
@@ -26,7 +26,7 @@ class AppError extends Error {
   }
 }
 
-export function logError(err: Error) {
+export function logError(err: Error): Error {
   if (err instanceof VError) {
     if (VError.info(err).notOperational) {
       process.exit(0)

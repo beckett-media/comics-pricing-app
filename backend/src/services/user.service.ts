@@ -8,9 +8,9 @@ type Email = {
   name: string
 }
 
-const saltRounds = 10
+const _saltRounds = 10
 
-const genToken = (email: string) => {
+const _genToken = (email: string): any => {
   const options = { expiresIn: 1000 * 60 * 60 * 24 }
   return {
     token: jwt.sign({ email }, process.env.JWT_SECRET!, options),
@@ -18,9 +18,10 @@ const genToken = (email: string) => {
   }
 }
 
-export const login = async (email: string, password: string) => {
+export const login = async (_email: string, _password: string): Promise<void> => {
   let userInfo
   try {
+    null
   } catch (e) {
     throw new VError(
       {
@@ -53,7 +54,7 @@ export const login = async (email: string, password: string) => {
   // return genToken(userInfo.email)
 }
 
-export const signup = async (email: string, name: string) => {
+export const signup = async (email: string, name: string): Promise<Email[]> => {
   try {
     return sql<Email[]>`
         INSERT INTO emails

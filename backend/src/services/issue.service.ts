@@ -11,7 +11,10 @@ type IssueDetails = {
   grader_values: number[]
   update_at: Date
 }
-export const getDetails = async (id: string) => {
+
+type TitleDetails = any
+
+export const getDetails = async (id: string): Promise<IssueDetails> => {
   const issue = await sql<
     IssueDetails[]
   >`SELECT issues.id as id, titles.id as title_id, titles.publisher_id,
@@ -26,7 +29,7 @@ export const getDetails = async (id: string) => {
   return issue[0]
 }
 
-export const getRelatedIssues = async (id: string) => {
+export const getRelatedIssues = async (id: string): Promise<IssueDetails[]> => {
   return sql`
         SELECT B.id id, B.name name, B.title_id, titles.name title_name
         FROM issues A, issues B
@@ -36,7 +39,7 @@ export const getRelatedIssues = async (id: string) => {
     `
 }
 
-export const getRelatedTitles = async (id: string) => {
+export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
   return sql`
         SELECT titles_B.id id, titles_B.name
         FROM issues 

@@ -7,7 +7,7 @@ export const userRoutes = Router()
 userRoutes.post(
   "/login",
   async (req: RequestWithBody<{ email: string; password: string }>, res) => {
-    const out = await userService.login(req.body.email, req.body.password)
+    const _out = await userService.login(req.body.email, req.body.password)
     // res.cookie(LOGIN_TOKEN, out.token, { maxAge: out.maxAge })
     res.send("Logged In")
   }
