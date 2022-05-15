@@ -1,6 +1,6 @@
-import { Navigate } from "react-router-dom"
-import { getCookie } from "../utils/cookie"
 import { ComponentType } from "react"
+import { Navigate } from "react-router-dom"
+import Cookies from "js-cookie"
 
 const loginUrl =
   "https://comics.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=2ca9tq8ue0rp1n8vc5ckfh0c40&response_type=code&scope=email+openid+phone&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fapi%2Fuser%2Flogin%2F"
@@ -21,7 +21,7 @@ export const LoginButton = () => {
 
 export function withCheckLoggedIn(Component: ComponentType) {
   return () => {
-    const cookie = getCookie(TOKEN)
+    const cookie = Cookies.get(TOKEN)
     if (!cookie) {
       window.location.href = loginUrl
     }
