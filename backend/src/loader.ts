@@ -7,6 +7,7 @@ import VError from "verror"
 
 import { HttpCode } from "./constants/httpCode"
 import { issueRoutes } from "./routes/issue"
+import { authenticate } from "./middleware/cognito"
 import { logError } from "./util/errorHandling"
 import { publisherRoutes } from "./routes/publisher.route"
 import { testAPIRoutes } from "./routes/testAPI"
@@ -26,8 +27,8 @@ const setupRoutes = (app: Express) => {
   app.use("/api", apiRouter)
   apiRouter.use("/testAPI", testAPIRoutes)
   apiRouter.use("/user", userRoutes)
-  apiRouter.use("/issue", issueRoutes)
-  apiRouter.use("/publisher", publisherRoutes)
+  apiRouter.use("/publisher", authenticate, publisherRoutes)
+  apiRouter.use("/issue", authenticate, issueRoutes)
 }
 
 export const load = (app: Express) => {

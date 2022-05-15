@@ -33,16 +33,6 @@ function SubmitIcon() {
   )
 }
 
-function SignIn() {
-  return (
-    <button>
-      <div className="rounded-lg bg-slate-300 hover:scale-[1.02] uppercase flex items-center justify-center px-6 py-1 border-slate-400 border-2">
-        Sign In
-      </div>
-    </button>
-  )
-}
-
 function Refinement(props: RefinementProps) {
   return (
     <div className="flex flex-col">
@@ -109,7 +99,6 @@ export default function Search() {
               submitIconComponent={SubmitIcon}
               resetIconComponent={() => <></>}
             />
-            <SignIn />
           </div>
 
           <div className="w-full h-full flex justify-center m-20">

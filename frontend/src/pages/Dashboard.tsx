@@ -1,13 +1,15 @@
 import BrowseByEra from "components/dashboard/BrowseByEra"
 import Footer from "components/dashboard/Footer"
-import NewComics from "../components/dashboard/NewComics"
-import News from "components/dashboard/News"
 import PopularComics from "components/dashboard/PopularComics"
 import PopularPublishers from "components/dashboard/PopularPublishers"
 import PopularSeries from "components/dashboard/PopularSeries"
+import News from "components/dashboard/News"
 import RecentlyViewed from "components/dashboard/RecentlyViewed"
-import RecentPriceDrops from "../components/dashboard/RecentPriceDrops"
-import TrendingTitles from "../components/dashboard/TrendingTitles"
+// import MyWatchlist from "../components/dashboard/MyWatchlist";
+import TrendingTitles from "../components/dashboard/TrendingTitles";
+import RecentPriceDrops from "../components/dashboard/RecentPriceDrops";
+import NewComics from "../components/dashboard/NewComics";
+
 
 export default function Dashboard() {
   return (
@@ -21,9 +23,9 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex flex-row space-x-10 pl-10 pr-10">
-          <TrendingTitles />
-          <RecentPriceDrops />
-          <NewComics />
+          <TrendingTitles/>
+          <RecentPriceDrops/>
+          <NewComics/>
         </div>
         <div className="w-full md:px-10 space-y-10 mb-10">
           <PopularPublishers />

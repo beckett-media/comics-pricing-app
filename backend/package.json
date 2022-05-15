@@ -8,39 +8,12 @@
     "build": "tsc",
     "test": "jest",
     "build:live": "nodemon --watch 'src/**/*.ts' --exec NODE_ENV='dev' ts-node src/app.ts",
-    "pretty": "prettier --write .",
-    "lint": "eslint --ext .ts,.tsx . && tsc --noEmit"
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "bracketSpacing": true,
-    "printWidth": 88,
-    "semi": false,
-    "singleQuote": false,
-    "tabWidth": 2,
-    "trailingComma": "es5"
-  },
-  "eslintConfig": {
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "rules": {
-      "@typescript-eslint/explicit-function-return-type": "error"
-    },
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "ignorePatterns": [
-      "build",
-      "node_modules"
-    ]
+    "pretty": "prettier --write ."
   },
   "dependencies": {
     "axios": "^0.27.1",
     "bcryptjs": "^2.4.3",
+    "cognito-express": "^3.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
@@ -61,13 +34,10 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.29",
     "@types/verror": "^1.10.5",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
-    "@typescript-eslint/parser": "^5.23.0",
-    "eslint": "^8.15.0",
     "express-jwt": "^7.5.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.3"
   }
 }
