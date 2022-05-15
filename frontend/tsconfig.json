@@ -13,6 +13,8 @@
     "moduleResolution": "node",
     "noEmit": false,
     "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "build",
     "resolveJsonModule": true,
     "skipLibCheck": false,
