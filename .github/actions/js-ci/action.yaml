@@ -16,6 +16,7 @@ runs:
   using: composite
   steps:
     - uses: dorny/paths-filter@v2
+      id: filter
       with:
         filters: ${{ inputs.filter-paths }}
 
