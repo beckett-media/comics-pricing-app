@@ -1,5 +1,5 @@
-name: configure-eks
-description: configure-eks
+name: js-ci
+description: js-ci
 
 inputs:
   filter-paths:
