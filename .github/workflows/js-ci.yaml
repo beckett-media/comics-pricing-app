@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - michael/js-ci
     paths:
       - backend/**
       - frontend/**
