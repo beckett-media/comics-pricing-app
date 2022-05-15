@@ -15,7 +15,7 @@ on:
       - main
 
 jobs:
-  job:
+  backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,6 +28,11 @@ jobs:
               - .github/workflows/js-ci.yaml
               - .github/actions/js-ci/action.yaml
           working-directory: ./backend
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
       - uses: ./.github/actions/js-ci
         with:
