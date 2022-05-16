@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, { useState } from "react"
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast"
 
 export default function MarketingContent() {
   const [showForm, setShowForm] = useState(true)
