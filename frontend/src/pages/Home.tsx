@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { ReactNode, useState } from "react"
-import { LoginButton } from "./Login"
+
+import LoginButton from "components/common/LoginButton"
 
 type BlockProps = {
   children?: ReactNode
