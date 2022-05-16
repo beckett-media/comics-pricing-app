@@ -3,7 +3,9 @@ import SearchBar from "components/common/SearchBar"
 export default function NavBar() {
   return (
     <div className="w-full h-24 bg-background grid grid-cols-navbar">
-      <div className="text-center text-header">Comics Surge</div>
+      <div className="font-logo text-header text-center text-3xl flex flex-col justify-center items-center">
+        <div>COMIC SURGE</div>
+      </div>
       <SearchBar />
       <NavBarButtons />
     </div>

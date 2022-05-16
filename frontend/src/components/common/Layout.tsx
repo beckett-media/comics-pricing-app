@@ -5,7 +5,7 @@ import NavBar from "components/common/NavBar"
 
 export default function Layout() {
   return (
-    <div>
+    <div className="bg-background-light">
       <NavBar />
       <Outlet />
       <Footer />
