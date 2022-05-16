@@ -9,7 +9,11 @@ module.exports = {
       'link': '#41d3f3',
       'button': '#5416e5',
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        'navbar': '1fr 40% 1fr',
+      }
+    },
   },
   plugins: [],
 }
