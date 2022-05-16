@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint --ext .ts,.tsx . && tsc --noEmit",
+    "lint": "eslint --max-warnings 0 --ext .ts,.tsx . && tsc --noEmit",
     "pretty": "prettier --write ."
   },
   "prettier": {

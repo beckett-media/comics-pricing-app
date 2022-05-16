@@ -1,60 +1,59 @@
 import { useParams } from "react-router-dom"
 import useSWR from "swr"
-import { getIssueImage } from "../utils/imagePath"
-import RelatedIssues from "../components/issue-details/RelatedIssues"
-import React from "react"
-import RelatedTitles from "../components/issue-details/RelatedTitles"
+
+import RelatedIssues from "components/issue-details/RelatedIssues"
+import { getIssueImage } from "utils/imagePath"
 
 type IssueDetailsData = {
-  imgUrl: string
   id: string
   title_id: string
   publisher_id: string
   issue_name: string
   title_name: string
   publisher_name: string
-  raw_values?: number[]
-  grader_values?: number[]
-  update_at?: Date
 }
+
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
   const { data: issue, error } = useSWR<IssueDetailsData>(`/api/issue/${issueId}`)
+
   if (error) {
     return <div>{error.toString()}</div>
-  } else if (issue) {
-    const { id, issue_name, title_name, publisher_name, update_at } = issue
-    return (
-      <div className={"flex"}>
-        <div className={"flex flex-col"}>
-          <div className={"flex justify-around p-5"}>
-            <div className={"flex flex-col py-3 m-5"}>
-              <h2 className={"pb-3"}>
-                #{issue_name} {title_name}
-              </h2>
-              <img alt="comic-title-page" src={getIssueImage(id)} />
-            </div>
-            <div className={"flex flex-wrap mx-5 mt-9"}>
-              <Detail name={"Publisher"} value={publisher_name} />
-              <Detail name={"Title"} value={title_name} />
-              <Detail name={"Issue"} value={issue_name} />
-              {update_at && <Detail name={"Updated"} value={issue_name} />}
-            </div>
-          </div>
-          <RelatedIssues issueId={id} />
-        </div>
-        <RelatedTitles issueId={id} />
-      </div>
-    )
-  } else {
+  }
+
+  if (!issue) {
     return <div>Loading...</div>
   }
-}
 
-const Detail: React.FC<{ name: string; value: string }> = ({ name, value }) => {
   return (
-    <div className={"m-3"}>
-      <strong>{name}</strong>: <span>{value}</span>
+    <div className="w-full flex flex-col space-y-10 p-10">
+      <MainDetails issue={issue} />
+      <RelatedIssues issueId={issue.id} />
     </div>
   )
+}
+
+function MainDetails({ issue }: { issue: IssueDetailsData }) {
+  const full_issue_name = `${issue.title_name} #${issue.issue_name}`
+
+  return (
+    <div className="w-full flex flex-row space-x-10">
+      <img className="w-1/2 max-w-md" alt={full_issue_name} src={getIssueImage(issue.id)} />
+      <div className="grow flex flex-col space-y-5">
+        <div className="text-3xl">{full_issue_name}</div>
+        <div className="text-sm">
+          {issue.publisher_name} | {issue.title_name} | 1997
+        </div>
+        <div className="w-full text-sm outline outline-1 p-2">
+          Details: First appearance of Luke Skywalker, Darth Vader, Princess Leia, Obi-Wan Kenobi,
+          C-3PO, and R2-D2
+        </div>
+        <Graph />
+      </div>
+    </div>
+  )
+}
+
+function Graph() {
+  return <div className="w-full h-80 outline outline-1">Price Graph</div>
 }

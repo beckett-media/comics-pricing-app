@@ -11,7 +11,7 @@ export default function Publisher({ id, name }: PublisherProps) {
   return (
     <div className="w-40 h-40 flex flex-col items-center">
       <div className="w-40 h-32">
-        <img className="w-40 h-32 object-contain" src={image(id)} />
+        <img className="w-40 h-32 object-contain" alt={name} src={image(id)} />
       </div>
       <p className="text-xs text-center">{name}</p>
     </div>

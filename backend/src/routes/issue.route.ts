@@ -9,9 +9,9 @@ issueRoutes.get("/:id", async (req: RequestWithParams<{ id: string }>, res: Resp
 })
 
 issueRoutes.get("/:id/related/issues", async (req: RequestWithParams<{ id: string }>, res: Response) => {
-  res.json(await getRelatedTitles(req.params.id))
+  res.json(await getRelatedIssues(req.params.id))
 })
 
 issueRoutes.get("/:id/related/titles", async (req: RequestWithParams<{ id: string }>, res: Response) => {
-  res.json(await getRelatedIssues(req.params.id))
+  res.json(await getRelatedTitles(req.params.id))
 })
