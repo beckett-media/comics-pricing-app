@@ -87,7 +87,7 @@ function Hit({ hit }: any) {
 
 export default function Search() {
   return (
-    <div className="absolute flex h-full w-full items-center justify-center gap-10">
+    <div className="flex h-full w-full items-center justify-center gap-10">
       <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
         <Configure hitsPerPage={HITS_PER_PAGE} />
         <div className="flex flex-col items-center w-full h-full">
