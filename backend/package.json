@@ -1,20 +1,18 @@
 {
-  "name": "api",
-  "version": "0.0.0",
+  "name": "backend",
+  "version": "0.1.0",
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "dev": "ts-node app.ts",
-    "start": "npm run build:live",
+    "start": "nodemon --exec 'NODE_ENV=dev ts-node src/index.ts'",
     "build": "tsc",
-    "test": "jest",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec NODE_ENV='dev' ts-node src/app.ts",
     "pretty": "prettier --write .",
-    "lint": "eslint --ext .ts,.tsx . && tsc --noEmit"
+    "lint": "eslint --max-warnings 0 --ext .ts,.tsx . && tsc --noEmit"
   },
   "prettier": {
     "arrowParens": "avoid",
     "bracketSpacing": true,
-    "printWidth": 88,
+    "printWidth": 119,
     "semi": false,
     "singleQuote": false,
     "tabWidth": 2,
@@ -24,7 +22,16 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "rules": {
-      "@typescript-eslint/explicit-function-return-type": "error"
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ]
     },
     "plugins": [
       "@typescript-eslint"
@@ -38,35 +45,31 @@
       "node_modules"
     ]
   },
+  "nodemonConfig": {
+    "ext": "ts,tsx,json",
+    "watch": [
+      "**/*"
+    ]
+  },
   "dependencies": {
-    "axios": "^0.27.1",
-    "bcryptjs": "^2.4.3",
+    "axios": "^0.27.2",
     "cognito-express": "^3.0.1",
     "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "debug": "^4.3.4",
-    "dotenv": "^16.0.0",
-    "express": "^5.0.0-beta.1",
-    "http-errors": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "express": "^4.18.1",
     "morgan": "^1.10.0",
-    "postgres": "^3.1.0",
+    "postgres": "^3.2.2",
     "verror": "^1.10.1"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/cookie-parser": "^1.4.2",
+    "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.13",
-    "@types/express-jwt": "^6.0.4",
-    "@types/jsonwebtoken": "^8.5.8",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^17.0.29",
+    "@types/node": "^17.0.33",
     "@types/verror": "^1.10.5",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "eslint": "^8.15.0",
-    "express-jwt": "^7.5.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"

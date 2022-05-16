@@ -15,4 +15,15 @@ spec:
         - name: backend
           image: 566886264221.dkr.ecr.us-east-1.amazonaws.com/backend:latest
           imagePullPolicy: Always
+          volumeMounts:
+            - name: backend-volume
+              mountPath: /secret
+              readOnly: true
+          env:
+            - name: CONFIG_FILEPATH
+              value: /secret/config.json
+      volumes:
+        - name: backend-volume
+          secret:
+            secretName: backend-secret
       restartPolicy: Always

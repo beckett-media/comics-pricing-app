@@ -1,62 +1,77 @@
-import { config } from "dotenv"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import CognitoExpress from "cognito-express"
 import cookieParser from "cookie-parser"
-import express, { ErrorRequestHandler, Express } from "express"
+import express, { Application, ErrorRequestHandler, Router } from "express"
 import logger from "morgan"
 import postgres from "postgres"
 import VError from "verror"
-
+import { configFromEnv } from "./config"
 import { HttpCode } from "./constants/httpCode"
-import { issueRoutes } from "./routes/issue"
-import { authenticate } from "./middleware/cognito"
-import { logError } from "./util/errorHandling"
+import { authenticate, TOKEN_USE_CLAIM } from "./middleware/cognito"
+import { issueRoutes } from "./routes/issue.route"
+import { healthCheckRoutes } from "./routes/healthCheck.route"
 import { publisherRoutes } from "./routes/publisher.route"
-import { testAPIRoutes } from "./routes/testAPI"
 import { userRoutes } from "./routes/user.route"
+import { logError } from "./util/errorHandling"
 
-config()
+const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 
-export const sql = postgres({
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-})
+const appRouter = (): Router => {
+  const router = Router()
 
-const setupRoutes = (app: Express) => {
-  const apiRouter = express.Router()
-  app.use("/api", apiRouter)
-  apiRouter.use("/testAPI", testAPIRoutes)
-  apiRouter.use("/user", userRoutes)
-  apiRouter.use("/publisher", authenticate, publisherRoutes)
-  apiRouter.use("/issue", authenticate, issueRoutes)
+  router.use("/issue", authenticate, issueRoutes)
+  router.use("/publisher", authenticate, publisherRoutes)
+  router.use("/user", userRoutes)
+
+  return router
 }
 
-export const load = (app: Express) => {
-  // Error handling middleware, we delegate the handling to the centralized error handler
+export const createApp = (): Application => {
+  const app = express()
+
   app.use(logger("dev"))
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
-  app.use(((e, req, res, _) => {
-    logError(e)
-    if (e instanceof VError) {
-      res.status(VError.info(e).code ?? 500).send(e)
-    } else res.status(HttpCode.SERVER_ERROR).send(e)
+  app.use(((err, _req, res, _next) => {
+    logError(err)
+
+    const status = err instanceof VError ? VError.info(err).code ?? HttpCode.SERVER_ERROR : HttpCode.SERVER_ERROR
+
+    // TODO(michael-sriram): do we want to send error as is directly back to client?
+    res.status(status).send(err)
   }) as ErrorRequestHandler)
 
-  setupRoutes(app)
+  app.use("/", healthCheckRoutes)
+  app.use("/api", appRouter())
+
+  return app
 }
 
-process.on("unhandledRejection", error => {
-  // I just caught an unhandled promise rejection,
-  // since we already have fallback handler for unhandled errors (see below),
-  // let throw and let him handle that
-  console.log("unhandled Rejection")
-  throw error
+// TODO(michael-sriram): is this the right way to handle unhandled rejections?
+process.on("unhandledRejection", (err: Error) => {
+  console.error("Unhandled Rejection")
+
+  throw err
 })
 
-process.on("uncaughtException", (error: Error) => {
-  // I just received an error that was never handled, time to handle it and then decide whether a restart is needed
-  logError(error)
-  process.exit(1)
+// TODO(michael-sriram): is this the right way to handle unhandled exceptions?
+process.on("uncaughtException", (err: Error) => {
+  logError(err)
+  process.exit(UNCAUGHT_EXCEPTION_EXIT_STATUS)
+})
+
+export const config = configFromEnv()
+export const cognito = new CognitoExpress({
+  region: config.cognitoAwsRegion,
+  cognitoClientId: config.cognitoClientId,
+  cognitoUserPoolId: config.cognitoUserPoolId,
+  tokenUse: TOKEN_USE_CLAIM,
+})
+export const sql = postgres({
+  host: config.dbHost,
+  username: config.dbUsername,
+  password: config.dbPassword,
+  database: config.dbName,
 })

@@ -1,56 +1,22 @@
-// centralized error object that derives from Node’s Error
-import { HttpCode } from "../constants/httpCode"
+import process from "process"
 import VError from "verror"
 
-/** @deprecated */
-class AppError extends Error {
-  public readonly name: string
-  public readonly httpCode: number
-  public readonly isOperational: boolean
+const NOT_OPERATIONAL_EXIT_STATUS = 0
 
-  constructor(
-    name: string,
-    httpCode: HttpCode,
-    description: string = "",
-    isOperational: boolean = true
-  ) {
-    super(description)
-
-    Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
-
-    this.name = name
-    this.httpCode = httpCode
-    this.isOperational = isOperational
-
-    Error.captureStackTrace(this)
-  }
-}
-
-export function logError(err: Error) {
+export const logError = (err: Error): Error => {
   if (err instanceof VError) {
     if (VError.info(err).notOperational) {
-      process.exit(0)
+      process.exit(NOT_OPERATIONAL_EXIT_STATUS)
     }
-    console.log(err.message)
-    console.log(err.name)
-    console.log(VError.info(err))
+
+    console.error(err.message)
+    console.error(err.name)
+    console.error(VError.info(err))
     console.trace(VError.fullStack(err))
   } else {
-    console.log("Values: " + JSON.stringify(err))
-    console.log("Stack trace: \n" + err.stack)
+    console.error(`Values: ${JSON.stringify(err)}`)
+    console.error(`Stack trace: \n${err.stack}`)
   }
-  return err
-  // await sendMailToAdminIfCritical();
-  // await saveInOpsQueueIfCritical();
-  // await determineIfOperationalError();
-}
 
-// export class ErrorHandler {
-//     public async handleError(err: Error): Promise<void> {
-//          console.log(err);
-//         // await sendMailToAdminIfCritical();
-//         // await saveInOpsQueueIfCritical();
-//         // await determineIfOperationalError();
-//     };
-// }
-//
+  return err
+}
