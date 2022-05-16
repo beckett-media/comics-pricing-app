@@ -1,28 +1,31 @@
-// @ts-ignore
-import CognitoExpress from "cognito-express"
 import { NextFunction, Request, Response } from "express"
+import { HttpCode } from "../constants/httpCode"
+import { cognito } from "../loader"
 
-const cognito = new CognitoExpress({
-  region: "us-east-1",
-  cognitoUserPoolId: "us-east-1_FTfZtmbGb",
-  tokenUse: "access",
-})
+export const TOKEN_USE_CLAIM = "access"
 
-export function authenticate(req: Request, res: Response, next: NextFunction) {
-  let accessTokenFromClient = req.cookies.access
+export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
+  const accessToken = req.cookies[TOKEN_USE_CLAIM]
 
-  //Fail if token not present in header.
-  if (!accessTokenFromClient) {
-    res.status(401).send("Access Token missing from header")
+  if (!accessToken) {
+    // TODO(michael-sriram): should this say cookie instead?
+    res.status(HttpCode.UNAUTHORIZED).send("Access token missing from header")
+
     return
   }
 
-  cognito.validate(accessTokenFromClient, function (err: any, response: Response) {
-    //If API is not authenticated, Return 401 with error message.
-    if (err) res.status(401).send(err)
+  // TODO(michael-sriram): is innerRes really a Response if we're assigning it to res.locals.user?
+  //                                                                                         ^^^^
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cognito.validate(accessToken, (err: any, innerRes: Response) => {
+    if (err) {
+      innerRes.status(HttpCode.UNAUTHORIZED).send(err)
 
-    //Else API has been authenticated. Proceed.
-    res.locals.user = response
+      // TODO(michael-sriram): should there be a return here
+    }
+
+    res.locals.user = innerRes
+
     next()
   })
 }

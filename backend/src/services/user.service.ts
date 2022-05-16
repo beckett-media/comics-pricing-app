@@ -1,73 +1,27 @@
-import jwt from "jsonwebtoken"
+import VError from "verror"
 import { HttpCode } from "../constants/httpCode"
 import { sql } from "../loader"
-import VError from "verror"
 
-type Email = {
+export type Email = {
   email: string
   name: string
 }
 
-const saltRounds = 10
-
-const genToken = (email: string) => {
-  const options = { expiresIn: 1000 * 60 * 60 * 24 }
-  return {
-    token: jwt.sign({ email }, process.env.JWT_SECRET!, options),
-    maxAge: options.expiresIn,
-  }
-}
-
-export const login = async (email: string, password: string) => {
-  let userInfo
+export const signup = async (email: string, name: string): Promise<Email[]> => {
   try {
-  } catch (e) {
-    throw new VError(
-      {
-        name: "DBError",
-        info: { code: HttpCode.BAD_REQUEST },
-        cause: e as Error,
-      },
-      "Failed searching database"
-    )
-  }
-
-  if (!userInfo)
-    throw new VError(
-      {
-        name: "DBError",
-        info: { code: HttpCode.BAD_REQUEST },
-      },
-      "Email not found"
-    )
-  // const match = await bcrypt.compare(password, userInfo.password)
-  // if (!match) {
-  //   throw new VError(
-  //     {
-  //       name: "DBError",
-  //       info: {code: HttpCode.BAD_REQUEST},
-  //     },
-  //     "Password incorrect"
-  //   )
-  // }
-  // return genToken(userInfo.email)
-}
-
-export const signup = async (email: string, name: string) => {
-  try {
-    return sql<Email[]>`
-        INSERT INTO emails
-            (email, name)
-        VALUES
-            (${email}, ${name})
-        ON CONFLICT (email) DO NOTHING
+    return await sql<Email[]>`
+      INSERT INTO emails
+        (email, name)
+      VALUES
+        (${email}, ${name})
+      ON CONFLICT (email) DO NOTHING
     `
-  } catch (e) {
+  } catch (err) {
     throw new VError(
       {
         name: "DBError",
         info: { code: HttpCode.BAD_REQUEST },
-        cause: e as Error,
+        cause: err as Error,
       },
       "Failed to add email or name"
     )
