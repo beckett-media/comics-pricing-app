@@ -10,6 +10,6 @@ export function withCheckLoggedIn(Component: ComponentType) {
 
     // TODO(enricozb): cookie needs to be validated
 
-    return !cookie ? <Navigate to={"/"} /> : <Component />
+    return cookie ? <Component /> : <Navigate to={"/"} />
   }
 }
