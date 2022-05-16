@@ -1,4 +1,4 @@
-import { LoginButton } from "../../pages/Login"
+import LoginButton from "../common/LoginButton"
 
 export default function Header() {
     return (

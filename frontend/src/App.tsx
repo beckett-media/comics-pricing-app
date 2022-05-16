@@ -1,16 +1,17 @@
 import axios from "axios"
 import { Route, Routes } from "react-router-dom"
 import { SWRConfig } from "swr"
-import Home from "./pages/Home"
-import { withCheckLoggedIn } from "./pages/Login"
-import Search from "./pages/Search"
-import IssueDetails from "./pages/IssueDetails"
-import Dashboard from "./pages/Dashboard"
+
+import Home from "pages/Home"
+import Search from "pages/Search"
+import IssueDetails from "pages/IssueDetails"
+import Dashboard from "pages/Dashboard"
+import Layout from "components/common/Layout"
+import { withCheckLoggedIn } from "utils/login"
 
 export default function App() {
-  const DashboardPage = withCheckLoggedIn(Dashboard)
-  const SearchPage = withCheckLoggedIn(Search)
-  const DetailsPage = withCheckLoggedIn(IssueDetails)
+  const AuthenticatedLayout = withCheckLoggedIn(Layout)
+
   return (
     <SWRConfig
       value={{
@@ -19,9 +20,12 @@ export default function App() {
     >
       <Routes>
         <Route path={"/"} element={<Home />} />
-        <Route path={"/dashboard"} element={<DashboardPage />} />
-        <Route path={"/search"} element={<SearchPage />} />
-        <Route path={"/details/:issueId"} element={<DetailsPage />} />
+
+        <Route path={"/"} element={<AuthenticatedLayout />}>
+          <Route path={"dashboard"} element={<Dashboard />} />
+          <Route path={"search"} element={<Search />} />
+          <Route path={"details/:issueId"} element={<IssueDetails />} />
+        </Route>
       </Routes>
     </SWRConfig>
   )
