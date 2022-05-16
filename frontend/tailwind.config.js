@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     colors: {
       'background': '#161032',
+      'background-light': '#5416e5',
       'field': '#433b64',
       'header': '#fffffe',
       'text': '#bcc5d2',
@@ -10,6 +11,9 @@ module.exports = {
       'button': '#5416e5',
     },
     extend: {
+      fontFamily: {
+        'logo': ['Woodchuck'],
+      },
       gridTemplateColumns: {
         'navbar': '1fr 40% 1fr',
       }
