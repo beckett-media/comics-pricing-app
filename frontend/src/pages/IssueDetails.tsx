@@ -34,13 +34,13 @@ export default function IssueDetails() {
 }
 
 function MainDetails({ issue }: { issue: IssueDetailsData }) {
+  const full_issue_name = `${issue.title_name} #${issue.issue_name}`
+
   return (
     <div className="w-full flex flex-row space-x-10">
-      <img className="w-1/2 max-w-md" src={getIssueImage(issue.id)} />
+      <img className="w-1/2 max-w-md" alt={full_issue_name} src={getIssueImage(issue.id)} />
       <div className="grow flex flex-col space-y-5">
-        <div className="text-3xl">
-          {issue.title_name} #{issue.issue_name}
-        </div>
+        <div className="text-3xl">{full_issue_name}</div>
         <div className="text-sm">
           {issue.publisher_name} | {issue.title_name} | 1997
         </div>
