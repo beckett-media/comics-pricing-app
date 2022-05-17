@@ -24,7 +24,7 @@ export default function MarketingContent() {
         }}
       />
       <img
-        className="object-scale-down h-96 "
+        className="object-scale-down h-96"
         src="https://nickpassey.com/wp-content/uploads/2016/10/Featured.jpg"
         alt=""
       ></img>
