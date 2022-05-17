@@ -17,6 +17,7 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
       toast("Successfully added to the waitlist!")
     } catch (e) {
       toast("Error: Failed to add you to the waitlist!")
+      console.log(e)
     }
   }
 
@@ -37,7 +38,7 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
           placeholder={"your best email"}
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          className="shadow appearance-none border  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </label>
       <button
