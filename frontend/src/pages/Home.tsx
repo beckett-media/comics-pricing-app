@@ -23,7 +23,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <form onSubmit={(e) => submit(e)} className="px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={(e) => submit(e)} className="mb-4 px-8 pt-6 pb-8">
         <div className="mb-4">
           <label>
             <input
@@ -31,7 +31,7 @@ const SignUp = () => {
               placeholder={"email"}
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
             />
           </label>
         </div>
@@ -42,14 +42,14 @@ const SignUp = () => {
               type="text"
               onChange={(e) => setName(e.target.value)}
               value={name}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
             />
           </label>
         </div>
         <div>
           <button
             type={"submit"}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
           >
             Join!
           </button>
@@ -60,7 +60,7 @@ const SignUp = () => {
 }
 
 const Block = (props: BlockProps) => (
-  <div className="rounded-2xl shadow-xl hover:shadow-2xl flex h-1/2 w-1/2 flex items-center justify-center bg-slate-800 text-white font-bold">
+  <div className="flex flex h-1/2 w-1/2 items-center justify-center rounded-2xl bg-slate-800 font-bold text-white shadow-xl hover:shadow-2xl">
     {props.children}
   </div>
 )

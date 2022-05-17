@@ -1,20 +1,18 @@
-import useSWR from "swr";
+import useSWR from "swr"
 
-import Gallery from "./Gallery";
-import Publisher from "./Publisher";
+import Gallery from "./Gallery"
+import Publisher from "./Publisher"
 
 type PublisherDetails = {
-  id: string;
-  name: string;
-};
+  id: string
+  name: string
+}
 
 export default function PopularPublishers() {
-  const { data: publishers } = useSWR<PublisherDetails[]>(
-    "/api/publisher/popular"
-  );
+  const { data: publishers } = useSWR<PublisherDetails[]>("/api/publisher/popular")
 
   if (!publishers) {
-    return <div>loading</div>;
+    return <div>loading</div>
   }
 
   return (
@@ -23,5 +21,5 @@ export default function PopularPublishers() {
         <Publisher id={id} name={name} />
       ))}
     </Gallery>
-  );
+  )
 }
