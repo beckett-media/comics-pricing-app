@@ -2,7 +2,7 @@
 CREATE MATERIALIZED VIEW popular_issues
 AS SELECT
   issue_id,
-  COUNT(*)
+  COUNT(*) AS sales_count
 FROM sales
 GROUP BY issue_id
 ORDER BY COUNT(*) DESC
@@ -13,7 +13,7 @@ LIMIT 50;
 CREATE MATERIALIZED VIEW popular_titles
 AS SELECT
   title_id,
-  COUNT(*)
+  COUNT(*) AS issues_count
 FROM issues
 GROUP BY title_id
 ORDER BY COUNT(*) DESC
