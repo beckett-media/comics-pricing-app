@@ -1,11 +1,8 @@
-CREATE TABLE prices (
-  issue_id UUID REFERENCES issues(id) NOT NULL,
-  price REAL NOT NULL
-);
-
-INSERT INTO prices
-SELECT
+CREATE MATERIALIZED VIEW prices
+AS SELECT
   issue_id,
   PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY price) AS price
 FROM sales
 GROUP BY issue_id;
+
+CREATE UNIQUE INDEX ON prices (issue_id);
