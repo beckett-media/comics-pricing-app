@@ -46,7 +46,7 @@ CREATE TABLE issue_conditions (
   updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE prices (
+CREATE TABLE sales (
   issue_id UUID REFERENCES issues(id) NOT NULL,
   grade TEXT NOT NULL,
   price REAL NOT NULL,
