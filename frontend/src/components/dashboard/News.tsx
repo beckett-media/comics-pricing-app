@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+// import useSWR from "swr"
 
 const newsApiURL =
   "https://newsapi.org/v2/everything?q=Comics&from=2022-05-17&sortBy=relevancy&pageSize=1&apiKey=562595bc762f4eb8a9aed8763c3b08be"
@@ -16,9 +17,12 @@ export default function News() {
   return (
     <div className="w-7/12">
       {newsApi ? (
-        <a href={newsApi.url} className="flex flex-col-reverse z-1">
-          <img src={newsApi.urlToImage} className="" />
-          <span className="pl-2 text-lg z-2">
+        <a href={newsApi.url} className="relative flex h-full flex-col ">
+          <img
+            src={newsApi.urlToImage}
+            className="absolute h-full w-full overflow-hidden rounded object-cover"
+          />
+          <span className="z-0 m-5 text-lg text-white">
             Headline Comic Article:
             <br />
             {newsApi.title}
@@ -30,3 +34,29 @@ export default function News() {
     </div>
   )
 }
+
+// export default function News() {
+//   const { data: newsApi, error } = useSWR<any>(newsApiURL, fetcher)
+//   console.log(error)
+//   if (error) {
+//     return <div>{error.toString()}</div>
+//   }
+
+//   if (!newsApi) {
+//     return <div>Loading...</div>
+//   }
+
+//   return (
+//     <a href={newsApi.url} className="relative flex h-full flex-col ">
+//       <img
+//         src={newsApi.urlToImage}
+//         className="absolute h-full w-full overflow-hidden rounded object-cover"
+//       />
+//       <span className="z-0 m-5 text-lg text-white">
+//         Headline Comic Article:
+//         <br />
+//         {newsApi.title}
+//       </span>
+//     </a>
+//   )
+// }
