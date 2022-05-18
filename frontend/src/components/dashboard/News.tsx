@@ -21,6 +21,7 @@ export default function News() {
           <img
             src={newsApi.urlToImage}
             className="absolute h-full w-full overflow-hidden rounded object-cover"
+            alt=""
           />
           <span className="z-0 m-5 text-lg text-white">
             Headline Comic Article:
@@ -29,7 +30,10 @@ export default function News() {
           </span>
         </a>
       ) : (
-        <img src="https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png" />
+        <img
+          src="https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png"
+          alt=""
+        />
       )}
     </div>
   )
