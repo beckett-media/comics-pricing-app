@@ -27,7 +27,7 @@ type ToggleRefinementListProps = {
 
 function SubmitIcon() {
   return (
-    <div className="bg-slate-300 w-[100px] h-[30px] flex items-center justify-center">
+    <div className="flex h-[30px] w-[100px] items-center justify-center bg-slate-300">
       <i className="fa-solid fa-magnifying-glass text-white" />
     </div>
   )
@@ -36,7 +36,7 @@ function SubmitIcon() {
 function Refinement(props: RefinementProps) {
   return (
     <div className="flex flex-col">
-      <p className="font-bold text-lg uppercase">{props.title}</p>
+      <p className="text-lg font-bold uppercase">{props.title}</p>
       <RefinementList
         attribute={props.attribute}
         limit={REFINEMENT_LIST_LIMIT}
@@ -53,7 +53,7 @@ function Refinement(props: RefinementProps) {
 function ToggleRefinementList(props: ToggleRefinementListProps) {
   return (
     <div className="flex flex-col">
-      <p className="font-bold text-lg uppercase">{props.title}</p>
+      <p className="text-lg font-bold uppercase">{props.title}</p>
       {props.toggleConfigs.map((toggleConfig, idx) => (
         <ToggleRefinement
           key={idx}
@@ -74,11 +74,11 @@ function Hit({ hit }: any) {
 
   return (
     <a href={`/details/${hit.issue_id}`}>
-      <div className="bg-slate-200 w-[500px] flex my-3 px-3 py-3 gap-3 hover:scale-[1.02]">
-        <img src={imgSrc} alt="" className="w-[80px] h-auto" />
-        <div className="flex flex-col mt-2">
+      <div className="my-3 flex w-[500px] gap-3 bg-slate-200 px-3 py-3 hover:scale-[1.02]">
+        <img src={imgSrc} alt="" className="h-auto w-[80px]" />
+        <div className="mt-2 flex flex-col">
           <p className="font-bold">{`${hit.title_name} - #${hit.issue_name}`}</p>
-          <p className="uppercase text-xs">{hit.publisher_name}</p>
+          <p className="text-xs uppercase">{hit.publisher_name}</p>
         </div>
       </div>
     </a>
@@ -90,9 +90,9 @@ export default function Search() {
     <div className="flex h-full w-full items-center justify-center gap-10">
       <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
         <Configure hitsPerPage={HITS_PER_PAGE} />
-        <div className="flex flex-col items-center w-full h-full">
-          <div className="flex bg-slate-200 gap-5 py-10 px-32 w-full justify-between">
-            <div className="font-extrabold uppercase text-xl">Comic Surge</div>
+        <div className="flex h-full w-full flex-col items-center">
+          <div className="flex w-full justify-between gap-5 bg-slate-200 py-10 px-32">
+            <div className="text-xl font-extrabold uppercase">Comic Surge</div>
             <SearchBox
               placeholder={PLACEHOLDER}
               classNames={{ input: "px-3 border-slate-300 border-2 w-[200px] h-[30px]" }}
@@ -101,7 +101,7 @@ export default function Search() {
             />
           </div>
 
-          <div className="w-full h-full flex justify-center m-20">
+          <div className="m-20 flex h-full w-full justify-center">
             <div className="flex justify-center gap-10">
               <div className="flex flex-col gap-5">
                 <Refinement title="Publisher" attribute="publisher_name" />
@@ -113,21 +113,21 @@ export default function Search() {
               </div>
 
               <div className="flex flex-col">
-                <p className="font-extrabold text-xl uppercase">Results</p>
+                <p className="text-xl font-extrabold uppercase">Results</p>
                 <Hits hitComponent={Hit} />
               </div>
 
-              <div className="flex flex-col gap-3 ml-20">
-                <p className="font-extrabold text-xl uppercase">Hot Comics</p>
+              <div className="ml-20 flex flex-col gap-3">
+                <p className="text-xl font-extrabold uppercase">Hot Comics</p>
                 <div className="flex flex-col gap-10">
                   <a href="/">
-                    <div className="bg-slate-500 w-[160px] h-[200px] hover:scale-[1.02]" />
+                    <div className="h-[200px] w-[160px] bg-slate-500 hover:scale-[1.02]" />
                   </a>
                   <a href="/">
-                    <div className="bg-slate-400 w-[160px] h-[200px] hover:scale-[1.02]" />
+                    <div className="h-[200px] w-[160px] bg-slate-400 hover:scale-[1.02]" />
                   </a>
                   <a href="/">
-                    <div className="bg-slate-300 w-[160px] h-[200px] hover:scale-[1.02]" />
+                    <div className="h-[200px] w-[160px] bg-slate-300 hover:scale-[1.02]" />
                   </a>
                 </div>
               </div>

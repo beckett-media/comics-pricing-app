@@ -6,7 +6,7 @@ export default function MarketingContent() {
   const [showForm, setShowForm] = useState(true)
 
   return (
-    <div className="flex flex-col items-center space-y-7 bg-black h-full w-full pt-7 pb-7">
+    <div className="flex flex-col items-center space-y-7 bg-black h-screen w-full pt-7 pb-7">
       <p className="text-white text-2xl font-bold font-roboto text-center">
         The best comic prices at your fingertips
       </p>
@@ -23,11 +23,11 @@ export default function MarketingContent() {
           },
         }}
       />
-      <img
+      {/* <img
         className="object-scale-down h-96"
         src="https://nickpassey.com/wp-content/uploads/2016/10/Featured.jpg"
         alt=""
-      ></img>
+      ></img> */}
     </div>
   )
 }
