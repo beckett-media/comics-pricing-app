@@ -14,6 +14,8 @@ type IssueDetails = {
   issue_name: string
   title_name: string
   publisher_name: string
+  publication_month: number | null
+  publication_year: number | null
   raw_values: number[]
   grader_values: number[]
   update_at: Date
@@ -33,6 +35,8 @@ export const getDetails = async (id: string): Promise<IssueDetails> => {
       issues.name issue_name,
       titles.name title_name,
       publishers.name publisher_name,
+      month publication_month,
+      year publication_year,
       raw_values,
       graded_values,
       updated_at

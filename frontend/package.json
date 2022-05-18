@@ -46,6 +46,8 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.0.0",
+    "@nivo/core": "^0.79.0",
+    "@nivo/line": "^0.79.1",
     "algoliasearch": "^4.13.0",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",
