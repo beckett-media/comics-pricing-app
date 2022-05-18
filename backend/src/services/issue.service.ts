@@ -1,5 +1,12 @@
 import { sql } from "../loader"
 
+type Issue = {
+  id: string
+  issue: string
+  title: string
+  publisher: string
+}
+
 type IssueDetails = {
   id: string
   title_id: string
@@ -63,5 +70,39 @@ export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
       JOIN titles as titles_B on titles_B.publisher_id = titles_A.publisher_id
     WHERE issues.id = ${id} AND titles_A.id != titles_B.id
     LIMIT 3
+  `
+}
+
+// TODO(enricozb): remove this and computer popular titles periodically
+// These are the top ten titles with the most issues, computed by:
+//   SELECT
+//     issue_id,
+//     COUNT(*)
+//   FROM sales
+//   GROUP BY issue_id
+//   ORDER BY COUNT(*) DESC
+//   LIMIT 10
+// and by removing issues without images
+const POPULAR_ISSUES = [
+  "0f28e0e5-e557-4261-8f0b-8dfbfed59642",
+  "8f2b8443-2d00-4b52-88e2-94c04b6a5193",
+  "583c4f29-bcf3-46fa-b26e-07ff6e7bd0ff",
+  "aced7f57-13ce-4940-ae5a-921b85a083bb",
+  "f28ce0c0-e157-48c3-a861-68f7b6535dc8",
+  "c178295d-a1bf-439a-9524-22209f606f98",
+  "b83bef9b-a7f2-49ea-acc3-85a300a397e2",
+]
+
+export const getPopularIssues = async (): Promise<Issue[]> => {
+  return await sql<Issue[]>`
+    SELECT
+      issues.id,
+      issues.name AS issue,
+      titles.name AS title,
+      publishers.name AS publisher
+    FROM issues
+    JOIN titles ON titles.id = issues.title_id
+    JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE issues.id IN ${sql(POPULAR_ISSUES)}
   `
 }
