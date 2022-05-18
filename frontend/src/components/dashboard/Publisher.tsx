@@ -9,11 +9,11 @@ function image(id: string) {
 
 export default function Publisher({ id, name }: PublisherProps) {
   return (
-    <div className="w-40 h-40 flex flex-col items-center">
-      <div className="w-40 h-32">
-        <img className="w-40 h-32 object-contain" alt={name} src={image(id)} />
+    <div className="flex h-40 w-40 flex-col items-center">
+      <div className="h-32 w-40">
+        <img className="h-32 w-40 object-contain" alt={name} src={image(id)} />
       </div>
-      <p className="text-xs text-center">{name}</p>
+      <p className="text-center text-xs">{name}</p>
     </div>
   )
 }

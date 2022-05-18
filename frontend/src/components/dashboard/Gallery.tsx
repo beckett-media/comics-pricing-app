@@ -7,12 +7,12 @@ type GalleryProps = {
 
 export default function Gallery({ title, children }: GalleryProps) {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <div className="mb-5">
-        <span className="font-bold mr-5">{title}</span>
-        <span className="text-xs hover:underline cursor-pointer">View All ›</span>
+        <span className="mr-5 font-bold">{title}</span>
+        <span className="cursor-pointer text-xs hover:underline">View All ›</span>
       </div>
-      <div className="flex flex-row w-full justify-between space-x-10 overflow-x-auto">
+      <div className="flex w-full flex-row justify-between space-x-10 overflow-x-auto">
         {children}
       </div>
     </div>

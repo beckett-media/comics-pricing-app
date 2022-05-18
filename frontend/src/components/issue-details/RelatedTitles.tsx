@@ -13,10 +13,10 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
       <p className={"text-center"}>
         <b>Related Titles</b>
       </p>
-      <div className={"flex flex-col justify-items-center items-center"}>
+      <div className={"flex flex-col items-center justify-items-center"}>
         {relatedTitles?.map(({ id, name }) => (
-          <div className={"flex flex-col justify-center items-center m-5"}>
-            <img className="w-8/12 object-fit" alt="title cover" src={getTitleImage(id)} />
+          <div className={"m-5 flex flex-col items-center justify-center"}>
+            <img className="object-fit w-8/12" alt="title cover" src={getTitleImage(id)} />
             <span>{name}</span>
           </div>
         ))}
