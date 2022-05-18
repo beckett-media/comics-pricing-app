@@ -38,6 +38,9 @@ export default function IssueDetails() {
 
 function MainDetails({ issue }: { issue: IssueDetailsData }) {
   const full_issue_name = `${issue.title_name} #${issue.issue_name}`
+  const metadata = [issue.publisher_name, issue.title_name, issue.publication_year].filter(
+    (m) => m !== null
+  )
 
   return (
     <div className="flex w-full flex-row space-x-10 items-stretch">
@@ -48,9 +51,7 @@ function MainDetails({ issue }: { issue: IssueDetailsData }) {
       />
       <div className="flex grow flex-col space-y-5">
         <div className="text-3xl">{full_issue_name}</div>
-        <div className="text-sm">
-          {issue.publisher_name} | {issue.title_name} | {issue.publication_year}
-        </div>
+        <div className="text-sm">{metadata.join(" | ")}</div>
         <div className="w-full p-2 text-sm outline outline-1">
           Details: First appearance of Luke Skywalker, Darth Vader, Princess Leia, Obi-Wan Kenobi,
           C-3PO, and R2-D2
