@@ -5,11 +5,11 @@ const LoginButton = () => {
   return (
     <a
       className={
-        "focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+        "bg-white hover:bg-slate-100 text-black py-2 px-10 rounded focus:outline-none focus:shadow-outline border-2"
       }
       href={loginUrl}
     >
-      Login
+      Sign In
     </a>
   )
 }
