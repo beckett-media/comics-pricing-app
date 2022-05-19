@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
+import { AutoSizer } from "react-virtualized"
 import useSWR from "swr"
-import { ResponsiveLine } from "@nivo/line"
+import { Line } from "@nivo/line"
 
 import RelatedIssues from "components/issue-details/RelatedIssues"
 import { getIssueImage } from "utils/imagePath"
@@ -56,143 +57,85 @@ function MainDetails({ issue }: { issue: IssueDetailsData }) {
           Details: First appearance of Luke Skywalker, Darth Vader, Princess Leia, Obi-Wan Kenobi,
           C-3PO, and R2-D2
         </div>
-        <Graphs />
+        <Graphs id={issue.id} />
       </div>
     </div>
   )
 }
 
-function Graphs() {
+function Graphs({ id }: { id: string }) {
   return (
     <div className="grow flex md:flex-row sm:flex-col gap-5 items-stretch">
       <div className="grow outline outline-1">
-        <PriceGraph />
+        <PriceGraph id={id} />
       </div>
       <div className="grow outline outline-1">Scatter Graph</div>
     </div>
   )
 }
 
-const data = [
-  {
-    id: "japan",
-    color: "hsl(99, 70%, 50%)",
-    data: [
-      {
-        x: "plane",
-        y: 187,
-      },
-      {
-        x: "helicopter",
-        y: 120,
-      },
-      {
-        x: "boat",
-        y: 232,
-      },
-      {
-        x: "train",
-        y: 84,
-      },
-      {
-        x: "subway",
-        y: 235,
-      },
-      {
-        x: "bus",
-        y: 299,
-      },
-      {
-        x: "car",
-        y: 235,
-      },
-      {
-        x: "moto",
-        y: 96,
-      },
-      {
-        x: "bicycle",
-        y: 261,
-      },
-      {
-        x: "horse",
-        y: 86,
-      },
-      {
-        x: "skateboard",
-        y: 28,
-      },
-      {
-        x: "others",
-        y: 236,
-      },
-    ],
-  },
-]
+type Price = {
+  date: string
+  price: string
+  grade: string
+}
 
-function PriceGraph() {
+function PriceGraph({ id }: { id: string }) {
+  const { data: prices } = useSWR<Price[]>(`/api/issue/${id}/prices`)
+
+  if (!prices) {
+    return <div>loading</div>
+  }
+
+  const data = [
+    {
+      id: "High Quality",
+      data: prices.map(({ date, price }) => ({ x: date.slice(0, 10), y: price })),
+    },
+  ]
+
+  console.log(data)
+
   return (
-    <ResponsiveLine
-      data={data}
-      xScale={{ type: "point" }}
-      yScale={{
-        type: "linear",
-        min: "auto",
-        max: "auto",
-        stacked: true,
-        reverse: false,
-      }}
-      yFormat=" >-.2f"
-      axisTop={null}
-      axisRight={null}
-      axisBottom={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: "transportation",
-        legendOffset: 36,
-        legendPosition: "middle",
-      }}
-      axisLeft={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: "count",
-        legendOffset: -40,
-        legendPosition: "middle",
-      }}
-      pointSize={10}
-      pointColor={{ theme: "background" }}
-      pointBorderWidth={2}
-      pointBorderColor={{ from: "serieColor" }}
-      pointLabelYOffset={-12}
-      useMesh={true}
-      legends={[
-        {
-          anchor: "bottom-right",
-          direction: "column",
-          justify: false,
-          translateX: 100,
-          translateY: 0,
-          itemsSpacing: 0,
-          itemDirection: "left-to-right",
-          itemWidth: 80,
-          itemHeight: 20,
-          itemOpacity: 0.75,
-          symbolSize: 12,
-          symbolShape: "circle",
-          symbolBorderColor: "rgba(0, 0, 0, .5)",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemBackground: "rgba(0, 0, 0, .03)",
-                itemOpacity: 1,
-              },
-            },
-          ],
-        },
-      ]}
-    />
+    <AutoSizer>
+      {({ width, height }) => (
+        <Line
+          width={width}
+          height={height}
+          data={data}
+          xScale={{
+            type: "point",
+          }}
+          yScale={{
+            type: "linear",
+          }}
+          yFormat=" >-.2f"
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: "transportation",
+            legendOffset: 36,
+            legendPosition: "middle",
+          }}
+          axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: "count",
+            legendOffset: -40,
+            legendPosition: "middle",
+          }}
+          pointSize={10}
+          pointColor={{ theme: "background" }}
+          pointBorderWidth={2}
+          pointBorderColor={{ from: "serieColor" }}
+          pointLabelYOffset={-12}
+          useMesh={true}
+        />
+      )}
+    </AutoSizer>
   )
 }

@@ -26,6 +26,12 @@ type TitleDetails = {
   name: string
 }
 
+type Price = {
+  date: string
+  price: string
+  grade: string
+}
+
 export const getDetails = async (id: string): Promise<IssueDetails> => {
   const issues = await sql<IssueDetails[]>`
     SELECT
@@ -89,5 +95,16 @@ export const getPopularIssues = async (): Promise<Issue[]> => {
     JOIN titles ON titles.id = issues.title_id
     JOIN publishers ON publishers.id = titles.publisher_id
     ORDER BY popular_issues.sales_count DESC
+  `
+}
+
+export const getIssuePrices = async (id: string): Promise<Price[]> => {
+  return await sql<Price[]>`
+    SELECT
+      grade,
+      price,
+      date
+    FROM sales
+    WHERE issue_id = ${id}
   `
 }
