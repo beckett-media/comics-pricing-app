@@ -1,6 +1,4 @@
-import fs from "fs"
-import process from "process"
-import VError from "verror"
+import config from "config"
 
 export type Config = {
   cognitoAwsRegion: string
@@ -14,29 +12,16 @@ export type Config = {
   port: number
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getField = <T = string>(obj: Record<string, any>, key: string): T => {
-  const val = obj[key]
-
-  if (val === undefined) {
-    throw new VError("missing key: %s", key)
-  }
-
-  return val
-}
-
 export const configFromEnv = (): Config => {
-  const json = JSON.parse(fs.readFileSync(getField(process.env, "CONFIG_FILEPATH")).toString())
-
   return {
-    cognitoAwsRegion: getField(json, "cognitoAwsRegion"),
-    cognitoClientId: getField(json, "cognitoClientId"),
-    cognitoUserPoolId: getField(json, "cognitoUserPoolId"),
-    dbHost: getField(json, "dbHost"),
-    dbName: getField(json, "dbName"),
-    dbPassword: getField(json, "dbPassword"),
-    dbUsername: getField(json, "dbUsername"),
-    jwtSecret: getField(json, "jwtSecret"),
-    port: getField<number>(json, "port"),
+    cognitoAwsRegion: config.get("cognitoAwsRegion"),
+    cognitoClientId: config.get("cognitoClientId"),
+    cognitoUserPoolId: config.get("cognitoUserPoolId"),
+    dbHost: config.get("dbHost"),
+    dbName: config.get("dbName"),
+    dbPassword: config.get("dbPassword"),
+    dbUsername: config.get("dbUsername"),
+    jwtSecret: config.get("jwtSecret"),
+    port: Number.parseInt(config.get("port")),
   }
 }
