@@ -5,6 +5,9 @@ import VError from "verror"
 export type Config = {
   cognitoAwsRegion: string
   cognitoClientId: string
+  accessKeyId: string
+  secretAccessKey: string
+  region: string
   cognitoUserPoolId: string
   dbHost: string
   dbName: string
@@ -15,7 +18,7 @@ export type Config = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getField = <T = string>(obj: Record<string, any>, key: string): T => {
+export const getField = <T = string>(obj: Record<string, any>, key: string): T => {
   const val = obj[key]
 
   if (val === undefined) {
@@ -38,5 +41,8 @@ export const configFromEnv = (): Config => {
     dbUsername: getField(json, "dbUsername"),
     jwtSecret: getField(json, "jwtSecret"),
     port: getField<number>(json, "port"),
+    accessKeyId: getField(json, "accessKeyId"),
+    secretAccessKey: getField(json, "secretAccessKey"),
+    region: getField(json, "region"),
   }
 }

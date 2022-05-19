@@ -8,6 +8,8 @@ import IssueDetails from "pages/IssueDetails"
 import Dashboard from "pages/Dashboard"
 import Layout from "components/common/Layout"
 import { withCheckLoggedIn } from "utils/login"
+import Admin from "./pages/Admin"
+
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -20,9 +22,9 @@ export default function App() {
     >
       <Routes>
         <Route path={"/"} element={<Home />} />
-
         <Route path={"/"} element={<AuthenticatedLayout />}>
           <Route path={"dashboard"} element={<Dashboard />} />
+          <Route path={"admin"} element={<Admin />} />
           <Route path={"search"} element={<Search />} />
           <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>

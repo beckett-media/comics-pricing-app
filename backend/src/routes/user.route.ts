@@ -1,30 +1,22 @@
-import axios, { AxiosError } from "axios"
+import { AxiosError } from "axios"
 import { Response, Router } from "express"
-import querystring from "querystring"
 import { HttpCode } from "../constants/httpCode"
-import { config } from "../loader"
 import { TOKEN_USE_CLAIM } from "../middleware/cognito"
-import { signup, Email } from "../services/user.service"
+import {
+  deleteFromWaitList,
+  Email,
+  getWaitList,
+  signup,
+} from "../services/user.service"
 import { RequestWithBody, RequestWithQueryParams } from "../types"
-
-const COGNITO_API_URL = "https://comics.auth.us-east-1.amazoncognito.com/oauth2/token"
+import { createUser, verifyUser } from "../services/cognito.service"
 
 export const userRoutes = Router()
 
 userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, res: Response) => {
   try {
-    const cognitoRes = await axios.post(
-      COGNITO_API_URL,
-      querystring.stringify({
-        grant_type: "authorization_code",
-        client_id: config.cognitoClientId,
-        code: req.query.code,
-        // TODO(michael-sriram): can we just say /api/user/login here? or how do we populate with the server's url
-        redirect_uri: "http://localhost:9000/api/user/login/",
-      })
-    )
-
-    res.cookie(TOKEN_USE_CLAIM, cognitoRes.data.access_token)
+    const { access_token } = await verifyUser(req.query.code)
+    res.cookie(TOKEN_USE_CLAIM, access_token)
     // TODO(michael): include redirect url in request query params?
     res.redirect("http://localhost:3000/dashboard")
   } catch (rawErr) {
@@ -45,9 +37,22 @@ userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, r
   }
 })
 
+userRoutes.get("/waitlist", async (_, res) => {
+  const waitList = await getWaitList()
+  console.log(waitList)
+  res.json(waitList)
+})
+
+userRoutes.post("/createUser", async (req: RequestWithBody<Email>, res) => {
+  await createUser(req.body.name, req.body.email)
+  await deleteFromWaitList(req.body.email)
+  res.json("Created user successfully")
+})
+
 userRoutes.post("/waitlist", async (req: RequestWithBody<Email>, res) => {
   // TODO(sriram): verify all this is correct (use joi probably https://joi.dev/)
-  /* const _out = */ await signup(req.body.email, req.body.name)
+  /* const _out = */
+  await signup(req.body.email, req.body.name)
 
   // res.cookie(LOGIN_TOKEN, out.token, { maxAge: out.maxAge })
   // TODO(michael-sriram): signup() currently returns a list of emails
