@@ -1,5 +1,12 @@
 import { sql } from "../loader"
 
+type Issue = {
+  id: string
+  issue: string
+  title: string
+  publisher: string
+}
+
 type IssueDetails = {
   id: string
   title_id: string
@@ -63,5 +70,20 @@ export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
       JOIN titles as titles_B on titles_B.publisher_id = titles_A.publisher_id
     WHERE issues.id = ${id} AND titles_A.id != titles_B.id
     LIMIT 3
+  `
+}
+
+export const getPopularIssues = async (): Promise<Issue[]> => {
+  return await sql<Issue[]>`
+    SELECT
+      issues.id,
+      issues.name AS issue,
+      titles.name AS title,
+      publishers.name AS publisher
+    FROM popular_issues
+    JOIN issues ON issues.id = popular_issues.issue_id
+    JOIN titles ON titles.id = issues.title_id
+    JOIN publishers ON publishers.id = titles.publisher_id
+    ORDER BY popular_issues.sales_count DESC
   `
 }

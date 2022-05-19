@@ -19,9 +19,8 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cognito.validate(accessToken, (err: any, innerRes: Response) => {
     if (err) {
-      innerRes.status(HttpCode.UNAUTHORIZED).send(err)
-
-      // TODO(michael-sriram): should there be a return here
+      res.status(HttpCode.UNAUTHORIZED).send(err)
+      return
     }
 
     res.locals.user = innerRes
