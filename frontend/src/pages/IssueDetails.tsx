@@ -15,7 +15,7 @@ type IssueDetailsData = {
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
-  const { data: issue, error } = useSWR<IssueDetailsData>(`/api/issue/${issueId}`)
+  const { data: issue, error } = useSWR<IssueDetailsData>(`https://api.comicsprice.guide/api/issue/${issueId}`)
 
   if (error) {
     return <div>{error.toString()}</div>

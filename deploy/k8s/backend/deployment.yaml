@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: 566886264221.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+          image: us-docker.pkg.dev/comics-350704/docker/backend:latest
           imagePullPolicy: Always
           volumeMounts:
             - name: backend-volume

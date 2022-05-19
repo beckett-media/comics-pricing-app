@@ -12,7 +12,7 @@ type IssueDetails = {
 }
 
 export default function PopularComics() {
-  const { data: issues } = useSWR<IssueDetails[]>("/api/issue/popular")
+  const { data: issues } = useSWR<IssueDetails[]>("https://api.comicsprice.guide/api/issue/popular")
 
   if (!issues) {
     return <div>loading</div>

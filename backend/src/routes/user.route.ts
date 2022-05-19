@@ -20,13 +20,17 @@ userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, r
         client_id: config.cognitoClientId,
         code: req.query.code,
         // TODO(michael-sriram): can we just say /api/user/login here? or how do we populate with the server's url
-        redirect_uri: "http://localhost:9000/api/user/login/",
+        redirect_uri: "https://api.comicsprice.guide/api/user/login/",
       })
     )
 
+    const redirectUrl = new URL("https://comicsprice.guide/dashboard")
+
+    redirectUrl.searchParams.set(TOKEN_USE_CLAIM, cognitoRes.data.access_token)
+
     res.cookie(TOKEN_USE_CLAIM, cognitoRes.data.access_token)
     // TODO(michael): include redirect url in request query params?
-    res.redirect("http://localhost:3000/dashboard")
+    res.redirect(redirectUrl.toString())
   } catch (rawErr) {
     // TODO(michael-sriram): do we want to send a message with this response like the other instances of UNAUTHORIZED?
     res.sendStatus(HttpCode.UNAUTHORIZED)

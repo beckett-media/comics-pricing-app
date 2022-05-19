@@ -6,7 +6,7 @@ type RelatedTitlesData = { id: string; name: string }
 
 const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
   const { data: relatedTitles } = useSWR<RelatedTitlesData[]>(
-    `/api/issue/${issueId}/related/titles`
+    `https://api.comicsprice.guide/api/issue/${issueId}/related/titles`
   )
   return (
     <div>

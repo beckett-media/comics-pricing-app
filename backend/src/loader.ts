@@ -2,6 +2,7 @@
 // @ts-ignore
 import CognitoExpress from "cognito-express"
 import cookieParser from "cookie-parser"
+import cors from "cors"
 import express, { Application, ErrorRequestHandler, Router } from "express"
 import logger from "morgan"
 import postgres from "postgres"
@@ -33,6 +34,11 @@ export const createApp = (): Application => {
   const app = express()
 
   app.use(logger("dev"))
+  app.use(cors({
+    origin: "https://comicsprice.guide",
+    credentials: true,
+    optionsSuccessStatus: 200,
+  }))
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())

@@ -3,23 +3,28 @@ kind: Ingress
 metadata:
   name: ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.global-static-ip-name: comics-static-ip
+    networking.gke.io/managed-certificates: managed-cert
+    kubernetes.io/ingress.class: gce
 spec:
-  ingressClassName: nginx
   rules:
-    - http:
+    - host: comicsprice.guide
+      http:
         paths:
-          - path: /api(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-service
-                port:
-                  number: 80
           - path: /
             pathType: Prefix
             backend:
               service:
                 name: frontend-service
+                port:
+                  number: 80
+    - host: api.comicsprice.guide
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service
                 port:
                   number: 80

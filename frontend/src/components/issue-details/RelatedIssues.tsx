@@ -9,7 +9,7 @@ type RelatedIssuesData = { id: string; name: string; title_id: string; title_nam
 
 const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
   const { data: relatedIssues } = useSWR<RelatedIssuesData[]>(
-    `/api/issue/${issueId}/related/issues`
+    `https://api.comicsprice.guide/api/issue/${issueId}/related/issues`
   )
 
   return (

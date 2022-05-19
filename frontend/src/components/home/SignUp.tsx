@@ -12,7 +12,7 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
     event.preventDefault()
     try {
       const emailEntry = { email, name }
-      await axios.post("/api/user/waitlist", emailEntry)
+      await axios.post("https://api.comicsprice.guide/api/user/waitlist", emailEntry)
       setShowForm(false)
       toast("Successfully added to the waitlist!")
     } catch (e) {

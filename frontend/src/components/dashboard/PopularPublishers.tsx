@@ -9,7 +9,7 @@ type PublisherDetails = {
 }
 
 export default function PopularPublishers() {
-  const { data: publishers } = useSWR<PublisherDetails[]>("/api/publisher/popular")
+  const { data: publishers } = useSWR<PublisherDetails[]>("https://api.comicsprice.guide/api/publisher/popular")
 
   if (!publishers) {
     return <div>loading</div>

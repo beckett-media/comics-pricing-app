@@ -10,7 +10,7 @@ type TitleDetails = {
 }
 
 export default function PopularSeries() {
-  const { data: titles } = useSWR<TitleDetails[]>("/api/title/popular")
+  const { data: titles } = useSWR<TitleDetails[]>("https://api.comicsprice.guide/api/title/popular")
 
   if (!titles) {
     return <div>loading</div>

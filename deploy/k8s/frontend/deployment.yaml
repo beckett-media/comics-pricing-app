@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 566886264221.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+          image: us-docker.pkg.dev/comics-350704/docker/frontend:latest
           imagePullPolicy: Always
       restartPolicy: Always
