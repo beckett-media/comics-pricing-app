@@ -44,7 +44,7 @@ function MainDetails({ issue }: { issue: IssueDetailsData }) {
   )
 
   return (
-    <div className="flex w-full flex-row space-x-10 items-stretch">
+    <div className="flex w-full flex-row items-stretch space-x-10">
       <img
         className="max-h-[60vh] object-contain"
         alt={full_issue_name}
@@ -65,7 +65,7 @@ function MainDetails({ issue }: { issue: IssueDetailsData }) {
 
 function Graphs({ id }: { id: string }) {
   return (
-    <div className="grow flex md:flex-row sm:flex-col gap-5 items-stretch">
+    <div className="flex grow items-stretch gap-5 sm:flex-col md:flex-row">
       <div className="grow outline outline-1">
         <PriceGraph id={id} />
       </div>
@@ -120,7 +120,7 @@ function PriceGraph({ id }: { id: string }) {
           }}
           pointSize={10}
           tooltip={(p: any) => (
-            <div className="flex flex-col justify-center items-stretch bg-white p-2 text-xs border rounded">
+            <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs">
               <div className="whitespace-nowrap">
                 <span className="font-bold">Date</span>: {p.point.data.x.toDateString()}
               </div>
