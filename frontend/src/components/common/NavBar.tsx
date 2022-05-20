@@ -26,7 +26,7 @@ function Logo() {
 function useNavigateWithSearchParams() {
   const navigate = useNavigate()
 
-  return (pathname: string, searchParams: any) => navigate({
+  return (pathname: string, searchParams: Record<string, string>) => navigate({
     pathname,
     search: `?${createSearchParams(searchParams)}`
   })
