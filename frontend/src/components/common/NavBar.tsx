@@ -1,37 +1,78 @@
+import { KeyboardEvent, useState } from "react"
+import { createSearchParams, Link, useNavigate } from "react-router-dom"
+
+const logoSrc = "https://beckett-assets.s3.amazonaws.com/beckett-comic-pricing-logo.svg"
+
 export default function NavBar() {
   return (
-    <div className="grid h-24 w-full grid-cols-navbar bg-slate-300">
-      <div className="flex flex-col items-center justify-center text-center text-2xl">
-        <div>COMIC SURGE</div>
+    <div className="sticky top-0 grid z-10 h-24 w-full grid-cols-navbar bg-nav-bar items-center justify-center">
+      <Logo />
+      <Search />
+      <Buttons />
+    </div>
+  )
+}
+
+function Logo() {
+  return (
+    <div className="flex items-center justify-center">
+      <Link to="/">
+        <img src={logoSrc} alt=""/>
+      </Link>
+    </div>
+  )
+}
+
+function useNavigateWithSearchParams() {
+  const navigate = useNavigate()
+
+  return (pathname: string, searchParams: any) => navigate({
+    pathname,
+    search: `?${createSearchParams(searchParams)}`
+  })
+}
+
+function Search() {
+  const [text, setText] = useState("")
+  const navigate = useNavigateWithSearchParams()
+
+  const navigateToSearchPage = () => navigate("/search", { q: text })
+  const onKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      navigateToSearchPage()
+    }
+  }
+
+  return (
+    <div className="flex justify-center gap-3">
+      <div className="flex items-center w-full">
+        <i className="ml-2.5 absolute fa-solid fa-magnifying-glass text-white" />
+        <input
+          className="pl-10 h-8 w-full rounded bg-search-bar text-white focus:outline-none"
+          value={text}
+          onChange={event => setText(event.target.value)}
+          onKeyPress={onKeyPress}
+        />
       </div>
-      <SearchBar />
-      <NavBarButtons />
-    </div>
-  )
-}
-
-function SearchBar() {
-  return (
-    <div className="flex h-full w-full flex-col items-center justify-center">
-      <input className="h-8 w-full rounded bg-slate-100 px-2" placeholder="Search"></input>
-    </div>
-  )
-}
-
-function NavBarButtons() {
-  return (
-    <div className="flex flex-row items-center space-x-2 p-2">
-      <button className="text-text h-8 w-20 rounded-full bg-slate-100 text-center hover:bg-slate-200">
-        search
+      <button
+        className="text-search-text h-8 w-28 rounded-full bg-gradient-to-r from-search-button-start to-search-button-stop text-center"
+        onClick={navigateToSearchPage}
+      >
+        Search
       </button>
-      <div className="flex grow flex-row justify-center space-x-2">
-        <button className="h-8 w-8 rounded-full bg-slate-100 text-center hover:bg-slate-200">
-          N
-        </button>
-        <button className="h-8 w-8 rounded-full bg-slate-100 text-center hover:bg-slate-200">
-          M
-        </button>
-      </div>
+    </div>
+  )
+}
+
+function Buttons() {
+  return (
+    <div className="flex justify-center space-x-7 text-white text-xl">
+      <button>
+        <i className="fa-regular fa-bell" />
+      </button>
+      <button>
+        <i className="fa-solid fa-bars" />
+      </button>
     </div>
   )
 }

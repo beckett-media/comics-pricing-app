@@ -19,7 +19,7 @@ export default function PopularSeries() {
   return (
     <Gallery title="Popular Series">
       {titles.map(({ id, name, publisher }) => (
-        <Title id={id} name={name} publisher={publisher} />
+        <Title key={id} id={id} name={name} publisher={publisher} />
       ))}
     </Gallery>
   )

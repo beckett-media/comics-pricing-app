@@ -18,7 +18,7 @@ export default function PopularPublishers() {
   return (
     <Gallery title="Popular Publishers">
       {publishers.map(({ id, name }) => (
-        <Publisher id={id} name={name} />
+        <Publisher key={id} id={id} name={name} />
       ))}
     </Gallery>
   )
