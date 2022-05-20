@@ -37,6 +37,7 @@ CREATE TABLE issues (
   upc TEXT,
   isbn10 TEXT,
   isbn13 TEXT,
+  comment TEXT,
   title_id UUID REFERENCES titles(id) NOT NULL
 );
 
