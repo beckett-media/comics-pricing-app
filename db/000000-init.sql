@@ -23,9 +23,9 @@ CREATE TABLE publishers (
 CREATE TABLE titles (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL,
-  publisher_id UUID REFERENCES publishers(id) NOT NULL,
-
-  metadata JSONB
+  volume TEXT,
+  comment TEXT,
+  publisher_id UUID REFERENCES publishers(id) NOT NULL
 );
 
 CREATE TABLE issues (
@@ -34,9 +34,11 @@ CREATE TABLE issues (
   name_modifier TEXT,
   month INT,
   year INT,
-  title_id UUID REFERENCES titles(id) NOT NULL,
-
-  metadata JSONB
+  upc TEXT,
+  isbn10 TEXT,
+  isbn13 TEXT,
+  comment TEXT,
+  title_id UUID REFERENCES titles(id) NOT NULL
 );
 
 CREATE TABLE issue_conditions (
