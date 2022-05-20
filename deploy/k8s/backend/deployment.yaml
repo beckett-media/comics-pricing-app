@@ -21,7 +21,7 @@ spec:
               readOnly: true
           env:
             - name: NODE_CONFIG_DIR
-              value: /secret/default.json
+              value: /secret/
       volumes:
         - name: backend-volume
           secret:
