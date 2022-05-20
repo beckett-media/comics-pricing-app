@@ -2,21 +2,16 @@ import { AxiosError } from "axios"
 import { Response, Router } from "express"
 import { HttpCode } from "../constants/httpCode"
 import { TOKEN_USE_CLAIM } from "../middleware/cognito"
-import {
-  deleteFromWaitList,
-  Email,
-  getWaitList,
-  signup,
-} from "../services/user.service"
+import { Email, signup } from "../services/user.service"
 import { RequestWithBody, RequestWithQueryParams } from "../types"
-import { createUser, verifyUser } from "../services/cognito.service"
+import { verifyUser } from "../services/cognito.service"
 
 export const userRoutes = Router()
 
 userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, res: Response) => {
   try {
-    const { access_token } = await verifyUser(req.query.code)
-    res.cookie(TOKEN_USE_CLAIM, access_token)
+    const { id_token } = await verifyUser(req.query.code)
+    res.cookie(TOKEN_USE_CLAIM, id_token)
     // TODO(michael): include redirect url in request query params?
     res.redirect("http://localhost:3000/dashboard")
   } catch (rawErr) {
@@ -35,18 +30,6 @@ userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, r
 
     console.error(err.config)
   }
-})
-
-userRoutes.get("/waitlist", async (_, res) => {
-  const waitList = await getWaitList()
-  console.log(waitList)
-  res.json(waitList)
-})
-
-userRoutes.post("/createUser", async (req: RequestWithBody<Email>, res) => {
-  await createUser(req.body.name, req.body.email)
-  await deleteFromWaitList(req.body.email)
-  res.json("Created user successfully")
 })
 
 userRoutes.post("/waitlist", async (req: RequestWithBody<Email>, res) => {

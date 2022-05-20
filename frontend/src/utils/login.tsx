@@ -2,7 +2,7 @@ import { ComponentType } from "react"
 import { Navigate } from "react-router-dom"
 import Cookies from "js-cookie"
 
-const TOKEN = "access"
+const TOKEN = "id"
 
 export function withCheckLoggedIn(Component: ComponentType) {
   return () => {

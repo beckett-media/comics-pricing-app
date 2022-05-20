@@ -1,5 +1,5 @@
 import axios from "axios"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 import { useState } from "react"
 
 const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolean>> }> = ({
@@ -47,14 +47,6 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
       >
         Join the waitlist
       </button>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: "#FFFFFF",
-          },
-        }}
-      />
     </form>
   )
 }

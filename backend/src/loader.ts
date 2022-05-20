@@ -15,16 +15,18 @@ import { publisherRoutes } from "./routes/publisher.route"
 import { titleRoutes } from "./routes/title.route"
 import { userRoutes } from "./routes/user.route"
 import { logError } from "./util/errorHandling"
+import { adminRoutes } from "./routes/admin.route"
 
 const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 
 const appRouter = (): Router => {
   const router = Router()
 
-  router.use("/publisher", authenticate, publisherRoutes)
-  router.use("/issue", authenticate, issueRoutes)
-  router.use("/title", authenticate, titleRoutes)
+  router.use("/publisher", authenticate(), publisherRoutes)
+  router.use("/issue", authenticate(), issueRoutes)
+  router.use("/title", authenticate(), titleRoutes)
   router.use("/user", userRoutes)
+  router.use("/admin", authenticate(true), adminRoutes)
 
   return router
 }
@@ -36,17 +38,16 @@ export const createApp = (): Application => {
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
+
+  app.use("/", healthCheckRoutes)
+  app.use("/api", appRouter())
   app.use(((err, _req, res, _next) => {
     logError(err)
 
     const status = err instanceof VError ? VError.info(err).code ?? HttpCode.SERVER_ERROR : HttpCode.SERVER_ERROR
-
     // TODO(michael-sriram): do we want to send error as is directly back to client?
-    res.status(status).send(err)
+    res.status(status).send(err.message)
   }) as ErrorRequestHandler)
-
-  app.use("/", healthCheckRoutes)
-  app.use("/api", appRouter())
 
   return app
 }

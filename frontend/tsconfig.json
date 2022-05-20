@@ -8,7 +8,10 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": ["dom", "es6"],
+    "lib": [
+      "dom",
+      "es6"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": false,
@@ -17,7 +20,10 @@
     "resolveJsonModule": true,
     "skipLibCheck": false,
     "strict": true,
+    "useUnknownInCatchVariables": false,
     "target": "es6"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

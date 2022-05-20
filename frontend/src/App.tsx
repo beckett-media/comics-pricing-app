@@ -9,7 +9,7 @@ import Dashboard from "pages/Dashboard"
 import Layout from "components/common/Layout"
 import { withCheckLoggedIn } from "utils/login"
 import Admin from "./pages/Admin"
-
+import { Toaster } from "react-hot-toast"
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -29,6 +29,14 @@ export default function App() {
           <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>
       </Routes>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "#FFFFFF",
+          },
+        }}
+      />
     </SWRConfig>
   )
 }
