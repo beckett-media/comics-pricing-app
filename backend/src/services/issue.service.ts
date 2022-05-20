@@ -14,11 +14,10 @@ type IssueDetails = {
   issue_name: string
   title_name: string
   publisher_name: string
+  volume: string | null
+  comment: string | null
   publication_month: number | null
   publication_year: number | null
-  raw_values: number[]
-  grader_values: number[]
-  update_at: Date
 }
 
 type TitleDetails = {
@@ -41,13 +40,11 @@ export const getDetails = async (id: string): Promise<IssueDetails> => {
       issues.name issue_name,
       titles.name title_name,
       publishers.name publisher_name,
+      titles.volume,
+      issues.comment,
       month publication_month,
-      year publication_year,
-      raw_values,
-      graded_values,
-      updated_at
+      year publication_year
     FROM issues
-      LEFT JOIN issue_conditions ON issues.id = issue_conditions.issue_id
       JOIN titles ON issues.title_id = titles.id
       JOIN publishers ON publishers.id = titles.publisher_id
     WHERE issues.id = ${id}
