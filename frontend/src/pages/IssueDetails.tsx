@@ -46,7 +46,7 @@ function MainDetails({ issue }: { issue: IssueDetailsData }) {
     issue.title_name,
     issue.volume,
     issue.publication_year,
-  ].filter((m) => !!m)
+  ].filter((m) => Boolean(m))
 
   return (
     <div className="flex w-full flex-row items-stretch space-x-10">
