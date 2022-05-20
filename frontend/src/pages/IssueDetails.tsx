@@ -69,7 +69,6 @@ function Graphs({ id }: { id: string }) {
       <div className="grow outline outline-1">
         <PriceGraph id={id} />
       </div>
-      <div className="grow outline outline-1">Scatter Graph</div>
     </div>
   )
 }
@@ -87,14 +86,7 @@ function PriceGraph({ id }: { id: string }) {
     return <div>loading</div>
   }
 
-  const data = [
-    {
-      id: "High Quality",
-      data: prices.map(({ date, price }) => ({ x: date.slice(0, 10), y: price })),
-    },
-  ]
-
-  console.log(data)
+  const data = bucket(prices)
 
   return (
     <AutoSizer>
@@ -103,39 +95,93 @@ function PriceGraph({ id }: { id: string }) {
           width={width}
           height={height}
           data={data}
-          xScale={{
-            type: "point",
+          curve="catmullRom"
+          margin={{
+            top: 20,
+            bottom: 50,
+            right: 20,
+            left: 50,
+          }}
+          xScale={{ type: "time", format: "%Y-%m-%d" }}
+          xFormat="time:%Y-%m-%d"
+          axisBottom={{
+            format: "%Y-%m",
+            tickRotation: -45,
           }}
           yScale={{
             type: "linear",
+            reverse: false,
           }}
-          yFormat=" >-.2f"
-          axisTop={null}
-          axisRight={null}
-          axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: "transportation",
-            legendOffset: 36,
-            legendPosition: "middle",
-          }}
+          yFormat=".2f"
           axisLeft={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: "count",
+            legend: "Price (USD)",
             legendOffset: -40,
             legendPosition: "middle",
           }}
           pointSize={10}
-          pointColor={{ theme: "background" }}
-          pointBorderWidth={2}
-          pointBorderColor={{ from: "serieColor" }}
-          pointLabelYOffset={-12}
+          tooltip={(p: any) => (
+            <div className="flex flex-col justify-center items-stretch bg-white p-2 text-xs border rounded">
+              <div className="whitespace-nowrap">
+                <span className="font-bold">Date</span>: {p.point.data.x.toDateString()}
+              </div>
+              <div className="whitespace-nowrap">
+                <span className="font-bold">Price</span>: ${p.point.data.y.toFixed(2)}
+              </div>
+              <div className="whitespace-nowrap">
+                <span className="font-bold">Grade</span>: {p.point.data.grade}
+              </div>
+            </div>
+          )}
           useMesh={true}
+          legends={[
+            {
+              anchor: "bottom-right",
+              direction: "column",
+              itemWidth: 80,
+              itemHeight: 20,
+              symbolShape: "circle",
+              symbolSize: 10,
+            },
+          ]}
         />
       )}
     </AutoSizer>
   )
+}
+
+// bucket prices into high, medium, and low quality buckets, returning an array that can be passed to a nivo graph
+function bucket(prices: Price[]) {
+  const high = []
+  const med = []
+  const low = []
+
+  for (const p of prices) {
+    const grade = Number(p.grade)
+    if (grade > 8) {
+      high.push(p)
+    } else if (grade > 4) {
+      med.push(p)
+    } else {
+      low.push(p)
+    }
+  }
+
+  return [
+    {
+      id: "Low Quality",
+      data: nivoize(low),
+    },
+    {
+      id: "Medium Quality",
+      data: nivoize(med),
+    },
+    {
+      id: "High Quality",
+      data: nivoize(high),
+    },
+  ]
+}
+
+function nivoize(prices: Price[]) {
+  return prices.map(({ date, price, grade }) => ({ x: date.slice(0, 10), y: price, grade }))
 }
