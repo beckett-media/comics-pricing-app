@@ -14,15 +14,11 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
 
   return (
     <Gallery title="Related Issues">
-      {relatedIssues?.map(({ id, name, title_name }) => {
-        console.log(id, name, title_name)
-
-        return (
-          <Link key={id} to={`/details/${id}`}>
-            <Issue id={id} title={title_name} issue={name} />
-          </Link>
-        )
-      })}
+      {relatedIssues?.map(({ id, name, title_name }) => (
+        <Link key={id} to={`/details/${id}`}>
+          <Issue id={id} title={title_name} issue={name} />
+        </Link>
+      ))}
     </Gallery>
   )
 }
