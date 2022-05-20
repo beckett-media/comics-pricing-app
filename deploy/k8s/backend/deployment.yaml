@@ -20,8 +20,8 @@ spec:
               mountPath: /secret
               readOnly: true
           env:
-            - name: CONFIG_FILEPATH
-              value: /secret/config.json
+            - name: NODE_CONFIG_DIR
+              value: /secret/
       volumes:
         - name: backend-volume
           secret:
