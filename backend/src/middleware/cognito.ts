@@ -4,7 +4,7 @@ import { cognito } from "../loader"
 
 export const TOKEN_USE_CLAIM = "access"
 
-export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
+export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const accessToken = req.cookies[TOKEN_USE_CLAIM]
 
   if (!accessToken) {
@@ -14,17 +14,17 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
     return
   }
 
-  // TODO(michael-sriram): is innerRes really a Response if we're assigning it to res.locals.user?
-  //                                                                                         ^^^^
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cognito.validate(accessToken, (err: any, innerRes: Response) => {
-    if (err) {
-      res.status(HttpCode.UNAUTHORIZED).send(err)
-      return
-    }
+  let user
 
-    res.locals.user = innerRes
+  try {
+    user = await cognito.validate(accessToken)
+  } catch (err) {
+    // TODO(michael-sriram): do we want to send error as is directly back to client?
+    res.status(HttpCode.UNAUTHORIZED).send(err)
+    return
+  }
 
-    next()
-  })
+  res.locals.user = user
+
+  next()
 }
