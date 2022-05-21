@@ -47,6 +47,7 @@ function Refinement({ attribute, title }: RefinementProps) {
       <RefinementList
         attribute={attribute}
         limit={REFINEMENT_LIST_LIMIT}
+        sortBy={["name:asc"]}
         classNames={{
           label: "flex gap-2 items-center",
           labelText: "font-bold",
