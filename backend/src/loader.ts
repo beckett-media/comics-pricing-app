@@ -6,7 +6,7 @@ import express, { Application, ErrorRequestHandler, Router } from "express"
 import logger from "morgan"
 import postgres from "postgres"
 import VError from "verror"
-import { configFromEnv } from "./config"
+import { configFromEnv, getField } from "./config"
 import { HttpCode } from "./constants/httpCode"
 import { authenticate, TOKEN_USE_CLAIM } from "./middleware/cognito"
 import { issueRoutes } from "./routes/issue.route"
@@ -16,6 +16,8 @@ import { titleRoutes } from "./routes/title.route"
 import { userRoutes } from "./routes/user.route"
 import { logError } from "./util/errorHandling"
 import { adminRoutes } from "./routes/admin.route"
+import AWS from "aws-sdk"
+import process from "process"
 
 const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 
@@ -45,21 +47,18 @@ export const createApp = (): Application => {
     logError(err)
 
     const status = err instanceof VError ? VError.info(err).code ?? HttpCode.SERVER_ERROR : HttpCode.SERVER_ERROR
-    // TODO(michael-sriram): do we want to send error as is directly back to client?
     res.status(status).send(err.message)
   }) as ErrorRequestHandler)
 
   return app
 }
 
-// TODO(michael-sriram): is this the right way to handle unhandled rejections?
 process.on("unhandledRejection", (err: Error) => {
   console.error("Unhandled Rejection")
 
   throw err
 })
 
-// TODO(michael-sriram): is this the right way to handle unhandled exceptions?
 process.on("uncaughtException", (err: Error) => {
   logError(err)
   process.exit(UNCAUGHT_EXCEPTION_EXIT_STATUS)
@@ -78,3 +77,7 @@ export const sql = postgres({
   password: config.dbPassword,
   database: config.dbName,
 })
+
+AWS.config.loadFromPath(getField(process.env, "CONFIG_FILEPATH"))
+AWS.config.update({ region: config.region })
+export const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider()

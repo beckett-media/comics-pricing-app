@@ -1,15 +1,8 @@
 import axios from "axios"
 import querystring from "querystring"
-import { config } from "../loader"
-import AWS from "aws-sdk"
-import process from "process"
-import { getField } from "../config"
+import { cognitoIdentityServiceProvider, config } from "../loader"
 import VError from "verror"
 import { HttpCode } from "../constants/httpCode"
-
-AWS.config.loadFromPath(getField(process.env, "CONFIG_FILEPATH"))
-AWS.config.update({ region: "us-east-1" })
-const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider()
 
 const COGNITO_API_URL = "https://comics.auth.us-east-1.amazoncognito.com/oauth2/token"
 type UserTokens = { id_token: string; refresh_token: string }

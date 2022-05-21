@@ -34,11 +34,8 @@ userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, r
 
 userRoutes.post("/waitlist", async (req: RequestWithBody<Email>, res) => {
   // TODO(sriram): verify all this is correct (use joi probably https://joi.dev/)
-  /* const _out = */
   await signup(req.body.email, req.body.name)
 
-  // res.cookie(LOGIN_TOKEN, out.token, { maxAge: out.maxAge })
   // TODO(michael-sriram): signup() currently returns a list of emails
-  // res.send(out)
   res.sendStatus(HttpCode.OK)
 })
