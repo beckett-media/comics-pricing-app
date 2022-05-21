@@ -19,7 +19,7 @@ export const getWaitList = () => {
         info: { code: HttpCode.BAD_REQUEST },
         cause: err as Error,
       },
-      "Failed to get wait list",
+      "Failed to get wait list"
     )
   }
 }
@@ -36,7 +36,7 @@ export const deleteFromWaitList = async (email: string) => {
         info: { code: HttpCode.BAD_REQUEST },
         cause: err as Error,
       },
-      "Failed remove user from wait list",
+      "Failed remove user from wait list"
     )
   }
 }
@@ -57,7 +57,7 @@ export const signup = async (email: string, name: string): Promise<Email[]> => {
         info: { code: HttpCode.BAD_REQUEST },
         cause: err as Error,
       },
-      "Failed to add email or name",
+      "Failed to add email or name"
     )
   }
 }
