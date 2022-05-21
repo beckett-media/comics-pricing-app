@@ -21,9 +21,11 @@ export default function NavBar() {
 }
 
 function Logo() {
+  const { setText } = useContext(NavBarContext)
+
   return (
     <div className="flex items-center justify-center">
-      <Link to="/">
+      <Link to="/dashboard" onClick={() => setText("")}>
         <img src={logoSrc} alt=""/>
       </Link>
     </div>
@@ -34,7 +36,7 @@ function Search() {
   const { text, setText } = useContext(NavBarContext)
   const navigate = useNavigateWithSearchParams()
 
-  const navigateToSearchPage = () => navigate("/search", { q: text })
+  const navigateToSearchPage = () => navigate("/search", text ? { q: text } : {})
   const onKeyPress = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
       navigateToSearchPage()
