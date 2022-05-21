@@ -6,7 +6,7 @@ import express, { Application, ErrorRequestHandler, Router } from "express"
 import logger from "morgan"
 import postgres from "postgres"
 import VError from "verror"
-import { configFromEnv, getField } from "./config"
+import { configFromEnv } from "./config"
 import { HttpCode } from "./constants/httpCode"
 import { authenticate, TOKEN_USE_CLAIM } from "./middleware/cognito"
 import { issueRoutes } from "./routes/issue.route"
@@ -78,6 +78,9 @@ export const sql = postgres({
   database: config.dbName,
 })
 
-AWS.config.loadFromPath(getField(process.env, "CONFIG_FILEPATH"))
-AWS.config.update({ region: config.region })
+AWS.config.update({
+  region: config.region,
+  accessKeyId: config.accessKeyId,
+  secretAccessKey: config.secretAccessKey,
+})
 export const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider()
