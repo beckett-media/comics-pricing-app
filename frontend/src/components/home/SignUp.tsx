@@ -3,8 +3,8 @@ import toast from "react-hot-toast"
 import React, { useState } from "react"
 
 const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolean>> }> = ({
-  setShowForm,
-}) => {
+                                                                                            setShowForm,
+                                                                                          }) => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
 
@@ -38,7 +38,7 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
           type="text"
           onChange={(e) => verifyUsername(e.target.value)}
           value={username}
-          className="focus:shadow-outline w-full appearance-none border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+          className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </label>
       <label>
@@ -47,12 +47,12 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
           placeholder={"your best email"}
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          className="focus:shadow-outline w-full appearance-none border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+          className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </label>
       <button
         type={"submit"}
-        className="focus:shadow-outline w-full bg-white py-3 text-black hover:bg-slate-100 focus:outline-none"
+        className="bg-white hover:bg-slate-100 text-black py-3 w-full focus:outline-none focus:shadow-outline"
       >
         Join the waitlist
       </button>
