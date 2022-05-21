@@ -3,7 +3,8 @@ import { Link } from "react-router-dom"
 
 type Issue = {
   id: string
-  name: string
+  title_name: string
+  issue_name: string
 }
 
 export default function TrendingTitles() {
@@ -14,9 +15,11 @@ export default function TrendingTitles() {
       <div className="h-32 bg-stone-800">
         <div className="text-sm text-white">🔥 Trending Titles</div>
         <span className="text-xs text-white">
-          {issues?.slice(0, 5).map(({ id, name }) => (
-            <div className="flex flex-row justify-between">
-              <p className="">{name.split(",")[0]}</p>
+          {issues?.slice(0, 5).map(({ id, title_name, issue_name }) => (
+            <div className="flex flex-row justify-between border-t">
+              <p className="">
+                {title_name} #{issue_name}
+              </p>
 
               <Link key={id} to={`/details/${id}`}>
                 <p> view prices ▻</p>

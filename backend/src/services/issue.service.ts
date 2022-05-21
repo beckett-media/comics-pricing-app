@@ -23,7 +23,8 @@ type IssueDetails = {
 
 type TitleDetails = {
   id: string
-  name: string
+  title_name: string
+  issue_name: string
 }
 
 type Price = {
@@ -125,7 +126,8 @@ export const getTrendingIssues = async (): Promise<TitleDetails[]> => {
     )
     SELECT
       i.id, 
-      titles.name
+      titles.name AS title_name,
+      i.name AS issue_name
     FROM  issues i 
     JOIN salecount t ON i.id = t.issue_id 
     JOIN titles ON titles.id = i.title_id 
