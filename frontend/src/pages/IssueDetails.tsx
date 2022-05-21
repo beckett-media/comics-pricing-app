@@ -84,7 +84,7 @@ type Price = {
 }
 
 function PriceGraph({ id }: { id: string }) {
-  const { data: prices } = useSWR<Price[]>(`/api/issue/${id}/prices`)
+  const { data: prices } = useSWR<Price[]>(`https://api.comicsprice.guide/api/issue/${id}/prices`)
 
   if (!prices) {
     return <div>loading</div>
