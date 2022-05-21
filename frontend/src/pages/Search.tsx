@@ -1,6 +1,6 @@
 import algoliasearch from "algoliasearch/lite"
 import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import {
   Configure,
   Hits,
@@ -91,11 +91,18 @@ function Hit({ hit: { issue_id, title_name, issue_name, publisher_name } }: HitP
 function Page() {
   const { clear, refine } = useSearchBox()
   const { text: query } = useContext(NavBarContext)
+  const [searchParams] = useSearchParams()
 
   if (query) {
     refine(query)
   } else {
-    clear()
+    const searchedQuery = searchParams.get("q")
+
+    if (searchedQuery) {
+      refine(searchedQuery)
+    } else {
+      clear()
+    }
   }
 
   return (
