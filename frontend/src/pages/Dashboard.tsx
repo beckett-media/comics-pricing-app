@@ -10,12 +10,12 @@ import TrendingTitles from "../components/dashboard/TrendingTitles"
 
 export default function Dashboard() {
   return (
-    <div className="px-10 space-y-10 my-10">
+    <div className="my-10 space-y-10 px-10">
       <div className="flex flex-row space-x-5">
         <News />
         <RecentlyViewed />
       </div>
-      <div className="flex flex-row space-x-5">
+      <div className="flex flex-row space-x-2">
         <TrendingTitles />
         <RecentPriceDrops />
         <NewComics />

@@ -1,4 +1,5 @@
 import { sql } from "../loader"
+import dayjs from 'dayjs'
 
 type Issue = {
   id: string
@@ -105,3 +106,32 @@ export const getIssuePrices = async (id: string): Promise<Price[]> => {
     WHERE issue_id = ${id}
   `
 }
+
+export const getTrendingIssues = async (): Promise<TitleDetails[]> => {
+  const date = dayjs().subtract(2, 'month').format("MM-DD-YYYY")
+  return await sql<TitleDetails[]>`
+  WITH salecount AS (
+    SELECT
+      s.issue_id,
+      COUNT(DISTINCT s.*) count
+    FROM
+      sales s
+    WHERE
+      s.date >= ${date}
+    GROUP BY
+      s.issue_id
+    ORDER BY
+      count DESC
+    )
+    SELECT
+      i.id, 
+      titles.name
+    FROM  issues i 
+    JOIN salecount t ON i.id = t.issue_id 
+    JOIN titles ON titles.id = i.title_id 
+  `
+}
+
+
+
+

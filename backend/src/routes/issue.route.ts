@@ -5,6 +5,7 @@ import {
   getDetails,
   getRelatedTitles,
   getRelatedIssues,
+  getTrendingIssues,
 } from "../services/issue.service"
 import { RequestWithParams } from "../types"
 
@@ -14,6 +15,11 @@ issueRoutes.get("/popular", async (_req: Request, res: Response) => {
   res.json(await getPopularIssues())
 })
 
+issueRoutes.get('/trending', async (_req: Request, res: Response)=> {
+  res.json(await getTrendingIssues())
+})
+
+// 💩
 issueRoutes.get("/:id", async (req: RequestWithParams<{ id: string }>, res: Response) => {
   res.json(await getDetails(req.params.id))
 })
