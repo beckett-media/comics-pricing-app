@@ -1,5 +1,6 @@
 import algoliasearch from "algoliasearch/lite"
-import { Link, useSearchParams } from "react-router-dom"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
 import {
   Configure,
   Hits,
@@ -9,6 +10,7 @@ import {
   useSearchBox,
 } from "react-instantsearch-hooks-web"
 
+import { NavBarContext } from "components/common/NavBar"
 import { getIssueImage } from "utils/imagePath"
 
 const INDEX_NAME = "tmp-index"
@@ -87,10 +89,8 @@ function Hit({ hit: { issue_id, title_name, issue_name, publisher_name } }: HitP
 }
 
 function Page() {
-  const [searchParams] = useSearchParams()
   const { clear, refine } = useSearchBox()
-
-  const query = searchParams.get("q")
+  const { text: query } = useContext(NavBarContext)
 
   if (query) {
     refine(query)

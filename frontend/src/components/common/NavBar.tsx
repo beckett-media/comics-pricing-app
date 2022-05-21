@@ -1,9 +1,14 @@
-import { KeyboardEvent, useState } from "react"
-import { createSearchParams, Link, useNavigate } from "react-router-dom"
+import { createContext, KeyboardEvent, useContext } from "react"
+import { Link } from "react-router-dom"
 
 import { useNavigateWithSearchParams } from "utils/router"
 
 const logoSrc = "https://beckett-assets.s3.amazonaws.com/beckett-comic-pricing-logo.svg"
+
+export const NavBarContext = createContext({
+  text: "",
+  setText: (_text: string) => {}
+})
 
 export default function NavBar() {
   return (
@@ -26,7 +31,7 @@ function Logo() {
 }
 
 function Search() {
-  const [text, setText] = useState("")
+  const { text, setText } = useContext(NavBarContext)
   const navigate = useNavigateWithSearchParams()
 
   const navigateToSearchPage = () => navigate("/search", { q: text })
