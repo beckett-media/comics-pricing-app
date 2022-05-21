@@ -7,7 +7,7 @@ import Search from "pages/Search"
 import IssueDetails from "pages/IssueDetails"
 import Dashboard from "pages/Dashboard"
 import Layout from "components/common/Layout"
-import { withCheckLoggedIn } from "utils/login"
+import { withCheckLoggedIn } from "utils/router"
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)

@@ -1,6 +1,8 @@
 import { KeyboardEvent, useState } from "react"
 import { createSearchParams, Link, useNavigate } from "react-router-dom"
 
+import { useNavigateWithSearchParams } from "utils/router"
+
 const logoSrc = "https://beckett-assets.s3.amazonaws.com/beckett-comic-pricing-logo.svg"
 
 export default function NavBar() {
@@ -21,15 +23,6 @@ function Logo() {
       </Link>
     </div>
   )
-}
-
-function useNavigateWithSearchParams() {
-  const navigate = useNavigate()
-
-  return (pathname: string, searchParams: Record<string, string>) => navigate({
-    pathname,
-    search: `?${createSearchParams(searchParams)}`
-  })
 }
 
 function Search() {

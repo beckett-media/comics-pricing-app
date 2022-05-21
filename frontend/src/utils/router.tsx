@@ -13,3 +13,12 @@ export function withCheckLoggedIn(Component: ComponentType) {
     return cookie ? <Component /> : <Navigate to={"/"} />
   }
 }
+
+function useNavigateWithSearchParams() {
+  const navigate = useNavigate()
+
+  return (pathname: string, searchParams: Record<string, string>) => navigate({
+    pathname,
+    search: `?${createSearchParams(searchParams)}`
+  })
+}
