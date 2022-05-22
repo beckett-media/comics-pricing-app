@@ -100,31 +100,26 @@ export const getIssuePrices = async (id: string): Promise<Price[]> => {
   `
 }
 
-export const getTrendingIssues = async (): Promise<TitleDetails[]> => {
-  return await sql<TitleDetails[]>`
-  WITH salecount AS (
-    SELECT
-      s.issue_id,
-      COUNT(DISTINCT s.*) count
-    FROM
-      sales s
-    WHERE
-      s.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
-    GROUP BY
-      s.issue_id
-    ORDER BY
-      count DESC
+// TODO(enricozb): make this into a materialized view
+export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
+  return await sql<IssueMinimal[]>`
+    WITH sales_counts AS (
+      SELECT
+        sales.issue_id,
+        COUNT(*) sales_count
+      FROM sales
+      WHERE sales.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
+      GROUP BY sales.issue_id
+      ORDER BY sales_count DESC
     )
     SELECT
-      i.id, 
-      titles.name AS title_name,
-      i.name AS issue_name
-    FROM  issues i 
-    JOIN salecount t ON i.id = t.issue_id 
-    JOIN titles ON titles.id = i.title_id 
+      issues.id,
+      issues.name issue,
+      titles.name title
+    FROM issues
+    JOIN titles ON titles.id = issues.title_id
+    JOIN publishers ON publishers.id = titles.publisher_id
+    JOIN sales_counts ON sales_counts.issue_id = issues.id
+    LIMIT 3
   `
 }
-
-
-
-
