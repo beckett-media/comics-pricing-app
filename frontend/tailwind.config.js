@@ -1,5 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
+  safelist: ["bg-golden-age", "bg-silver-age", "bg-bronze-age", "bg-copper-age", "bg-modern-age"],
   theme: {
     extend: {
       colors: {

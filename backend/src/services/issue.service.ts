@@ -8,15 +8,19 @@ export const getDetails = async (id: string): Promise<IssueFull> => {
       issues.name issue,
       titles.name title,
       publishers.name publisher,
-      titles.id title_id,
+      issues.title_id,
       titles.publisher_id,
+      issues.age,
+      issues.cover_price,
       titles.volume,
       issues.comment,
       month publication_month,
-      year publication_year
+      year publication_year,
+      prices.price current_price
     FROM issues
       JOIN titles ON issues.title_id = titles.id
       JOIN publishers ON publishers.id = titles.publisher_id
+      JOIN prices ON prices.issue_id = issues.id
     WHERE issues.id = ${id}
     LIMIT 1
   `
