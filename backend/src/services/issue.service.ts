@@ -101,5 +101,6 @@ export const getIssuePrices = async (id: string): Promise<Price[]> => {
       date
     FROM sales
     WHERE issue_id = ${id}
+    ORDER BY date DESC
   `
 }
