@@ -55,6 +55,6 @@ userRoutes.post("/waitlist", async (req: RequestWithBody<Email>, res) => {
   res.sendStatus(HttpCode.OK)
 })
 
-userRoutes.get("/authenticated", async (req: Request, res) => {
+userRoutes.get("/authenticated", async (_req: Request, res: Response) => {
   res.sendStatus(HttpCode.OK)
 })
