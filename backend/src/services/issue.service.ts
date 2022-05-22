@@ -1,5 +1,4 @@
 import { sql } from "../loader"
-import dayjs from 'dayjs'
 
 type Issue = {
   id: string
@@ -109,7 +108,6 @@ export const getIssuePrices = async (id: string): Promise<Price[]> => {
 }
 
 export const getTrendingIssues = async (): Promise<TitleDetails[]> => {
-  const date = dayjs().subtract(2, 'month').format("MM-DD-YYYY")
   return await sql<TitleDetails[]>`
   WITH salecount AS (
     SELECT
@@ -118,7 +116,7 @@ export const getTrendingIssues = async (): Promise<TitleDetails[]> => {
     FROM
       sales s
     WHERE
-      s.date >= ${date}
+      s.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
     GROUP BY
       s.issue_id
     ORDER BY
