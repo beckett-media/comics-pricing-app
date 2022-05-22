@@ -13,3 +13,10 @@ export type IssueFull = IssueMinimal & {
   publication_month: number | null
   publication_year: number | null
 }
+
+export type Title = {
+  id: string
+  name: string
+  publisher: string
+  publisher_id: string
+}

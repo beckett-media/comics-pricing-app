@@ -1,10 +1,5 @@
 import { sql } from "../loader"
-import type { IssueMinimal, IssueFull } from "types/api"
-
-type TitleDetails = {
-  id: string
-  name: string
-}
+import type { IssueMinimal, IssueFull, Title } from "types/api"
 
 type Price = {
   date: string
@@ -53,15 +48,34 @@ export const getRelatedIssues = async (id: string): Promise<IssueMinimal[]> => {
   `
 }
 
-export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
-  return await sql<TitleDetails[]>`
+export const getRelatedTitles = async (id: string): Promise<Title[]> => {
+  const title = (
+    await sql<Title[]>`
     SELECT
-      titles_B.id id,
-      titles_B.name
+      titles.id,
+      titles.name,
+      publishers.name publisher,
+      publishers.id publisher_id
     FROM issues
-      JOIN titles as titles_A on issues.title_id = titles_A.id
-      JOIN titles as titles_B on titles_B.publisher_id = titles_A.publisher_id
-    WHERE issues.id = ${id} AND titles_A.id != titles_B.id
+      JOIN titles ON titles.id = issues.title_id
+      JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE issues.id = ${id}
+    LIMIT 1
+  `
+  )[0]
+
+  return await sql<Title[]>`
+    SELECT
+      titles.id,
+      titles.name,
+      publishers.name publisher,
+      publishers.id publisher_id
+    FROM titles
+      JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE
+      titles.name = ${title.name} AND
+      publishers.id = ${title.publisher_id} AND
+      titles.id != ${title.id}
     LIMIT 3
   `
 }
