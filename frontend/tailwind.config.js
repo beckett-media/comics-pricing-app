@@ -2,6 +2,33 @@ module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "tmp-search-text": "#0C0822",
+        "tmp-icon": "#FFFFFF",
+
+        "hdr-ftr": "#161032",
+        "form-fields": "#42404D",
+        "hdr-body-text": "#ffffff",
+        "primary-link-text": "#ffffff",
+        "secondary-link-text": "#66C9FF",
+        "primary-button-start": "#C1F8E3",
+        "primary-button-stop": "#6CD7D4",
+        "button-text": "#161032",
+        "key-issue": "#299D6D",
+        "golden-age": "#A8763B",
+        "silver-age": "#58646D",
+        "bronze-age": "#6D492A",
+        "copper-age": "#9F6857",
+        "modern-age": "#4C9E9D",
+        "ticker-down": "#12DB88",
+        "ticker-up": "#FECC6A",
+        "sign-in-start": "#494752",
+        "sign-in-stop": "#493C6F",
+        "platform-start": "#494752",
+        "platform-stop": "#2D2833",
+        "container-outer": "#212022",
+        "container-inner": "#45434E",
+      },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",
       },
