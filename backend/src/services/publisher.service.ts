@@ -1,10 +1,8 @@
 import { sql } from "../loader"
 
-type Publisher = {
-  id: string
-  name: string
-}
+import type { Publisher } from "types/api"
 
+// TODO(enricozb): make a materialized view for this
 export const getPopularPublishers = async (): Promise<Publisher[]> => {
   return await sql<Publisher[]>`
     SELECT

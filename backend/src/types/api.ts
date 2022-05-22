@@ -21,6 +21,11 @@ export type Title = {
   publisher_id: string
 }
 
+export type Publisher = {
+  id: string
+  name: string
+}
+
 export type Price = {
   date: string
   price: string
