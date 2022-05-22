@@ -11,6 +11,7 @@ import { HttpCode } from "./constants/httpCode"
 import { authenticate, TOKEN_USE_CLAIM } from "./middleware/cognito"
 import { issueRoutes } from "./routes/issue.route"
 import { healthCheckRoutes } from "./routes/healthCheck.route"
+import { authRoutes } from "./routes/auth.route"
 import { publisherRoutes } from "./routes/publisher.route"
 import { titleRoutes } from "./routes/title.route"
 import { userRoutes } from "./routes/user.route"
@@ -21,6 +22,7 @@ const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 const appRouter = (): Router => {
   const router = Router()
 
+  router.use("/auth", authenticate, authRoutes)
   router.use("/publisher", authenticate, publisherRoutes)
   router.use("/issue", authenticate, issueRoutes)
   router.use("/title", authenticate, titleRoutes)

@@ -1,24 +1,29 @@
 import { ComponentType } from "react"
+import useSWR from "swr"
 import { createSearchParams, Navigate, useNavigate } from "react-router-dom"
-import Cookies from "js-cookie"
-
-const TOKEN = "access"
 
 export function withCheckLoggedIn(Component: ComponentType) {
   return () => {
-    const cookie = Cookies.get(TOKEN)
+    const { data, error } = useSWR(`/api/auth/check`)
 
-    // TODO(enricozb): cookie needs to be validated
+    if (error) {
+      return <Navigate to={"/"} />
+    }
 
-    return cookie ? <Component /> : <Navigate to={"/"} />
+    if (!data) {
+      return <div>loading</div>
+    }
+
+    return <Component />
   }
 }
 
 export function useNavigateWithSearchParams() {
   const navigate = useNavigate()
 
-  return (pathname: string, searchParams: Record<string, string>) => navigate({
-    pathname,
-    search: `?${createSearchParams(searchParams)}`
-  })
+  return (pathname: string, searchParams: Record<string, string>) =>
+    navigate({
+      pathname,
+      search: `?${createSearchParams(searchParams)}`,
+    })
 }
