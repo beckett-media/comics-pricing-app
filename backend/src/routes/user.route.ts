@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { Request, Response, Router } from "express"
+import { Response, Router } from "express"
 import querystring from "querystring"
 import { HttpCode } from "../constants/httpCode"
 import { config } from "../loader"
@@ -52,9 +52,5 @@ userRoutes.post("/waitlist", async (req: RequestWithBody<Email>, res) => {
   // res.cookie(LOGIN_TOKEN, out.token, { maxAge: out.maxAge })
   // TODO(michael-sriram): signup() currently returns a list of emails
   // res.send(out)
-  res.sendStatus(HttpCode.OK)
-})
-
-userRoutes.get("/authenticated", async (_req: Request, res: Response) => {
   res.sendStatus(HttpCode.OK)
 })

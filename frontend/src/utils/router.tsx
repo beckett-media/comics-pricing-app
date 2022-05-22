@@ -4,7 +4,7 @@ import { createSearchParams, Navigate, useNavigate } from "react-router-dom"
 
 export function withCheckLoggedIn(Component: ComponentType) {
   return () => {
-    const { data, error } = useSWR(`/api/user/authenticated`)
+    const { data, error } = useSWR(`/api/auth/check`)
 
     if (error) {
       return <Navigate to={"/"} />
