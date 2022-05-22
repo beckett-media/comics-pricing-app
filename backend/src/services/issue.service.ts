@@ -1,11 +1,5 @@
 import { sql } from "../loader"
-import type { IssueMinimal, IssueFull, Title } from "types/api"
-
-type Price = {
-  date: string
-  price: string
-  grade: string
-}
+import type { IssueMinimal, IssueFull, Title, Price } from "types/api"
 
 export const getDetails = async (id: string): Promise<IssueFull> => {
   const issues = await sql<IssueFull[]>`

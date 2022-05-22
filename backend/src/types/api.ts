@@ -20,3 +20,9 @@ export type Title = {
   publisher: string
   publisher_id: string
 }
+
+export type Price = {
+  date: string
+  price: string
+  grade: string
+}
