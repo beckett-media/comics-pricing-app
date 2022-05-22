@@ -1,13 +1,10 @@
 import useSWR from "swr"
 import React from "react"
 import { getTitleImage } from "../../utils/imagePath"
-
-type RelatedTitlesData = { id: string; name: string }
+import { Title } from "types/api"
 
 const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
-  const { data: relatedTitles } = useSWR<RelatedTitlesData[]>(
-    `/api/issue/${issueId}/related/titles`
-  )
+  const { data: relatedTitles } = useSWR<Title[]>(`/api/issue/${issueId}/related/titles`)
   return (
     <div>
       <p className={"text-center"}>

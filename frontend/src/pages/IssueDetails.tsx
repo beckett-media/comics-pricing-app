@@ -5,23 +5,11 @@ import { Line } from "@nivo/line"
 
 import RelatedIssues from "components/issue-details/RelatedIssues"
 import { getIssueImage } from "utils/imagePath"
-
-type IssueDetailsData = {
-  id: string
-  title_id: string
-  publisher_id: string
-  issue_name: string
-  title_name: string
-  publisher_name: string
-  volume: string | null
-  comment: string | null
-  publication_month: number | null
-  publication_year: number | null
-}
+import type { IssueFull, Price } from "types/api"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
-  const { data: issue, error } = useSWR<IssueDetailsData>(`/api/issue/${issueId}`)
+  const { data: issue, error } = useSWR<IssueFull>(`/api/issue/${issueId}`)
 
   if (error) {
     return <div>{error.toString()}</div>
@@ -39,14 +27,11 @@ export default function IssueDetails() {
   )
 }
 
-function MainDetails({ issue }: { issue: IssueDetailsData }) {
-  const full_issue_name = `${issue.title_name} #${issue.issue_name}`
-  const metadata = [
-    issue.publisher_name,
-    issue.title_name,
-    issue.volume,
-    issue.publication_year,
-  ].filter((m) => Boolean(m))
+function MainDetails({ issue }: { issue: IssueFull }) {
+  const full_issue_name = `${issue.title} #${issue.issue}`
+  const metadata = [issue.publisher, issue.title, issue.volume, issue.publication_year].filter(
+    (m) => Boolean(m)
+  )
 
   return (
     <div className="flex w-full flex-row items-stretch space-x-10">
@@ -75,12 +60,6 @@ function Graphs({ id }: { id: string }) {
       </div>
     </div>
   )
-}
-
-type Price = {
-  date: string
-  price: string
-  grade: string
 }
 
 function PriceGraph({ id }: { id: string }) {
