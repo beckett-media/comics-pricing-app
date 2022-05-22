@@ -5,7 +5,7 @@ import { HttpCode } from "../constants/httpCode"
 import { config } from "../loader"
 import { TOKEN_USE_CLAIM } from "../middleware/cognito"
 import { signup, Email } from "../services/user.service"
-import { RequestWithBody, RequestWithQueryParams } from "../types"
+import { RequestWithBody, RequestWithQueryParams } from "types/express"
 
 const COGNITO_API_URL = "https://comics.auth.us-east-1.amazoncognito.com/oauth2/token"
 

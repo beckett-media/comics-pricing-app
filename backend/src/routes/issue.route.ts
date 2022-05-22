@@ -6,7 +6,7 @@ import {
   getRelatedTitles,
   getRelatedIssues,
 } from "../services/issue.service"
-import { RequestWithParams } from "../types"
+import { RequestWithParams } from "types/express"
 
 export const issueRoutes = Router()
 
