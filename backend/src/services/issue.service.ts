@@ -1,24 +1,5 @@
 import { sql } from "../loader"
-
-type Issue = {
-  id: string
-  issue: string
-  title: string
-  publisher: string
-}
-
-type IssueDetails = {
-  id: string
-  title_id: string
-  publisher_id: string
-  issue_name: string
-  title_name: string
-  publisher_name: string
-  volume: string | null
-  comment: string | null
-  publication_month: number | null
-  publication_year: number | null
-}
+import type { IssueMinimal, IssueFull } from "types/api"
 
 type TitleDetails = {
   id: string
@@ -31,15 +12,15 @@ type Price = {
   grade: string
 }
 
-export const getDetails = async (id: string): Promise<IssueDetails> => {
-  const issues = await sql<IssueDetails[]>`
+export const getDetails = async (id: string): Promise<IssueFull> => {
+  const issues = await sql<IssueFull[]>`
     SELECT
       issues.id id,
+      issues.name issue,
+      titles.name title,
+      publishers.name publisher,
       titles.id title_id,
       titles.publisher_id,
-      issues.name issue_name,
-      titles.name title_name,
-      publishers.name publisher_name,
       titles.volume,
       issues.comment,
       month publication_month,
@@ -48,27 +29,32 @@ export const getDetails = async (id: string): Promise<IssueDetails> => {
       JOIN titles ON issues.title_id = titles.id
       JOIN publishers ON publishers.id = titles.publisher_id
     WHERE issues.id = ${id}
+    LIMIT 1
   `
 
   return issues[0]
 }
 
-export const getRelatedIssues = async (id: string): Promise<IssueDetails[]> => {
-  return await sql<IssueDetails[]>`
+export const getRelatedIssues = async (id: string): Promise<IssueMinimal[]> => {
+  return await sql<IssueMinimal[]>`
     SELECT
-      B.id id,
-      B.name name,
-      B.title_id,
-      titles.name title_name
-    FROM issues A, issues B
-      JOIN titles on B.title_id = titles.id
-    WHERE A.title_id = B.title_id AND A.id = ${id} and A.id != B.id
+      related.id,
+      related.name issue,
+      titles.name title,
+      publishers.name publisher
+    FROM issues related
+      JOIN issues ON issues.title_id = related.title_id
+      JOIN titles ON titles.id = related.title_id
+      JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE
+      related.id != ${id} AND
+      issues.id = ${id}
     LIMIT 5
   `
 }
 
 export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
-  return await sql`
+  return await sql<TitleDetails[]>`
     SELECT
       titles_B.id id,
       titles_B.name
@@ -80,8 +66,8 @@ export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
   `
 }
 
-export const getPopularIssues = async (): Promise<Issue[]> => {
-  return await sql<Issue[]>`
+export const getPopularIssues = async (): Promise<IssueMinimal[]> => {
+  return await sql<IssueMinimal[]>`
     SELECT
       issues.id,
       issues.name AS issue,
