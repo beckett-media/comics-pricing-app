@@ -20,7 +20,7 @@ export default function IssueDetails() {
   }
 
   return (
-    <div className="flex w-full flex-col space-y-10 p-10">
+    <div className="flex w-full flex-col space-y-10 py-10 px-24">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue.id} />
     </div>
@@ -28,36 +28,56 @@ export default function IssueDetails() {
 }
 
 function MainDetails({ issue }: { issue: IssueFull }) {
-  const full_issue_name = `${issue.title} #${issue.issue}`
-  const metadata = [issue.publisher, issue.title, issue.volume, issue.publication_year].filter(
-    (m) => Boolean(m)
+  const metadata = [issue.publisher, issue.volume, `Issue #${issue.issue}`].filter((m) =>
+    Boolean(m)
   )
 
   return (
-    <div className="flex w-full flex-row items-stretch space-x-10">
+    <div className="grid w-full grid-cols-2 gap-10 rounded bg-container-outer py-10 px-12 text-common-text">
       <img
-        className="max-h-[60vh] object-contain"
-        alt={full_issue_name}
+        className="w-full object-contain"
+        alt={`${issue.title} #${issue.issue}`}
         src={getIssueImage(issue.id)}
       />
-      <div className="flex grow flex-col space-y-5">
-        <div className="text-3xl">{full_issue_name}</div>
+      <div className="flex min-w-0 grow flex-col gap-5">
+        <div className="text-xl font-bold">{issue.title}</div>
         <div className="text-sm">{metadata.join(" | ")}</div>
-        {issue.comment && (
-          <div className="w-full p-2 text-sm outline outline-1">{issue.comment}</div>
-        )}
+        <Chips issue={issue} />
+        <Details issue={issue} />
         <Graphs id={issue.id} />
       </div>
     </div>
   )
 }
 
+function Chips({}: { issue: IssueFull }) {
+  return (
+    <div className="flex w-full gap-2 text-xs">
+      <div className="rounded bg-key-issue py-1 px-2">Key Issue</div>
+      <div className="rounded bg-copper-age py-1 px-2">Copper Age</div>
+    </div>
+  )
+}
+
+function Details({ issue }: { issue: IssueFull }) {
+  if (!issue.comment) {
+    return null
+  }
+
+  return (
+    <div className="w-full rounded bg-container-inner py-4 px-5 text-sm">
+      <div className="mb-2">
+        <span className="font-semibold">Issue Details</span>
+      </div>
+      <div>{issue.comment}</div>
+    </div>
+  )
+}
+
 function Graphs({ id }: { id: string }) {
   return (
-    <div className="flex grow items-stretch gap-5 sm:flex-col md:flex-row">
-      <div className="grow outline outline-1">
-        <PriceGraph id={id} />
-      </div>
+    <div className="h-72 w-full rounded bg-container-inner">
+      <PriceGraph id={id} />
     </div>
   )
 }
@@ -72,63 +92,88 @@ function PriceGraph({ id }: { id: string }) {
   const data = bucket(prices)
 
   return (
-    <AutoSizer>
-      {({ width, height }) => (
-        <Line
-          width={width}
-          height={height}
-          data={data}
-          curve="catmullRom"
-          margin={{
-            top: 20,
-            bottom: 50,
-            right: 20,
-            left: 50,
-          }}
-          xScale={{ type: "time", format: "%Y-%m-%d" }}
-          xFormat="time:%Y-%m-%d"
-          axisBottom={{
-            format: "%Y-%m",
-            tickRotation: -45,
-          }}
-          yScale={{
-            type: "linear",
-            reverse: false,
-          }}
-          yFormat=".2f"
-          axisLeft={{
-            legend: "Price (USD)",
-            legendOffset: -40,
-            legendPosition: "middle",
-          }}
-          pointSize={10}
-          tooltip={(p: any) => (
-            <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs">
-              <div className="whitespace-nowrap">
-                <span className="font-bold">Date</span>: {p.point.data.x.toDateString()}
-              </div>
-              <div className="whitespace-nowrap">
-                <span className="font-bold">Price</span>: ${p.point.data.y.toFixed(2)}
-              </div>
-              <div className="whitespace-nowrap">
-                <span className="font-bold">Grade</span>: {p.point.data.grade}
-              </div>
-            </div>
+    <div className="flex h-full w-full flex-col py-4 px-5">
+      <div className="w-full text-center text-sm">Prices Over Time</div>
+      <div className="min-w-0 grow">
+        <AutoSizer>
+          {({ width, height }) => (
+            <Line
+              width={width}
+              height={height}
+              data={data}
+              curve="catmullRom"
+              margin={{
+                top: 20,
+                bottom: 65,
+                right: 5,
+                left: 30,
+              }}
+              xScale={{ type: "time", format: "%Y-%m-%d" }}
+              xFormat="time:%Y-%m-%d"
+              axisBottom={{
+                format: "%Y-%m",
+                tickRotation: -45,
+                tickValues: 6,
+              }}
+              yScale={{
+                type: "linear",
+                reverse: false,
+              }}
+              yFormat=".2f"
+              pointSize={10}
+              tooltip={(p: any) => (
+                <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs text-black">
+                  <div className="whitespace-nowrap">
+                    <span className="font-bold">Date</span>: {p.point.data.x.toDateString()}
+                  </div>
+                  <div className="whitespace-nowrap">
+                    <span className="font-bold">Price</span>: ${p.point.data.y.toFixed(2)}
+                  </div>
+                  <div className="whitespace-nowrap">
+                    <span className="font-bold">Grade</span>: {p.point.data.grade}
+                  </div>
+                </div>
+              )}
+              useMesh={true}
+              legends={[
+                {
+                  anchor: "bottom",
+                  direction: "row",
+                  itemWidth: 50,
+                  itemHeight: 20,
+                  symbolShape: "circle",
+                  symbolSize: 10,
+                  translateY: 65,
+                },
+              ]}
+              theme={{
+                textColor: "#FFFFFF",
+                axis: {
+                  ticks: {
+                    line: {
+                      stroke: "#FFFFFF",
+                      strokeWidth: 1,
+                    },
+                  },
+                  domain: {
+                    line: {
+                      stroke: "#FFFFFF",
+                      strokeWidth: 1,
+                    },
+                  },
+                },
+                grid: {
+                  line: {
+                    stroke: "#FFFFFF",
+                    strokeWidth: 0,
+                  },
+                },
+              }}
+            />
           )}
-          useMesh={true}
-          legends={[
-            {
-              anchor: "bottom-right",
-              direction: "column",
-              itemWidth: 80,
-              itemHeight: 20,
-              symbolShape: "circle",
-              symbolSize: 10,
-            },
-          ]}
-        />
-      )}
-    </AutoSizer>
+        </AutoSizer>
+      </div>
+    </div>
   )
 }
 
@@ -151,16 +196,16 @@ function bucket(prices: Price[]) {
 
   return [
     {
-      id: "Low Quality",
-      data: nivoize(low),
+      id: "Mint",
+      data: nivoize(high),
     },
     {
-      id: "Medium Quality",
+      id: "Good",
       data: nivoize(med),
     },
     {
-      id: "High Quality",
-      data: nivoize(high),
+      id: "Poor",
+      data: nivoize(low),
     },
   ]
 }
