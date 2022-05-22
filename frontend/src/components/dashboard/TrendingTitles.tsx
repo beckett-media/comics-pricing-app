@@ -9,24 +9,26 @@ type Issue = {
 
 export default function TrendingTitles() {
   const { data: issues } = useSWR<Issue[]>("/api/issue/trending")
-  console.log(issues?.slice(0, 5))
   return (
-    <div className="w-full">
-      <div className="h-32 bg-stone-800">
-        <div className="text-sm text-white">🔥 Trending Titles</div>
-        <span className="text-xs text-white">
+    <div className="w-full ">
+      <div className="h-36 divide-y-2 divide-list-line overflow-scroll rounded bg-container-outer p-2">
+        <div className="flex p-2 text-sm text-white">
+          <img src={require("assets/TrendingIcon.svg").default} alt="" className="pr-2" />
+          Trending Titles
+        </div>
+        <div className="divide-y-2 divide-list-line text-xs text-white">
           {issues?.slice(0, 5).map(({ id, title_name, issue_name }) => (
-            <div className="flex flex-row justify-between border-t">
-              <p className="">
-                {title_name} #{issue_name}
-              </p>
-
+            <div className="flex flex-row justify-between p-2">
+              {title_name} #{issue_name}
               <Link key={id} to={`/details/${id}`}>
-                <p> view prices ▻</p>
+                <div className="flex flex-row text-secondary-link-text">
+                  View Prices
+                  <img src={require("assets/AngleRight.svg").default} alt="" className="pl-3" />
+                </div>
               </Link>
             </div>
           ))}
-        </span>
+        </div>
       </div>
     </div>
   )

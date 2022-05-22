@@ -19,7 +19,6 @@ issueRoutes.get('/trending', async (_req: Request, res: Response)=> {
   res.json(await getTrendingIssues())
 })
 
-// 💩
 issueRoutes.get("/:id", async (req: RequestWithParams<{ id: string }>, res: Response) => {
   res.json(await getDetails(req.params.id))
 })
