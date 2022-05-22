@@ -116,11 +116,13 @@ function PriceGraph({ id }: { id: string }) {
                 tickValues: 6,
               }}
               yScale={{
+                min: "auto",
+                max: "auto",
                 type: "linear",
                 reverse: false,
               }}
               yFormat=".2f"
-              pointSize={10}
+              pointSize={5}
               tooltip={(p: any) => (
                 <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs text-black">
                   <div className="whitespace-nowrap">
@@ -142,7 +144,7 @@ function PriceGraph({ id }: { id: string }) {
                   itemWidth: 50,
                   itemHeight: 20,
                   symbolShape: "circle",
-                  symbolSize: 10,
+                  symbolSize: 5,
                   translateY: 65,
                 },
               ]}
