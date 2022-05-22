@@ -17,8 +17,9 @@ export function withCheckLoggedIn(Component: ComponentType) {
 export function useNavigateWithSearchParams() {
   const navigate = useNavigate()
 
-  return (pathname: string, searchParams: Record<string, string>) => navigate({
-    pathname,
-    search: `?${createSearchParams(searchParams)}`
-  })
+  return (pathname: string, searchParams: Record<string, string>) =>
+    navigate({
+      pathname,
+      search: `?${createSearchParams(searchParams)}`,
+    })
 }

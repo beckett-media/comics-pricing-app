@@ -6,9 +6,12 @@ module.exports = {
         "tmp-search-text": "#0C0822",
         "tmp-icon": "#FFFFFF",
 
+        "grad-top": "#494752",
+        "grad-bot": "#2D2833",
         "hdr-ftr": "#161032",
         "form-fields": "#42404D",
-        "hdr-body-text": "#ffffff",
+        "hdr-body-text": "#FFFFFF",
+        "common-text": "#FFFFFF",
         "primary-link-text": "#ffffff",
         "secondary-link-text": "#66C9FF",
         "primary-button-start": "#C1F8E3",
@@ -28,7 +31,9 @@ module.exports = {
         "platform-stop": "#2D2833",
         "container-outer": "#212022",
         "container-inner": "#45434E",
-        "common-text": "#FFFFFF",
+      },
+      fontSize: {
+        xxs: ["10px", "12px"],
       },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",

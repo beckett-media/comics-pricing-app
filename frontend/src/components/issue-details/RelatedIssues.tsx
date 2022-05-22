@@ -11,9 +11,9 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
 
   return (
     <Gallery title="Related Issues">
-      {relatedIssues?.map(({ id, issue, title }) => (
+      {relatedIssues?.map(({ id, issue, title, publisher }) => (
         <Link key={id} to={`/details/${id}`}>
-          <Issue id={id} issue={issue} title={title} />
+          <Issue id={id} issue={issue} title={title} publisher={publisher} />
         </Link>
       ))}
     </Gallery>
