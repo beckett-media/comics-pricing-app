@@ -50,7 +50,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   )
 }
 
-function Chips({}: { issue: IssueFull }) {
+function Chips(_: { issue: IssueFull }) {
   return (
     <div className="flex w-full gap-2 text-xs">
       <div className="rounded bg-key-issue py-1 px-2">Key Issue</div>
