@@ -13,9 +13,6 @@ export const userRoutes = Router()
 
 userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string, state: string }>, res: Response) => {
   try {
-    console.log("redirect_uri", `${req.protocol}://${req.headers.host}/api/user/login/`)
-    console.log("query", req.query)
-
     const cognitoRes = await axios.post(
       COGNITO_API_URL,
       querystring.stringify({
