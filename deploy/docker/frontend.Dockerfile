@@ -8,6 +8,7 @@ COPY ./src/ ./src/
 COPY ./public/ ./public/
 RUN REACT_APP_API_URL="$REACT_APP_API_URL" yarn build
 
+# [https://stackoverflow.com/q/64468592]
 FROM nginx:alpine
 COPY --from=builder /scratch/build/ /usr/share/nginx/html/
 RUN rm /etc/nginx/conf.d/default.conf
