@@ -1,19 +1,30 @@
-import { AxiosError } from "axios"
+import axios, { AxiosError } from "axios"
 import { Response, Router } from "express"
+import querystring from "querystring"
 import { HttpCode } from "../constants/httpCode"
+import { config } from "../loader"
 import { TOKEN_USE_CLAIM } from "../middleware/cognito"
-import { Email, signup } from "../services/user.service"
-import { RequestWithBody, RequestWithQueryParams } from "../types"
-import { verifyUser } from "../services/cognito.service"
+import { signup, Email } from "../services/user.service"
+import { RequestWithBody, RequestWithQueryParams } from "types/express"
+
+const COGNITO_API_URL = "https://comics.auth.us-east-1.amazoncognito.com/oauth2/token"
 
 export const userRoutes = Router()
 
-userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, res: Response) => {
+userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string, state: string }>, res: Response) => {
   try {
-    const { id_token } = await verifyUser(req.query.code)
-    res.cookie(TOKEN_USE_CLAIM, id_token)
-    // TODO(michael): include redirect url in request query params?
-    res.redirect("http://localhost:3000/dashboard")
+    const cognitoRes = await axios.post(
+      COGNITO_API_URL,
+      querystring.stringify({
+        grant_type: "authorization_code",
+        client_id: config.cognitoClientId,
+        code: req.query.code,
+        redirect_uri: `${req.protocol}://${req.headers.host}/api/user/login/`,
+      })
+    )
+
+    res.cookie(TOKEN_USE_CLAIM, cognitoRes.data.id_token)
+    res.redirect(req.query.state)
   } catch (rawErr) {
     // TODO(michael-sriram): do we want to send a message with this response like the other instances of UNAUTHORIZED?
     res.sendStatus(HttpCode.UNAUTHORIZED)

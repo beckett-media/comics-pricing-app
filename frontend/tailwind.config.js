@@ -1,7 +1,42 @@
 module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
+  safelist: ["bg-golden-age", "bg-silver-age", "bg-bronze-age", "bg-copper-age", "bg-modern-age"],
   theme: {
     extend: {
+      colors: {
+        "tmp-search-text": "#0C0822",
+        "tmp-icon": "#FFFFFF",
+
+        "grad-top": "#494752",
+        "grad-bot": "#2D2833",
+        "hdr-ftr": "#161032",
+        "form-fields": "#42404D",
+        "hdr-body-text": "#FFFFFF",
+        "common-text": "#FFFFFF",
+        "primary-link-text": "#ffffff",
+        "secondary-link-text": "#66C9FF",
+        "primary-button-start": "#C1F8E3",
+        "primary-button-stop": "#6CD7D4",
+        "button-text": "#161032",
+        "key-issue": "#299D6D",
+        "golden-age": "#A8763B",
+        "silver-age": "#58646D",
+        "bronze-age": "#6D492A",
+        "copper-age": "#9F6857",
+        "modern-age": "#4C9E9D",
+        "ticker-down": "#12DB88",
+        "ticker-up": "#FECC6A",
+        "sign-in-start": "#494752",
+        "sign-in-stop": "#493C6F",
+        "platform-start": "#494752",
+        "platform-stop": "#2D2833",
+        "container-outer": "#212022",
+        "container-inner": "#45434E",
+        "list-line": "#454156",
+      },
+      fontSize: {
+        xxs: ["10px", "12px"],
+      },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",
       },

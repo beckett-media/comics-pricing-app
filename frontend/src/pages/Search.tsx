@@ -1,16 +1,20 @@
 import algoliasearch from "algoliasearch/lite"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
 import {
   Configure,
-  Hits,
   InstantSearch,
   RefinementList,
-  SearchBox,
   ToggleRefinement,
+  useHits,
+  useSearchBox,
 } from "react-instantsearch-hooks-web"
+
+import { NavBarContext } from "components/common/NavBar"
+import { getIssueImage } from "utils/imagePath"
 
 const INDEX_NAME = "tmp-index"
 const HITS_PER_PAGE = 7
-const PLACEHOLDER = "Test"
 const REFINEMENT_LIST_LIMIT = 16
 
 const searchClient = algoliasearch("SGT5R38GFV", "30905cb33c45654eb5159c7f1197bb43")
@@ -25,21 +29,25 @@ type ToggleRefinementListProps = {
   toggleConfigs: { label: string; attribute: string }[]
 }
 
-function SubmitIcon() {
-  return (
-    <div className="flex h-[30px] w-[100px] items-center justify-center bg-slate-300">
-      <i className="fa-solid fa-magnifying-glass text-white" />
-    </div>
-  )
+type Issue = {
+  issue_id: string
+  title_name: string
+  issue_name: string
+  publisher_name: string
 }
 
-function Refinement(props: RefinementProps) {
+type ResultsProps = {
+  hits: Issue[]
+}
+
+function Refinement({ attribute, title }: RefinementProps) {
   return (
     <div className="flex flex-col">
-      <p className="text-lg font-bold uppercase">{props.title}</p>
+      <p className="text-lg font-bold uppercase">{title}</p>
       <RefinementList
-        attribute={props.attribute}
+        attribute={attribute}
         limit={REFINEMENT_LIST_LIMIT}
+        sortBy={["name:asc"]}
         classNames={{
           label: "flex gap-2 items-center",
           labelText: "font-bold",
@@ -50,11 +58,11 @@ function Refinement(props: RefinementProps) {
   )
 }
 
-function ToggleRefinementList(props: ToggleRefinementListProps) {
+function ToggleRefinementList({ title, toggleConfigs }: ToggleRefinementListProps) {
   return (
     <div className="flex flex-col">
-      <p className="text-lg font-bold uppercase">{props.title}</p>
-      {props.toggleConfigs.map((toggleConfig, idx) => (
+      <p className="text-lg font-bold uppercase">{title}</p>
+      {toggleConfigs.map((toggleConfig, idx) => (
         <ToggleRefinement
           key={idx}
           attribute={toggleConfig.attribute}
@@ -69,72 +77,92 @@ function ToggleRefinementList(props: ToggleRefinementListProps) {
   )
 }
 
-function Hit({ hit }: any) {
-  const imgSrc = `https://comics-scans.s3.amazonaws.com/issues/${hit.issue_id}`
-
+function Result({ issue_id, title_name, issue_name, publisher_name }: Issue) {
   return (
-    <a href={`/details/${hit.issue_id}`}>
+    <Link to={`/details/${issue_id}`}>
       <div className="my-3 flex w-[500px] gap-3 bg-slate-200 px-3 py-3 hover:scale-[1.02]">
-        <img src={imgSrc} alt="" className="h-auto w-[80px]" />
+        <img src={getIssueImage(issue_id)} alt="" className="h-auto w-[80px]" />
         <div className="mt-2 flex flex-col">
-          <p className="font-bold">{`${hit.title_name} - #${hit.issue_name}`}</p>
-          <p className="text-xs uppercase">{hit.publisher_name}</p>
+          <p className="font-bold">{`${title_name} - #${issue_name}`}</p>
+          <p className="text-xs uppercase">{publisher_name}</p>
         </div>
       </div>
-    </a>
+    </Link>
+  )
+}
+
+function Modifiers() {
+  return (
+    <div className="flex flex-col gap-5">
+      <Refinement title="Publisher" attribute="publisher_name" />
+      <Refinement title="Title" attribute="title_name" />
+      <ToggleRefinementList
+        title="Other"
+        toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
+      />
+    </div>
+  )
+}
+
+function Results({ hits }: ResultsProps) {
+  return (
+    <div className="flex flex-col">
+      <p className="text-xl font-extrabold uppercase">Results</p>
+      {hits.map(hit => (
+        <Result {...hit} />
+      ))}
+    </div>
+  )
+}
+
+function HotComics() {
+  return (
+    <div className="ml-20 flex flex-col gap-3">
+      <p className="text-xl font-extrabold uppercase">Hot Comics</p>
+      <div className="flex flex-col gap-10">
+        <Link to="/">
+          <div className="h-[200px] w-[160px] bg-slate-500 hover:scale-[1.02]" />
+        </Link>
+        <Link to="/">
+          <div className="h-[200px] w-[160px] bg-slate-400 hover:scale-[1.02]" />
+        </Link>
+        <Link to="/">
+          <div className="h-[200px] w-[160px] bg-slate-300 hover:scale-[1.02]" />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+function Page() {
+  const { clear, refine } = useSearchBox()
+  const { text: navBarText } = useContext(NavBarContext)
+  const { hits } = useHits<Issue>()
+
+  if (navBarText) {
+    refine(navBarText)
+  } else {
+    clear()
+  }
+
+  return (
+    <div className="flex h-full w-full flex-col items-center">
+      <div className="mt-10 flex h-full w-full justify-center">
+        <div className="flex justify-center gap-10">
+          <Modifiers />
+          <Results hits={hits} />
+          <HotComics />
+        </div>
+      </div>
+    </div>
   )
 }
 
 export default function Search() {
   return (
-    <div className="flex h-full w-full items-center justify-center gap-10">
-      <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
-        <Configure hitsPerPage={HITS_PER_PAGE} />
-        <div className="flex h-full w-full flex-col items-center">
-          <div className="flex w-full justify-between gap-5 bg-slate-200 py-10 px-32">
-            <div className="text-xl font-extrabold uppercase">Comic Surge</div>
-            <SearchBox
-              placeholder={PLACEHOLDER}
-              classNames={{ input: "px-3 border-slate-300 border-2 w-[200px] h-[30px]" }}
-              submitIconComponent={SubmitIcon}
-              resetIconComponent={() => <></>}
-            />
-          </div>
-
-          <div className="m-20 flex h-full w-full justify-center">
-            <div className="flex justify-center gap-10">
-              <div className="flex flex-col gap-5">
-                <Refinement title="Publisher" attribute="publisher_name" />
-                <Refinement title="Title" attribute="title_name" />
-                <ToggleRefinementList
-                  title="Other"
-                  toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="text-xl font-extrabold uppercase">Results</p>
-                <Hits hitComponent={Hit} />
-              </div>
-
-              <div className="ml-20 flex flex-col gap-3">
-                <p className="text-xl font-extrabold uppercase">Hot Comics</p>
-                <div className="flex flex-col gap-10">
-                  <a href="/">
-                    <div className="h-[200px] w-[160px] bg-slate-500 hover:scale-[1.02]" />
-                  </a>
-                  <a href="/">
-                    <div className="h-[200px] w-[160px] bg-slate-400 hover:scale-[1.02]" />
-                  </a>
-                  <a href="/">
-                    <div className="h-[200px] w-[160px] bg-slate-300 hover:scale-[1.02]" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </InstantSearch>
-    </div>
+    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
+      <Configure hitsPerPage={HITS_PER_PAGE} />
+      <Page />
+    </InstantSearch>
   )
 }

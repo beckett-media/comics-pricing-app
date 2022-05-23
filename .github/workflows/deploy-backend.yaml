@@ -18,7 +18,7 @@ on:
 # TODO(enricozb): checkout contexts, see if these have to be env vars
 env:
   ECR_REGISTRY_HOST: 566886264221.dkr.ecr.us-east-1.amazonaws.com
-  EKS_CLUSTER_NAME: prod-cluster
+  EKS_CLUSTER_NAME: cluster
   EKS_REGION: us-east-1
   GHA_DOCKER_CONTEXT: ./backend/
   GHA_DOCKER_IMAGE_NAME: backend

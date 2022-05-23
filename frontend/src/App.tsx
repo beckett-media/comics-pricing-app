@@ -7,9 +7,9 @@ import Search from "pages/Search"
 import IssueDetails from "pages/IssueDetails"
 import Dashboard from "pages/Dashboard"
 import Layout from "components/common/Layout"
-import { withCheckLoggedIn } from "utils/login"
 import Admin from "./pages/Admin"
 import { Toaster } from "react-hot-toast"
+import { withCheckLoggedIn } from "utils/router"
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -22,6 +22,7 @@ export default function App() {
     >
       <Routes>
         <Route path={"/"} element={<Home />} />
+
         <Route path={"/"} element={<AuthenticatedLayout />}>
           <Route path={"dashboard"} element={<Dashboard />} />
           <Route path={"admin"} element={<Admin />} />

@@ -6,11 +6,12 @@ import express, { Application, ErrorRequestHandler, Router } from "express"
 import logger from "morgan"
 import postgres from "postgres"
 import VError from "verror"
-import { configFromEnv } from "./config"
+import { configFromEnv } from "./util/config"
 import { HttpCode } from "./constants/httpCode"
 import { authenticate, TOKEN_USE_CLAIM } from "./middleware/cognito"
 import { issueRoutes } from "./routes/issue.route"
 import { healthCheckRoutes } from "./routes/healthCheck.route"
+import { authRoutes } from "./routes/auth.route"
 import { publisherRoutes } from "./routes/publisher.route"
 import { titleRoutes } from "./routes/title.route"
 import { userRoutes } from "./routes/user.route"
@@ -23,7 +24,9 @@ const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 
 const appRouter = (): Router => {
   const router = Router()
+
   const [regularAuth, adminAuth] = [authenticate(false), authenticate(true)]
+  router.use("/auth", regularAuth, authRoutes)
   router.use("/publisher", regularAuth, publisherRoutes)
   router.use("/issue", regularAuth, issueRoutes)
   router.use("/title", regularAuth, titleRoutes)
@@ -42,6 +45,7 @@ export const createApp = (): Application => {
 
   app.use("/", healthCheckRoutes)
   app.use("/api", appRouter())
+  app.set("trust proxy", true)
   app.use(((err, _req, res, _next) => {
     logError(err)
 

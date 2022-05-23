@@ -1,87 +1,85 @@
 import { sql } from "../loader"
+import type { IssueMinimal, IssueFull, Title, Price } from "types/api"
 
-type Issue = {
-  id: string
-  issue: string
-  title: string
-  publisher: string
-}
-
-type IssueDetails = {
-  id: string
-  title_id: string
-  publisher_id: string
-  issue_name: string
-  title_name: string
-  publisher_name: string
-  volume: string | null
-  comment: string | null
-  publication_month: number | null
-  publication_year: number | null
-}
-
-type TitleDetails = {
-  id: string
-  name: string
-}
-
-type Price = {
-  date: string
-  price: string
-  grade: string
-}
-
-export const getDetails = async (id: string): Promise<IssueDetails> => {
-  const issues = await sql<IssueDetails[]>`
+export const getDetails = async (id: string): Promise<IssueFull> => {
+  const issues = await sql<IssueFull[]>`
     SELECT
       issues.id id,
-      titles.id title_id,
+      issues.name issue,
+      titles.name title,
+      publishers.name publisher,
+      issues.title_id,
       titles.publisher_id,
-      issues.name issue_name,
-      titles.name title_name,
-      publishers.name publisher_name,
+      issues.age,
+      issues.cover_price,
       titles.volume,
       issues.comment,
       month publication_month,
-      year publication_year
+      year publication_year,
+      prices.price current_price
     FROM issues
       JOIN titles ON issues.title_id = titles.id
       JOIN publishers ON publishers.id = titles.publisher_id
+      JOIN prices ON prices.issue_id = issues.id
     WHERE issues.id = ${id}
+    LIMIT 1
   `
 
   return issues[0]
 }
 
-export const getRelatedIssues = (id: string): Promise<IssueDetails[]> => {
-  return sql<IssueDetails[]>`
+export const getRelatedIssues = (id: string): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
     SELECT
-      B.id id,
-      B.name name,
-      B.title_id,
-      titles.name title_name
-    FROM issues A, issues B
-      JOIN titles on B.title_id = titles.id
-    WHERE A.title_id = B.title_id AND A.id = ${id} and A.id != B.id
+      related.id,
+      related.name issue,
+      titles.name title,
+      publishers.name publisher
+    FROM issues related
+      JOIN issues ON issues.title_id = related.title_id
+      JOIN titles ON titles.id = related.title_id
+      JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE
+      related.id != ${id} AND
+      issues.id = ${id}
     LIMIT 5
   `
 }
 
-export const getRelatedTitles = (id: string): Promise<TitleDetails[]> => {
-  return sql`
+export const getRelatedTitles = async (id: string): Promise<Title[]> => {
+  const title = (
+    await sql<Title[]>`
     SELECT
-      titles_B.id id,
-      titles_B.name
+      titles.id,
+      titles.name,
+      publishers.name publisher,
+      publishers.id publisher_id
     FROM issues
-      JOIN titles as titles_A on issues.title_id = titles_A.id
-      JOIN titles as titles_B on titles_B.publisher_id = titles_A.publisher_id
-    WHERE issues.id = ${id} AND titles_A.id != titles_B.id
+      JOIN titles ON titles.id = issues.title_id
+      JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE issues.id = ${id}
+    LIMIT 1
+  `
+  )[0]
+
+  return sql<Title[]>`
+    SELECT
+      titles.id,
+      titles.name,
+      publishers.name publisher,
+      publishers.id publisher_id
+    FROM titles
+      JOIN publishers ON publishers.id = titles.publisher_id
+    WHERE
+      titles.name = ${title.name} AND
+      publishers.id = ${title.publisher_id} AND
+      titles.id != ${title.id}
     LIMIT 3
   `
 }
 
-export const getPopularIssues = (): Promise<Issue[]> => {
-  return sql<Issue[]>`
+export const getPopularIssues = (): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
     SELECT
       issues.id,
       issues.name AS issue,
@@ -103,5 +101,30 @@ export const getIssuePrices = (id: string): Promise<Price[]> => {
       date
     FROM sales
     WHERE issue_id = ${id}
+    ORDER BY date DESC
+  `
+}
+
+// TODO(enricozb): make this into a materialized view
+export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
+    WITH sales_counts AS (
+      SELECT
+        sales.issue_id,
+        COUNT(*) sales_count
+      FROM sales
+      WHERE sales.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
+      GROUP BY sales.issue_id
+      ORDER BY sales_count DESC
+    )
+    SELECT
+      issues.id,
+      issues.name issue,
+      titles.name title
+    FROM issues
+    JOIN titles ON titles.id = issues.title_id
+    JOIN publishers ON publishers.id = titles.publisher_id
+    JOIN sales_counts ON sales_counts.issue_id = issues.id
+    LIMIT 3
   `
 }
