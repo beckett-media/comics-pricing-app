@@ -4,23 +4,22 @@ type IssueProps = {
   id: string
   issue: string
   title: string
-  publisher?: string
+  publisher: string
 }
 
 export default function Issue({ id, issue, title, publisher }: IssueProps) {
-  const full_issue_name = `${title} #${issue}`
-
   return (
-    <div className="flex w-32 flex-col items-center space-y-3">
+    <div className="flex w-32 flex-col items-center">
       <div className="h-40 w-32">
         <img
           className="h-full w-full object-contain"
-          alt={full_issue_name}
+          alt={`${title} #${issue}`}
           src={getIssueImage(id)}
         />
       </div>
-      <p className="text-center text-xs">{full_issue_name}</p>
-      {publisher && <p className="text-xs">{publisher}</p>}
+      <div className="pt-3 text-center text-xs font-semibold">{title}</div>
+      <div className="text-xxs">Issue #{issue}</div>
+      <div className="text-xxs">{publisher}</div>
     </div>
   )
 }
