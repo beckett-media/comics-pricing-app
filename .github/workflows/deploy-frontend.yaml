@@ -31,7 +31,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./.github/actions/publish-ecr
+      - if: github.event.inputs.publish-ecr
+        uses: ./.github/actions/publish-ecr
         with:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
@@ -43,7 +44,8 @@ jobs:
             ${{ env.ECR_REGISTRY_HOST }}/${{ env.GHA_DOCKER_IMAGE_NAME }}:latest
           use-cache: ${{ github.event.inputs.use-cache == 'true' }}
 
-      - uses: ./.github/actions/configure-eks
+      - if: github.event.inputs.configure-eks
+        uses: ./.github/actions/configure-eks
         with:
           aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
           aws-region: ${{ env.EKS_REGION }}
