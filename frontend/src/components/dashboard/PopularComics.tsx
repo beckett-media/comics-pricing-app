@@ -3,16 +3,10 @@ import { Link } from "react-router-dom"
 
 import Gallery from "./Gallery"
 import Issue from "components/common/Issue"
-
-type IssueDetails = {
-  id: string
-  issue: string
-  title: string
-  publisher: string
-}
+import type { IssueMinimal } from "types/api"
 
 export default function PopularComics() {
-  const { data: issues } = useSWR<IssueDetails[]>("/api/issue/popular")
+  const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/popular")
 
   if (!issues) {
     return <div>loading</div>

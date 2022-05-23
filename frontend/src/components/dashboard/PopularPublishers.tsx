@@ -2,14 +2,10 @@ import useSWR from "swr"
 
 import Gallery from "./Gallery"
 import Publisher from "./Publisher"
-
-type PublisherDetails = {
-  id: string
-  name: string
-}
+import type { Publisher as PublisherData } from "types/api"
 
 export default function PopularPublishers() {
-  const { data: publishers } = useSWR<PublisherDetails[]>("/api/publisher/popular")
+  const { data: publishers } = useSWR<PublisherData[]>("/api/publisher/popular")
 
   if (!publishers) {
     return <div>loading</div>

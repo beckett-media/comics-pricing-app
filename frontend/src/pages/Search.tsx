@@ -1,14 +1,16 @@
 import algoliasearch from "algoliasearch/lite"
-import { Link, useSearchParams } from "react-router-dom"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
 import {
   Configure,
-  Hits,
   InstantSearch,
   RefinementList,
   ToggleRefinement,
+  useHits,
   useSearchBox,
 } from "react-instantsearch-hooks-web"
 
+import { NavBarContext } from "components/common/NavBar"
 import { getIssueImage } from "utils/imagePath"
 
 const INDEX_NAME = "tmp-index"
@@ -27,13 +29,15 @@ type ToggleRefinementListProps = {
   toggleConfigs: { label: string; attribute: string }[]
 }
 
-type HitProps = {
-  hit: {
-    issue_id: string
-    title_name: string
-    issue_name: string
-    publisher_name: string
-  }
+type Issue = {
+  issue_id: string
+  title_name: string
+  issue_name: string
+  publisher_name: string
+}
+
+type ResultsProps = {
+  hits: Issue[]
 }
 
 function Refinement({ attribute, title }: RefinementProps) {
@@ -43,6 +47,7 @@ function Refinement({ attribute, title }: RefinementProps) {
       <RefinementList
         attribute={attribute}
         limit={REFINEMENT_LIST_LIMIT}
+        sortBy={["name:asc"]}
         classNames={{
           label: "flex gap-2 items-center",
           labelText: "font-bold",
@@ -72,7 +77,7 @@ function ToggleRefinementList({ title, toggleConfigs }: ToggleRefinementListProp
   )
 }
 
-function Hit({ hit: { issue_id, title_name, issue_name, publisher_name } }: HitProps) {
+function Result({ issue_id, title_name, issue_name, publisher_name }: Issue) {
   return (
     <Link to={`/details/${issue_id}`}>
       <div className="my-3 flex w-[500px] gap-3 bg-slate-200 px-3 py-3 hover:scale-[1.02]">
@@ -86,14 +91,56 @@ function Hit({ hit: { issue_id, title_name, issue_name, publisher_name } }: HitP
   )
 }
 
+function Modifiers() {
+  return (
+    <div className="flex flex-col gap-5">
+      <Refinement title="Publisher" attribute="publisher_name" />
+      <Refinement title="Title" attribute="title_name" />
+      <ToggleRefinementList
+        title="Other"
+        toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
+      />
+    </div>
+  )
+}
+
+function Results({ hits }: ResultsProps) {
+  return (
+    <div className="flex flex-col">
+      <p className="text-xl font-extrabold uppercase">Results</p>
+      {hits.map(hit => (
+        <Result {...hit} />
+      ))}
+    </div>
+  )
+}
+
+function HotComics() {
+  return (
+    <div className="ml-20 flex flex-col gap-3">
+      <p className="text-xl font-extrabold uppercase">Hot Comics</p>
+      <div className="flex flex-col gap-10">
+        <Link to="/">
+          <div className="h-[200px] w-[160px] bg-slate-500 hover:scale-[1.02]" />
+        </Link>
+        <Link to="/">
+          <div className="h-[200px] w-[160px] bg-slate-400 hover:scale-[1.02]" />
+        </Link>
+        <Link to="/">
+          <div className="h-[200px] w-[160px] bg-slate-300 hover:scale-[1.02]" />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 function Page() {
-  const [searchParams] = useSearchParams()
   const { clear, refine } = useSearchBox()
+  const { text: navBarText } = useContext(NavBarContext)
+  const { hits } = useHits<Issue>()
 
-  const query = searchParams.get("q")
-
-  if (query) {
-    refine(query)
+  if (navBarText) {
+    refine(navBarText)
   } else {
     clear()
   }
@@ -102,34 +149,9 @@ function Page() {
     <div className="flex h-full w-full flex-col items-center">
       <div className="mt-10 flex h-full w-full justify-center">
         <div className="flex justify-center gap-10">
-          <div className="flex flex-col gap-5">
-            <Refinement title="Publisher" attribute="publisher_name" />
-            <Refinement title="Title" attribute="title_name" />
-            <ToggleRefinementList
-              title="Other"
-              toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <p className="text-xl font-extrabold uppercase">Results</p>
-            <Hits hitComponent={Hit} />
-          </div>
-
-          <div className="ml-20 flex flex-col gap-3">
-            <p className="text-xl font-extrabold uppercase">Hot Comics</p>
-            <div className="flex flex-col gap-10">
-              <Link to="/">
-                <div className="h-[200px] w-[160px] bg-slate-500 hover:scale-[1.02]" />
-              </Link>
-              <Link to="/">
-                <div className="h-[200px] w-[160px] bg-slate-400 hover:scale-[1.02]" />
-              </Link>
-              <Link to="/">
-                <div className="h-[200px] w-[160px] bg-slate-300 hover:scale-[1.02]" />
-              </Link>
-            </div>
-          </div>
+          <Modifiers />
+          <Results hits={hits} />
+          <HotComics />
         </div>
       </div>
     </div>
@@ -138,11 +160,9 @@ function Page() {
 
 export default function Search() {
   return (
-    <div className="flex h-full w-full items-center justify-center gap-10">
-      <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
-        <Configure hitsPerPage={HITS_PER_PAGE} />
-        <Page />
-      </InstantSearch>
-    </div>
+    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
+      <Configure hitsPerPage={HITS_PER_PAGE} />
+      <Page />
+    </InstantSearch>
   )
 }
