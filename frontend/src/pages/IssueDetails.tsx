@@ -5,6 +5,7 @@ import { Line } from "@nivo/line"
 
 import RelatedIssues from "components/issue-details/RelatedIssues"
 import { getIssueImage } from "utils/imagePath"
+import { monthText } from "utils/dates"
 import type { IssueFull, Price } from "types/api"
 
 export default function IssueDetails() {
@@ -50,27 +51,34 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   )
 }
 
-function Chips(_: { issue: IssueFull }) {
+function Chips({ issue }: { issue: IssueFull }) {
   return (
     <div className="flex w-full gap-2 text-xs">
       <div className="rounded bg-key-issue py-1 px-2">Key Issue</div>
-      <div className="rounded bg-copper-age py-1 px-2">Copper Age</div>
+      <div className={`rounded bg-${issue.age.toLowerCase()}-age py-1 px-2`}>{issue.age} Age</div>
     </div>
   )
 }
 
 function Details({ issue }: { issue: IssueFull }) {
-  if (!issue.comment) {
-    return null
-  }
-
   return (
-    <div className="w-full rounded bg-container-inner py-4 px-5 text-sm">
-      <div className="mb-2">
-        <span className="font-semibold">Issue Details</span>
+    <>
+      <div className="flex w-full flex-col gap-2 text-sm">
+        <div>
+          Cover Date: {monthText(issue.publication_month ?? -1)} {issue.publication_year}
+        </div>
+        <div>Cover Price: ${issue.cover_price}</div>
+        <div>Current Value: ${issue.current_price.toFixed(2)}</div>
       </div>
-      <div>{issue.comment}</div>
-    </div>
+      {issue.comment && (
+        <div className="w-full rounded bg-container-inner py-4 px-5 text-sm">
+          <div className="mb-2">
+            <span className="font-semibold">Issue Details</span>
+          </div>
+          <div>{issue.comment}</div>
+        </div>
+      )}
+    </>
   )
 }
 

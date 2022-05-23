@@ -34,9 +34,11 @@ CREATE TABLE issues (
   name_modifier TEXT,
   month INT,
   year INT,
+  cover_price TEXT,
   upc TEXT,
   isbn10 TEXT,
   isbn13 TEXT,
+  age TEXT NOT NULL,
   comment TEXT,
   title_id UUID REFERENCES titles(id) NOT NULL
 );
