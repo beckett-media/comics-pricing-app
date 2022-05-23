@@ -1,5 +1,5 @@
 import { sql } from "../loader"
-import type { IssueMinimal, IssueFull, Title, Price } from "types/api"
+import type { IssueMinimal, IssueFull, Title, Price, IssuesTrends } from "types/api"
 
 export const getDetails = async (id: string): Promise<IssueFull> => {
   const issues = await sql<IssueFull[]>`
@@ -120,6 +120,47 @@ export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
     JOIN titles ON titles.id = issues.title_id
     JOIN publishers ON publishers.id = titles.publisher_id
     JOIN sales_counts ON sales_counts.issue_id = issues.id
+    LIMIT 3
+  `
+}
+
+export const getRecentPriceDrops = async (): Promise<IssuesTrends[]> => {
+  return await sql<IssuesTrends[]>`
+    WITH sales_counts AS (
+      SELECT
+      a.issue_id issue_id,
+      b.price - a.price AS price_change, a.date
+    FROM
+      sales a JOIN sales b ON (
+        a.issue_id = b.issue_id
+          AND a.price > b.price
+          AND a.date < b.date
+          AND a.date < (SELECT CURRENT_DATE)
+      ) order by date desc
+    )
+    SELECT
+      issues.id,
+      issues.name issue,
+      titles.name title,
+      sales_counts.price_change as price
+    FROM issues
+    JOIN titles ON titles.id = issues.title_id
+    JOIN sales_counts ON sales_counts.issue_id = issues.id
+    LIMIT 3
+  `
+}
+
+export const getNewComics = async (): Promise<IssuesTrends[]> => {
+  return await sql<IssuesTrends[]>`
+    SELECT 
+      issues.id,
+      issues.name issue, 
+      titles.name title,
+      sales.price as price
+    FROM issues 
+    JOIN titles ON issues.title_id = titles.id 
+    JOIN sales ON issues.id = sales.issue_id 
+    ORDER BY sales.date DESC 
     LIMIT 3
   `
 }
