@@ -2,6 +2,8 @@ import useSWR from "swr"
 import { Link } from "react-router-dom"
 
 import { ReactComponent as TrendingIcon } from "assets/trending.svg"
+import { ReactComponent as Chevron } from "assets/chevron.svg"
+
 import type { IssueMinimal } from "types/api"
 
 export default function TrendingTitles() {
@@ -9,9 +11,11 @@ export default function TrendingTitles() {
 
   return (
     <div className="w-full">
-      <div className="h-36 divide-y-2 divide-list-line overflow-scroll rounded bg-container-outer p-2">
+      <div className="h-40 divide-y-2 divide-list-line rounded bg-container-outer p-2">
         <div className="flex gap-2 p-2 text-sm text-white">
-          <TrendingIcon />
+          <div className="pt-1">
+            <TrendingIcon />
+          </div>
           Trending Titles
         </div>
         <div className="divide-y-2 divide-list-line text-xs text-white">
@@ -20,8 +24,10 @@ export default function TrendingTitles() {
               {title} #{issue}
               <Link key={id} to={`/details/${id}`}>
                 <div className="flex flex-row text-secondary-link-text">
-                  View Prices
-                  <img src={require("assets/chevron.svg").default} alt="" className="pl-3" />
+                  <p className="pr-3">View Prices</p>
+                  <div className="pt-1">
+                    <Chevron />
+                  </div>
                 </div>
               </Link>
             </div>
