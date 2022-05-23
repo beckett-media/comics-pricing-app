@@ -11,7 +11,7 @@ const COGNITO_API_URL = "https://comics.auth.us-east-1.amazoncognito.com/oauth2/
 
 export const userRoutes = Router()
 
-userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, res: Response) => {
+userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string, state: string }>, res: Response) => {
   try {
     const cognitoRes = await axios.post(
       COGNITO_API_URL,
@@ -19,14 +19,12 @@ userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string }>, r
         grant_type: "authorization_code",
         client_id: config.cognitoClientId,
         code: req.query.code,
-        // TODO(michael-sriram): can we just say /api/user/login here? or how do we populate with the server's url
-        redirect_uri: "http://localhost:9000/api/user/login/",
+        redirect_uri: `${req.protocol}://${req.headers.host}/api/user/login/`,
       })
     )
 
     res.cookie(TOKEN_USE_CLAIM, cognitoRes.data.access_token)
-    // TODO(michael): include redirect url in request query params?
-    res.redirect("http://localhost:3000/dashboard")
+    res.redirect(req.query.state)
   } catch (rawErr) {
     // TODO(michael-sriram): do we want to send a message with this response like the other instances of UNAUTHORIZED?
     res.sendStatus(HttpCode.UNAUTHORIZED)

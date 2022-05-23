@@ -50,6 +50,8 @@ export const createApp = (): Application => {
   app.use("/", healthCheckRoutes)
   app.use("/api", appRouter())
 
+  app.set("trust proxy", true)
+
   return app
 }
 
