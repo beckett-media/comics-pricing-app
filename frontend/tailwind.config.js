@@ -28,6 +28,7 @@ module.exports = {
         "platform-stop": "#2D2833",
         "container-outer": "#212022",
         "container-inner": "#45434E",
+        "list-line": "#454156",
       },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",
