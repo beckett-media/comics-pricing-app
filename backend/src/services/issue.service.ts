@@ -53,7 +53,7 @@ export const getDetails = async (id: string): Promise<IssueDetails> => {
   return issues[0]
 }
 
-export const getRelatedIssues = async (id: string): Promise<IssueDetails[]> => {
+export const getRelatedIssues = (id: string): Promise<IssueDetails[]> => {
   return sql<IssueDetails[]>`
     SELECT
       B.id id,
@@ -67,7 +67,7 @@ export const getRelatedIssues = async (id: string): Promise<IssueDetails[]> => {
   `
 }
 
-export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
+export const getRelatedTitles = (id: string): Promise<TitleDetails[]> => {
   return sql`
     SELECT
       titles_B.id id,
@@ -80,7 +80,7 @@ export const getRelatedTitles = async (id: string): Promise<TitleDetails[]> => {
   `
 }
 
-export const getPopularIssues = async (): Promise<Issue[]> => {
+export const getPopularIssues = (): Promise<Issue[]> => {
   return sql<Issue[]>`
     SELECT
       issues.id,
@@ -95,7 +95,7 @@ export const getPopularIssues = async (): Promise<Issue[]> => {
   `
 }
 
-export const getIssuePrices = async (id: string): Promise<Price[]> => {
+export const getIssuePrices = (id: string): Promise<Price[]> => {
   return sql<Price[]>`
     SELECT
       grade,

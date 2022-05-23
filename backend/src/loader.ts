@@ -23,13 +23,12 @@ const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 
 const appRouter = (): Router => {
   const router = Router()
-
-  router.use("/publisher", authenticate(), publisherRoutes)
-  router.use("/issue", authenticate(), issueRoutes)
-  router.use("/title", authenticate(), titleRoutes)
+  const [regularAuth, adminAuth] = [authenticate(false), authenticate(true)]
+  router.use("/publisher", regularAuth, publisherRoutes)
+  router.use("/issue", regularAuth, issueRoutes)
+  router.use("/title", regularAuth, titleRoutes)
   router.use("/user", userRoutes)
-  router.use("/admin", authenticate(true), adminRoutes)
-
+  router.use("/admin", adminAuth, adminRoutes)
   return router
 }
 
