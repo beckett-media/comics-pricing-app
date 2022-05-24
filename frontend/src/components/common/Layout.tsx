@@ -8,7 +8,7 @@ export default function Layout() {
   const [text, setText] = useState("")
 
   return (
-    <div className="bg-gradient-to-b from-grad-top to-grad-bot">
+    <div className="bg-gradient-to-b from-grad-top to-grad-bot font-body">
       <NavBarContext.Provider value={{ text, setText }}>
         <NavBar />
         <Outlet />

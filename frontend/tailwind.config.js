@@ -33,7 +33,10 @@ module.exports = {
         "container-outer": "#212022",
         "container-inner": "#45434E",
         "list-line": "#454156",
-        "headline": "#161032",
+        headline: "#161032",
+      },
+      fontFamily: {
+        body: ["Roboto Flex"],
       },
       fontSize: {
         xxs: ["10px", "12px"],
