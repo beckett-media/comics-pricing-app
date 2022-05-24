@@ -7,13 +7,17 @@ import PopularSeries from "components/dashboard/PopularSeries"
 import RecentlyViewed from "components/dashboard/RecentlyViewed"
 import RecentPriceDrops from "../components/dashboard/RecentPriceDrops"
 import TrendingTitles from "../components/dashboard/TrendingTitles"
+import MyWatchlist from "components/dashboard/MyWatchlist"
 
 export default function Dashboard() {
   return (
     <div className="my-10 space-y-10 px-10">
-      <div className="flex flex-row space-x-5">
+      <div className="flex h-80 flex-row space-x-5">
         <News />
-        <RecentlyViewed />
+        <div className="flex w-5/12 flex-col space-y-2">
+          <RecentlyViewed />
+          <MyWatchlist />
+        </div>
       </div>
       <div className="flex flex-row space-x-2">
         <TrendingTitles />
