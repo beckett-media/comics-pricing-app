@@ -3,6 +3,9 @@ import config from "config"
 export type Config = {
   cognitoAwsRegion: string
   cognitoClientId: string
+  accessKeyId: string
+  secretAccessKey: string
+  region: string
   cognitoUserPoolId: string
   dbHost: string
   dbName: string
@@ -23,5 +26,8 @@ export const configFromEnv = (): Config => {
     dbUsername: config.get("dbUsername"),
     jwtSecret: config.get("jwtSecret"),
     port: Number.parseInt(config.get("port")),
+    region: config.get("region"),
+    accessKeyId: config.get("accessKeyId"),
+    secretAccessKey: config.get("secretAccessKey"),
   }
 }

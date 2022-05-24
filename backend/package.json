@@ -22,10 +22,9 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "rules": {
-      "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-unused-vars": [
-        "error",
+        "warn",
         {
           "argsIgnorePattern": "^_",
           "varsIgnorePattern": "^_",
@@ -52,11 +51,12 @@
     ]
   },
   "dependencies": {
+    "aws-sdk": "^2.1138.0",
     "axios": "^0.27.2",
     "cognito-express": "^3.0.1",
     "config": "^3.3.7",
     "cookie-parser": "^1.4.6",
-    "express": "^4.18.1",
+    "express": "^5.0.0-beta.1",
     "morgan": "^1.10.0",
     "postgres": "^3.2.2",
     "verror": "^1.10.1"

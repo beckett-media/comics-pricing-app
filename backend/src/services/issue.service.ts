@@ -8,15 +8,19 @@ export const getDetails = async (id: string): Promise<IssueFull> => {
       issues.name issue,
       titles.name title,
       publishers.name publisher,
-      titles.id title_id,
+      issues.title_id,
       titles.publisher_id,
+      issues.age,
+      issues.cover_price,
       titles.volume,
       issues.comment,
       month publication_month,
-      year publication_year
+      year publication_year,
+      prices.price current_price
     FROM issues
       JOIN titles ON issues.title_id = titles.id
       JOIN publishers ON publishers.id = titles.publisher_id
+      JOIN prices ON prices.issue_id = issues.id
     WHERE issues.id = ${id}
     LIMIT 1
   `
@@ -24,8 +28,8 @@ export const getDetails = async (id: string): Promise<IssueFull> => {
   return issues[0]
 }
 
-export const getRelatedIssues = async (id: string): Promise<IssueMinimal[]> => {
-  return await sql<IssueMinimal[]>`
+export const getRelatedIssues = (id: string): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
     SELECT
       related.id,
       related.name issue,
@@ -58,7 +62,7 @@ export const getRelatedTitles = async (id: string): Promise<Title[]> => {
   `
   )[0]
 
-  return await sql<Title[]>`
+  return sql<Title[]>`
     SELECT
       titles.id,
       titles.name,
@@ -74,8 +78,8 @@ export const getRelatedTitles = async (id: string): Promise<Title[]> => {
   `
 }
 
-export const getPopularIssues = async (): Promise<IssueMinimal[]> => {
-  return await sql<IssueMinimal[]>`
+export const getPopularIssues = (): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
     SELECT
       issues.id,
       issues.name AS issue,
@@ -89,20 +93,21 @@ export const getPopularIssues = async (): Promise<IssueMinimal[]> => {
   `
 }
 
-export const getIssuePrices = async (id: string): Promise<Price[]> => {
-  return await sql<Price[]>`
+export const getIssuePrices = (id: string): Promise<Price[]> => {
+  return sql<Price[]>`
     SELECT
       grade,
       price,
       date
     FROM sales
     WHERE issue_id = ${id}
+    ORDER BY date DESC
   `
 }
 
 // TODO(enricozb): make this into a materialized view
 export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
-  return await sql<IssueMinimal[]>`
+  return sql<IssueMinimal[]>`
     WITH sales_counts AS (
       SELECT
         sales.issue_id,

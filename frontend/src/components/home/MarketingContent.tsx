@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Toaster } from "react-hot-toast"
 import SignUp from "components/home/SignUp"
 
 export default function MarketingContent() {
@@ -15,14 +14,6 @@ export default function MarketingContent() {
         labore et dolore magna aliqua.
       </p>
       {showForm ? <SignUp setShowForm={setShowForm} /> : null}
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: "#FFFFFF",
-          },
-        }}
-      />
     </div>
   )
 }

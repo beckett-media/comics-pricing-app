@@ -15,10 +15,13 @@ export type IssuesTrends = {
 export type IssueFull = IssueMinimal & {
   title_id: string
   publisher_id: string
+  age: string
+  cover_price: string | null
   volume: string | null
   comment: string | null
   publication_month: number | null
   publication_year: number | null
+  current_price: number
 }
 
 export type Title = {
