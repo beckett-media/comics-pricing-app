@@ -1,8 +1,8 @@
 import useSWR from "swr"
 import { Link } from "react-router-dom"
 
-import { ReactComponent as Sparkle } from "assets/sparkle.svg"
 import { ReactComponent as Chevron } from "assets/chevron.svg"
+import { ReactComponent as Sparkle } from "assets/sparkle.svg"
 
 import { IssueTrends } from "types/api"
 

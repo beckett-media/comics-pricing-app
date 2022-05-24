@@ -1,5 +1,5 @@
 import { sql } from "../loader"
-import type { IssueMinimal, IssueFull, Title, Price, IssuesTrends } from "types/api"
+import type { IssueMinimal, IssueFull, Title, Price, IssueTrends } from "types/api"
 
 export const getDetails = async (id: string): Promise<IssueFull> => {
   const issues = await sql<IssueFull[]>`
@@ -119,8 +119,8 @@ export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
   `
 }
 
-export const getRecentPriceDrops = async (): Promise<IssuesTrends[]> => {
-  return await sql<IssuesTrends[]>`
+export const getRecentPriceDrops = async (): Promise<IssueTrends[]> => {
+  return await sql<IssueTrends[]>`
     SELECT
       issues.id,
       issues.name issue,
@@ -133,8 +133,8 @@ export const getRecentPriceDrops = async (): Promise<IssuesTrends[]> => {
   `
 }
 
-export const getNewComics = async (): Promise<IssuesTrends[]> => {
-  return await sql<IssuesTrends[]>`
+export const getNewComics = async (): Promise<IssueTrends[]> => {
+  return await sql<IssueTrends[]>`
     SELECT 
       issues.id,
       issues.name issue, 
