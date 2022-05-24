@@ -11,7 +11,6 @@ export type Config = {
   dbName: string
   dbUsername: string
   dbPassword: string
-  jwtSecret: string
   port: number
 }
 
@@ -24,7 +23,6 @@ export const configFromEnv = (): Config => {
     dbName: config.get("dbName"),
     dbPassword: config.get("dbPassword"),
     dbUsername: config.get("dbUsername"),
-    jwtSecret: config.get("jwtSecret"),
     port: Number.parseInt(config.get("port")),
     region: config.get("region"),
     accessKeyId: config.get("accessKeyId"),
