@@ -3,11 +3,13 @@ import Issue from "./Issue"
 
 export default function RecentlyViewed() {
   return (
-    <div className="w-5/12 overflow-hidden rounded border-2 p-2">
+    <div className="overflow-hidden rounded">
       <Gallery title="Recently Viewed">
-        {[...Array(5).keys()].map(idx => (
-          <Issue key={idx.toString()} />
-        ))}
+        <Issue />
+        <Issue />
+        <Issue />
+        <Issue />
+        <Issue />
       </Gallery>
     </div>
   )

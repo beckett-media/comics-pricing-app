@@ -5,7 +5,6 @@ import {
   Configure,
   InstantSearch,
   RefinementList,
-  ToggleRefinement,
   useHits,
   useSearchBox,
 } from "react-instantsearch-hooks-web"
@@ -24,16 +23,11 @@ type RefinementProps = {
   attribute: string
 }
 
-type ToggleRefinementListProps = {
-  title: string
-  toggleConfigs: { label: string; attribute: string }[]
-}
-
 type Issue = {
-  issue_id: string
-  title_name: string
-  issue_name: string
-  publisher_name: string
+  id: string
+  title: string
+  issue: string
+  publisher: string
 }
 
 type ResultsProps = {
@@ -58,48 +52,27 @@ function Refinement({ attribute, title }: RefinementProps) {
   )
 }
 
-function ToggleRefinementList({ title, toggleConfigs }: ToggleRefinementListProps) {
+function Result({ id, title, issue, publisher }: Issue) {
   return (
-    <div className="flex flex-col">
-      <p className="text-lg font-bold uppercase">{title}</p>
-      {toggleConfigs.map((toggleConfig, idx) => (
-        <ToggleRefinement
-          key={idx}
-          attribute={toggleConfig.attribute}
-          label={toggleConfig.label}
-          classNames={{
-            label: "flex gap-2 items-center",
-            labelText: "font-bold",
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-function Result({ issue_id, title_name, issue_name, publisher_name }: Issue) {
-  return (
-    <Link to={`/details/${issue_id}`}>
+    <Link to={`/details/${id}`}>
       <div className="my-3 flex w-[500px] gap-3 bg-slate-200 px-3 py-3 hover:scale-[1.02]">
-        <img src={getIssueImage(issue_id)} alt="" className="h-auto w-[80px]" />
+        <img src={getIssueImage(id)} alt="" className="h-auto w-[80px]" />
         <div className="mt-2 flex flex-col">
-          <p className="font-bold">{`${title_name} - #${issue_name}`}</p>
-          <p className="text-xs uppercase">{publisher_name}</p>
+          <p className="font-bold">{`${title} - #${issue}`}</p>
+          <p className="text-xs uppercase">{publisher}</p>
         </div>
       </div>
     </Link>
   )
 }
 
-function Modifiers() {
+function Refinements() {
   return (
     <div className="flex flex-col gap-5">
-      <Refinement title="Publisher" attribute="publisher_name" />
-      <Refinement title="Title" attribute="title_name" />
-      <ToggleRefinementList
-        title="Other"
-        toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
-      />
+      <Refinement title="Publisher" attribute="publisher" />
+      <Refinement title="Title" attribute="title" />
+      <Refinement title="Era" attribute="age" />
+      <Refinement title="Publication Year" attribute="publication_year" />
     </div>
   )
 }
@@ -109,7 +82,7 @@ function Results({ hits }: ResultsProps) {
     <div className="flex flex-col">
       <p className="text-xl font-extrabold uppercase">Results</p>
       {hits.map(hit => (
-        <Result {...hit} />
+        <Result key={hit.id} {...hit} />
       ))}
     </div>
   )
@@ -149,7 +122,7 @@ function Page() {
     <div className="flex h-full w-full flex-col items-center">
       <div className="mt-10 flex h-full w-full justify-center">
         <div className="flex justify-center gap-10">
-          <Modifiers />
+          <Refinements />
           <Results hits={hits} />
           <HotComics />
         </div>

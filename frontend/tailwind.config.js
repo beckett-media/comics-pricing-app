@@ -33,6 +33,7 @@ module.exports = {
         "container-outer": "#212022",
         "container-inner": "#45434E",
         "list-line": "#454156",
+        "headline": "#161032",
       },
       fontSize: {
         xxs: ["10px", "12px"],
