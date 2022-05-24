@@ -20,7 +20,7 @@ export default function TrendingTitles() {
         </div>
         <div className="divide-y-2 divide-list-line text-xs text-white">
           {issues?.map(({ id, issue, title }) => (
-            <div className="flex flex-row justify-between  p-2" key={id}>
+            <div className="flex flex-row justify-between p-2" key={id}>
               <div className="w-7/12 truncate">
                 {title} #{issue}
               </div>

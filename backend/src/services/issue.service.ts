@@ -105,18 +105,8 @@ export const getIssuePrices = (id: string): Promise<Price[]> => {
   `
 }
 
-// TODO(enricozb): make this into a materialized view
 export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
   return sql<IssueMinimal[]>`
-    WITH sales_counts AS (
-      SELECT
-        sales.issue_id,
-        COUNT(*) sales_count
-      FROM sales
-      WHERE sales.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
-      GROUP BY sales.issue_id
-      ORDER BY sales_count DESC
-    )
     SELECT
       issues.id,
       issues.name issue,
@@ -124,33 +114,21 @@ export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
     FROM issues
     JOIN titles ON titles.id = issues.title_id
     JOIN publishers ON publishers.id = titles.publisher_id
-    JOIN sales_counts ON sales_counts.issue_id = issues.id
+    JOIN sales_count ON sales_count.issue_id = issues.id
     LIMIT 3
   `
 }
 
 export const getRecentPriceDrops = async (): Promise<IssuesTrends[]> => {
   return await sql<IssuesTrends[]>`
-    WITH sales_counts AS (
-      SELECT
-      a.issue_id issue_id,
-      b.price - a.price AS price_change, a.date
-    FROM
-      sales a JOIN sales b ON (
-        a.issue_id = b.issue_id
-          AND a.price > b.price
-          AND a.date < b.date
-          AND a.date < (SELECT CURRENT_DATE)
-      ) order by date desc
-    )
     SELECT
       issues.id,
       issues.name issue,
       titles.name title,
-      sales_counts.price_change as price
+      recent_sales.price_change as price
     FROM issues
     JOIN titles ON titles.id = issues.title_id
-    JOIN sales_counts ON sales_counts.issue_id = issues.id
+    JOIN recent_sales ON recent_sales.issue_id = issues.id
     LIMIT 3
   `
 }

@@ -22,7 +22,9 @@ export default function RecentPriceDrops() {
         <div className="divide-y-2 divide-list-line text-xs text-white">
           {issues?.map(({ id, issue, title, price }) => (
             <div className="flex flex-row justify-between p-2">
-              {title} #{issue}
+              <div className="w-7/12 truncate">
+                {title} #{issue}
+              </div>
               <Link key={id} to={`/details/${id}`}>
                 <div className="flex flex-row text-emerald-500">
                   <div className="fill-emerald-500 p-1.5">
