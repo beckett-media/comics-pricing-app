@@ -10,7 +10,7 @@ export default function News() {
     return <div>loading</div>
   }
 
-  const { title, summary, link, media_content } = news.articles[0]
+  const { title, link, media_content } = news.articles[0]
 
   return (
     <div className="w-7/12">
