@@ -5,7 +5,6 @@ import {
   Configure,
   InstantSearch,
   RefinementList,
-  ToggleRefinement,
   useHits,
   useSearchBox,
 } from "react-instantsearch-hooks-web"
@@ -22,11 +21,6 @@ const searchClient = algoliasearch("SGT5R38GFV", "30905cb33c45654eb5159c7f1197bb
 type RefinementProps = {
   title: string
   attribute: string
-}
-
-type ToggleRefinementListProps = {
-  title: string
-  toggleConfigs: { label: string; attribute: string }[]
 }
 
 type Issue = {
@@ -58,25 +52,6 @@ function Refinement({ attribute, title }: RefinementProps) {
   )
 }
 
-function ToggleRefinementList({ title, toggleConfigs }: ToggleRefinementListProps) {
-  return (
-    <div className="flex flex-col">
-      <p className="text-lg font-bold uppercase">{title}</p>
-      {toggleConfigs.map((toggleConfig, idx) => (
-        <ToggleRefinement
-          key={idx}
-          attribute={toggleConfig.attribute}
-          label={toggleConfig.label}
-          classNames={{
-            label: "flex gap-2 items-center",
-            labelText: "font-bold",
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
 function Result({ id, title, issue, publisher }: Issue) {
   return (
     <Link to={`/details/${id}`}>
@@ -91,15 +66,13 @@ function Result({ id, title, issue, publisher }: Issue) {
   )
 }
 
-function Modifiers() {
+function Refinements() {
   return (
     <div className="flex flex-col gap-5">
       <Refinement title="Publisher" attribute="publisher" />
       <Refinement title="Title" attribute="title" />
-      <ToggleRefinementList
-        title="Other"
-        toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
-      />
+      <Refinement title="Era" attribute="age" />
+      <Refinement title="Publication Year" attribute="publication_year" />
     </div>
   )
 }
@@ -149,7 +122,7 @@ function Page() {
     <div className="flex h-full w-full flex-col items-center">
       <div className="mt-10 flex h-full w-full justify-center">
         <div className="flex justify-center gap-10">
-          <Modifiers />
+          <Refinements />
           <Results hits={hits} />
           <HotComics />
         </div>
