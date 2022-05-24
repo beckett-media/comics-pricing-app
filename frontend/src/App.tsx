@@ -7,6 +7,8 @@ import Search from "pages/Search"
 import IssueDetails from "pages/IssueDetails"
 import Dashboard from "pages/Dashboard"
 import Layout from "components/common/Layout"
+import Admin from "./pages/Admin"
+import { Toaster } from "react-hot-toast"
 import { withCheckLoggedIn } from "utils/router"
 
 export default function App() {
@@ -23,10 +25,19 @@ export default function App() {
 
         <Route path={"/"} element={<AuthenticatedLayout />}>
           <Route path={"dashboard"} element={<Dashboard />} />
+          <Route path={"admin"} element={<Admin />} />
           <Route path={"search"} element={<Search />} />
           <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>
       </Routes>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "#FFFFFF",
+          },
+        }}
+      />
     </SWRConfig>
   )
 }

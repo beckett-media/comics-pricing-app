@@ -28,8 +28,8 @@ export const getDetails = async (id: string): Promise<IssueFull> => {
   return issues[0]
 }
 
-export const getRelatedIssues = async (id: string): Promise<IssueMinimal[]> => {
-  return await sql<IssueMinimal[]>`
+export const getRelatedIssues = (id: string): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
     SELECT
       related.id,
       related.name issue,
@@ -62,7 +62,7 @@ export const getRelatedTitles = async (id: string): Promise<Title[]> => {
   `
   )[0]
 
-  return await sql<Title[]>`
+  return sql<Title[]>`
     SELECT
       titles.id,
       titles.name,
@@ -78,8 +78,8 @@ export const getRelatedTitles = async (id: string): Promise<Title[]> => {
   `
 }
 
-export const getPopularIssues = async (): Promise<IssueMinimal[]> => {
-  return await sql<IssueMinimal[]>`
+export const getPopularIssues = (): Promise<IssueMinimal[]> => {
+  return sql<IssueMinimal[]>`
     SELECT
       issues.id,
       issues.name AS issue,
@@ -93,8 +93,8 @@ export const getPopularIssues = async (): Promise<IssueMinimal[]> => {
   `
 }
 
-export const getIssuePrices = async (id: string): Promise<Price[]> => {
-  return await sql<Price[]>`
+export const getIssuePrices = (id: string): Promise<Price[]> => {
+  return sql<Price[]>`
     SELECT
       grade,
       price,
@@ -107,7 +107,7 @@ export const getIssuePrices = async (id: string): Promise<Price[]> => {
 
 // TODO(enricozb): make this into a materialized view
 export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
-  return await sql<IssueMinimal[]>`
+  return sql<IssueMinimal[]>`
     WITH sales_counts AS (
       SELECT
         sales.issue_id,

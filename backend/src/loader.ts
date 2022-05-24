@@ -16,18 +16,22 @@ import { publisherRoutes } from "./routes/publisher.route"
 import { titleRoutes } from "./routes/title.route"
 import { userRoutes } from "./routes/user.route"
 import { logError } from "./util/errorHandling"
+import { adminRoutes } from "./routes/admin.route"
+import AWS from "aws-sdk"
+import process from "process"
 
 const UNCAUGHT_EXCEPTION_EXIT_STATUS = 1
 
 const appRouter = (): Router => {
   const router = Router()
 
-  router.use("/auth", authenticate, authRoutes)
-  router.use("/publisher", authenticate, publisherRoutes)
-  router.use("/issue", authenticate, issueRoutes)
-  router.use("/title", authenticate, titleRoutes)
+  const [regularAuth, adminAuth] = [authenticate(false), authenticate(true)]
+  router.use("/auth", regularAuth, authRoutes)
+  router.use("/publisher", regularAuth, publisherRoutes)
+  router.use("/issue", regularAuth, issueRoutes)
+  router.use("/title", regularAuth, titleRoutes)
   router.use("/user", userRoutes)
-
+  router.use("/admin", adminAuth, adminRoutes)
   return router
 }
 
@@ -38,31 +42,26 @@ export const createApp = (): Application => {
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
+
+  app.use("/", healthCheckRoutes)
+  app.use("/api", appRouter())
+  app.set("trust proxy", true)
   app.use(((err, _req, res, _next) => {
     logError(err)
 
     const status = err instanceof VError ? VError.info(err).code ?? HttpCode.SERVER_ERROR : HttpCode.SERVER_ERROR
-
-    // TODO(michael-sriram): do we want to send error as is directly back to client?
-    res.status(status).send(err)
+    res.status(status).send(err.message)
   }) as ErrorRequestHandler)
-
-  app.use("/", healthCheckRoutes)
-  app.use("/api", appRouter())
-
-  app.set("trust proxy", true)
 
   return app
 }
 
-// TODO(michael-sriram): is this the right way to handle unhandled rejections?
 process.on("unhandledRejection", (err: Error) => {
   console.error("Unhandled Rejection")
 
   throw err
 })
 
-// TODO(michael-sriram): is this the right way to handle unhandled exceptions?
 process.on("uncaughtException", (err: Error) => {
   logError(err)
   process.exit(UNCAUGHT_EXCEPTION_EXIT_STATUS)
@@ -81,3 +80,10 @@ export const sql = postgres({
   password: config.dbPassword,
   database: config.dbName,
 })
+
+AWS.config.update({
+  region: config.region,
+  accessKeyId: config.accessKeyId,
+  secretAccessKey: config.secretAccessKey,
+})
+export const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider()

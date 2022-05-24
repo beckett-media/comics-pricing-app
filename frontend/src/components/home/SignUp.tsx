@@ -1,17 +1,26 @@
 import axios from "axios"
-import toast, { Toaster } from "react-hot-toast"
-import { useState } from "react"
+import toast from "react-hot-toast"
+import React, { useState } from "react"
 
 const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolean>> }> = ({
-  setShowForm,
-}) => {
-  const [name, setName] = useState("")
+                                                                                            setShowForm,
+                                                                                          }) => {
+  const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
+
+  const verifyUsername = (username: string) => {
+    if (username.match(/\s/)) {
+      setUsername("")
+      toast.error("username can't have whitespaces")
+    } else {
+      setUsername(username)
+    }
+  }
 
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {
-      const emailEntry = { email, name }
+      const emailEntry = { email, username }
       await axios.post("/api/user/waitlist", emailEntry)
       setShowForm(false)
       toast("Successfully added to the waitlist!")
@@ -25,10 +34,10 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
     <form onSubmit={(e) => submit(e)} className="flex flex-col space-y-3">
       <label>
         <input
-          placeholder={"your name"}
+          placeholder={"username"}
           type="text"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
+          onChange={(e) => verifyUsername(e.target.value)}
+          value={username}
           className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </label>
@@ -47,14 +56,6 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
       >
         Join the waitlist
       </button>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: "#FFFFFF",
-          },
-        }}
-      />
     </form>
   )
 }

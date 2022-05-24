@@ -4,7 +4,7 @@ const getLoginUrl = () => {
   loginUrl.searchParams.set("client_id", "2ca9tq8ue0rp1n8vc5ckfh0c40")
   loginUrl.searchParams.set("redirect_uri", `${process.env.REACT_APP_API_URL}/api/user/login/`)
   loginUrl.searchParams.set("response_type", "code")
-  loginUrl.searchParams.set("scope", "email openid phone")
+  loginUrl.searchParams.set("scope", "email openid phone profile")
   loginUrl.searchParams.set("state", window.location.href)
 
   return loginUrl.toString()
