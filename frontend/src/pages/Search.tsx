@@ -30,10 +30,10 @@ type ToggleRefinementListProps = {
 }
 
 type Issue = {
-  issue_id: string
-  title_name: string
-  issue_name: string
-  publisher_name: string
+  id: string
+  title: string
+  issue: string
+  publisher: string
 }
 
 type ResultsProps = {
@@ -77,14 +77,14 @@ function ToggleRefinementList({ title, toggleConfigs }: ToggleRefinementListProp
   )
 }
 
-function Result({ issue_id, title_name, issue_name, publisher_name }: Issue) {
+function Result({ id, title, issue, publisher }: Issue) {
   return (
-    <Link to={`/details/${issue_id}`}>
+    <Link to={`/details/${id}`}>
       <div className="my-3 flex w-[500px] gap-3 bg-slate-200 px-3 py-3 hover:scale-[1.02]">
-        <img src={getIssueImage(issue_id)} alt="" className="h-auto w-[80px]" />
+        <img src={getIssueImage(id)} alt="" className="h-auto w-[80px]" />
         <div className="mt-2 flex flex-col">
-          <p className="font-bold">{`${title_name} - #${issue_name}`}</p>
-          <p className="text-xs uppercase">{publisher_name}</p>
+          <p className="font-bold">{`${title} - #${issue}`}</p>
+          <p className="text-xs uppercase">{publisher}</p>
         </div>
       </div>
     </Link>
@@ -94,8 +94,8 @@ function Result({ issue_id, title_name, issue_name, publisher_name }: Issue) {
 function Modifiers() {
   return (
     <div className="flex flex-col gap-5">
-      <Refinement title="Publisher" attribute="publisher_name" />
-      <Refinement title="Title" attribute="title_name" />
+      <Refinement title="Publisher" attribute="publisher" />
+      <Refinement title="Title" attribute="title" />
       <ToggleRefinementList
         title="Other"
         toggleConfigs={[{ label: "From Imprint", attribute: "from_imprint" }]}
@@ -109,7 +109,7 @@ function Results({ hits }: ResultsProps) {
     <div className="flex flex-col">
       <p className="text-xl font-extrabold uppercase">Results</p>
       {hits.map(hit => (
-        <Result {...hit} />
+        <Result key={hit.id} {...hit} />
       ))}
     </div>
   )
