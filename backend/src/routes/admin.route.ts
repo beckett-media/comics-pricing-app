@@ -1,8 +1,8 @@
 import { Router } from "express"
 import { deleteFromWaitList, Email, getWaitList } from "../services/user.service"
-import { RequestWithBody } from "../types"
 import { createUser } from "../services/cognito.service"
 import { HttpCode } from "../constants/httpCode"
+import { RequestWithBody } from "../types/express"
 
 export const adminRoutes = Router()
 
