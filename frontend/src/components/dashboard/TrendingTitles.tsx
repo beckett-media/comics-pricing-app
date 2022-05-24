@@ -19,9 +19,11 @@ export default function TrendingTitles() {
           Trending Titles
         </div>
         <div className="divide-y-2 divide-list-line text-xs text-white">
-          {issues?.map(({ id, issue, title }, idx) => (
-            <div className="flex flex-row justify-between p-2" key={idx}>
-              {title} #{issue}
+          {issues?.map(({ id, issue, title }) => (
+            <div className="flex flex-row justify-between  p-2" key={id}>
+              <div className="w-7/12 truncate">
+                {title} #{issue}
+              </div>
               <Link key={id} to={`/details/${id}`}>
                 <div className="flex flex-row text-secondary-link-text">
                   <p className="pr-3">View Prices</p>

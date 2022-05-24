@@ -4,19 +4,21 @@ import useSWR from "swr"
 export default function News() {
   const { data: news } = useNews()
 
-  console.log(news)
-
   if (!news) {
     return <div>loading</div>
   }
 
-  const { title, link, media_content } = news.articles[0]
+  const {
+    title,
+    link,
+    media_content: [media_url],
+  } = news.articles[0]
 
   return (
     <div className="w-7/12">
       <a href={link} className="relative flex h-full flex-col ">
         <img
-          src={media_content[0]}
+          src={media_url}
           className="h-full w-full overflow-hidden rounded object-cover"
           alt={title}
         />
@@ -40,5 +42,5 @@ function useNews() {
     },
   }
 
-  return useSWR<any>(options, (options) => axios.request(options).then((res) => res.data))
+  return useSWR(options, (options) => axios.request(options).then((res) => res.data))
 }
