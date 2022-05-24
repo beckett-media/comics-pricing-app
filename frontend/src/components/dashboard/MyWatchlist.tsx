@@ -3,7 +3,7 @@ import Issue from "./Issue"
 
 export default function MyWatchlist() {
   return (
-    <div className="flex-row border-2 p-3">
+    <div className="w-full overflow-hidden rounded">
       <Gallery title="My Watchlist">
         {[...Array(5).keys()].map((_) => (
           <Issue />
