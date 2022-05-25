@@ -26,9 +26,9 @@ export default function Admin() {
     <div>{error}</div>
   ) : waitList ? (
     <>
-      <table className={"table-auto"}>
+      <table className={"m-5 table-auto"}>
         <thead>
-          <tr>
+          <tr className={"text-white"}>
             <th>email</th>
             <th>username</th>
             <th>&nbsp;</th>
@@ -37,9 +37,9 @@ export default function Admin() {
         <tbody>
           {waitList.map(({ name, email }) => (
             <tr key={email}>
-              <td className={"px-3"}>{email}</td>
-              <td className={"px-3"}>{name}</td>
-              <td className={"px-3"}>
+              <td className={"px-3 text-white"}>{email}</td>
+              <td className={"px-3 text-white"}>{name}</td>
+              <td className={"px-3 text-white"}>
                 <button
                   className={
                     "focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
