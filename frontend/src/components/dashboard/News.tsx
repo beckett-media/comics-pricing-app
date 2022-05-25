@@ -1,11 +1,19 @@
 import axios from "axios"
-import useSWR from "swr"
+import { useState } from "react"
+
+type News = {
+  articles: {
+    title: string
+    link: string
+    media_content: string[]
+  }[]
+}
 
 export default function News() {
   const { data: news } = useNews()
 
   if (!news) {
-    return <div>loading</div>
+    return <div className="w-7/12">loading</div>
   }
 
   const {
@@ -32,15 +40,19 @@ export default function News() {
 }
 
 function useNews() {
-  const options = {
-    method: "GET",
-    url: "https://newscatcher.p.rapidapi.com/v1/search_free",
-    params: { q: "comics", lang: "en", media: "True" },
-    headers: {
-      "X-RapidAPI-Host": "newscatcher.p.rapidapi.com",
-      "X-RapidAPI-Key": "8a599490f2msh4847247ae5bac50p156765jsndd01faa397d7",
-    },
-  }
+  const [news, setNews] = useState<News | undefined>()
 
-  return useSWR(options, (options) => axios.request(options).then((res) => res.data))
+  axios
+    .request({
+      method: "GET",
+      url: "https://newscatcher.p.rapidapi.com/v1/search_free",
+      params: { q: "comics", lang: "en", media: "True" },
+      headers: {
+        "X-RapidAPI-Host": "newscatcher.p.rapidapi.com",
+        "X-RapidAPI-Key": "8a599490f2msh4847247ae5bac50p156765jsndd01faa397d7",
+      },
+    })
+    .then((res) => setNews(res.data))
+
+  return { data: news }
 }

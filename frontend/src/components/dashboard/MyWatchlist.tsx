@@ -1,16 +1,15 @@
-import Gallery from "./Gallery"
-import Issue from "./Issue"
+import ThinGallery from "./ThinGallery"
+import MiniIssue from "./MiniIssue"
 
 export default function MyWatchlist() {
   return (
-    <div className="w-full overflow-hidden rounded">
-      <Gallery title="My Watchlist">
-        <Issue />
-        <Issue />
-        <Issue />
-        <Issue />
-        <Issue />
-      </Gallery>
+    <div className="overflow-hidden rounded">
+      <ThinGallery title="My Watchlist">
+        <MiniIssue />
+        <MiniIssue />
+        <MiniIssue />
+        <MiniIssue />
+      </ThinGallery>
     </div>
   )
 }

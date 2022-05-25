@@ -1,16 +1,15 @@
-import Gallery from "./Gallery"
-import Issue from "./Issue"
+import ThinGallery from "./ThinGallery"
+import MiniIssue from "./MiniIssue"
 
 export default function RecentlyViewed() {
   return (
     <div className="overflow-hidden rounded">
-      <Gallery title="Recently Viewed">
-        <Issue />
-        <Issue />
-        <Issue />
-        <Issue />
-        <Issue />
-      </Gallery>
+      <ThinGallery title="Recently Viewed">
+        <MiniIssue />
+        <MiniIssue />
+        <MiniIssue />
+        <MiniIssue />
+      </ThinGallery>
     </div>
   )
 }
