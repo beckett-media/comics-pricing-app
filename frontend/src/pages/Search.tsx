@@ -1,4 +1,5 @@
 import algoliasearch from "algoliasearch/lite"
+import { SearchResults } from "algoliasearch-helper"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import {
@@ -6,11 +7,14 @@ import {
   InstantSearch,
   RefinementList,
   useHits,
+  useRefinementList,
   useSearchBox,
 } from "react-instantsearch-hooks-web"
+import useSWR from "swr"
 
 import { NavBarContext } from "components/common/NavBar"
 import { getIssueImage } from "utils/imagePath"
+import { IssueMinimal, IssueFull } from "types/api"
 
 const INDEX_NAME = "tmp-index"
 const HITS_PER_PAGE = 7
@@ -23,43 +27,70 @@ type RefinementProps = {
   attribute: string
 }
 
-type Issue = {
-  id: string
-  title: string
-  issue: string
-  publisher: string
+type ChipsProps = {
+  age: string
+  comment: string | null
 }
+
+type ResultProps = IssueFull
 
 type ResultsProps = {
-  hits: Issue[]
+  hits: IssueFull[]
+  results: SearchResults<IssueFull>
 }
 
+type IssueProps = IssueMinimal
+
 function Refinement({ attribute, title }: RefinementProps) {
+  const { items, refine } = useRefinementList({ attribute, sortBy: ["name:asc"] })
+
   return (
     <div className="flex flex-col">
-      <p className="text-lg font-bold uppercase">{title}</p>
-      <RefinementList
-        attribute={attribute}
-        limit={REFINEMENT_LIST_LIMIT}
-        sortBy={["name:asc"]}
-        classNames={{
-          label: "flex gap-2 items-center",
-          labelText: "font-bold",
-          count: "text-slate-500",
-        }}
-      />
+      <p className="text-lg font-bold text-common-text">{title}</p>
+      {items.map(({ value, count, isRefined }) =>
+        <div key={value} className="flex gap-2 items-center">
+          <input
+            id={`refine-${value}`}
+            type="checkbox"
+            checked={isRefined}
+            className="border-2 border-common-text bg-container-outer"
+            onChange={() => refine(value)}
+          />
+          <label htmlFor={`refine-${value}`} className="text-common-text">{`${value} (${count})`}</label>
+        </div>
+      )}
     </div>
   )
 }
 
-function Result({ id, title, issue, publisher }: Issue) {
+function PriceRange() {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-lg font-bold text-common-text">Price Range</p>
+    </div>
+  )
+}
+
+function Chips({ comment, age }: ChipsProps) {
+  return (
+    <div className="flex w-full gap-2 text-xs">
+      {comment && <div className="rounded bg-key-issue py-1 px-2 mt-1">Key Issue</div>}
+      <div className={`rounded bg-${age.toLowerCase()}-age py-1 px-2 mt-1`}>{age} Age</div>
+    </div>
+  )
+}
+
+function Result({ id, title, issue: issueTitle, publisher, volume, age, comment }: ResultProps) {
+  const volumeText = volume ? `${volume} | ` : ""
+
   return (
     <Link to={`/details/${id}`}>
-      <div className="my-3 flex w-[500px] gap-3 bg-slate-200 px-3 py-3 hover:scale-[1.02]">
+      <div className="flex w-[500px] gap-3 px-3 py-3 text-common-text">
         <img src={getIssueImage(id)} alt="" className="h-auto w-[80px]" />
         <div className="mt-2 flex flex-col">
-          <p className="font-bold">{`${title} - #${issue}`}</p>
-          <p className="text-xs uppercase">{publisher}</p>
+          <p className="font-extrabold">{`${title} - #${issueTitle}`}</p>
+          <p className="text-xs">{`${publisher} | ${volumeText}Issue #${issueTitle}`}</p>
+          <Chips comment={comment} age={age}/>
         </div>
       </div>
     </Link>
@@ -68,40 +99,61 @@ function Result({ id, title, issue, publisher }: Issue) {
 
 function Refinements() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 bg-container-outer p-10 rounded-md">
+      <p className="font-bold text-2xl text-common-text">Filter by</p>
+      <Refinement title="Comic Age" attribute="age" />
       <Refinement title="Publisher" attribute="publisher" />
-      <Refinement title="Title" attribute="title" />
-      <Refinement title="Era" attribute="age" />
-      <Refinement title="Publication Year" attribute="publication_year" />
     </div>
   )
 }
 
-function Results({ hits }: ResultsProps) {
+function Results({ hits, results }: ResultsProps) {
+  // TODO: same outer div as refinements and hotcomics
   return (
-    <div className="flex flex-col">
-      <p className="text-xl font-extrabold uppercase">Results</p>
-      {hits.map((hit) => (
-        <Result key={hit.id} {...hit} />
-      ))}
+    <div className="flex flex-col gap-5 bg-container-outer p-10 rounded-md">
+      <p className="text-xl font-extrabold text-common-text">{`${results.nbHits} Results`}</p>
+      <div className="flex flex-col border-y-2 border-list-line divide-y-2 divide-list-line">
+        {hits.map((hit) =>
+          <Result key={hit.id} {...hit} />
+        )}
+      </div>
+    </div>
+  )
+}
+
+function Issue({ id, issue, title, publisher }: IssueProps) {
+  return (
+    <div className="flex w-32 flex-col items-center">
+      <div className="h-40 w-32">
+        <img
+          className="h-full w-full object-contain"
+          alt={`${title} #${issue}`}
+          src={getIssueImage(id)}
+        />
+      </div>
+      <div className="pt-3 text-center text-xs font-semibold text-common-text">{title}</div>
+      <div className="text-xxs text-common-text">Issue #{issue}</div>
+      <div className="text-xxs text-common-text">{publisher}</div>
     </div>
   )
 }
 
 function HotComics() {
+  const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/popular")
+
+  if (!issues) {
+    return <div>loading</div>
+  }
+
   return (
-    <div className="ml-20 flex flex-col gap-3">
-      <p className="text-xl font-extrabold uppercase">Hot Comics</p>
+    <div className="flex flex-col gap-3 bg-container-outer p-10 rounded-md items-center">
+      <p className="text-xl font-extrabold text-common-text">Hot Comics</p>
       <div className="flex flex-col gap-10">
-        <Link to="/">
-          <div className="h-[200px] w-[160px] bg-slate-500 hover:scale-[1.02]" />
-        </Link>
-        <Link to="/">
-          <div className="h-[200px] w-[160px] bg-slate-400 hover:scale-[1.02]" />
-        </Link>
-        <Link to="/">
-          <div className="h-[200px] w-[160px] bg-slate-300 hover:scale-[1.02]" />
-        </Link>
+        {issues.slice(0, 3).map(({ id, issue, title, publisher }) =>
+          <Link key={id} to={`/details/${id}`}>
+            <Issue id={id} issue={issue} title={title} publisher={publisher} />
+          </Link>
+        )}
       </div>
     </div>
   )
@@ -110,7 +162,7 @@ function HotComics() {
 function Page() {
   const { clear, refine } = useSearchBox()
   const { text: navBarText } = useContext(NavBarContext)
-  const { hits } = useHits<Issue>()
+  const { hits, results } = useHits<IssueFull>()
 
   if (navBarText) {
     refine(navBarText)
@@ -123,7 +175,7 @@ function Page() {
       <div className="mt-10 flex h-full w-full justify-center">
         <div className="flex justify-center gap-10">
           <Refinements />
-          <Results hits={hits} />
+          <Results hits={hits} results={results!} />
           <HotComics />
         </div>
       </div>

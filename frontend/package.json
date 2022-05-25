@@ -15,7 +15,7 @@
     "bracketSpacing": true,
     "jsxSingleQuote": false,
     "printWidth": 100,
-    "quoteProps": "as-needed",
+    "quoteProps": "consistent",
     "semi": false,
     "singleQuote": false,
     "tabWidth": 2,

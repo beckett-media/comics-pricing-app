@@ -13,7 +13,7 @@ module.exports = {
         "form-fields": "#42404D",
         "hdr-body-text": "#FFFFFF",
         "common-text": "#FFFFFF",
-        "primary-link-text": "#ffffff",
+        "primary-link-text": "#FFFFFF",
         "secondary-link-text": "#66C9FF",
         "primary-button-start": "#C1F8E3",
         "primary-button-stop": "#6CD7D4",
@@ -33,7 +33,7 @@ module.exports = {
         "container-outer": "#212022",
         "container-inner": "#45434E",
         "list-line": "#454156",
-        headline: "#161032",
+        "headline": "#161032",
       },
       fontFamily: {
         body: ["Roboto Flex"],
