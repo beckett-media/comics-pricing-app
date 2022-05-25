@@ -4,7 +4,7 @@ AS SELECT
     sales.issue_id,
     COUNT(*) AS sales_count
 FROM sales
-WHERE sales.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
+WHERE sales.date >= (SELECT DATE_TRUNC('DAY', NOW() - INTERVAL '2 MONTH'))
 GROUP BY sales.issue_id
 ORDER BY sales_count DESC
 
@@ -18,7 +18,7 @@ AS WITH recent_sales AS  (
   FROM sales
   LEFT OUTER JOIN sales sales2
     ON (sales.issue_id = sales2.issue_id AND sales.date < sales2.date)
-  WHERE sales2.issue_id IS NULL AND (NOW() - interval '1 month') < sales.date
+  WHERE sales2.issue_id IS NULL AND (NOW() - INTERVAL '1 MONTH') < sales.date
 )
 SELECT
   recent_sales.issue_id,
