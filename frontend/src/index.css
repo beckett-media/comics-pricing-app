@@ -6,3 +6,23 @@
   font-family: "Roboto Flex";
   src: url(./assets/fonts/roboto_flex.ttf);
 }
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 2px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #AAA;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+  transition: opacity 2s;
+}
