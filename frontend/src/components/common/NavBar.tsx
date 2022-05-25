@@ -7,12 +7,12 @@ const logoSrc = "https://beckett-assets.s3.amazonaws.com/beckett-comic-pricing-l
 
 export const NavBarContext = createContext({
   text: "",
-  setText: (_text: string) => {}
+  setText: (_text: string) => {},
 })
 
 export default function NavBar() {
   return (
-    <div className="sticky top-0 grid z-10 h-24 w-full grid-cols-navbar bg-hdr-ftr items-center justify-center">
+    <div className="sticky top-0 z-10 grid h-24 w-full grid-cols-navbar items-center justify-center bg-hdr-ftr">
       <Logo />
       <Search />
       <Buttons />
@@ -26,7 +26,7 @@ function Logo() {
   return (
     <div className="flex items-center justify-center">
       <Link to="/dashboard" onClick={() => setText("")}>
-        <img src={logoSrc} alt=""/>
+        <img src={logoSrc} alt="" />
       </Link>
     </div>
   )
@@ -45,17 +45,17 @@ function Search() {
 
   return (
     <div className="flex justify-center gap-3">
-      <div className="flex items-center w-full">
-        <i className="ml-2.5 absolute fa-solid fa-magnifying-glass text-tmp-icon" />
+      <div className="flex w-full items-center">
+        <i className="fa-solid fa-magnifying-glass absolute ml-2.5 text-tmp-icon" />
         <input
-          className="pl-10 h-8 w-full rounded bg-form-fields text-tmp-icon focus:outline-none"
+          className="h-8 w-full rounded bg-form-fields pl-10 text-tmp-icon focus:outline-none"
           value={text}
-          onChange={event => setText(event.target.value)}
+          onChange={(event) => setText(event.target.value)}
           onKeyPress={onKeyPress}
         />
       </div>
       <button
-        className="text-tmp-search-text h-8 w-28 rounded-full bg-gradient-to-r from-primary-button-start to-primary-button-stop text-center"
+        className="h-8 w-28 rounded-full bg-gradient-to-r from-primary-button-start to-primary-button-stop text-center text-tmp-search-text"
         onClick={navigateToSearchPage}
       >
         Search
@@ -66,7 +66,7 @@ function Search() {
 
 function Buttons() {
   return (
-    <div className="flex justify-center space-x-7 text-tmp-icon text-xl">
+    <div className="flex justify-center space-x-7 text-xl text-tmp-icon">
       <button>
         <i className="fa-regular fa-bell" />
       </button>

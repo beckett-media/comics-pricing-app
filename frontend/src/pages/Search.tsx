@@ -81,7 +81,7 @@ function Results({ hits }: ResultsProps) {
   return (
     <div className="flex flex-col">
       <p className="text-xl font-extrabold uppercase">Results</p>
-      {hits.map(hit => (
+      {hits.map((hit) => (
         <Result key={hit.id} {...hit} />
       ))}
     </div>
