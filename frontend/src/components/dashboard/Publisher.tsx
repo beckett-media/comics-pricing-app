@@ -13,7 +13,7 @@ export default function Publisher({ id, name }: PublisherProps) {
       <div className="h-32 w-40">
         <img className="h-32 w-40 object-contain" alt={name} src={image(id)} />
       </div>
-      <p className="text-center text-xs font-semibold whitespace-nowrap">{name} Comics</p>
+      <p className="whitespace-nowrap text-center text-xs font-semibold">{name} Comics</p>
     </div>
   )
 }

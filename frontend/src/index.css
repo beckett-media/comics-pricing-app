@@ -7,6 +7,11 @@
   src: url(./assets/fonts/roboto_flex.ttf);
 }
 
+@font-face {
+  font-family: "Oswald";
+  src: url(./assets/fonts/oswald.ttf);
+}
+
 *::-webkit-scrollbar {
   width: 12px;
   height: 2px;

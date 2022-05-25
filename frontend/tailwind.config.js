@@ -36,6 +36,7 @@ module.exports = {
         headline: "#161032",
       },
       fontFamily: {
+        header: ["Oswald"],
         body: ["Roboto Flex"],
       },
       fontSize: {

@@ -34,7 +34,9 @@ export default function News() {
         className="absolute h-full w-full overflow-hidden object-cover"
         alt={title}
       />
-      <span className="absolute m-4 bg-headline p-2 text-lg text-white">{title}</span>
+      <span className="absolute m-4 bg-headline p-2 font-header text-3xl font-bold text-white">
+        {title}
+      </span>
     </div>
   )
 }
