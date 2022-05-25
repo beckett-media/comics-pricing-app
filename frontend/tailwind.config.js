@@ -43,6 +43,10 @@ module.exports = {
       },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",
+        "list-item": "1fr 5px",
+      },
+      divideWidth: {
+        1: "1px",
       },
     },
   },

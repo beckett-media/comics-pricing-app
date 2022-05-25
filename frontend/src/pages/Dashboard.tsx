@@ -19,7 +19,7 @@ export default function Dashboard() {
           <MyWatchlist />
         </div>
       </div>
-      <div className="flex flex-row space-x-2">
+      <div className="grid grid-cols-3 gap-2">
         <TrendingTitles />
         <RecentPriceDrops />
         <NewComics />
