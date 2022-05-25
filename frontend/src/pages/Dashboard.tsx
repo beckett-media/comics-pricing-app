@@ -12,7 +12,7 @@ import MyWatchlist from "components/dashboard/MyWatchlist"
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-5 p-10">
-      <div className="flex flex-row gap-5">
+      <div className="flex flex-row items-stretch gap-5">
         <News />
         <div className="flex w-5/12 flex-col gap-5">
           <RecentlyViewed />

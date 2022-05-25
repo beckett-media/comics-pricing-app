@@ -23,18 +23,18 @@ export default function News() {
   } = news.articles[0]
 
   return (
-    <div className="w-7/12">
-      <a href={link} className="relative flex h-full flex-col ">
-        <img
-          src={media_url}
-          className="h-full w-full overflow-hidden rounded object-cover"
-          alt={title}
-        />
-        <span className="absolute z-0 m-2 bg-headline p-2 text-lg text-white">
-          <p>Headline Comic Article</p>
-          {title}
-        </span>
-      </a>
+    <div
+      className="relative w-7/12 grow cursor-pointer overflow-hidden rounded bg-slate-300"
+      onClick={() => {
+        window.location.href = link
+      }}
+    >
+      <img
+        src={media_url}
+        className="absolute h-full w-full overflow-hidden object-cover"
+        alt={title}
+      />
+      <span className="absolute m-4 bg-headline p-2 text-lg text-white">{title}</span>
     </div>
   )
 }

@@ -17,7 +17,7 @@ export default function Issue({ id, issue, title, publisher }: IssueProps) {
           src={getIssueImage(id)}
         />
       </div>
-      <div className="pt-3 text-center text-xs font-semibold">{title}</div>
+      <div className="whitespace-nowrap pt-3 text-center text-xs font-semibold">{title}</div>
       <div className="text-xxs">Issue #{issue}</div>
       <div className="text-xxs">{publisher}</div>
     </div>
