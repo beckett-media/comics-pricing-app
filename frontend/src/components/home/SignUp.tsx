@@ -5,22 +5,22 @@ import React, { useState } from "react"
 const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolean>> }> = ({
   setShowForm,
 }) => {
-  const [username, setUsername] = useState("")
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
 
-  const verifyUsername = (username: string) => {
-    if (username.match(/\s/)) {
-      setUsername("")
+  const verifyName = (name: string) => {
+    if (name.match(/\s/)) {
+      setName("")
       toast.error("username can't have whitespaces")
     } else {
-      setUsername(username)
+      setName(name)
     }
   }
 
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {
-      const emailEntry = { email, username }
+      const emailEntry = { email, name }
       await axios.post("/api/user/waitlist", emailEntry)
       setShowForm(false)
       toast("Successfully added to the waitlist!")
@@ -34,10 +34,10 @@ const SignUp: React.FC<{ setShowForm: React.Dispatch<React.SetStateAction<boolea
     <form onSubmit={(e) => submit(e)} className="flex flex-col space-y-3">
       <label>
         <input
-          placeholder={"username"}
+          placeholder={"name"}
           type="text"
-          onChange={(e) => verifyUsername(e.target.value)}
-          value={username}
+          onChange={(e) => verifyName(e.target.value)}
+          value={name}
           className="focus:shadow-outline w-full appearance-none border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
         />
       </label>
