@@ -3,6 +3,8 @@ import {
   getIssuePrices,
   getPopularIssues,
   getDetails,
+  getNewComics,
+  getRecentPriceDrops,
   getRelatedTitles,
   getRelatedIssues,
   getTrendingIssues,
@@ -17,6 +19,14 @@ issueRoutes.get("/popular", async (_req: Request, res: Response) => {
 
 issueRoutes.get('/trending', async (_req: Request, res: Response)=> {
   res.json(await getTrendingIssues())
+})
+
+issueRoutes.get('/new-comics', async (_req: Request, res: Response)=> {
+  res.json(await getNewComics())
+})
+
+issueRoutes.get('/recent-price-drops', async (_req: Request, res: Response)=> {
+  res.json(await getRecentPriceDrops())
 })
 
 issueRoutes.get("/:id", async (req: RequestWithParams<{ id: string }>, res: Response) => {
@@ -34,3 +44,5 @@ issueRoutes.get("/:id/related/issues", async (req: RequestWithParams<{ id: strin
 issueRoutes.get("/:id/related/titles", async (req: RequestWithParams<{ id: string }>, res: Response) => {
   res.json(await getRelatedTitles(req.params.id))
 })
+
+

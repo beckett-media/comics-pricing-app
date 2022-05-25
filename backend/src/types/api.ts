@@ -5,6 +5,13 @@ export type IssueMinimal = {
   publisher: string
 }
 
+export type IssueTrends = {
+  id: string
+  issue: string
+  title: string
+  price: string
+}
+
 export type IssueFull = IssueMinimal & {
   title_id: string
   publisher_id: string

@@ -1,5 +1,5 @@
 import { sql } from "../loader"
-import type { IssueMinimal, IssueFull, Title, Price } from "types/api"
+import type { IssueMinimal, IssueFull, Title, Price, IssueTrends } from "types/api"
 
 export const getDetails = async (id: string): Promise<IssueFull> => {
   const issues = await sql<IssueFull[]>`
@@ -105,18 +105,8 @@ export const getIssuePrices = (id: string): Promise<Price[]> => {
   `
 }
 
-// TODO(enricozb): make this into a materialized view
 export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
   return sql<IssueMinimal[]>`
-    WITH sales_counts AS (
-      SELECT
-        sales.issue_id,
-        COUNT(*) sales_count
-      FROM sales
-      WHERE sales.date >= (SELECT date_trunc('day', NOW() - interval '2 month'))
-      GROUP BY sales.issue_id
-      ORDER BY sales_count DESC
-    )
     SELECT
       issues.id,
       issues.name issue,
@@ -124,7 +114,36 @@ export const getTrendingIssues = async (): Promise<IssueMinimal[]> => {
     FROM issues
     JOIN titles ON titles.id = issues.title_id
     JOIN publishers ON publishers.id = titles.publisher_id
-    JOIN sales_counts ON sales_counts.issue_id = issues.id
+    JOIN sales_count ON sales_count.issue_id = issues.id
+    LIMIT 3
+  `
+}
+
+export const getRecentPriceDrops = async (): Promise<IssueTrends[]> => {
+  return await sql<IssueTrends[]>`
+    SELECT
+      issues.id,
+      issues.name issue,
+      titles.name title,
+      recent_sales.price_change as price
+    FROM issues
+    JOIN titles ON titles.id = issues.title_id
+    JOIN recent_sales ON recent_sales.issue_id = issues.id
+    LIMIT 3
+  `
+}
+
+export const getNewComics = async (): Promise<IssueTrends[]> => {
+  return await sql<IssueTrends[]>`
+    SELECT 
+      issues.id,
+      issues.name issue, 
+      titles.name title,
+      sales.price as price
+    FROM issues 
+    JOIN titles ON issues.title_id = titles.id 
+    JOIN sales ON issues.id = sales.issue_id 
+    ORDER BY sales.date DESC 
     LIMIT 3
   `
 }
