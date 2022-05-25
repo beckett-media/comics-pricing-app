@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 
-type News = {
+type NewsAPI = {
   articles: {
     title: string
     link: string
@@ -40,7 +40,7 @@ export default function News() {
 }
 
 function useNews() {
-  const [news, setNews] = useState<News | undefined>()
+  const [news, setNews] = useState<NewsAPI | undefined>()
 
   axios
     .request({
