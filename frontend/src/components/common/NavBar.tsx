@@ -1,9 +1,8 @@
 import { createContext, KeyboardEvent, useContext } from "react"
 import { Link } from "react-router-dom"
 
+import { ReactComponent as BeckettLogo } from "assets/beckett-logo.svg"
 import { useNavigateWithSearchParams } from "utils/router"
-
-const logoSrc = "https://beckett-assets.s3.amazonaws.com/beckett-comic-pricing-logo.svg"
 
 export const NavBarContext = createContext({
   text: "",
@@ -26,7 +25,7 @@ function Logo() {
   return (
     <div className="flex items-center justify-center">
       <Link to="/dashboard" onClick={() => setText("")}>
-        <img src={logoSrc} alt="" />
+        <BeckettLogo />
       </Link>
     </div>
   )
