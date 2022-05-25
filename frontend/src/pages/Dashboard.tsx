@@ -11,7 +11,7 @@ import MyWatchlist from "components/dashboard/MyWatchlist"
 
 export default function Dashboard() {
   return (
-    <div className="my-10 space-y-10 px-10">
+    <div className="flex flex-col gap-5 p-10">
       <div className="flex flex-row gap-5">
         <News />
         <div className="flex w-5/12 flex-col gap-5">
@@ -19,7 +19,7 @@ export default function Dashboard() {
           <MyWatchlist />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-5">
         <TrendingTitles />
         <RecentPriceDrops />
         <NewComics />
