@@ -36,6 +36,7 @@ module.exports = {
         "headline": "#161032",
       },
       fontFamily: {
+        header: ["Oswald"],
         body: ["Roboto Flex"],
       },
       fontSize: {
@@ -43,6 +44,10 @@ module.exports = {
       },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",
+        "list-item": "1fr 5px",
+      },
+      divideWidth: {
+        1: "1px",
       },
     },
   },

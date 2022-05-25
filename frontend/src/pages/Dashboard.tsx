@@ -11,15 +11,15 @@ import MyWatchlist from "components/dashboard/MyWatchlist"
 
 export default function Dashboard() {
   return (
-    <div className="my-10 space-y-10 px-10">
-      <div className="flex h-80 flex-row space-x-5">
+    <div className="flex flex-col gap-5 py-5 px-10">
+      <div className="flex flex-row items-stretch gap-5">
         <News />
-        <div className="flex w-5/12 flex-col space-y-2">
+        <div className="flex w-5/12 flex-col gap-5">
           <RecentlyViewed />
           <MyWatchlist />
         </div>
       </div>
-      <div className="flex flex-row space-x-2">
+      <div className="grid grid-cols-3 gap-5">
         <TrendingTitles />
         <RecentPriceDrops />
         <NewComics />
