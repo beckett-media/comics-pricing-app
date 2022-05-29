@@ -10,6 +10,7 @@ import Layout from "components/common/Layout"
 import Admin from "./pages/Admin"
 import { Toaster } from "react-hot-toast"
 import { withCheckLoggedIn } from "utils/router"
+import NotFound from "./pages/NotFound"
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -18,17 +19,18 @@ export default function App() {
     <SWRConfig
       value={{
         fetcher: (url) => axios.get(url, { withCredentials: true }).then((res) => res.data),
+        revalidateOnFocus: false,
       }}
     >
       <Routes>
         <Route path={"/"} element={<Home />} />
-
         <Route path={"/"} element={<AuthenticatedLayout />}>
           <Route path={"dashboard"} element={<Dashboard />} />
           <Route path={"admin"} element={<Admin />} />
           <Route path={"search"} element={<Search />} />
           <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>
+        <Route path={"/*"} element={<NotFound />} />
       </Routes>
       <Toaster
         position="top-right"
