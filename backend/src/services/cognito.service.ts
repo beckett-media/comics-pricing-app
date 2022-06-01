@@ -4,19 +4,26 @@ import { cognitoIdentityServiceProvider, config } from "../loader"
 import VError from "verror"
 import { HttpCode } from "../constants/httpCode"
 
-const COGNITO_API_URL = "https://comics.auth.us-east-1.amazoncognito.com/oauth2/token"
+const COGNITO_API_URL = "https://comics.auth.us-west-1.amazoncognito.com/oauth2/token"
 type UserTokens = { id_token: string; refresh_token: string }
 
 export function verifyUser(code: string, protocol: string, host: string): Promise<UserTokens> {
+  const query = querystring.stringify({
+    grant_type: "authorization_code",
+    client_id: config.cognitoClientId,
+    code,
+    redirect_uri: `${protocol}://${host}/api/user/login/`,
+  });
+
+  console.log('querystring', query);
+
   return axios.post<UserTokens>(
     COGNITO_API_URL,
-    querystring.stringify({
-      grant_type: "authorization_code",
-      client_id: config.cognitoClientId,
-      code,
-      redirect_uri: `${protocol}://${host}/api/user/login/`,
-    }),
-  ).then(res => res.data)
+    query,
+  ).then(res => res.data).then(xx => {
+    console.log('verifyUser', xx);
+    return xx;
+  })
 }
 
 export async function createUser(username: string, email: string) {
