@@ -1,0 +1,13 @@
+{
+  "cognitoAwsRegion": "us-west-1",
+  "cognitoClientId": "4tii5u5mi6c0ch9v091v63g9bg",
+  "cognitoUserPoolId": "us-west-1_jwnEokhOe",
+  "dbHost": "localhost:5432",
+  "dbName": "comics",
+  "dbPassword": "comics",
+  "dbUsername": "comics_dev",
+  "port": 9000,
+  "region": "",
+  "accessKeyId": "",
+  "secretAccessKey": ""
+}

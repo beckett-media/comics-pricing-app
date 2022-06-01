@@ -1,4 +1,6 @@
 /build/
-/config/
+/config/*
 /node_modules/
 /yarn-error.log
+
+!/config/default.example.json
