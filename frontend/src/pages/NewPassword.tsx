@@ -15,11 +15,11 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
-import { PasswordField } from "components/ConfirmPassword/PasswordField"
+import { PasswordField } from "components/NewPassword/PasswordField"
 
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 
-const ConfirmPassword = ({ ...props }) => (
+const NewPassword = ({ ...props }) => (
   <Box
     w={"100%"}
     h={"100%"}
@@ -53,7 +53,7 @@ const ConfirmPassword = ({ ...props }) => (
       justifyContent="center"
       display={"flex"}
     >
-      <Container py={25} px={14}>
+      <Container px={14}>
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
@@ -61,9 +61,10 @@ const ConfirmPassword = ({ ...props }) => (
           boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          <Stack spacing="6">
+          <Stack spacing="10">
             <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
               <Heading
+                my={8}
                 fontSize={25}
                 fontWeight={600}
                 color="white"
@@ -81,6 +82,7 @@ const ConfirmPassword = ({ ...props }) => (
                   Code
                 </FormLabel>
                 <Input
+                  borderColor={"transparent"}
                   id="email"
                   type="email"
                   bg="#42404D"
@@ -99,7 +101,7 @@ const ConfirmPassword = ({ ...props }) => (
             <Box display={"flex"} justifyContent={"center"}>
               <Button
                 my={5}
-                borderRadius={{ base: "none", sm: "xl" }}
+                borderRadius={100}
                 w={200}
                 h={12}
                 background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -122,4 +124,4 @@ const ConfirmPassword = ({ ...props }) => (
   </Box>
 )
 
-export default ConfirmPassword
+export default NewPassword

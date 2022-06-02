@@ -93,6 +93,7 @@ const Login = ({ ...props }) => (
                   Email
                 </FormLabel>
                 <Input
+                  borderColor={"transparent"}
                   id="email"
                   type="email"
                   bg="#42404D"
@@ -106,7 +107,7 @@ const Login = ({ ...props }) => (
             <Box display={"flex"} justifyContent={"center"}>
               <Button
                 my={6}
-                borderRadius={{ base: "none", sm: "xl" }}
+                borderRadius={100}
                 w={200}
                 h={12}
                 background="linear-gradient(to right, #C1F8E3, #6CD7D4)"

@@ -15,11 +15,11 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
-import { CodeField } from "components/Confirmation/CodeField"
-
+import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
+import { Link } from "react-router-dom"
 
-const Confirmation = () => (
+const ResetPassword = ({ ...props }) => (
   <Box
     w={"100%"}
     h={"100%"}
@@ -53,7 +53,7 @@ const Confirmation = () => (
       justifyContent="center"
       display={"flex"}
     >
-      <Container py={25}>
+      <Container py={25} px={14}>
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
@@ -61,31 +61,45 @@ const Confirmation = () => (
           boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          <Stack>
-            <Stack spacing={{ base: "6", md: "6" }} textAlign="center">
+          <Stack spacing="8">
+            <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb={7}>
               <Heading
                 fontSize={25}
                 fontWeight={600}
                 color="white"
                 size={useBreakpointValue({ base: "xs", md: "sm" })}
+                my={15}
               >
-                CONFIRMED
+                RESET YOUR PASSWORD
               </Heading>
-              <HStack spacing="10" justify="center">
-                <Text color="white" px={10}>
-                  Thanks for signing up! Check your inbox for your login link and temporary
-                  password.
+              <HStack spacing="1" justify="center" px={10}>
+                <Text color="white">
+                  Enter your email below and we'll send a code. if you have trouble finding it, you
+                  may need to check your spam inbox.
                 </Text>
               </HStack>
             </Stack>
           </Stack>
-          <Stack spacing="6" mt={5}>
+          <Stack spacing="6">
+            <Stack spacing="5">
+              <FormControl>
+                <FormLabel htmlFor="email" color="white">
+                  Email
+                </FormLabel>
+                <Input
+                  borderColor={"transparent"}
+                  id="email"
+                  type="email"
+                  bg="#42404D"
+                  h={12}
+                  value={props.value}
+                  onChange={props.onChange}
+                />
+              </FormControl>
+            </Stack>
             <Box display={"flex"} justifyContent={"center"}>
               <Button
-                onClick={() => {
-                  window.location.href = "/"
-                }}
-                my={5}
+                mt={6}
                 borderRadius={100}
                 w={200}
                 h={12}
@@ -93,11 +107,21 @@ const Confirmation = () => (
                 color={"black"}
                 fontWeight={"bold"}
                 _focus={{ boxShadow: "none" }}
+                onClick={() => (window.location.href = "/newPassword")}
               >
-                Return Home
+                Send Code
               </Button>
             </Box>
-            
+            <Button
+              variant="link"
+              colorScheme="blue"
+              _focus={{ boxShadow: "none" }}
+              onClick={() => {
+                window.location.href = "/login"
+              }}
+            >
+              Back to Login
+            </Button>
           </Stack>
         </Box>
       </Container>
@@ -110,4 +134,4 @@ const Confirmation = () => (
   </Box>
 )
 
-export default Confirmation
+export default ResetPassword
