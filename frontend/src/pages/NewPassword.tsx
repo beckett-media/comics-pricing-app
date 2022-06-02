@@ -12,7 +12,6 @@ import {
   Image,
 } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
-
 import { PasswordField } from "components/NewPassword/PasswordField"
 
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"

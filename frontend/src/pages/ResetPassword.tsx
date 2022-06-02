@@ -140,4 +140,5 @@ const ResetPassword = ({ ...props }) => {
     </Box>
   )
 }
+
 export default ResetPassword
