@@ -13,8 +13,13 @@ userRoutes.get("/login", async (req: RequestWithQueryParams<{ code: string, stat
     res.status(HttpCode.BAD_REQUEST).send("Host unknown")
     return
   }
+
+  console.log('user login', req.query.code, req.protocol, req.headers.host, TOKEN_USE_CLAIM);
   try {
     const { id_token } = await verifyUser(req.query.code, req.protocol, req.headers.host)
+
+    console.log('user login token', id_token);
+
     res.cookie(TOKEN_USE_CLAIM, id_token)
     res.redirect(req.query.state)
   } catch (rawErr) {

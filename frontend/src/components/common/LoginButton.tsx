@@ -1,7 +1,7 @@
 const getLoginUrl = () => {
-  const loginUrl = new URL("https://comics.auth.us-east-1.amazoncognito.com/login")
+  const loginUrl = new URL("https://comics.auth.us-west-1.amazoncognito.com/login")
 
-  loginUrl.searchParams.set("client_id", "2ca9tq8ue0rp1n8vc5ckfh0c40")
+  loginUrl.searchParams.set("client_id", "4tii5u5mi6c0ch9v091v63g9bg")
   loginUrl.searchParams.set("redirect_uri", `${process.env.REACT_APP_API_URL}/api/user/login/`)
   loginUrl.searchParams.set("response_type", "code")
   loginUrl.searchParams.set("scope", "email openid phone profile")
