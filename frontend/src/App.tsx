@@ -19,7 +19,7 @@ import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
 
 export default function App() {
-  const AuthenticatedLayout = withCheckLoggedIn(Layout)
+  // const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
   return (
     <Box h={"100vh"}>
