@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "comicsfrontendffefd2ca": {}
+      },
+      "function": {
+        "S3Trigger9ddabae6": {
+          "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+          "s3Key": "amplify-builds/S3Trigger9ddabae6-33644d65677454765758-build.zip"
+        }
       }
     }
   }

@@ -16,15 +16,15 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
-import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
-import { PasswordFieldSignUp } from "components/SignUp/PasswordFieldSignUp"
 import { Auth } from "aws-amplify"
-import { type } from "os"
+import { useNavigate } from "react-router-dom"
 
 const SignUp = ({ ...props }) => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+
+  let navigate = useNavigate()
 
   async function signUp() {
     try {
@@ -101,7 +101,7 @@ const SignUp = ({ ...props }) => {
                     colorScheme="blue"
                     _focus={{ boxShadow: "none" }}
                     onClick={() => {
-                      window.location.href = "/login"
+                      navigate("/login")
                     }}
                   >
                     Login
@@ -152,7 +152,7 @@ const SignUp = ({ ...props }) => {
                   _focus={{ boxShadow: "none" }}
                   my={5}
                   onClick={() => {
-                    window.location.href = "/confirmation"
+                    navigate("/confirmation")
                   }}
                 >
                   Continue
