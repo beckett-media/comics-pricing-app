@@ -9,6 +9,7 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientIDWeb": "string",
             "AppClientID": "string"
         }
+
     },
     "function": {
         "S3Trigger9ddabae6": {
@@ -23,5 +24,6 @@ export type AmplifyDependentResourcesAttributes = {
             "BucketName": "string",
             "Region": "string"
         }
+
     }
 }
