@@ -82,6 +82,7 @@ const Login = ({ ...props }) => (
                   }}
                 >
                   join waiting list
+
                 </Button>
               </HStack>
             </Stack>
