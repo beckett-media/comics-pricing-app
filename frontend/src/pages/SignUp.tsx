@@ -92,7 +92,9 @@ const SignUp = ({ ...props }) => {
                   justifyContent={"center"}
                   px={19}
                 >
+
                   Join our waitlist to access pricing data for the hottest comics on the market
+
                 </Heading>
                 <HStack spacing="1" justify="center">
                   <Text color="white">Already have an account?</Text>
@@ -117,7 +119,9 @@ const SignUp = ({ ...props }) => {
                     Email
                   </FormLabel>
                   <Input
+
                     borderColor={"transparent"}
+
                     id="email"
                     type="email"
                     bg="#42404D"
@@ -131,7 +135,9 @@ const SignUp = ({ ...props }) => {
                     Name
                   </FormLabel>
                   <Input
+
                     borderColor={"transparent"}
+
                     id="name"
                     type="name"
                     bg="#42404D"
@@ -143,7 +149,9 @@ const SignUp = ({ ...props }) => {
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button
+
                   borderRadius={100}
+
                   w={200}
                   h={12}
                   background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -151,9 +159,11 @@ const SignUp = ({ ...props }) => {
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
                   my={5}
+
                   onClick={() => {
                     window.location.href = "/confirmation"
                   }}
+
                 >
                   Continue
                 </Button>

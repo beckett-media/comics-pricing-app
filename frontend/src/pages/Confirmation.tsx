@@ -54,6 +54,7 @@ const Confirmation = () => (
       display={"flex"}
     >
       <Container py={25}>
+
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
@@ -61,14 +62,16 @@ const Confirmation = () => (
           boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
+
           <Stack>
             <Stack spacing={{ base: "6", md: "6" }} textAlign="center">
+
               <Heading
                 fontSize={25}
                 fontWeight={600}
                 color="white"
                 size={useBreakpointValue({ base: "xs", md: "sm" })}
-              >
+
                 CONFIRMED
               </Heading>
               <HStack spacing="10" justify="center">
@@ -76,10 +79,12 @@ const Confirmation = () => (
                   Thanks for signing up! Check your inbox for your login link and temporary
                   password.
                 </Text>
+
               </HStack>
             </Stack>
           </Stack>
           <Stack spacing="6" mt={5}>
+
             <Box display={"flex"} justifyContent={"center"}>
               <Button
                 onClick={() => {
@@ -87,6 +92,7 @@ const Confirmation = () => (
                 }}
                 my={5}
                 borderRadius={100}
+
                 w={200}
                 h={12}
                 background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -94,6 +100,7 @@ const Confirmation = () => (
                 fontWeight={"bold"}
                 _focus={{ boxShadow: "none" }}
               >
+
                 Return Home
               </Button>
             </Box>

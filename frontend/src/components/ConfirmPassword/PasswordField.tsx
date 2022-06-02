@@ -1,8 +1,6 @@
 import {
-  Button,
   FormControl,
   FormLabel,
-  HStack,
   IconButton,
   Input,
   InputGroup,
@@ -29,7 +27,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
   return (
     <FormControl>
       <FormLabel htmlFor="password" color={"white"}>
-        Password
+        Create Password
       </FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -41,8 +39,6 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           />
         </InputRightElement>
         <Input
-          borderColor={"transparent"}
-
           h={12}
           bg="#42404D"
           id="password"
@@ -56,20 +52,32 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           {...props}
         />
       </InputGroup>
-      <HStack justify="flex-start" my={3}>
-        <Button
-          _focus={{ boxShadow: "none" }}
-          variant="link"
-          colorScheme="blue"
-          size="sm"
-          onClick={() => {
-            window.location.href = "/reset-password"
-          }}
-        >
-
-          Forgot password?
-        </Button>
-      </HStack>
+      <FormLabel htmlFor="password" color={"white"} mt={5}>
+        Confirm Password
+      </FormLabel>
+      <InputGroup>
+        <InputRightElement>
+          <IconButton
+            variant="link"
+            aria-label={isOpen ? "Mask password" : "Reveal password"}
+            icon={isOpen ? <HiEyeOff /> : <HiEye />}
+            onClick={onClickReveal}
+          />
+        </InputRightElement>
+        <Input
+          h={12}
+          bg="#42404D"
+          id="password"
+          ref={mergeRef}
+          name="password"
+          type={isOpen ? "text" : "password"}
+          autoComplete="current-password"
+          required
+          value={props.value}
+          onChange={props.onChange}
+          {...props}
+        />
+      </InputGroup>
     </FormControl>
   )
 })
