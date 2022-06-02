@@ -39,6 +39,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           />
         </InputRightElement>
         <Input
+          borderColor={"transparent"}
           h={12}
           bg="#42404D"
           id="password"
@@ -65,6 +66,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           />
         </InputRightElement>
         <Input
+          borderColor={"transparent"}
           h={12}
           bg="#42404D"
           id="password"

@@ -16,29 +16,15 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
-import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
-import { PasswordFieldSignUp } from "components/SignUp/PasswordFieldSignUp"
-import { Auth } from "aws-amplify"
-import { type } from "os"
+import { useNavigate } from "react-router-dom"
 
 const SignUp = ({ ...props }) => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
 
-  async function signUp() {
-    try {
-      const { user } = await Auth.signUp({
-        username: email,
-        password,
-      })
-      console.log(user)
-    } catch (error) {
-      console.log("error signing up:", error)
-    }
-  }
+  let navigate = useNavigate()
 
-  
   return (
     <Box
       w={"100%"}
@@ -84,27 +70,32 @@ const SignUp = ({ ...props }) => {
             <Stack spacing="6">
               <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
                 <Heading
-                  fontSize={25}
+                  mt={5}
+                  fontSize={20}
                   fontWeight={600}
                   color="white"
                   size={useBreakpointValue({ base: "xs", md: "sm" })}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  px={19}
                 >
-                  SIGN UP
+                  Join our waitlist to access pricing data for the hottest comics on the market
                 </Heading>
                 <HStack spacing="1" justify="center">
                   <Text color="white">Already have an account?</Text>
                   <Button
-                    onClick={() => {
-                      window.location.href = "/login"
-                    }}
                     variant="link"
                     colorScheme="blue"
                     _focus={{ boxShadow: "none" }}
+                    onClick={() => {
+                      navigate("/login")
+                    }}
                   >
                     Login
                   </Button>
                 </HStack>
               </Stack>
+              <Box />
             </Stack>
             <Stack spacing="6">
               <Stack spacing="5">
@@ -113,6 +104,7 @@ const SignUp = ({ ...props }) => {
                     Email
                   </FormLabel>
                   <Input
+                    borderColor={"transparent"}
                     id="email"
                     type="email"
                     bg="#42404D"
@@ -121,11 +113,24 @@ const SignUp = ({ ...props }) => {
                     onChange={props.onChange}
                   />
                 </FormControl>
-                <PasswordFieldSignUp />
+                <FormControl>
+                  <FormLabel htmlFor="email" color="white">
+                    Name
+                  </FormLabel>
+                  <Input
+                    borderColor={"transparent"}
+                    id="name"
+                    type="name"
+                    bg="#42404D"
+                    h={12}
+                    value={props.value}
+                    onChange={props.onChange}
+                  />
+                </FormControl>
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button
-                  borderRadius={{ base: "none", sm: "xl" }}
+                  borderRadius={100}
                   w={200}
                   h={12}
                   background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -133,6 +138,9 @@ const SignUp = ({ ...props }) => {
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
                   my={5}
+                  onClick={() => {
+                    navigate("/confirmation")
+                  }}
                 >
                   Continue
                 </Button>

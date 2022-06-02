@@ -9,5 +9,19 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientIDWeb": "string",
             "AppClientID": "string"
         }
+    },
+    "function": {
+        "S3Trigger9ddabae6": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        }
+    },
+    "storage": {
+        "comicss3image": {
+            "BucketName": "string",
+            "Region": "string"
+        }
     }
 }

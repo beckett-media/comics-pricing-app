@@ -41,6 +41,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           />
         </InputRightElement>
         <Input
+          borderColor={"transparent"}
           h={12}
           bg="#42404D"
           id="password"
@@ -55,7 +56,15 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
         />
       </InputGroup>
       <HStack justify="flex-start" my={3}>
-        <Button variant="link" colorScheme="blue" size="sm">
+        <Button
+          _focus={{ boxShadow: "none" }}
+          variant="link"
+          colorScheme="blue"
+          size="sm"
+          onClick={() => {
+            window.location.href = "/reset-password"
+          }}
+        >
           Forgot password?
         </Button>
       </HStack>
