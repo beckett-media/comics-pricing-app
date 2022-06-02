@@ -19,7 +19,7 @@ import { PasswordField } from "components/ConfirmPassword/PasswordField"
 
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 
-const ConfirmPassword = () => (
+const ConfirmPassword = ({ ...props }) => (
   <Box
     w={"100%"}
     h={"100%"}
@@ -73,9 +73,28 @@ const ConfirmPassword = () => (
               </Heading>
             </Stack>
           </Stack>
+
+          <Stack spacing="6">
+            <Stack spacing="5">
+              <FormControl>
+                <FormLabel htmlFor="email" color="white">
+                  Code
+                </FormLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  bg="#42404D"
+                  h={12}
+                  value={props.value}
+                  onChange={props.onChange}
+                />
+              </FormControl>
+            </Stack>
+          </Stack>
+
           <Stack spacing="6" mt={5}>
             <Stack spacing="5">
-              <PasswordField />
+              <PasswordField value={props.value} onChange={props.onChange} />
             </Stack>
             <Box display={"flex"} justifyContent={"center"}>
               <Button

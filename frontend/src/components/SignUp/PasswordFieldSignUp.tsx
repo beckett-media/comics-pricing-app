@@ -12,7 +12,7 @@ import {
 import * as React from "react"
 import { HiEye, HiEyeOff } from "react-icons/hi"
 
-export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const PasswordFieldSignUp = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { isOpen, onToggle } = useDisclosure()
   const inputRef = React.useRef<HTMLInputElement>(null)
 
@@ -39,7 +39,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           />
         </InputRightElement>
         <Input
-         h={12}
+          h={12}
           bg="#42404D"
           id="password"
           ref={mergeRef}
@@ -47,6 +47,9 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           type={isOpen ? "text" : "password"}
           autoComplete="current-password"
           required
+          value={props.value}
+          onChange={props.onChange}
+          
           {...props}
         />
       </InputGroup>
@@ -54,4 +57,4 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
   )
 })
 
-PasswordField.displayName = "PasswordField"
+PasswordFieldSignUp.displayName = "PasswordField"

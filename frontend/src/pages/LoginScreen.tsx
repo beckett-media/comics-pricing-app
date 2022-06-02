@@ -17,8 +17,9 @@ import {
 } from "@chakra-ui/react"
 import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
+import { Link } from "react-router-dom"
 
-const Login = () => (
+const Login = ({ ...props }) => (
   <Box
     w={"100%"}
     h={"100%"}
@@ -61,7 +62,7 @@ const Login = () => (
           borderRadius={{ base: "none", sm: "xl" }}
         >
           <Stack spacing="6">
-            <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
+            <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb={7}>
               <Heading
                 fontSize={25}
                 fontWeight={600}
@@ -72,7 +73,14 @@ const Login = () => (
               </Heading>
               <HStack spacing="1" justify="center">
                 <Text color="white">Don't have an account?</Text>
-                <Button variant="link" colorScheme="blue" _focus={{ boxShadow: "none" }}>
+                <Button
+                  variant="link"
+                  colorScheme="blue"
+                  _focus={{ boxShadow: "none" }}
+                  onClick={() => {
+                    window.location.href = "/signup"
+                  }}
+                >
                   Sign up
                 </Button>
               </HStack>
@@ -84,17 +92,20 @@ const Login = () => (
                 <FormLabel htmlFor="email" color="white">
                   Email
                 </FormLabel>
-                <Input id="email" type="email" bg="#42404D" h={12} />
+                <Input
+                  id="email"
+                  type="email"
+                  bg="#42404D"
+                  h={12}
+                  value={props.value}
+                  onChange={props.onChange}
+                />
               </FormControl>
-              <PasswordField />
+              <PasswordField value={props.value} onChange={props.onChange} />
             </Stack>
-            <HStack justify="space-between">
-              <Button variant="link" colorScheme="blue" size="sm">
-                Forgot password?
-              </Button>
-            </HStack>
             <Box display={"flex"} justifyContent={"center"}>
               <Button
+                my={6}
                 borderRadius={{ base: "none", sm: "xl" }}
                 w={200}
                 h={12}

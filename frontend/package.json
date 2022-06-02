@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint --max-warnings 0 --ext .ts,.tsx . && tsc --noEmit",
+    "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx . && tsc --noEmit",
     "pretty": "prettier --write ."
   },
   "prettier": {
@@ -45,6 +45,7 @@
     "@types/eslint": "^7.28.2"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^2.18.3",
     "@chakra-ui/react": "^2.1.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
@@ -55,6 +56,7 @@
     "@types/d3": "^7.1.0",
     "@types/react-virtualized": "^9.21.21",
     "algoliasearch": "^4.13.0",
+    "aws-amplify": "^4.3.24",
     "axios": "^0.27.2",
     "framer-motion": "^6",
     "js-cookie": "^3.0.1",

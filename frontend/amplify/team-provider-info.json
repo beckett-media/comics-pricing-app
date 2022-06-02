@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-comicsfrontend-dev-100929-authRole",
+      "UnauthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-dev-100929-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-dev-100929-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+      "UnauthRoleName": "amplify-comicsfrontend-dev-100929-unauthRole",
+      "StackName": "amplify-comicsfrontend-dev-100929",
+      "StackId": "arn:aws:cloudformation:us-west-1:548281136650:stack/amplify-comicsfrontend-dev-100929/9fa71780-e27d-11ec-b777-06ec1b07324b",
+      "AmplifyAppId": "dml2msu0u28tp"
+    },
+    "categories": {
+      "auth": {
+        "comicsfrontendffefd2ca": {}
+      }
+    }
+  }
+}

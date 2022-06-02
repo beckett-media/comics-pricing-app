@@ -1,6 +1,8 @@
 import {
+  Button,
   FormControl,
   FormLabel,
+  HStack,
   IconButton,
   Input,
   InputGroup,
@@ -39,7 +41,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           />
         </InputRightElement>
         <Input
-         h={12}
+          h={12}
           bg="#42404D"
           id="password"
           ref={mergeRef}
@@ -47,9 +49,16 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
           type={isOpen ? "text" : "password"}
           autoComplete="current-password"
           required
+          value={props.value}
+          onChange={props.onChange}
           {...props}
         />
       </InputGroup>
+      <HStack justify="flex-start" my={3}>
+        <Button variant="link" colorScheme="blue" size="sm">
+          Forgot password?
+        </Button>
+      </HStack>
     </FormControl>
   )
 })

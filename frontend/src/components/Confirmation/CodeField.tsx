@@ -47,6 +47,8 @@ export const CodeField = React.forwardRef<HTMLInputElement, InputProps>((props, 
           type={isOpen ? "text" : "password"}
           autoComplete="current-password"
           required
+          value={props.value}
+          onChange={props.onChange}
           {...props}
         />
       </InputGroup>
