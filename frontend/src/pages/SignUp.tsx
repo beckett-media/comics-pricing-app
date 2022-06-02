@@ -38,7 +38,6 @@ const SignUp = ({ ...props }) => {
     }
   }
 
-  
   return (
     <Box
       w={"100%"}
@@ -84,27 +83,34 @@ const SignUp = ({ ...props }) => {
             <Stack spacing="6">
               <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
                 <Heading
-                  fontSize={25}
+                  mt={5}
+                  fontSize={20}
                   fontWeight={600}
                   color="white"
                   size={useBreakpointValue({ base: "xs", md: "sm" })}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  px={19}
                 >
-                  SIGN UP
+                  Join our waitlist to get access to the hottest comics in the market!
+
                 </Heading>
                 <HStack spacing="1" justify="center">
                   <Text color="white">Already have an account?</Text>
                   <Button
-                    onClick={() => {
-                      window.location.href = "/login"
-                    }}
                     variant="link"
                     colorScheme="blue"
                     _focus={{ boxShadow: "none" }}
+                    onClick={() => {
+                      window.location.href = "/login"
+                    }}
                   >
                     Login
                   </Button>
                 </HStack>
               </Stack>
+              <Box />
+
             </Stack>
             <Stack spacing="6">
               <Stack spacing="5">
@@ -121,7 +127,20 @@ const SignUp = ({ ...props }) => {
                     onChange={props.onChange}
                   />
                 </FormControl>
-                <PasswordFieldSignUp />
+                <FormControl>
+                  <FormLabel htmlFor="email" color="white">
+                    Name
+                  </FormLabel>
+                  <Input
+                    id="name"
+                    type="name"
+                    bg="#42404D"
+                    h={12}
+                    value={props.value}
+                    onChange={props.onChange}
+                  />
+                </FormControl>
+
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button

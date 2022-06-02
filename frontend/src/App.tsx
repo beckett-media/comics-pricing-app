@@ -18,7 +18,7 @@ import SignUp from "./pages/SignUp"
 import Confirmation from "pages/Confirmation"
 import ConfirmPassword from "pages/ConfirmPassword"
 import { Auth, Hub } from "aws-amplify"
-import { Link } from "react-router-dom"
+
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -44,23 +44,21 @@ export default function App() {
 
   return (
     <Box h={"100vh"}>
-      {isLoggedIn ? (
-        <Routes>
-          <Route path={"/"} element={<Home />}>
-            <Route path={"dashboard"} element={<Dashboard />} />
-            <Route path={"admin"} element={<Admin />} />
-            <Route path={"search"} element={<Search />} />
-            <Route path={"details/:issueId"} element={<IssueDetails />} />
-          </Route>
-        </Routes>
-      ) : (
-        <Routes>
-          <Route path={"/login"} element={<Login />} />
-          <Route path={"/signup"} element={<SignUp />} />
-          <Route path={"/confirmation"} element={<Confirmation />} />
-          <Route path={"/confirmPassword"} element={<ConfirmPassword />} />
-        </Routes>
-      )}
+      <Routes>
+        {/* Auth screens */}
+        <Route path={"/"} element={<SignUp />} />
+        <Route path={"/signup"} element={<SignUp />} />
+        <Route path={"/login"} element={<Login />} />
+        <Route path={"/confirmation"} element={<Confirmation />} />
+        <Route path={"/confirmPassword"} element={<ConfirmPassword />} />
+
+        <Route path={"/"} element={<Home />}>
+          <Route path={"dashboard"} element={<Dashboard />} />
+          <Route path={"admin"} element={<Admin />} />
+          <Route path={"search"} element={<Search />} />
+          <Route path={"details/:issueId"} element={<IssueDetails />} />
+        </Route>
+      </Routes>
 
       <Toaster
         position="top-right"
