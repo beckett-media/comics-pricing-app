@@ -81,7 +81,7 @@ const Login = ({ ...props }) => (
                     window.location.href = "/signup"
                   }}
                 >
-                  Sign up
+                  join waiting list
                 </Button>
               </HStack>
             </Stack>
