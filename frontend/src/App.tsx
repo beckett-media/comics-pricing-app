@@ -17,18 +17,18 @@ export default function App() {
   return (
     <SWRConfig
       value={{
-        fetcher: (url) => axios.get(url, { withCredentials: true }).then((res) => res.data),
+        fetcher: (url) => axios.get(`${url}`, { withCredentials: true }).then((res) => res.data),
       }}
     >
       <Routes>
         <Route path={"/"} element={<Home />} />
 
-        <Route path={"/"} element={<AuthenticatedLayout />}>
+        {/* <Route path={"/"} element={<AuthenticatedLayout />}> */}
           <Route path={"dashboard"} element={<Dashboard />} />
           <Route path={"admin"} element={<Admin />} />
           <Route path={"search"} element={<Search />} />
           <Route path={"details/:issueId"} element={<IssueDetails />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
       <Toaster
         position="top-right"
