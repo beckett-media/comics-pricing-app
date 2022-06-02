@@ -22,6 +22,25 @@ import { Auth, Hub } from "aws-amplify"
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+
+  useEffect(() => {
+    Auth.currentAuthenticatedUser({
+      bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+    })
+      .then((user) => {
+        if (user === "The user is not authenticated") {
+          setIsLoggedIn(false)
+          window.location.href = "/signup"
+        } else {
+          setIsLoggedIn(true)
+          window.location.href = "/login"
+        }
+      })
+      .catch((err) => console.log(err))
+  }, [isLoggedIn])
+
   return (
     <Box h={"100vh"}>
       <Routes>
@@ -39,6 +58,7 @@ export default function App() {
           <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>
       </Routes>
+
       <Toaster
         position="top-right"
         toastOptions={{
