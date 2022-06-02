@@ -44,6 +44,7 @@ export default function App() {
         toastOptions={{
           style: {
             background: "#FFFFFF",
+            
           },
         }}
       />
