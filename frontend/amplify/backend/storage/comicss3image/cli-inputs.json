@@ -1,0 +1,13 @@
+{
+  "resourceName": "comicss3image",
+  "policyUUID": "808efbe7",
+  "bucketName": "comicss3bucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "S3Trigger9ddabae6",
+  "groupAccess": {}
+}

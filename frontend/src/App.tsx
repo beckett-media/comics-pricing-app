@@ -20,7 +20,7 @@ import ResetPassword from "pages/ResetPassword"
 
 
 export default function App() {
-  const AuthenticatedLayout = withCheckLoggedIn(Layout)
+  // const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 

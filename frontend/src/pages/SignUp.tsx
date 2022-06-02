@@ -16,15 +16,16 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
-import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
-import { PasswordFieldSignUp } from "components/SignUp/PasswordFieldSignUp"
 import { Auth } from "aws-amplify"
-import { type } from "os"
+import { useNavigate } from "react-router-dom"
+
 
 const SignUp = ({ ...props }) => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+
+  let navigate = useNavigate()
 
   async function signUp() {
     try {
@@ -92,7 +93,6 @@ const SignUp = ({ ...props }) => {
                   justifyContent={"center"}
                   px={19}
                 >
-
                   Join our waitlist to access pricing data for the hottest comics on the market
 
                 </Heading>
@@ -103,7 +103,8 @@ const SignUp = ({ ...props }) => {
                     colorScheme="blue"
                     _focus={{ boxShadow: "none" }}
                     onClick={() => {
-                      window.location.href = "/login"
+                      navigate("/login")
+
                     }}
                   >
                     Login
@@ -119,9 +120,7 @@ const SignUp = ({ ...props }) => {
                     Email
                   </FormLabel>
                   <Input
-
                     borderColor={"transparent"}
-
                     id="email"
                     type="email"
                     bg="#42404D"
@@ -135,9 +134,7 @@ const SignUp = ({ ...props }) => {
                     Name
                   </FormLabel>
                   <Input
-
                     borderColor={"transparent"}
-
                     id="name"
                     type="name"
                     bg="#42404D"
@@ -149,9 +146,7 @@ const SignUp = ({ ...props }) => {
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button
-
                   borderRadius={100}
-
                   w={200}
                   h={12}
                   background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -159,11 +154,9 @@ const SignUp = ({ ...props }) => {
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
                   my={5}
-
                   onClick={() => {
-                    window.location.href = "/confirmation"
+                    navigate("/confirmation")
                   }}
-
                 >
                   Continue
                 </Button>
