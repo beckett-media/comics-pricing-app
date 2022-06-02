@@ -19,7 +19,7 @@ import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 import { Link } from "react-router-dom"
 
-const Login = ({ ...props }) => (
+const ResetPassword = ({ ...props }) => (
   <Box
     w={"100%"}
     h={"100%"}
@@ -61,28 +61,22 @@ const Login = ({ ...props }) => (
           boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          <Stack spacing="6">
+          <Stack spacing="8">
             <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb={7}>
               <Heading
                 fontSize={25}
                 fontWeight={600}
                 color="white"
                 size={useBreakpointValue({ base: "xs", md: "sm" })}
+                my={15}
               >
-                LOGIN
+                RESET YOUR PASSWORD
               </Heading>
-              <HStack spacing="1" justify="center">
-                <Text color="white">Don't have an account?</Text>
-                <Button
-                  variant="link"
-                  colorScheme="blue"
-                  _focus={{ boxShadow: "none" }}
-                  onClick={() => {
-                    window.location.href = "/signup"
-                  }}
-                >
-                  join waiting list
-                </Button>
+              <HStack spacing="1" justify="center" px={10}>
+                <Text color="white">
+                  Enter your email below and we'll send a code. if you have trouble finding it, you
+                  may need to check your spam inbox.
+                </Text>
               </HStack>
             </Stack>
           </Stack>
@@ -93,9 +87,7 @@ const Login = ({ ...props }) => (
                   Email
                 </FormLabel>
                 <Input
-
                   borderColor={"transparent"}
-
                   id="email"
                   type="email"
                   bg="#42404D"
@@ -104,24 +96,32 @@ const Login = ({ ...props }) => (
                   onChange={props.onChange}
                 />
               </FormControl>
-              <PasswordField value={props.value} onChange={props.onChange} />
             </Stack>
             <Box display={"flex"} justifyContent={"center"}>
               <Button
-                my={6}
-
+                mt={6}
                 borderRadius={100}
-
                 w={200}
                 h={12}
                 background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
                 color={"black"}
                 fontWeight={"bold"}
                 _focus={{ boxShadow: "none" }}
+                onClick={() => (window.location.href = "/newPassword")}
               >
-                Continue
+                Send Code
               </Button>
             </Box>
+            <Button
+              variant="link"
+              colorScheme="blue"
+              _focus={{ boxShadow: "none" }}
+              onClick={() => {
+                window.location.href = "/login"
+              }}
+            >
+              Back to Login
+            </Button>
           </Stack>
         </Box>
       </Container>
@@ -134,4 +134,4 @@ const Login = ({ ...props }) => (
   </Box>
 )
 
-export default Login
+export default ResetPassword

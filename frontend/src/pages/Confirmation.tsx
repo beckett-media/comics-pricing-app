@@ -53,7 +53,8 @@ const Confirmation = () => (
       justifyContent="center"
       display={"flex"}
     >
-      <Container py={25} px={14}>
+      <Container py={25}>
+
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
@@ -61,32 +62,37 @@ const Confirmation = () => (
           boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          <Stack spacing="6">
-            <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
+
+          <Stack>
+            <Stack spacing={{ base: "6", md: "6" }} textAlign="center">
+
               <Heading
                 fontSize={25}
                 fontWeight={600}
                 color="white"
                 size={useBreakpointValue({ base: "xs", md: "sm" })}
-              >
-                CONFIRMATION CODE
+
+                CONFIRMED
               </Heading>
-              <HStack spacing="1" justify="center">
-                <Text color="white">Didn't receive the code? </Text>
-                <Button variant="link" colorScheme="blue" _focus={{ boxShadow: "none" }}>
-                  Request one
-                </Button>
+              <HStack spacing="10" justify="center">
+                <Text color="white" px={10}>
+                  Thanks for signing up! Check your inbox for your login link and temporary
+                  password.
+                </Text>
+
               </HStack>
             </Stack>
           </Stack>
           <Stack spacing="6" mt={5}>
-            <Stack spacing="5">
-              <CodeField />
-            </Stack>
+
             <Box display={"flex"} justifyContent={"center"}>
               <Button
+                onClick={() => {
+                  window.location.href = "/"
+                }}
                 my={5}
-                borderRadius={{ base: "none", sm: "xl" }}
+                borderRadius={100}
+
                 w={200}
                 h={12}
                 background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -94,9 +100,11 @@ const Confirmation = () => (
                 fontWeight={"bold"}
                 _focus={{ boxShadow: "none" }}
               >
-                Continue
+
+                Return Home
               </Button>
             </Box>
+            
           </Stack>
         </Box>
       </Container>

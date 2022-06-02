@@ -15,11 +15,11 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
-import { PasswordField } from "../components/Login/PasswordField"
-import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
-import { Link } from "react-router-dom"
+import { PasswordField } from "components/NewPassword/PasswordField"
 
-const Login = ({ ...props }) => (
+import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
+
+const NewPassword = ({ ...props }) => (
   <Box
     w={"100%"}
     h={"100%"}
@@ -53,7 +53,7 @@ const Login = ({ ...props }) => (
       justifyContent="center"
       display={"flex"}
     >
-      <Container py={25} px={14}>
+      <Container px={14}>
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
@@ -61,41 +61,28 @@ const Login = ({ ...props }) => (
           boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          <Stack spacing="6">
-            <Stack spacing={{ base: "2", md: "3" }} textAlign="center" mb={7}>
+          <Stack spacing="10">
+            <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
               <Heading
+                my={8}
                 fontSize={25}
                 fontWeight={600}
                 color="white"
                 size={useBreakpointValue({ base: "xs", md: "sm" })}
               >
-                LOGIN
+                SET NEW PASSWORD
               </Heading>
-              <HStack spacing="1" justify="center">
-                <Text color="white">Don't have an account?</Text>
-                <Button
-                  variant="link"
-                  colorScheme="blue"
-                  _focus={{ boxShadow: "none" }}
-                  onClick={() => {
-                    window.location.href = "/signup"
-                  }}
-                >
-                  join waiting list
-                </Button>
-              </HStack>
             </Stack>
           </Stack>
+
           <Stack spacing="6">
             <Stack spacing="5">
               <FormControl>
                 <FormLabel htmlFor="email" color="white">
-                  Email
+                  Code
                 </FormLabel>
                 <Input
-
                   borderColor={"transparent"}
-
                   id="email"
                   type="email"
                   bg="#42404D"
@@ -104,14 +91,17 @@ const Login = ({ ...props }) => (
                   onChange={props.onChange}
                 />
               </FormControl>
+            </Stack>
+          </Stack>
+
+          <Stack spacing="6" mt={5}>
+            <Stack spacing="5">
               <PasswordField value={props.value} onChange={props.onChange} />
             </Stack>
             <Box display={"flex"} justifyContent={"center"}>
               <Button
-                my={6}
-
+                my={5}
                 borderRadius={100}
-
                 w={200}
                 h={12}
                 background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
@@ -134,4 +124,4 @@ const Login = ({ ...props }) => (
   </Box>
 )
 
-export default Login
+export default NewPassword
