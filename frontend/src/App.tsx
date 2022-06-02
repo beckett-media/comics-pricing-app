@@ -14,7 +14,6 @@ import Login from "pages/LoginScreen"
 import { Box } from "@chakra-ui/react"
 import SignUp from "./pages/SignUp"
 import Confirmation from "pages/Confirmation"
-import ConfirmPassword from "pages/ConfirmPassword"
 import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
 
@@ -61,24 +60,14 @@ export default function App() {
         <Route path={"/login"} element={<Login />} />
         <Route path={"/signup"} element={<SignUp />} />
         <Route path={"/confirmation"} element={<Confirmation />} />
-        <Route path={"/confirmPassword"} element={<ConfirmPassword />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />
-      </Routes>
-
-        <Route path={"/"} element={<Home />}>
-          <Route path={"dashboard"} element={<Dashboard />} />
-          <Route path={"admin"} element={<Admin />} />
-          <Route path={"search"} element={<Search />} />
-          <Route path={"details/:issueId"} element={<IssueDetails />} />
-        </Route>
       </Routes>
       <Toaster
         position="top-right"
         toastOptions={{
           style: {
             background: "#FFFFFF",
-            
           },
         }}
       />
