@@ -17,7 +17,7 @@ import {
   Image,
 } from "@chakra-ui/react"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
-import { Auth } from "aws-amplify"
+
 import { useNavigate } from "react-router-dom"
 
 
@@ -27,17 +27,6 @@ const SignUp = ({ ...props }) => {
 
   let navigate = useNavigate()
 
-  async function signUp() {
-    try {
-      const { user } = await Auth.signUp({
-        username: email,
-        password,
-      })
-      console.log(user)
-    } catch (error) {
-      console.log("error signing up:", error)
-    }
-  }
 
   return (
     <Box
