@@ -19,7 +19,6 @@ import Confirmation from "pages/Confirmation"
 import ConfirmPassword from "pages/ConfirmPassword"
 import { Auth, Hub } from "aws-amplify"
 
-
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
 

@@ -93,7 +93,6 @@ const SignUp = ({ ...props }) => {
                   px={19}
                 >
                   Join our waitlist to get access to the hottest comics in the market!
-
                 </Heading>
                 <HStack spacing="1" justify="center">
                   <Text color="white">Already have an account?</Text>
@@ -110,7 +109,6 @@ const SignUp = ({ ...props }) => {
                 </HStack>
               </Stack>
               <Box />
-
             </Stack>
             <Stack spacing="6">
               <Stack spacing="5">
@@ -140,7 +138,6 @@ const SignUp = ({ ...props }) => {
                     onChange={props.onChange}
                   />
                 </FormControl>
-
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button
