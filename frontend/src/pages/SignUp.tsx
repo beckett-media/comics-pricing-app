@@ -27,7 +27,6 @@ const SignUp = ({ ...props }) => {
 
   let navigate = useNavigate()
 
-
   return (
     <Box
       w={"100%"}

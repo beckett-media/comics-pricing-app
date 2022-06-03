@@ -7,15 +7,19 @@ import "./index.css"
 import { ChakraProvider } from "@chakra-ui/react"
 import { Amplify } from "aws-amplify"
 
-
+import { AuthProvider } from "providers/auth"
 import awsExports from "./aws-exports"
+
+
 Amplify.configure(awsExports)
 
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
       <ChakraProvider>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ChakraProvider>
     </BrowserRouter>
   </StrictMode>,

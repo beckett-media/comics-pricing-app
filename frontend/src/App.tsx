@@ -1,6 +1,6 @@
-import axios from "axios"
+
 import React, { useEffect, useState } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
 
 import Home from "pages/Home"
@@ -19,6 +19,44 @@ import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
 
 
+import { useAuth } from "providers/auth"
+
+function RequireAuth({ children }: { children: JSX.Element }) {
+  let { isLoggedIn, isAuthChecking } = useAuth()
+  let location = useLocation()
+
+  console.log("isLoggedIn", { isLoggedIn, isAuthChecking })
+
+  if (isAuthChecking) {
+    return <Box>Loading...</Box>
+  }
+
+  if (!isLoggedIn) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  return children
+}
+
+function OnlyNonAuth({ children }: { children: JSX.Element }) {
+  let { isLoggedIn, isAuthChecking } = useAuth()
+
+  if (isAuthChecking) {
+    return <Box>Loading...</Box>
+  }
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />
+  }
+
+  return children
+}
+
+
 export default function App() {
   // const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
@@ -26,21 +64,41 @@ export default function App() {
   return (
     <Box h={"100vh"}>
       <Routes>
-        {/* Auth screens */}
-        <Route path={"/"} element={<SignUp />} />
-        <Route path={"/signup"} element={<SignUp />} />
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/confirmation"} element={<Confirmation />} />
-        <Route path={"/reset-password"} element={<ResetPassword />} />
-        <Route path={"/newPassword"} element={<NewPassword />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
 
-
-        <Route path={"/"} element={<Home />}>
           <Route path={"dashboard"} element={<Dashboard />} />
           <Route path={"admin"} element={<Admin />} />
           <Route path={"search"} element={<Search />} />
           <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>
+
+        {/* // TODO: Redirect it already authed */}
+        <Route
+          path={"/login"}
+          element={
+            <OnlyNonAuth>
+              <Login />
+            </OnlyNonAuth>
+          }
+        />
+        <Route
+          path={"/signup"}
+          element={
+            <OnlyNonAuth>
+              <SignUp />
+            </OnlyNonAuth>
+          }
+        />
+        <Route path={"/confirmation"} element={<Confirmation />} />
+        <Route path={"/reset-password"} element={<ResetPassword />} />
+        <Route path={"/newPassword"} element={<NewPassword />} />
       </Routes>
 
       <Toaster
