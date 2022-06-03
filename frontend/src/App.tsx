@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
@@ -30,7 +29,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   if (isAuthChecking) {
     return <Box>Loading...</Box>
   }
-
+    
   if (!isLoggedIn) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
@@ -60,6 +59,10 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
 export default function App() {
   // const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
+
+  const { isLoggedIn } = useAuth()
+
+  console.log("isLoggedIn", isLoggedIn)
 
   return (
     <Box h={"100vh"}>
@@ -96,6 +99,7 @@ export default function App() {
             </OnlyNonAuth>
           }
         />
+
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />

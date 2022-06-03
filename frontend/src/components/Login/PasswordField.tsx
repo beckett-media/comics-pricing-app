@@ -33,7 +33,6 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
     <FormControl>
       <FormLabel htmlFor="password" color={"white"}>
         {type} Password
-
       </FormLabel>
       <InputGroup>
         <InputRightElement>
