@@ -55,7 +55,6 @@ const Login = ({ ...props }) => {
         setIsResetPassword(true)
       }
     } catch (error) {
-      console.log("error", error)
       setError(error.message)
     }
   }
@@ -226,7 +225,6 @@ const Login = ({ ...props }) => {
                   onClick={() => {
                     signOut()
                   }}
-
                   my={6}
                   borderRadius={100}
                   w={200}
@@ -235,7 +233,6 @@ const Login = ({ ...props }) => {
                   color={"black"}
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
-
                   isLoading={isResetPassword ? isLoading : isLoading}
                 >
                   sign out

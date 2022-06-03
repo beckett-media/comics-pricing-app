@@ -28,7 +28,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   if (isAuthChecking) {
     return <Box>Loading...</Box>
   }
-    
+
   if (!isLoggedIn) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
@@ -58,67 +58,67 @@ export default function App() {
   // const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
   return (
-    <Box h={"100vh"}>
+    <>
       <Routes>
         <Route
           path="/"
           element={
             <RequireAuth>
-              <Dashboard />
+              <Layout />
             </RequireAuth>
           }
-        />
-        <Route
-          path={"dashboard"}
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={"admin"}
-          element={
-            <RequireAuth>
-              <Admin />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={"search"}
-          element={
-            <RequireAuth>
-              <Search />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={"details/:issueId"}
-          element={
-            <RequireAuth>
-              <IssueDetails />
-            </RequireAuth>
-          }
-        />
+        >
+          <Route
+            path={"dashboard"}
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"admin"}
+            element={
+              <RequireAuth>
+                <Admin />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"search"}
+            element={
+              <RequireAuth>
+                <Search />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={"details/:issueId"}
+            element={
+              <RequireAuth>
+                <IssueDetails />
+              </RequireAuth>
+            }
+          />
 
-        {/* // TODO: Redirect it already authed */}
-        <Route
-          path={"/login"}
-          element={
-            <OnlyNonAuth>
-              <Login />
-            </OnlyNonAuth>
-          }
-        />
-        <Route
-          path={"/signup"}
-          element={
-            <OnlyNonAuth>
-              <SignUp />
-            </OnlyNonAuth>
-          }
-        />
-
+          {/* // TODO: Redirect it already authed */}
+          <Route
+            path={"/login"}
+            element={
+              <OnlyNonAuth>
+                <Login />
+              </OnlyNonAuth>
+            }
+          />
+          <Route
+            path={"/signup"}
+            element={
+              <OnlyNonAuth>
+                <SignUp />
+              </OnlyNonAuth>
+            }
+          />
+        </Route>
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />
@@ -132,6 +132,6 @@ export default function App() {
           },
         }}
       />
-    </Box>
+    </>
   )
 }
