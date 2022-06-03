@@ -16,6 +16,7 @@ import {
   Image,
 } from "@chakra-ui/react"
 import { PasswordField } from "../components/Login/PasswordField"
+import { NewPasswordField } from "../components/Login/NewPasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
 import { Auth } from "aws-amplify"
@@ -26,16 +27,65 @@ const Login = ({ ...props }) => {
   const [password, setPassword] = React.useState("")
   const [error, setError] = React.useState(null)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [newPassword, setNewPassword] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("")
+  const [isResetPassword, setIsResetPassword] = React.useState(false)
+  const [checkuser, setCheckuser] = React.useState("")
+
+  console.log(newPassword, confirmPassword)
+
+  // check password match
+  const checkPassword = () => {
+    if (newPassword === confirmPassword) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  async function createNewPassword() {
+    try {
+      setIsResetPassword(true)
+      if (checkPassword()) {
+        const loggedUser = await Auth.completeNewPassword(checkuser, newPassword)
+        alert(`User ${loggedUser.username} created a new password!`)
+        navigate("/confirmation")
+        setIsResetPassword(false)
+      } else {
+        alert("Password not match")
+        setIsResetPassword(true)
+      }
+    } catch (error) {
+      console.log("error", error)
+      setError(error.message)
+    }
+  }
 
   async function signIn() {
     try {
-      setIsLoading(true)
-      await Auth.signIn(email, password)
-      // alert("Successfully signed in!")
+      await Auth.signIn(email, password).then(async (user) => {
+        if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+          setIsResetPassword(true)
+          setPassword("")
+          setCheckuser(user)
+        } else {
+          alert(`User ${user.username} has been signed in!`)
+        }
+      })
     } catch (e) {
-      alert(e.message)
       setError(e.message)
-      setIsLoading(false)
+    }
+  }
+
+  async function signOut() {
+    try {
+      await Auth.signOut({ global: true })
+      setIsResetPassword(false)
+      setPassword("")
+      setEmail("")
+      setError(null)
+    } catch (error) {
+      console.log("error signing out: ", error)
     }
   }
 
@@ -121,27 +171,61 @@ const Login = ({ ...props }) => {
                     {error}
                   </Text>
                 )}
-                <FormControl>
-                  <FormLabel htmlFor="email" color="white">
-                    Email
-                  </FormLabel>
-                  <Input
-                    borderColor={"transparent"}
-                    id="email"
-                    type="email"
-                    bg="#42404D"
-                    h={12}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormControl>
-                <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
+                {!isResetPassword && (
+                  <>
+                    <FormControl>
+                      <FormLabel htmlFor="email" color="white">
+                        Email
+                      </FormLabel>
+                      <Input
+                        borderColor={"transparent"}
+                        id="email"
+                        type="email"
+                        bg="#42404D"
+                        h={12}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </FormControl>
+                    <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
+                  </>
+                )}
+                {isResetPassword && (
+                  <>
+                    <PasswordField
+                      type={isResetPassword ? "New" : "password"}
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                    <NewPasswordField
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </>
+                )}
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
+                {!isResetPassword && (
+                  <Button
+                    onClick={() => {
+                      signIn()
+                    }}
+                    my={6}
+                    borderRadius={100}
+                    w={200}
+                    h={12}
+                    background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
+                    color={"black"}
+                    fontWeight={"bold"}
+                    _focus={{ boxShadow: "none" }}
+                    isLoading={isResetPassword ? isLoading : isLoading}
+                  >
+                    Continue
+                  </Button>
+                )}
                 <Button
                   onClick={() => {
-                    signIn()
-                    navigate("/")
+                    signOut()
                   }}
                   my={6}
                   borderRadius={100}
@@ -151,10 +235,28 @@ const Login = ({ ...props }) => {
                   color={"black"}
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
-                  isLoading={isLoading}
+                  isLoading={isResetPassword ? isLoading : isLoading}
                 >
-                  Continue
+                  sign out
                 </Button>
+                {isResetPassword && (
+                  <Button
+                    onClick={() => {
+                      createNewPassword()
+                    }}
+                    my={6}
+                    borderRadius={100}
+                    w={200}
+                    h={12}
+                    background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
+                    color={"black"}
+                    fontWeight={"bold"}
+                    _focus={{ boxShadow: "none" }}
+                    isLoading={isResetPassword ? isLoading : isLoading}
+                  >
+                    new password
+                  </Button>
+                )}
               </Box>
             </Stack>
           </Box>

@@ -14,7 +14,7 @@ import {
 import * as React from "react"
 import { HiEye, HiEyeOff } from "react-icons/hi"
 
-export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const NewPasswordField = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { isOpen, onToggle } = useDisclosure()
   const inputRef = React.useRef<HTMLInputElement>(null)
 
@@ -26,12 +26,10 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
     }
   }
 
-  let { value, onChange, type } = props
-
   return (
     <FormControl>
       <FormLabel htmlFor="password" color={"white"}>
-        {type} Password
+        Confirm Password
       </FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -74,4 +72,4 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>((pro
   )
 })
 
-PasswordField.displayName = "PasswordField"
+NewPasswordField.displayName = "PasswordField"

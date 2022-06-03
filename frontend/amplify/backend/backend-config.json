@@ -3,17 +3,7 @@
     "comicsfrontendffefd2ca": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "comicsfrontendffefd2caCustomMessage",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
+      "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
@@ -42,11 +32,6 @@
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true
-    },
-    "comicsfrontendffefd2caCustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   },
   "storage": {
