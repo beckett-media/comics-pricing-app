@@ -223,22 +223,6 @@ const Login = ({ ...props }) => {
                     Continue
                   </Button>
                 )}
-                <Button
-                  onClick={() => {
-                    signOut()
-                  }}
-                  my={6}
-                  borderRadius={100}
-                  w={200}
-                  h={12}
-                  background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
-                  color={"black"}
-                  fontWeight={"bold"}
-                  _focus={{ boxShadow: "none" }}
-                  isLoading={isResetPassword ? isLoading : isLoading}
-                >
-                  sign out
-                </Button>
                 {isResetPassword && (
                   <Button
                     onClick={() => {
@@ -254,7 +238,7 @@ const Login = ({ ...props }) => {
                     _focus={{ boxShadow: "none" }}
                     isLoading={isResetPassword ? isLoading : isLoading}
                   >
-                    new password
+                    Create Password
                   </Button>
                 )}
               </Box>
