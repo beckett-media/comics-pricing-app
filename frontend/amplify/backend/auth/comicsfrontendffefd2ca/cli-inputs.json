@@ -26,7 +26,6 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-
       "name",
       "preferred_username",
       "email"
@@ -74,6 +73,5 @@
       "Ref": "AWS::StackId"
     },
     "permissions": []
-
   }
 }

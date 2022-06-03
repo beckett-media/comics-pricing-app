@@ -82,7 +82,6 @@ const SignUp = ({ ...props }) => {
                   px={19}
                 >
                   Join our waitlist to access pricing data for the hottest comics on the market
-
                 </Heading>
                 <HStack spacing="1" justify="center">
                   <Text color="white">Already have an account?</Text>
@@ -92,7 +91,6 @@ const SignUp = ({ ...props }) => {
                     _focus={{ boxShadow: "none" }}
                     onClick={() => {
                       navigate("/login")
-
                     }}
                   >
                     Login

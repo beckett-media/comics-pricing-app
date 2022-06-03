@@ -28,7 +28,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   if (isAuthChecking) {
     return <Box>Loading...</Box>
   }
-
+    
   if (!isLoggedIn) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
@@ -118,6 +118,7 @@ export default function App() {
             </OnlyNonAuth>
           }
         />
+
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />

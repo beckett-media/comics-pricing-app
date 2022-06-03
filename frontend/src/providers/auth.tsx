@@ -69,6 +69,7 @@ function AuthProvider(props: any) {
       value={{
         isLoggedIn,
         isAuthChecking,
+
         currentUser
       }}
       {...props}
