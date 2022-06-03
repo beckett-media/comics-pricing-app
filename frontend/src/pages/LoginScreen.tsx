@@ -31,7 +31,7 @@ const Login = ({ ...props }) => {
     try {
       setIsLoading(true)
       await Auth.signIn(email, password)
-      alert("Successfully signed in!")
+      // alert("Successfully signed in!")
     } catch (e) {
       alert(e.message)
       setError(e.message)

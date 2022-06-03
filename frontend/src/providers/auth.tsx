@@ -17,7 +17,7 @@ function useAuth() {
 }
 
 function AuthProvider(props: any) {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(null);
 
   React.useEffect(() => {
@@ -26,6 +26,7 @@ function AuthProvider(props: any) {
 
       // Possible event values can be found at https://docs.amplify.aws/guides/authentication/listening-for-auth-events/q/platform/js/
 
+      console.log('payload', payload);
 
       if (payload.event === "signIn") {
         // user sign in success
@@ -44,6 +45,7 @@ function AuthProvider(props: any) {
     })
     // Auth.currentUserInfo()
       .then((user) => {
+        console.log('current user', user);
         if (user) {
           setIsLoggedIn(true);
           setCurrentUser(user);
