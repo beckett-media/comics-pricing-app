@@ -1,3 +1,5 @@
+import * as React from "react"
+
 import {
   Box,
   Button,
@@ -15,10 +17,27 @@ import {
 } from "@chakra-ui/react"
 import { PasswordField } from "../components/Login/PasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useLocation, useNavigate } from "react-router-dom"
+import { Auth } from "aws-amplify"
 
 const Login = ({ ...props }) => {
   let navigate = useNavigate()
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const [error, setError] = React.useState(null)
+  const [isLoading, setIsLoading] = React.useState(false)
+
+  async function signIn() {
+    try {
+      setIsLoading(true)
+      await Auth.signIn(email, password)
+      alert("Successfully signed in!")
+    } catch (e) {
+      alert(e.message)
+      setError(e.message)
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Box
@@ -97,6 +116,11 @@ const Login = ({ ...props }) => {
             </Stack>
             <Stack spacing="6">
               <Stack spacing="5">
+                {error && (
+                  <Text color="red.500" fontSize="sm">
+                    {error}
+                  </Text>
+                )}
                 <FormControl>
                   <FormLabel htmlFor="email" color="white">
                     Email
@@ -107,14 +131,18 @@ const Login = ({ ...props }) => {
                     type="email"
                     bg="#42404D"
                     h={12}
-                    value={props.value}
-                    onChange={props.onChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </FormControl>
-                <PasswordField value={props.value} onChange={props.onChange} />
+                <PasswordField value={password} onChange={(e) => setPassword(e.target.value)} />
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button
+                  onClick={() => {
+                    signIn()
+                    navigate("/")
+                  }}
                   my={6}
                   borderRadius={100}
                   w={200}
@@ -123,6 +151,7 @@ const Login = ({ ...props }) => {
                   color={"black"}
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
+                  isLoading={isLoading}
                 >
                   Continue
                 </Button>

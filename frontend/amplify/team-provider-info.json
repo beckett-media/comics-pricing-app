@@ -19,6 +19,11 @@
         "S3Trigger9ddabae6": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
           "s3Key": "amplify-builds/S3Trigger9ddabae6-33644d65677454765758-build.zip"
+        },
+        "comicsfrontendffefd2caCustomMessage": {
+          "REDIRECTURL": "http://localhost:3000/dashboard",
+          "EMAILSUBJECT": "Confirmation link",
+          "EMAILMESSAGE": "Here is your confirmation link "
         }
       }
     }

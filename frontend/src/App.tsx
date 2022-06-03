@@ -39,6 +39,8 @@ export default function App() {
 
   const { isLoggedIn } = useAuth()
 
+  console.log("isLoggedIn", isLoggedIn)
+
   return (
     <Box h={"100vh"}>
       <Routes>
