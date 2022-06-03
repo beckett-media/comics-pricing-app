@@ -255,10 +255,6 @@ const Login = ({ ...props }) => {
                     _focus={{ boxShadow: "none" }}
                     isLoading={isResetPassword ? isLoading : isLoading}
                   >
-                    new password
-                  </Button>
-                )}
-
                     Create Password
                   </Button>
                 )}

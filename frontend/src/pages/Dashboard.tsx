@@ -8,6 +8,7 @@ import RecentlyViewed from "components/dashboard/RecentlyViewed"
 import RecentPriceDrops from "../components/dashboard/RecentPriceDrops"
 import TrendingTitles from "../components/dashboard/TrendingTitles"
 import MyWatchlist from "components/dashboard/MyWatchlist"
+import NavBar from "components/common/NavBar"
 
 export default function Dashboard() {
   return (
