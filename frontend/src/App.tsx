@@ -20,8 +20,14 @@ import ResetPassword from "pages/ResetPassword"
 import { useAuth } from "providers/auth"
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  let { isLoggedIn } = useAuth()
+  let { isLoggedIn, isAuthChecking } = useAuth()
   let location = useLocation()
+
+  console.log("isLoggedIn", { isLoggedIn, isAuthChecking })
+
+  if (isAuthChecking) {
+    return <Box>Loading...</Box>
+  }
 
   if (!isLoggedIn) {
     // Redirect them to the /login page, but save the current location they were
@@ -34,12 +40,22 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
+function OnlyNonAuth({ children }: { children: JSX.Element }) {
+  let { isLoggedIn, isAuthChecking } = useAuth()
+
+  if (isAuthChecking) {
+    return <Box>Loading...</Box>
+  }
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />
+  }
+
+  return children
+}
+
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
-
-  const { isLoggedIn } = useAuth()
-
-  console.log("isLoggedIn", isLoggedIn)
 
   return (
     <Box h={"100vh"}>
@@ -48,7 +64,7 @@ export default function App() {
           path="/"
           element={
             <RequireAuth>
-              <Home />
+              <Dashboard />
             </RequireAuth>
           }
         >
@@ -59,8 +75,22 @@ export default function App() {
         </Route>
 
         {/* // TODO: Redirect it already authed */}
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/signup"} element={<SignUp />} />
+        <Route
+          path={"/login"}
+          element={
+            <OnlyNonAuth>
+              <Login />
+            </OnlyNonAuth>
+          }
+        />
+        <Route
+          path={"/signup"}
+          element={
+            <OnlyNonAuth>
+              <SignUp />
+            </OnlyNonAuth>
+          }
+        />
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />

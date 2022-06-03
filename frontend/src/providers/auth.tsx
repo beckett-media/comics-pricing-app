@@ -3,6 +3,7 @@ import { Auth, Hub } from "aws-amplify";
 
 type AuthData = {
   isLoggedIn: boolean;
+  isAuthChecking: boolean;
   currentUser: any; // Not sure if this is worth it
 }
 
@@ -18,6 +19,7 @@ function useAuth() {
 
 function AuthProvider(props: any) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isAuthChecking, setIsAuthChecking] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState(null);
 
   React.useEffect(() => {
@@ -40,6 +42,7 @@ function AuthProvider(props: any) {
 
     });
 
+    setIsAuthChecking(true);
     Auth.currentAuthenticatedUser({
       bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     })
@@ -55,6 +58,9 @@ function AuthProvider(props: any) {
         setIsLoggedIn(false);
         console.error(e);
       })
+      .finally(() => {
+        setIsAuthChecking(false);
+      });
 
   }, []);
   
@@ -62,6 +68,7 @@ function AuthProvider(props: any) {
     <AuthContext.Provider
       value={{
         isLoggedIn,
+        isAuthChecking,
         currentUser
       }}
       {...props}
