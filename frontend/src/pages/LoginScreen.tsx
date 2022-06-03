@@ -61,15 +61,15 @@ const Login = ({ ...props }) => {
 
   async function signIn() {
     try {
-      await Auth.signIn(email, password).then(async (user) => {
-        if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
-          setIsResetPassword(true)
-          setPassword("")
-          setCheckuser(user)
-        } else {
-          alert(`User ${user.username} has been signed in!`)
-        }
-      })
+      await Auth.signIn(email, password)
+        // if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+        //   setIsResetPassword(true)
+        //   setPassword("")
+        //   setCheckuser(user)
+        // } else {
+        //   alert(`User ${user.username} has been signed in!`)
+        // }
+      
     } catch (e) {
       setError(e.message)
     }
@@ -226,16 +226,8 @@ const Login = ({ ...props }) => {
                     signOut()
                   }}
                   my={6}
-                  borderRadius={100}
-                  w={200}
-                  h={12}
-                  background="linear-gradient(to right, #C1F8E3, #6CD7D4)"
-                  color={"black"}
-                  fontWeight={"bold"}
-                  _focus={{ boxShadow: "none" }}
-                  isLoading={isResetPassword ? isLoading : isLoading}
                 >
-                  sign out
+                  Sign Out
                 </Button>
                 {isResetPassword && (
                   <Button

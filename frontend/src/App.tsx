@@ -58,16 +58,16 @@ export default function App() {
   // const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
   return (
-    <>
+    <Box h={"100vh"}>
       <Routes>
         <Route
           path="/"
           element={
             <RequireAuth>
-              <Layout />
+              <Dashboard />
             </RequireAuth>
           }
-        >
+        />
           <Route
             path={"dashboard"}
             element={
@@ -118,7 +118,6 @@ export default function App() {
               </OnlyNonAuth>
             }
           />
-        </Route>
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />
@@ -132,6 +131,6 @@ export default function App() {
           },
         }}
       />
-    </>
+    </Box>
   )
 }
