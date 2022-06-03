@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
@@ -16,6 +17,7 @@ import SignUp from "./pages/SignUp"
 import Confirmation from "pages/Confirmation"
 import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
+
 
 import { useAuth } from "providers/auth"
 
@@ -54,8 +56,10 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
+
 export default function App() {
-  const AuthenticatedLayout = withCheckLoggedIn(Layout)
+  // const AuthenticatedLayout = withCheckLoggedIn(Layout)
+
 
   return (
     <Box h={"100vh"}>
@@ -68,6 +72,7 @@ export default function App() {
             </RequireAuth>
           }
         >
+
           <Route path={"dashboard"} element={<Dashboard />} />
           <Route path={"admin"} element={<Admin />} />
           <Route path={"search"} element={<Search />} />
@@ -95,6 +100,7 @@ export default function App() {
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />
       </Routes>
+
       <Toaster
         position="top-right"
         toastOptions={{

@@ -1,4 +1,6 @@
+
 import * as React from "react"
+
 
 import {
   Box,
@@ -16,6 +18,7 @@ import {
   Image,
 } from "@chakra-ui/react"
 import { PasswordField } from "../components/Login/PasswordField"
+
 import { NewPasswordField } from "../components/Login/NewPasswordField"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
@@ -88,6 +91,7 @@ const Login = ({ ...props }) => {
       console.log("error signing out: ", error)
     }
   }
+
 
   return (
     <Box
@@ -166,6 +170,7 @@ const Login = ({ ...props }) => {
             </Stack>
             <Stack spacing="6">
               <Stack spacing="5">
+
                 {error && (
                   <Text color="red.500" fontSize="sm">
                     {error}
@@ -227,6 +232,7 @@ const Login = ({ ...props }) => {
                   onClick={() => {
                     signOut()
                   }}
+
                   my={6}
                   borderRadius={100}
                   w={200}
@@ -235,6 +241,7 @@ const Login = ({ ...props }) => {
                   color={"black"}
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
+
                   isLoading={isResetPassword ? isLoading : isLoading}
                 >
                   sign out
@@ -257,6 +264,7 @@ const Login = ({ ...props }) => {
                     new password
                   </Button>
                 )}
+
               </Box>
             </Stack>
           </Box>
@@ -273,4 +281,5 @@ const Login = ({ ...props }) => {
     </Box>
   )
 }
+
 export default Login

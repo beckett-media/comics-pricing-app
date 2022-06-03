@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
+
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 import { useNavigate } from "react-router-dom"
 
@@ -139,4 +140,5 @@ const ResetPassword = ({ ...props }) => {
     </Box>
   )
 }
+
 export default ResetPassword
