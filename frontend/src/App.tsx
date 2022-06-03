@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
@@ -17,7 +16,6 @@ import SignUp from "./pages/SignUp"
 import Confirmation from "pages/Confirmation"
 import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
-
 
 import { useAuth } from "providers/auth"
 
@@ -56,10 +54,8 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
-
 export default function App() {
   // const AuthenticatedLayout = withCheckLoggedIn(Layout)
-
 
   return (
     <Box h={"100vh"}>
@@ -71,13 +67,39 @@ export default function App() {
               <Dashboard />
             </RequireAuth>
           }
-        >
-
-          <Route path={"dashboard"} element={<Dashboard />} />
-          <Route path={"admin"} element={<Admin />} />
-          <Route path={"search"} element={<Search />} />
-          <Route path={"details/:issueId"} element={<IssueDetails />} />
-        </Route>
+        />
+        <Route
+          path={"dashboard"}
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={"admin"}
+          element={
+            <RequireAuth>
+              <Admin />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={"search"}
+          element={
+            <RequireAuth>
+              <Search />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={"details/:issueId"}
+          element={
+            <RequireAuth>
+              <IssueDetails />
+            </RequireAuth>
+          }
+        />
 
         {/* // TODO: Redirect it already authed */}
         <Route
