@@ -100,9 +100,9 @@ export default function App() {
               </RequireAuth>
             }
           />
-
-          {/* // TODO: Redirect it already authed */}
-          <Route
+        </Route>
+        {/* // TODO: Redirect it already authed */}
+        <Route
             path={"/login"}
             element={
               <OnlyNonAuth>
@@ -118,7 +118,6 @@ export default function App() {
               </OnlyNonAuth>
             }
           />
-        </Route>
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />
