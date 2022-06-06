@@ -67,7 +67,7 @@ export default function App() {
               <Dashboard />
             </RequireAuth>
           }
-        />
+        >
           <Route
             path={"dashboard"}
             element={
