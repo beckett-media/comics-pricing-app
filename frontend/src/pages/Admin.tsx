@@ -22,14 +22,6 @@ async function createUser(name: string, email: string, mutate: (path: string) =>
 }
 
 export default function Admin() {
-  async function signOut() {
-    try {
-      await Auth.signOut({ global: true })
-    } catch (error) {
-      console.log("error signing out: ", error)
-    }
-  }
-
   // const { mutate } = useSWRConfig()
   // const { data: waitList, error } = useSWR<{ name: string; email: string }[]>(waitListPath)
   // const table = error ? (
@@ -70,8 +62,7 @@ export default function Admin() {
   // return <div className={"my-0 mx-auto w-fit"}>{table}</div>
 
   return (
-    <div className={"my-0 mx-auto w-8/12"}>
-      <button onClick={signOut}>Sign out</button>
+    <div className={"my-0 mx-auto w-10/12"}>
       <UserList />
     </div>
   )

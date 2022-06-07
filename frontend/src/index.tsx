@@ -11,7 +11,6 @@ import awsconfig from './aws-exports';
 import { AuthProvider } from 'providers/auth';
 Amplify.configure(awsconfig);
 
-
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
