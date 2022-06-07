@@ -23,8 +23,6 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   let { isLoggedIn, isAuthChecking } = useAuth()
   let location = useLocation()
 
-  console.log("isLoggedIn", { isLoggedIn, isAuthChecking })
-
   if (isAuthChecking) {
     return <Box>Loading...</Box>
   }
