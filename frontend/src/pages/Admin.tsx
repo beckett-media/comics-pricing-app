@@ -1,5 +1,6 @@
 import useSWR, { useSWRConfig } from "swr"
 import axios from "axios"
+import { Auth } from "aws-amplify"
 import toast from "react-hot-toast"
 import UserList from "components/admin/UserList"
 
@@ -21,7 +22,6 @@ async function createUser(name: string, email: string, mutate: (path: string) =>
 }
 
 export default function Admin() {
-
   // const { mutate } = useSWRConfig()
   // const { data: waitList, error } = useSWR<{ name: string; email: string }[]>(waitListPath)
   // const table = error ? (
