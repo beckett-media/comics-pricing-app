@@ -47,11 +47,11 @@ const Login = ({ ...props }) => {
       setIsResetPassword(true)
       if (checkPassword()) {
         const loggedUser = await Auth.completeNewPassword(checkuser, newPassword)
-        alert(`User ${loggedUser.username} created a new password!`)
+        // alert(`User ${loggedUser.username} created a new password!`)
         navigate("/")
         setIsResetPassword(false)
       } else {
-        alert("Password not match")
+        // alert("Password not match")
         setIsResetPassword(true)
       }
     } catch (error) {
@@ -67,23 +67,11 @@ const Login = ({ ...props }) => {
           setPassword("")
           setCheckuser(user)
         } else {
-          alert(`User ${user.username} has been signed in!`)
+          // alert(`User ${user.username} has been signed in!`)
         }
       })
     } catch (e) {
       setError(e.message)
-    }
-  }
-
-  async function signOut() {
-    try {
-      await Auth.signOut({ global: true })
-      setIsResetPassword(false)
-      setPassword("")
-      setEmail("")
-      setError(null)
-    } catch (error) {
-      console.log("error signing out: ", error)
     }
   }
 
@@ -221,14 +209,6 @@ const Login = ({ ...props }) => {
                     Continue
                   </Button>
                 )}
-                <Button
-                  onClick={() => {
-                    signOut()
-                  }}
-                  my={6}
-                >
-                  Sign Out
-                </Button>
                 {isResetPassword && (
                   <Button
                     onClick={() => {
