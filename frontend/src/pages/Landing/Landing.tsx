@@ -1,5 +1,14 @@
 import "./Landing.scss"
 import hero from '../../assets/comics-landing-image--min.jpeg';
+
+import comicOne from '../../assets/comic-1--min.jpg';
+import comicTwo from '../../assets/comic-2--min.jpg';
+import comicThree from '../../assets/comic-3--min.jpg';
+import comicFour from '../../assets/comic-4--min.jpg';
+import comicFive from '../../assets/comic-5--min.jpg';
+import comicSix from '../../assets/comic-6--min.jpg';
+import comicSeven from '../../assets/comic-7--min.jpg';
+
 import {ReactComponent as VisionOne} from "../../assets/comics-graphic-1.svg"
 import {ReactComponent as VisionTwo} from "../../assets/comics-graphic-2.svg"
 import {ReactComponent as VisionThree} from "../../assets/comics-graphic-3.svg"
@@ -45,13 +54,44 @@ const Landing = () => {
             <div className="container-medium flex flex-col items-center w-full">
               <div className="layout1_component">
                 <h2 className="text-3xl landing-heading text-center mb-20 font-medium">Browse Millions of Titles</h2>
-                <div className="titles_component"></div>
-                <div className="indicator-dots_component"></div>
+                <div className="titles_component">
+                  <div className="titles_layout">
+                    <div className="titles_image-wrapper">
+                      <img src={comicOne} alt="" className="titles_image"></img>
+                    </div>
+                    <div className="titles_image-wrapper">
+                      <img src={comicTwo} alt="" className="titles_image"></img>
+                    </div>
+                    <div className="titles_image-wrapper">
+                      <img src={comicThree} alt="" className="titles_image"></img>
+                    </div>
+                    <div className="titles_image-wrapper">
+                      <img src={comicFour} alt="" className="titles_image"></img>
+                    </div>
+                    <div className="titles_image-wrapper">
+                      <img src={comicFive} alt="" className="titles_image"></img>
+                    </div>
+                    <div className="titles_image-wrapper">
+                      <img src={comicSix} alt="" className="titles_image"></img>
+                    </div>
+                    <div className="titles_image-wrapper">
+                      <img src={comicSeven} alt="" className="titles_image"></img>
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-14"></div>
+                <div className="indicator-dots_component">
+                  <div className="indicator-dots_dots-wrapper">
+                    <div className="indicator-dots_dot-active"></div>
+                    <div className="indicator-dots_dot-inactive"></div>
+                    <div className="indicator-dots_dot-inactive"></div>
+                  </div>
+                </div>
               </div>
             </div>
         </section>
 
-        <div className="w-100 h-px">
+        <div className="w-full h-px">
           <div className="page-divider_component"></div>
         </div>
 
@@ -98,44 +138,57 @@ const Landing = () => {
 
           </div>
         </div>
-        <section className="section-cta">
-          <div className="layout3_component">
-            <h2 className="text-4xl landing-heading">Ready to get started?<br/>Sign up today.</h2>
-            <div className="layout3_buttons-wrapper">
-              <button className="button button-primary">Join the waitlist</button>
-              <button className="button button-secondary">Login</button>
+        <div className="page-padding  flex flex-col items-center">
+        <section className="section-landing-cta">
+          <div className="page-padding flex flex-col items-center">
+            <div className="container-medium">
+              <div className="layout3_component">
+              <h2 className="text-4xl landing-heading">Ready to get started?<br/>Sign up today.</h2>
+              <div className="layout3_buttons-wrapper">
+                <button className="button button-primary mr-8">Join the waitlist</button>
+                <button className="button button-secondary">Login</button>
+              </div>
+              </div>
             </div>
           </div>
         </section>
+
+        </div>
+
       </div>
 
-      <div className="landing-divider"></div>
-
       <footer className="footer_component">
-        <div className="footer_left-wrapper">
-          <FooterLogo className="footer_logo"></FooterLogo>
-          <p>©2022</p>
-          <a href="/">Terms of Service</a>
+        <div className="container-large">
+        <div className="w-full h-px">
+          <div className="page-divider_component"></div>
         </div>
-        <div className="footer_right-wrapper">
-          <div className="footer_content-column">
-            <p className="footer_content-heading">Features</p>
-            <a href="/" className="footer_content-item">Feature</a>
-            <a href="/" className="footer_content-item">Feature</a>
-            <a href="/" className="footer_content-item">Feature</a>
+        <div className="footer_layout">
+          <div className="footer_left-wrapper">
+            <FooterLogo className="footer_logo mb-8"></FooterLogo>
+            <p className="mb-3">©2022</p>
+            <a href="/">Terms of Service</a>
           </div>
-          <div className="footer_content-column">
-            <p className="footer_content-heading">Resources</p>
-            <a href="/" className="footer_content-item">Resource</a>
-            <a href="/" className="footer_content-item">Resource</a>
-            <a href="/" className="footer_content-item">Resource</a>
+          <div className="footer_right-wrapper">
+            <div className="footer_content-column">
+              <p className="footer_content-heading">Features</p>
+              <a href="/" className="footer_content-item">Feature</a>
+              <a href="/" className="footer_content-item">Feature</a>
+              <a href="/" className="footer_content-item">Feature</a>
+            </div>
+            <div className="footer_content-column">
+              <p className="footer_content-heading">Resources</p>
+              <a href="/" className="footer_content-item">Resource</a>
+              <a href="/" className="footer_content-item">Resource</a>
+              <a href="/" className="footer_content-item">Resource</a>
+            </div>
+            <div className="footer_content-column">
+              <p className="footer_content-heading">Company</p>
+              <a href="/" className="footer_content-item">Company</a>
+              <a href="/" className="footer_content-item">Company</a>
+              <a href="/" className="footer_content-item">Company</a>
+            </div>
           </div>
-          <div className="footer_content-column">
-            <p className="footer_content-heading">Company</p>
-            <a href="/" className="footer_content-item">Company</a>
-            <a href="/" className="footer_content-item">Company</a>
-            <a href="/" className="footer_content-item">Company</a>
-          </div>
+        </div>
         </div>
       </footer>
     </div>
