@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-comicsfrontend-dev-100929-unauthRole",
       "StackName": "amplify-comicsfrontend-dev-100929",
       "StackId": "arn:aws:cloudformation:us-west-1:548281136650:stack/amplify-comicsfrontend-dev-100929/9fa71780-e27d-11ec-b777-06ec1b07324b",
-      "AmplifyAppId": "dml2msu0u28tp"
+      "AmplifyAppId": "dml2msu0u28tp",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-comicsfrontend-dev-100929-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -19,6 +20,10 @@
         "S3Trigger9ddabae6": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
           "s3Key": "amplify-builds/S3Trigger9ddabae6-33644d65677454765758-build.zip"
+        },
+        "apiFunction": {
+          "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+          "s3Key": "amplify-builds/apiFunction-3176374455634a374e41-build.zip"
         }
       }
     }

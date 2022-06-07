@@ -32,6 +32,11 @@
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true
+    },
+    "apiFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "storage": {
@@ -46,6 +51,22 @@
             "Name",
             "Arn",
             "LambdaExecutionRole"
+          ]
+        }
+      ]
+    }
+  },
+  "api": {
+    "comicsapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "apiFunction",
+          "attributes": [
+            "Name",
+            "Arn"
           ]
         }
       ]

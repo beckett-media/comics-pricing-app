@@ -9,8 +9,13 @@ import RecentPriceDrops from "../components/dashboard/RecentPriceDrops"
 import TrendingTitles from "../components/dashboard/TrendingTitles"
 import MyWatchlist from "components/dashboard/MyWatchlist"
 import NavBar from "components/common/NavBar"
+import { API } from "aws-amplify"
+
+
 
 export default function Dashboard() {
+
+  
   return (
     <div className="my-10 space-y-10 px-10">
       <div className="flex h-80 flex-row space-x-5">
