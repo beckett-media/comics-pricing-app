@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500&display=swap');
+
+.page-landing {
+  font-family: 'Roboto Flex', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.landing-heading {
+  font-family: "Raleway", sans-serif;
+}
+
+.container-large {
+  max-width: 73.125rem;
+}
+
+.nav {
+  &_component {
+    width: 100%;
+    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+  }
+
+  &_content-wrapper {
+    width: 100%;
+    max-width: 80rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_logo {
+
+  }
+}
+
+.section-landing {
+  &-header {
+    height: 43.75rem;
+  }
+  &-titles {
+    padding: 4rem 0;
+  }
+  &-value{
+
+  }
+  &-cta {
+
+  }
+
+}
+
+.landing-header {
+  &_component{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  &_content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.layout1 {
+  &_component {
+    background-color: red;
+  }
+}
+
+.layout2 {
+  &_component {
+
+  }
+}
+
+.layout3 {
+  &_component {
+
+  }
+}
+
+.page-divider_component {
+  
+}
+
+.button {
+  &-primary {
+    color: black;
+    background-image: linear-gradient(to bottom right, #C3FAE4, #6CD7D4);
+  }
+  
+  padding: 0.625rem 1.75rem;
+  border-radius: 2rem;
+  min-width: 7.5rem;
+
+  &-secondary{
+    outline: 3px solid #C3FAE4;
+    outline-offset: -3px;
+  }
+}
+
+.footer {
+  &_component{
+
+  }
+}
