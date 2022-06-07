@@ -7,7 +7,24 @@ import type { IssueMinimal } from "types/api"
 import { API } from "aws-amplify"
 
 export default function PopularComics() {
-  const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/popular")
+  // const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/popular")
+  const [issues, setData] = React.useState<IssueMinimal[]>([])
+
+  const apiName = 'comicsapi';
+  const path = '/api/issue/popular'; 
+  const myInit = { // OPTIONAL
+      response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  };
+  
+  API
+    .get(apiName, path, myInit)
+    .then(response => {
+      // Add your code here
+      setData(response.data)
+    })
+    .catch(error => {
+      console.log(error.response);
+   });
 
   if (!issues) {
     return <div>loading</div>
