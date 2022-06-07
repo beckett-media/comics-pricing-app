@@ -49,6 +49,50 @@ app.get("/api/issue/popular", async function (req, res) {
   res.json(await getPopularIssues())
 })
 
+
+app.get("/api/issue/trending", async (_req, res) => {
+  res.json(await getTrendingIssues());
+});
+
+app.get("/api/issue/new-comics", async (_req, res) => {
+  res.json(await getNewComics());
+});
+
+app.get("/api/issue/recent-price-drops", async (_req, res) => {
+  res.json(await getRecentPriceDrops());
+});
+
+app.get("/api/issue/:id", async (_req, res) => {
+  res.json(await getDetails(_req.params.id));
+});
+
+app.get("/:id/prices", async (_req, res) => {
+  res.json(await getIssuePrices(_req.params.id));
+});
+
+app.get("/api/issue/:id/related/issues", async (_req, res) => {
+  res.json(await getRelatedIssues(_req.params.id));
+});
+
+app.get("/api/issue/:id/related/titles", async (_req, res) => {
+  res.json(await getRelatedTitles(_req.params.id));
+});
+
+// ##########################################################
+// ############## GET PUBLISHERS ############################
+// ##########################################################
+app.get("/api/publisher/popular", async (_req, res) => {
+  res.json(await getPopularPublishers());
+});
+
+// ##########################################################
+// ############## GET TITLE ###############################
+// ##########################################################
+app.get("/api/title/popular", async (_req, res) => {
+  res.json(await getPopularTitles());
+});
+
+
 app.listen(3000, function () {
   console.log("App started")
 })
