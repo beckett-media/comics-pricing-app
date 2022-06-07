@@ -44,7 +44,7 @@
     "@types/eslint": "^7.28.2"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.18.3",
+    "@aws-amplify/ui-react": "^2.19.0",
     "@chakra-ui/react": "^2.1.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
