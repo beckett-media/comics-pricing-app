@@ -8,8 +8,9 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { Amplify } from "aws-amplify"
 
 import { AuthProvider } from "providers/auth"
-import awsExports from "./aws-exports"
+const { default: awsExports } = require("./aws-exports");
 
+Amplify.configure(awsExports)
 
 ReactDOM.render(
   <StrictMode>
