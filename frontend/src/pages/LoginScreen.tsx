@@ -48,7 +48,7 @@ const Login = ({ ...props }) => {
       if (checkPassword()) {
         const loggedUser = await Auth.completeNewPassword(checkuser, newPassword)
         alert(`User ${loggedUser.username} created a new password!`)
-        navigate("/confirmation")
+        navigate("/")
         setIsResetPassword(false)
       } else {
         alert("Password not match")
@@ -61,15 +61,15 @@ const Login = ({ ...props }) => {
 
   async function signIn() {
     try {
-      await Auth.signIn(email, password)
-        // if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
-        //   setIsResetPassword(true)
-        //   setPassword("")
-        //   setCheckuser(user)
-        // } else {
-        //   alert(`User ${user.username} has been signed in!`)
-        // }
-      
+      await Auth.signIn(email, password).then((user) => {
+        if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+          setIsResetPassword(true)
+          setPassword("")
+          setCheckuser(user)
+        } else {
+          alert(`User ${user.username} has been signed in!`)
+        }
+      })
     } catch (e) {
       setError(e.message)
     }
