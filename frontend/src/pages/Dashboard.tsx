@@ -26,13 +26,13 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="flex flex-row space-x-2">
-        <TrendingTitles />
+        {/* <TrendingTitles />
         <RecentPriceDrops />
-        <NewComics />
+        <NewComics /> */}
       </div>
       <PopularPublishers />
       <PopularComics />
-      <PopularSeries />
+      {/* <PopularSeries /> */}
       <BrowseByEra />
     </div>
   )
