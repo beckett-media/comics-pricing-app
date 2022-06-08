@@ -1,6 +1,6 @@
 import useSWR from "swr"
 import { Link } from "react-router-dom"
-import React from 'react'
+import React from "react"
 import Gallery from "./Gallery"
 import Issue from "components/common/Issue"
 import type { IssueMinimal } from "types/api"
