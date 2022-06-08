@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
+import { API } from "aws-amplify";
 
 import Home from "pages/Home"
 import Search from "pages/Search"
@@ -52,48 +53,54 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
+const apiName = "/";
+const fetcher = (path: string) =>
+  API.get(apiName, path).then((response) => response.data);
+
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
   return (
-    <Box h={"100vh"}>
-      <Routes>
-        <Route path="/" element={<AuthenticatedLayout />}>
-          <Route path={"dashboard"} element={<Dashboard />} />
-          <Route path={"admin"} element={<Admin />} />
-          <Route path={"search"} element={<Search />} />
-          <Route path={"details/:issueId"} element={<IssueDetails />} />
-        </Route>
-        {/* // TODO: Redirect it already authed */}
-        <Route
-          path={"/login"}
-          element={
-            <OnlyNonAuth>
-              <Login />
-            </OnlyNonAuth>
-          }
-        />
-        <Route
-          path={"/signup"}
-          element={
-            <OnlyNonAuth>
-              <SignUp />
-            </OnlyNonAuth>
-          }
-        />
-        <Route path={"/confirmation"} element={<Confirmation />} />
-        <Route path={"/reset-password"} element={<ResetPassword />} />
-        <Route path={"/newPassword"} element={<NewPassword />} />
-      </Routes>
+    <SWRConfig value={{ fetcher }}>
+      <Box h={"100vh"}>
+        <Routes>
+          <Route path="/" element={<AuthenticatedLayout />}>
+            <Route path={"dashboard"} element={<Dashboard />} />
+            <Route path={"admin"} element={<Admin />} />
+            <Route path={"search"} element={<Search />} />
+            <Route path={"details/:issueId"} element={<IssueDetails />} />
+          </Route>
+          {/* // TODO: Redirect it already authed */}
+          <Route
+            path={"/login"}
+            element={
+              <OnlyNonAuth>
+                <Login />
+              </OnlyNonAuth>
+            }
+          />
+          <Route
+            path={"/signup"}
+            element={
+              <OnlyNonAuth>
+                <SignUp />
+              </OnlyNonAuth>
+            }
+          />
+          <Route path={"/confirmation"} element={<Confirmation />} />
+          <Route path={"/reset-password"} element={<ResetPassword />} />
+          <Route path={"/newPassword"} element={<NewPassword />} />
+        </Routes>
 
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: "#FFFFFF",
-          },
-        }}
-      />
-    </Box>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: "#FFFFFF",
+            },
+          }}
+        />
+      </Box>
+    </SWRConfig>
   )
 }
