@@ -23,8 +23,6 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   let { isLoggedIn, isAuthChecking } = useAuth()
   let location = useLocation()
 
-  console.log("isLoggedIn", { isLoggedIn, isAuthChecking })
-
   if (isAuthChecking) {
     return <Box>Loading...</Box>
   }
@@ -55,69 +53,34 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
 }
 
 export default function App() {
-  // const AuthenticatedLayout = withCheckLoggedIn(Layout)
+  const AuthenticatedLayout = withCheckLoggedIn(Layout)
 
   return (
     <Box h={"100vh"}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        >
-          <Route
-            path={"dashboard"}
-            element={
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path={"admin"}
-            element={
-              <RequireAuth>
-                <Admin />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path={"search"}
-            element={
-              <RequireAuth>
-                <Search />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path={"details/:issueId"}
-            element={
-              <RequireAuth>
-                <IssueDetails />
-              </RequireAuth>
-            }
-          />
+        <Route path="/" element={<AuthenticatedLayout />}>
+          <Route path={"dashboard"} element={<Dashboard />} />
+          <Route path={"admin"} element={<Admin />} />
+          <Route path={"search"} element={<Search />} />
+          <Route path={"details/:issueId"} element={<IssueDetails />} />
         </Route>
         {/* // TODO: Redirect it already authed */}
         <Route
-            path={"/login"}
-            element={
-              <OnlyNonAuth>
-                <Login />
-              </OnlyNonAuth>
-            }
-          />
-          <Route
-            path={"/signup"}
-            element={
-              <OnlyNonAuth>
-                <SignUp />
-              </OnlyNonAuth>
-            }
-          />
+          path={"/login"}
+          element={
+            <OnlyNonAuth>
+              <Login />
+            </OnlyNonAuth>
+          }
+        />
+        <Route
+          path={"/signup"}
+          element={
+            <OnlyNonAuth>
+              <SignUp />
+            </OnlyNonAuth>
+          }
+        />
         <Route path={"/confirmation"} element={<Confirmation />} />
         <Route path={"/reset-password"} element={<ResetPassword />} />
         <Route path={"/newPassword"} element={<NewPassword />} />
