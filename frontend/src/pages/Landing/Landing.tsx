@@ -34,6 +34,7 @@ const Landing = () => {
           <div className="landing-header_component">
             <div className="landing-header_background-wrapper">
               <div className="landing-header_background-overlay"></div>
+              <div className="landing-header_background-image-blur"></div>
               <img src={hero} alt="person looking up at the stars" className="landing-header_background-image"></img>
             </div>
             <div className="page-padding">
