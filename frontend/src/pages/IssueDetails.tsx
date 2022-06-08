@@ -7,44 +7,22 @@ import ScatterGraph from "components/issue-details/ScatterGraph"
 import { getIssueImage } from "utils/imagePath"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
-import { API } from "aws-amplify"
+import useIssueDetails from "hooks/data/useIssueDetails"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
-  // const { data: issue, error } = useSWR<IssueFull>(`/api/issue/${issueId}`)
+  const { data: issue, isError, isLoading } = useIssueDetails(issueId);
 
-  const [issue, setData] = React.useState<IssueFull>()
-  const [error, setError] = React.useState<any>()
-
-  const apiName = "comicsapi"
-  const path = `/api/issue/%27${issueId}%27`
-  const myInit = {
-    // OPTIONAL
-    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  if (isError) {
+    return <div>Error</div>
   }
 
-  React.useEffect(() => {
-    API.get(apiName, path, myInit)
-      .then((response) => {
-        // Add your code here
-        setData(response?.data)
-      })
-      .catch((error) => {
-        console.log(error.response)
-        setError(error)
-      })
-  }, [issueId])
-
-  if (error) {
-    return <div>{error?.toString()}</div>
-  }
-
-  if (!issue) {
+  if (isLoading || !issue) {
     return <div>Loading...</div>
   }
 
   return (
-    <div className="flex w-full flex-col space-y-10 py-10 px-24">
+    <div className="flex flex-col w-full px-24 py-10 space-y-10">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue?.id} />
     </div>
@@ -57,13 +35,13 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   )
 
   return (
-    <div className="grid w-full grid-cols-2 gap-10 rounded bg-container-outer py-10 px-12 text-common-text">
+    <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
       <img
-        className="w-full object-contain"
+        className="object-contain w-full"
         alt={`${issue?.title} #${issue?.issue}`}
         src={getIssueImage(issue?.id)}
       />
-      <div className="flex min-w-0 grow flex-col gap-5">
+      <div className="flex flex-col min-w-0 gap-5 grow">
         <div className="text-xl font-bold">{issue?.title}</div>
         <div className="text-sm">{metadata?.join(" | ")}</div>
         <Chips issue={issue} />
@@ -77,7 +55,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
 function Chips({ issue }: { issue: IssueFull }) {
   return (
     <div className="flex w-full gap-2 text-xs">
-      <div className="rounded bg-key-issue py-1 px-2">Key Issue</div>
+      <div className="px-2 py-1 rounded bg-key-issue">Key Issue</div>
       <div className={`rounded bg-${issue?.age?.toLowerCase()}-age py-1 px-2`}>{issue?.age} Age</div>
     </div>
   )
@@ -86,7 +64,7 @@ function Chips({ issue }: { issue: IssueFull }) {
 function Details({ issue }: { issue: IssueFull }) {
   return (
     <>
-      <div className="flex w-full flex-col gap-2 text-sm">
+      <div className="flex flex-col w-full gap-2 text-sm">
         <div>
           Cover Date: {monthText(issue?.publication_month ?? -1)} {issue?.publication_year}
         </div>
@@ -94,7 +72,7 @@ function Details({ issue }: { issue: IssueFull }) {
         <div>Current Value: ${issue?.current_price?.toFixed(2)}</div>
       </div>
       {issue?.comment && (
-        <div className="w-full rounded bg-container-inner py-4 px-5 text-sm">
+        <div className="w-full px-5 py-4 text-sm rounded bg-container-inner">
           <div className="mb-2">
             <span className="font-semibold">Issue Details</span>
           </div>
@@ -108,10 +86,10 @@ function Details({ issue }: { issue: IssueFull }) {
 function Graphs({ id }: { id: string }) {
   return (
     <>
-      <div className="h-72 w-full rounded bg-container-inner">
+      <div className="w-full rounded h-72 bg-container-inner">
         <PriceGraph id={id} />
       </div>
-      <div className="h-72 w-full rounded bg-container-inner">
+      <div className="w-full rounded h-72 bg-container-inner">
         <ScatterGraph id={id} />
       </div>
     </>
