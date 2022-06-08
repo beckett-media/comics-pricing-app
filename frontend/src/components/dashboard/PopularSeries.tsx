@@ -5,7 +5,7 @@ import Title from "components/common/Title"
 import type { Title as TitleData } from "types/api"
 
 export default function PopularSeries() {
-  const { data: titles } = useSWR<TitleData[]>("/api/title/popular")
+  const { data: titles } = useSWR<TitleData[]>("/title/popular")
 
   if (!titles) {
     return <div>loading</div>
