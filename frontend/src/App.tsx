@@ -21,9 +21,9 @@ import Landing from "pages/Landing/Landing"
 import { useAuth } from "providers/auth"
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  // let { isLoggedIn, isAuthChecking } = useAuth()
-  const isLoggedIn = true;
-  const isAuthChecking = false;
+  let { isLoggedIn, isAuthChecking } = useAuth()
+  // const isLoggedIn = true;
+  // const isAuthChecking = false;
   let location = useLocation()
 
   console.log("isLoggedIn", { isLoggedIn, isAuthChecking })
@@ -44,9 +44,9 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 }
 
 function OnlyNonAuth({ children }: { children: JSX.Element }) {
-  // let { isLoggedIn, isAuthChecking } = useAuth()
-  const isLoggedIn = true;
-  const isAuthChecking = false;
+  let { isLoggedIn, isAuthChecking } = useAuth()
+  // const isLoggedIn = true;
+  // const isAuthChecking = false;
 
   if (isAuthChecking) {
     return <Box>Loading...</Box>

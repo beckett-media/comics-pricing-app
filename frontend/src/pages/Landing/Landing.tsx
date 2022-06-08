@@ -24,7 +24,7 @@ const Landing = () => {
             <div className="nav_wrapper">
               <HeroLogo className="nav_logo"></HeroLogo>
             </div>
-            <button className="button button-primary">Login</button>
+            <a href="/" className="button button-primary text-base">Login</a>
         </div>
       </nav>
 
@@ -40,7 +40,7 @@ const Landing = () => {
             <div className="landing-header_content-wrapper">
               <h1 className="text-5xl landing-heading mb-7 text-center font-medium">Comprehensive comic book pricing at your fingertips </h1>
               <p className="mb-20 text-center max-w-xl font-medium">Browse pricing data on millions of comic books available to find your favorite titles all in one place.</p>
-              <button className="button button-primary">Join the Waitlist</button>
+              <a href="/" className="button button-primary">Join the Waitlist</a>
             </div>
             </div>
           </div>
@@ -145,8 +145,8 @@ const Landing = () => {
               <div className="layout3_component">
               <h2 className="text-4xl landing-heading">Ready to get started?<br/>Sign up today.</h2>
               <div className="layout3_buttons-wrapper">
-                <button className="button button-primary mr-8">Join the waitlist</button>
-                <button className="button button-secondary">Login</button>
+                <a href="/" className="button button-primary mr-8">Join the waitlist</a>
+                <a href="/" className="button button-secondary">Login</a>
               </div>
               </div>
             </div>
