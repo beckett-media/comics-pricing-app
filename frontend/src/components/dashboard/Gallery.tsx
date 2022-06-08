@@ -1,16 +1,18 @@
 import { ReactNode } from "react"
+import {Link} from "react-router-dom"
 
 type GalleryProps = {
   title: string
   children?: ReactNode
+  link: string
 }
 
-export default function Gallery({ title, children }: GalleryProps) {
+function Gallery({ title, children, link }: GalleryProps) {
   return (
     <div className="flex w-full flex-col rounded bg-container-outer p-7 text-common-text">
       <div>
         <span className="mr-5 font-semibold">{title}</span>
-        <span className="cursor-pointer text-xs hover:underline">View All ›</span>
+        <Link to={link} className="button button--primary">View All ›</Link>
       </div>
       <div className="flex w-full flex-row justify-between gap-10 overflow-x-auto pt-5">
         {children}
@@ -18,3 +20,9 @@ export default function Gallery({ title, children }: GalleryProps) {
     </div>
   )
 }
+
+Gallery.defaultProps = {
+  link: "/"
+}
+
+export default Gallery
