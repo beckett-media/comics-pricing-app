@@ -63,12 +63,12 @@ export default function App() {
         <Route
           path="/"
           element={
-            <RequireAuth>
+            <>
               <Dashboard />
-            </RequireAuth>
+            </>
           }
         />
-          <Route
+          {/* <Route
             path={"dashboard"}
             element={
               <RequireAuth>
@@ -99,7 +99,7 @@ export default function App() {
                 <IssueDetails />
               </RequireAuth>
             }
-          />
+          /> */}
 
           {/* // TODO: Redirect it already authed */}
           <Route
