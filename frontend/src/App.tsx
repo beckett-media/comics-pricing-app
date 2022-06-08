@@ -53,9 +53,9 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
-const apiName = "/";
+const apiName = 'comicsapi';
 const fetcher = (path: string) =>
-  API.get(apiName, path).then((response) => response.data);
+  API.get(apiName, `/api${path}`, { response: true }).then((response) => response.data);
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
