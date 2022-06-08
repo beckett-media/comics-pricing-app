@@ -7,5 +7,5 @@ export function getTitleImage(id: string) {
 }
 
 export function getIssueImage(id: string) {
-  return `https://comics-scans.s3.amazonaws.com/issues/${id}`
+  return `https://comicss3bucket100929-dev.s3.us-west-1.amazonaws.com/issues/${id}`
 }

@@ -31,7 +31,7 @@ const awsmobile = {
     "aws_cloud_logic_custom": [
         {
             "name": "comicsapi",
-            "endpoint": "https://llgex68i68.execute-api.us-west-1.amazonaws.com/dev",
+            "endpoint": "https://utk1bmixg3.execute-api.us-west-1.amazonaws.com/dev",
             "region": "us-west-1"
         }
     ]
