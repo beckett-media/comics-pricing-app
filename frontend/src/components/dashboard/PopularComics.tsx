@@ -5,10 +5,15 @@ import Gallery from "./Gallery"
 import Issue from "components/common/Issue"
 import type { IssueMinimal } from "types/api"
 import { API } from "aws-amplify"
+import usePopularComics from "hooks/data/usePopularComics"
 
 export default function PopularComics() {
   // const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/popular")
   const [issues, setData] = React.useState<IssueMinimal[]>([])
+
+  const response = usePopularComics();
+
+  console.log('usePopularComics', response);
 
   const apiName = 'comicsapi';
   const path = '/api/issue/popular'; 
