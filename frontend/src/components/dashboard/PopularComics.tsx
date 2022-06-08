@@ -17,16 +17,21 @@ export default function PopularComics() {
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
   }
 
-  React.useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchData() {
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        setData(response?.data)
+        setData(response.data)
       })
       .catch((error) => {
         console.log(error.response)
       })
-  }, [])
+  }
+
+  React.useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   if (!issues) {
     return <div>loading</div>

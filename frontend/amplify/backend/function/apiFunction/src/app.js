@@ -65,7 +65,7 @@ app.get("/api/issue/:id", async (_req, res) => {
   res.json(await getDetails(id))
 })
 
-app.get("/:id/prices", async (_req, res) => {
+app.get("/api/issue/:id/prices", async (_req, res) => {
   res.json(await getIssuePrices(_req.params.id))
 })
 

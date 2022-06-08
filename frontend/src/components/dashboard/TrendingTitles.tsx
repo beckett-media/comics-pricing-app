@@ -3,11 +3,36 @@ import { Link } from "react-router-dom"
 
 import { ReactComponent as TrendingIcon } from "assets/trending.svg"
 import { ReactComponent as Chevron } from "assets/chevron.svg"
-
+import * as React from "react"
+import { API } from "aws-amplify"
 import type { IssueMinimal } from "types/api"
 
 export default function TrendingTitles() {
-  const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/trending")
+  //const { data: issues } = useSWR<IssueMinimal[]>("/api/issue/trending")
+
+  const [issues, setData] = React.useState<IssueMinimal[]>([])
+
+  const apiName = "comicsapi"
+  const path = "/api/issue/trending"
+  const myInit = {
+    // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  }
+
+  React.useEffect(() => {
+    API.get(apiName, path, myInit)
+      .then((response) => {
+        // Add your code here
+        setData(response?.data)
+      })
+      .catch((error) => {
+        console.log(error.response)
+      })
+  }, [])
+
+  if (!issues) {
+    return <div>no data</div>
+  }
 
   return (
     <div className="w-full">

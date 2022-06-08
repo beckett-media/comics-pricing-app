@@ -3,11 +3,36 @@ import { Link } from "react-router-dom"
 
 import { ReactComponent as Chevron } from "assets/chevron.svg"
 import { ReactComponent as Sparkle } from "assets/sparkle.svg"
-
+import * as React from "react"
+import { API } from "aws-amplify"
 import { IssueTrends } from "types/api"
 
 export default function NewComics() {
-  const { data: issues } = useSWR<IssueTrends[]>("/api/issue/new-comics")
+  //const { data: issues } = useSWR<IssueTrends[]>("/api/issue/new-comics")
+
+  const [issues, setData] = React.useState<IssueTrends[]>([])
+
+  const apiName = "comicsapi"
+  const path = "/api/issue/new-comics"
+  const myInit = {
+    // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  }
+
+  React.useEffect(() => {
+    API.get(apiName, path, myInit)
+      .then((response) => {
+        // Add your code here
+        setData(response?.data)
+      })
+      .catch((error) => {
+        console.log(error.response)
+      })
+  }, [])
+
+  if (!issues) {
+    return <div>no data</div>
+  }
 
   return (
     <div className="w-full">
@@ -24,9 +49,9 @@ export default function NewComics() {
               <div className="w-7/12 truncate">
                 {title} #{issue}
               </div>
-              <Link key={id} to={`/details/${id}`}>
+              <Link key={id} to={`/details/'${id}'`}>
                 <div className="flex flex-row">
-                  ${Number.parseFloat(price).toFixed(2)}
+                  ${Number?.parseFloat(price)?.toFixed(2)}
                   <div className="pt-1 pl-3">
                     <Chevron />
                   </div>

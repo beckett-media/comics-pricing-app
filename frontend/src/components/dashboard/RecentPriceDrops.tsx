@@ -4,11 +4,36 @@ import { Link } from "react-router-dom"
 import { ReactComponent as DownArrow } from "assets/down-arrow.svg"
 import { ReactComponent as Chevron } from "assets/chevron.svg"
 import { ReactComponent as DownTriangle } from "assets/down-triangle.svg"
-
+import * as React from "react"
+import { API } from "aws-amplify"
 import type { IssueTrends } from "types/api"
 
 export default function RecentPriceDrops() {
-  const { data: issues } = useSWR<IssueTrends[]>("/api/issue/recent-price-drops")
+  //const { data: issues } = useSWR<IssueTrends[]>("/api/issue/recent-price-drops")
+
+  const [issues, setData] = React.useState<IssueTrends[]>([])
+
+  const apiName = "comicsapi"
+  const path = "/api/issue/recent-price-drops"
+  const myInit = {
+    // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  }
+
+  React.useEffect(() => {
+    API.get(apiName, path, myInit)
+      .then((response) => {
+        // Add your code here
+        setData(response?.data)
+      })
+      .catch((error) => {
+        console.log(error.response)
+      })
+  }, [])
+
+  if (!issues || issues.length === 0) {
+    return <div>no data</div>
+  }
 
   return (
     <div className="w-full">
@@ -30,7 +55,7 @@ export default function RecentPriceDrops() {
                   <div className="fill-emerald-500 p-1.5">
                     <DownTriangle />
                   </div>
-                  <p className="pr-3">${Number.parseFloat(price).toFixed(2)}</p>
+                  <p className="pr-3">${Number?.parseFloat(price)?.toFixed(2)}</p>
                   <div className="pt-1">
                     <Chevron />
                   </div>

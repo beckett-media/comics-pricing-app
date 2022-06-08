@@ -17,17 +17,14 @@ export default function IssueDetails() {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/%27${issueId}%27`
-  const myInit = {
-    // OPTIONAL
-    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-  }
+  const path = `/api/issue/'${issueId}'`
 
   React.useEffect(() => {
+    const myInit = {}
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        setData(response?.data)
+        setData(response)
       })
       .catch((error) => {
         console.log(error.response)
@@ -78,7 +75,9 @@ function Chips({ issue }: { issue: IssueFull }) {
   return (
     <div className="flex w-full gap-2 text-xs">
       <div className="rounded bg-key-issue py-1 px-2">Key Issue</div>
-      <div className={`rounded bg-${issue?.age?.toLowerCase()}-age py-1 px-2`}>{issue?.age} Age</div>
+      <div className={`rounded bg-${issue?.age?.toLowerCase()}-age py-1 px-2`}>
+        {issue?.age} Age
+      </div>
     </div>
   )
 }
