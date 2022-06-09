@@ -13,7 +13,7 @@ export default function Layout() {
     <div className="bg-gradient-to-b from-grad-top to-grad-bot font-body relative flex flex-col items-center">
       <BgGraphic className="absolute z-0 align-center"></BgGraphic>
       <NavBarContext.Provider value={{ text, setText }}>
-        <div className="relative z-10">
+        <div className="relative z-10 w-full flex flex-col items-center">
           <NavBar />
           <div className="px-24">
             <div className="container-large">
@@ -22,7 +22,7 @@ export default function Layout() {
           </div>
         </div>
       </NavBarContext.Provider>
-      <div className="relative z-10">
+      <div className="relative z-10 w-full">
         <Footer />
       </div>
       <BgGraphic className="absolute z-0 rotate-180 bottom-0"></BgGraphic>

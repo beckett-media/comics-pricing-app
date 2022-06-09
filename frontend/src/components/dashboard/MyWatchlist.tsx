@@ -4,7 +4,7 @@ import Issue from "./Issue"
 export default function MyWatchlist() {
   return (
     <div className="w-full overflow-hidden rounded">
-      <Gallery title="My Watchlist" link={"/"}>
+      <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
         <Issue />
         <Issue />
         <Issue />

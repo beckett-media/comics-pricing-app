@@ -13,9 +13,9 @@ export const NavBarContext = createContext({
 
 export default function NavBar() {
   return (
-    <div className="sticky top-0 z-10 bg-hdr-ftr flex justify-center">
-      <div className="page-padding">
-        <div className="container-large">
+    <div className="sticky top-0 z-10 w-full bg-hdr-ftr flex justify-center">
+      <div className="page-padding flex justify-center">
+        <div className="container-large ">
           <div className="grid items-center justify-center w-full h-24 grid-cols-navbar ">
             <Logo />
             <Search />
