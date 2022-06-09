@@ -1,11 +1,34 @@
 import useSWR from "swr"
 import { Line } from "@nivo/line"
 import { AutoSizer } from "react-virtualized"
-
+import * as React from "react"
 import type { Price } from "types/api"
+import { API } from "aws-amplify"
 
 export default function PriceGraph({ id }: { id: string }) {
-  const { data: prices } = useSWR<Price[]>(`/api/issue/${id}/prices`)
+  // const { data: prices } = useSWR<Price[]>(`/api/issue/${id}/prices`)
+
+  const [prices, setData] = React.useState<Price[]>()
+  const [error, setError] = React.useState<any>()
+
+  const apiName = "comicsapi"
+  const path = `/api/issue/${id}/prices`
+  const myInit = {
+    // OPTIONAL
+    response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  }
+
+  React.useEffect(() => {
+    API.get(apiName, path, myInit)
+      .then((response) => {
+        // Add your code here
+        setData(response.data)
+      })
+      .catch((error) => {
+        console.log(error.response)
+        setError(error)
+      })
+  }, [id])
 
   if (!prices) {
     return <div>loading</div>
@@ -51,13 +74,13 @@ export default function PriceGraph({ id }: { id: string }) {
               tooltip={(p: any) => (
                 <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs text-black">
                   <div className="whitespace-nowrap">
-                    <span className="font-bold">Date</span>: {p.point.data.x.toDateString()}
+                    <span className="font-bold">Date</span>: {p.point?.data?.x.toDateString()}
                   </div>
                   <div className="whitespace-nowrap">
-                    <span className="font-bold">Price</span>: ${p.point.data.y.toFixed(2)}
+                    <span className="font-bold">Price</span>: ${p?.point?.data?.y?.toFixed(2)}
                   </div>
                   <div className="whitespace-nowrap">
-                    <span className="font-bold">Grade</span>: {p.point.data.grade}
+                    <span className="font-bold">Grade</span>: {p?.point?.data?.grade}
                   </div>
                 </div>
               )}
@@ -111,13 +134,13 @@ function bucket(prices: Price[]) {
   const low = []
 
   for (const p of prices) {
-    const grade = Number(p.grade)
+    const grade = Number(p?.grade)
     if (grade > 8) {
-      high.push(p)
+      high?.push(p)
     } else if (grade > 4) {
-      med.push(p)
+      med?.push(p)
     } else {
-      low.push(p)
+      low?.push(p)
     }
   }
 
@@ -138,5 +161,5 @@ function bucket(prices: Price[]) {
 }
 
 function nivoize(prices: Price[]) {
-  return prices.map(({ date, price, grade }) => ({ x: date.slice(0, 10), y: price, grade }))
+  return prices?.map(({ date, price, grade }) => ({ x: date?.slice(0, 10), y: price, grade }))
 }

@@ -23,7 +23,7 @@
         },
         "apiFunction": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
-          "s3Key": "amplify-builds/apiFunction-6c785a50753532317033-build.zip"
+          "s3Key": "amplify-builds/apiFunction-6569706a6e484155772f-build.zip"
         }
       }
     }

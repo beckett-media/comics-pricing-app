@@ -9,20 +9,19 @@ const sql = new Pool({
   connectionTimeoutMillis: 2000,
 });
 
-
-const getPopularTitles = async () => {
+//  make a materialized view for this
+const getPopularPublishers = async () => {
   return await sql.query(`
     SELECT
-      titles.id,
-      titles.name,
-      publishers.name AS publisher
-    FROM popular_titles
-    JOIN titles ON titles.id = popular_titles.title_id
-    JOIN publishers ON publishers.id = titles.publisher_id
-    ORDER BY popular_titles.issues_count DESC
-  `);
-}
+      publishers.id,
+      publishers.name
+    FROM titles
+      JOIN publishers ON publishers.id = titles.publisher_id
+    GROUP BY publishers.id
+    ORDER BY COUNT(titles.name) DESC
+    LIMIT 10`);
+};
 
 module.exports = {
-  getPopularTitles
-}
+  getPopularPublishers,
+};

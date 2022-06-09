@@ -1,4 +1,4 @@
-const { Pool, Client } = require("pg")
+const { Pool, Client } = require("pg");
 
 const sql = new Pool({
   user: "postgres",
@@ -7,7 +7,7 @@ const sql = new Pool({
   password: "comicsDB",
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
-})
+});
 
 const getDetails = async (id) => {
   const issues = await sql.query(`
@@ -31,10 +31,10 @@ const getDetails = async (id) => {
     --JOIN prices ON prices.issue_id = issues.id
   WHERE issues.id = ${id}
   LIMIT 1
-  `)
+  `);
 
-  return issues.rows[0]
-}
+  return issues.rows[0];
+};
 
 const getRelatedIssues = async (id) => {
   return sql.query(`
@@ -51,8 +51,8 @@ const getRelatedIssues = async (id) => {
       related.id != ${id} AND
       issues.id = ${id}
     LIMIT 5
-  `)
-}
+  `);
+};
 
 const getRelatedTitles = async (id) => {
   const title = (
@@ -68,7 +68,7 @@ const getRelatedTitles = async (id) => {
     WHERE issues.id = ${id}
     LIMIT 1
   `)
-  )[0]
+  )[0];
 
   return sql.query(`
     SELECT
@@ -83,12 +83,13 @@ const getRelatedTitles = async (id) => {
       publishers.id = ${title.publisher_id} AND
       titles.id != ${title.id}
     LIMIT 3
-  `)
-}
+  `);
+};
 
 const getPopularIssues = async () => {
-  const res = await sql.query(
-    `
+  const res = await sql
+    .query(
+      `
   SELECT
     issues.id,
     issues.name AS issue,
@@ -99,16 +100,16 @@ const getPopularIssues = async () => {
   JOIN publishers ON publishers.id = titles.publisher_id
   limit 50
   `
-  )
+    );
   try {
-    return res.rows
+    return res.rows;
   } catch (err) {
-    console.log(err)
-    return []
+    console.log(err);
+    return [];
   } finally {
-    sql.end()
+    sql.end();
   }
-}
+};
 
 // const getPopularIssues = () => {
 //   sql.connect();
@@ -135,8 +136,8 @@ const getIssuePrices = async (id) => {
     FROM sales
     WHERE issue_id = ${id}
     ORDER BY date DESC
-  `)
-}
+  `);
+};
 
 const getTrendingIssues = async () => {
   return sql.query(`
@@ -149,8 +150,8 @@ const getTrendingIssues = async () => {
     JOIN publishers ON publishers.id = titles.publisher_id
     JOIN sales_count ON sales_count.issue_id = issues.id
     LIMIT 3
-  `)
-}
+  `);
+};
 
 const getRecentPriceDrops = async () => {
   return await sql.query(`
@@ -163,8 +164,8 @@ const getRecentPriceDrops = async () => {
     JOIN titles ON titles.id = issues.title_id
     JOIN recent_sales ON recent_sales.issue_id = issues.id
     LIMIT 3
-  `)
-}
+  `);
+};
 
 const getNewComics = async () => {
   return await sql.query(`
@@ -178,8 +179,8 @@ const getNewComics = async () => {
     JOIN sales ON issues.id = sales.issue_id 
     ORDER BY sales.date DESC 
     LIMIT 3
-  `)
-}
+  `);
+};
 
 module.exports = {
   getDetails,
@@ -190,4 +191,4 @@ module.exports = {
   getTrendingIssues,
   getRecentPriceDrops,
   getNewComics,
-}
+};
