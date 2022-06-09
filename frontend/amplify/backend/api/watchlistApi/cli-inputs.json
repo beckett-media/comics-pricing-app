@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "watchlistApi",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Volumes/5GTB/plainspokendigital/Beckett/COMICS/comics-pricing-app/frontend/amplify/backend/api/watchlistApi/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authcomicsfrontendffefd2ca"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2023-06-09T19:56:28.604Z",
+        "keyDescription": "access watchlist"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    }
+  }
+}
