@@ -37,8 +37,8 @@ export default function PriceGraph({ id }: { id: string }) {
   const data = bucket(prices)
 
   return (
-    <div className="flex h-full w-full flex-col py-4 px-5">
-      <div className="w-full text-center text-sm">Prices Over Time</div>
+    <div className="flex flex-col w-full h-full px-5 py-4">
+      <div className="w-full text-sm text-center">Prices Over Time</div>
       <div className="min-w-0 grow">
         <AutoSizer>
           {({ width, height }) => (
@@ -72,7 +72,7 @@ export default function PriceGraph({ id }: { id: string }) {
               yFormat=".2f"
               pointSize={5}
               tooltip={(p: any) => (
-                <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs text-black">
+                <div className="flex flex-col items-stretch justify-center p-2 text-xs text-black bg-white border rounded">
                   <div className="whitespace-nowrap">
                     <span className="font-bold">Date</span>: {p.point?.data?.x.toDateString()}
                   </div>
