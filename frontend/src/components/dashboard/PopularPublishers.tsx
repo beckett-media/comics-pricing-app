@@ -7,6 +7,7 @@ import type { Publisher as PublisherData } from "types/api"
 import { API } from "aws-amplify"
 import usePopularPublishers from "hooks/data/usePopularPublishers"
 
+
 export default function PopularPublishers() {
   const { data: publishers, isLoading } = usePopularPublishers();
 

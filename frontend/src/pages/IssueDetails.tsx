@@ -10,55 +10,56 @@ import type { IssueFull } from "types/api"
 import { API, Storage } from "aws-amplify"
 import { AmplifyS3Album, AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
-// export default function IssueDetails() {
-//   const { issueId } = useParams<{ issueId: string }>()
-//   // const { data: issue, error } = useSWR<IssueFull>(`/api/issue/${issueId}`)
-
-//   const [issue, setData] = React.useState<IssueFull>()
-//   const [error, setError] = React.useState<any>()
-//   const [images, setImages] = React.useState<string[]>([])
-
-//   const apiName = "comicsapi"
-//   const path = `/api/issue/'${issueId}'`
-
-//   // function to read image from s3 buckett
-//   const getImage = (key: string) => {
-//     return Storage.get(`publishers/${issueId}`, { level: "public" }).then((result) => {
-//       console.log(result)
-//     })
-//   }
-//   React.useEffect(() => {
-//     const myInit = {}
-//     getImage(`${issueId}`)
-//     API.get(apiName, path, myInit)
-//       .then((response) => {
-//         // Add your code here
-//         setData(response)
-//       })
-//       .catch((error) => {
-//         console.log(error.response)
-//         setError(error)
-//       })
-//   }, [issueId])
-
-//   if (error) {
-//     return <div>{error?.toString()}</div>
-import useIssueDetails from "hooks/data/useIssueDetails"
-
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
-  const { data: issue, isError, isLoading } = useIssueDetails(issueId);
+  // const { data: issue, error } = useSWR<IssueFull>(`/api/issue/${issueId}`)
 
-  if (isError) {
-    return <div>Error</div>
+  const [issue, setData] = React.useState<IssueFull>()
+  const [error, setError] = React.useState<any>()
+  const [images, setImages] = React.useState<string[]>([])
+
+  const apiName = "comicsapi"
+  const path = `/api/issue/'${issueId}'`
+
+  // function to read image from s3 buckett
+  const getImage = (key: string) => {
+    return Storage.get(`publishers/${issueId}`, { level: "public" }).then((result) => {
+      console.log(result)
+    })
   }
+  React.useEffect(() => {
+    const myInit = {}
+    getImage(`${issueId}`)
+    API.get(apiName, path, myInit)
+      .then((response) => {
+        // Add your code here
+        setData(response)
+      })
+      .catch((error) => {
+        console.log(error.response)
+        setError(error)
+      })
+  }, [issueId])
 
-  if (isLoading || !issue) {
+  if (error) {
+    return <div>{error?.toString()}</div>
+  }
+  // import useIssueDetails from "hooks/data/useIssueDetails"
+
+  // export default function IssueDetails() {
+  //   const { issueId } = useParams<{ issueId: string }>()
+  //   const { data: issue, isError, isLoading } = useIssueDetails(issueId);
+
+  // if (isError) {
+  //   return <div>Error</div>
+  // }
+
+  if (!issue) {
     return <div>Loading...</div>
   }
 
   return (
-    <div className="flex flex-col w-full px-24 py-10 space-y-10">
+    <div className="flex w-full flex-col space-y-10 px-24 py-10">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue?.id} />
     </div>
@@ -77,7 +78,10 @@ function MainDetails({ issue }: { issue: IssueFull }) {
         alt={`${issue?.title} #${issue?.issue}`}
         src={getIssueImage(issue?.id)}
       /> */}
-      <AmplifyS3Image imgKey={"publishers/001efa98-55ff-4dec-abd7-87c513f0d2f6"} />
+      <AmplifyS3Image
+        className="w-full object-contain"
+        imgKey={"titles/0017f3ab-3474-4e84-b9f2-9255c2edb519"}
+      />
       <div className="flex min-w-0 grow flex-col gap-5">
         <div className="text-xl font-bold">{issue?.title}</div>
         <div className="text-sm">{metadata?.join(" | ")}</div>
@@ -103,7 +107,7 @@ function Chips({ issue }: { issue: IssueFull }) {
 function Details({ issue }: { issue: IssueFull }) {
   return (
     <>
-      <div className="flex flex-col w-full gap-2 text-sm">
+      <div className="flex w-full flex-col gap-2 text-sm">
         <div>
           Cover Date: {monthText(issue?.publication_month ?? -1)} {issue?.publication_year}
         </div>
@@ -125,10 +129,10 @@ function Details({ issue }: { issue: IssueFull }) {
 function Graphs({ id }: { id: string }) {
   return (
     <>
-      <div className="w-full rounded h-72 bg-container-inner">
+      <div className="h-72 w-full rounded bg-container-inner">
         <PriceGraph id={id} />
       </div>
-      <div className="w-full rounded h-72 bg-container-inner">
+      <div className="h-72 w-full rounded bg-container-inner">
         <ScatterGraph id={id} />
       </div>
     </>
