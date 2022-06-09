@@ -40,7 +40,6 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Roboto Flex"],
-        heading: ["Raleway"],
       },
       fontSize: {
         xxs: ["10px", "12px"],
