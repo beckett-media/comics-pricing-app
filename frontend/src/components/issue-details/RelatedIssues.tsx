@@ -29,7 +29,7 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
         console.log(error.response)
         setError(error)
       })
-  }, [relatedIssues])
+  }, [issueId])
 
   return (
     <Gallery title="Related Issues">

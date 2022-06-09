@@ -4,7 +4,7 @@ type PublisherProps = {
 }
 
 function image(id: string) {
-  return `https://comicss3bucket100929-dev.s3.us-west-1.amazonaws.com/publishers/'${id}'`
+  return `https://comicss3bucket100929-dev.s3.us-west-1.amazonaws.com/publishers/${id}`
 }
 
 export default function Publisher({ id, name }: PublisherProps) {
