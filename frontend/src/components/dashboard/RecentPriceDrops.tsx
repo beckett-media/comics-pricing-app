@@ -4,7 +4,8 @@ import { Link } from "react-router-dom"
 import { ReactComponent as DownArrow } from "assets/down-arrow.svg"
 import { ReactComponent as Chevron } from "assets/chevron.svg"
 import { ReactComponent as DownTriangle } from "assets/down-triangle.svg"
-
+import * as React from "react"
+import { API } from "aws-amplify"
 import type { IssueTrends } from "types/api"
 import useRecentPriceDrops from "hooks/data/useRecentPriceDrops"
 
@@ -39,7 +40,7 @@ export default function RecentPriceDrops() {
                   <div className="fill-emerald-500 p-1.5">
                     <DownTriangle />
                   </div>
-                  <p className="pr-3">${Number.parseFloat(price).toFixed(2)}</p>
+                  <p className="pr-3">${Number?.parseFloat(price)?.toFixed(2)}</p>
                   <div className="pt-1">
                     <Chevron />
                   </div>

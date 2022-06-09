@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500&display=swap');
+
+//VARIABLES
+
+$button-light: #C3FAE4;
+$button-light-hover: #F1FEF9;
+$button-dark: #6CD7D4;
+$button-dark-hover: #93E2DF;
+$purple-start:#353170;
+$purple-stop:#463A79;
+$purple-dark: #191237;
+$purple-overlay: #302A95;
+
+$h1: 2.5rem;
+$h2: 2rem;
+$h3: 1.875rem;
+$body: 1.25rem;
+
+// GLOBALS
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+//LAYOUT
+
+.page-landing {
+  font-family: 'Roboto Flex', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: $purple-dark;
+  font-size: $body;
+}
+
+.main-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.landing-heading {
+  font-family: "Raleway", sans-serif;
+}
+
+.container {
+  &-large{max-width: 73.125rem; width:100%}
+  &-medium{max-width: 66.875rem; width:100%}
+  &-small{max-width: 54.375rem; width:100%}
+}
+
+.page-padding {
+  padding: 0 4rem;
+  width: 100%
+}
+
+.landing-content-wrapper {
+  background-image: linear-gradient(to bottom, $purple-start, $purple-dark, $purple-stop);
+  padding-bottom: 1rem;
+}
+
+//SECTIONS
+
+.section-landing {
+  &-header {
+    height: 43.75rem;
+    overflow: hidden;
+  }
+  &-titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 4rem;
+    padding-bottom: 5.5rem;
+  }
+  &-value{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  &-cta {
+    padding-top: 2rem;
+    width: 100%;
+  }
+
+}
+
+//COMPONENTS
+
+.nav {
+  &_component {
+    width: 100%;
+    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 20;
+  }
+
+  &_content-wrapper {
+    width: 100%;
+    max-width: 80rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &_logo {
+
+  }
+}
+
+.landing-header {
+  &_component{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  &_background{
+    &-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+    }
+    &-image {
+      position: relative;
+      max-width: 100rem;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &-image-blur {
+      position: absolute;
+      max-width: 100rem;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0 1rem 0.5rem #000 inset;
+      z-index: 1;
+    }
+
+    &-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($purple-overlay, 0.3);
+      z-index: 10;
+    }
+  }
+
+  &_content-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.landing-value-item {
+  padding: 8.625rem 0;
+  width: 100%;
+}
+
+.layout1 {
+  &_component {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.titles {
+  &_component {
+    display: flex;
+    justify-content: center;
+  }
+
+  &_layout {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-column-gap: 2.25rem;
+  }
+
+  &_image-wrapper {
+    width: 6.875rem;
+    height: 10.625rem;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0.25rem 0.375rem rgba(#000, 0.55);
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0.375rem 0.75rem rgba(#000, 0.4);
+    }
+  }
+
+  &_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.indicator-dots{
+  &_component {
+    width: 4.375rem;
+    height: 1.25rem;
+    background-color: rgba(#d9d9d9, 0.2);
+    border-radius: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &_dots-wrapper{
+
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    grid-column-gap: 0.625rem;
+  }
+  &_dot-active{
+    width: 0.625rem;
+    height: 0.625rem;
+    background-image: linear-gradient(to bottom right, $button-light, $button-dark);
+    border-radius: 2rem;
+    cursor: pointer;
+  }
+  &_dot-inactive{
+    width: 0.625rem;
+    height: 0.625rem;
+    background-color: rgba($button-light, 0.2);
+    border-radius: 2rem;
+    cursor: pointer;
+  }
+}
+
+.layout2 {
+  &_component {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &_image-wrapper {
+    max-width: 23rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &_content-wrapper {
+    max-width: 23rem;
+  }
+}
+
+.layout3 {
+  &_component {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4.5rem 0;
+  }
+}
+
+.page-divider_component {
+  width: 100%;
+  height: 100%;
+  background-color: $button-light;
+}
+
+.button {
+  font-size: 1.125rem;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  display: inline-block;
+
+  padding: 0.625rem 1.75rem;
+  border-radius: 2rem;
+  min-width: 7.5rem;
+
+  &:hover {
+    box-shadow: 0 0 1rem -0.175rem rgba(#fff, 0.5);
+  }
+
+  &-primary {
+    color: black;
+    background-image: linear-gradient(to bottom right, $button-light, $button-dark);
+  }
+
+  &-secondary{
+    outline: 3px solid #C3FAE4;
+    outline-offset: -3px;
+  }
+}
+
+.footer {
+  &_component{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &_layout {
+    width: 100%;
+    padding-top: 6.125rem;
+    padding-bottom: 7.5rem;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_left-wrapper {
+    font-size: 0.875rem;
+  }
+
+  &_right-wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    grid-column-gap: 7.5rem;
+    font-size: 1rem;
+  }
+
+  &_content{
+    &-column{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    &-heading{
+      font-weight: 700;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+}
