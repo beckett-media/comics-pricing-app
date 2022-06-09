@@ -37,7 +37,7 @@ const Landing = () => {
               <div className="landing-header_background-image-blur"></div>
               <img src={hero} alt="person looking up at the stars" className="landing-header_background-image"></img>
             </div>
-            <div className="page-padding">
+            <div className="landing-page-padding">
             <div className="landing-header_content-wrapper">
               <h1 className="text-5xl landing-heading mb-7 text-center font-medium">Comprehensive comic book pricing at your fingertips </h1>
               <p className="mb-20 text-center max-w-xl font-medium">Browse pricing data on millions of comic books available to find your favorite titles all in one place.</p>
@@ -48,11 +48,11 @@ const Landing = () => {
         </section>
 
         <div className="landing-content-wrapper">
-          <div className="page-padding  flex flex-col items-center">
-            <div className="container-large">
+          <div className="landing-page-padding  flex flex-col items-center">
+            <div className="landing-container-large">
 
         <section className="section-landing-titles">
-            <div className="container-medium flex flex-col items-center w-full">
+            <div className="landing-container-medium flex flex-col items-center w-full">
               <div className="layout1_component">
                 <h2 className="text-3xl landing-heading text-center mb-20 font-medium">Browse Millions of Titles</h2>
                 <div className="titles_component">
@@ -98,7 +98,7 @@ const Landing = () => {
 
         <section className="section-landing-value">
 
-          <div className="landing-value-item container-medium">
+          <div className="landing-value-item landing-container-medium">
             <div className="layout2_component">
               <div className="layout2_image-wrapper">
               <VisionOne className="layout2_image"></VisionOne>
@@ -110,7 +110,7 @@ const Landing = () => {
             </div>
           </div>
           
-          <div className="landing-value-item container-medium">
+          <div className="landing-value-item landing-container-medium">
             <div className="layout2_component">
               <div className="layout2_content-wrapper">
                 <h3 className="text-3xl landing-heading mb-8 font-semibold">Compare Market Sales</h3>
@@ -122,7 +122,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="landing-value-item container-medium">
+          <div className="landing-value-item landing-container-medium">
                 <div className="layout2_component">
                 <div className="layout2_image-wrapper">
                 <VisionThree className="layout2_image"></VisionThree>
@@ -139,10 +139,10 @@ const Landing = () => {
 
           </div>
         </div>
-        <div className="page-padding  flex flex-col items-center">
+        <div className="landing-page-padding  flex flex-col items-center">
         <section className="section-landing-cta">
-          <div className="page-padding flex flex-col items-center">
-            <div className="container-medium">
+          <div className="landing-page-padding flex flex-col items-center">
+            <div className="landing-container-medium">
               <div className="layout3_component">
               <h2 className="text-4xl landing-heading">Ready to get started?<br/>Sign up today.</h2>
               <div className="layout3_buttons-wrapper">
@@ -159,7 +159,7 @@ const Landing = () => {
       </div>
 
       <footer className="footer_component">
-        <div className="container-large">
+        <div className="landing-container-large">
         <div className="w-full h-px">
           <div className="page-divider_component"></div>
         </div>

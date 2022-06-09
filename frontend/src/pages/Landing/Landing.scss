@@ -48,13 +48,13 @@ img {
   font-family: "Raleway", sans-serif;
 }
 
-.container {
+.landing-container {
   &-large{max-width: 73.125rem; width:100%}
   &-medium{max-width: 66.875rem; width:100%}
   &-small{max-width: 54.375rem; width:100%}
 }
 
-.page-padding {
+.landing-page-padding {
   padding: 0 4rem;
   width: 100%
 }
