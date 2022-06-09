@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "watchlistApi",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authcomicsfrontendffefd2ca",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

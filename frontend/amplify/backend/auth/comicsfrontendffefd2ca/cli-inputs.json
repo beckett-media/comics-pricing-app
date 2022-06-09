@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "comicsfrontendffefd2ca_identitypool_ffefd2ca",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "comicsffefd2ca",
     "userPoolName": "comicsfrontendffefd2ca_userpool_ffefd2ca",
     "autoVerifiedAttributes": [
@@ -44,7 +44,9 @@
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+      "admin"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
@@ -63,8 +65,8 @@
     "breakCircularDependency": true,
     "dependsOn": [],
     "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
+    "userPoolGroups": true,
+    "adminQueries": true,
     "triggers": {},
     "hostedUI": false,
     "verificationBucketName": "comicsfrontendffefd2caverificationbucket",
@@ -72,6 +74,7 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "adminQueryGroup": "admin"
   }
 }

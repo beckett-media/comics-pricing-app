@@ -7,8 +7,8 @@ import ScatterGraph from "components/issue-details/ScatterGraph"
 import { getIssueImage } from "utils/imagePath"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
-import { API, Storage } from "aws-amplify"
-import { AmplifyS3Album, AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
+import { API, Storage, Analytics, Auth } from "aws-amplify"
+import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
@@ -16,20 +16,12 @@ export default function IssueDetails() {
 
   const [issue, setData] = React.useState<IssueFull>()
   const [error, setError] = React.useState<any>()
-  const [images, setImages] = React.useState<string[]>([])
 
   const apiName = "comicsapi"
   const path = `/api/issue/'${issueId}'`
 
-  // function to read image from s3 buckett
-  const getImage = (key: string) => {
-    return Storage.get(`publishers/${issueId}`, { level: "public" }).then((result) => {
-      console.log(result)
-    })
-  }
   React.useEffect(() => {
     const myInit = {}
-    getImage(`${issueId}`)
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here

@@ -1,4 +1,6 @@
 import { getTitleImage } from "utils/imagePath"
+import { Analytics, Auth } from "aws-amplify"
+import * as React from "react"
 
 type TitleProps = {
   id: string
@@ -7,6 +9,8 @@ type TitleProps = {
 }
 
 export default function Title({ id, name, publisher }: TitleProps) {
+
+
   return (
     <div className="flex w-32 flex-col items-center space-y-3">
       <div className="h-40 w-32">
