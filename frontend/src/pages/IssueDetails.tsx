@@ -8,12 +8,12 @@ import { getIssueImage } from "utils/imagePath"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
 import { API, Storage } from "aws-amplify"
-import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
+import {  AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import useIssueDetails from "hooks/data/useIssueDetails"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
-  const { data: issue, isError, isLoading } = useIssueDetails(issueId)
+  const { data: issue, isError, isLoading } = useIssueDetails(issueId);
 
   if (isError) {
     return <div>Error</div>
@@ -24,7 +24,7 @@ export default function IssueDetails() {
   }
 
   return (
-    <div className="flex w-full flex-col space-y-10 px-24 py-10">
+    <div className="flex flex-col w-full px-24 py-10 space-y-10">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue?.id} />
     </div>
@@ -69,7 +69,7 @@ function Chips({ issue }: { issue: IssueFull }) {
 function Details({ issue }: { issue: IssueFull }) {
   return (
     <>
-      <div className="flex w-full flex-col gap-2 text-sm">
+      <div className="flex flex-col w-full gap-2 text-sm">
         <div>
           Cover Date: {monthText(issue?.publication_month ?? -1)} {issue?.publication_year}
         </div>
@@ -91,10 +91,10 @@ function Details({ issue }: { issue: IssueFull }) {
 function Graphs({ id }: { id: string }) {
   return (
     <>
-      <div className="h-72 w-full rounded bg-container-inner">
+      <div className="w-full rounded h-72 bg-container-inner">
         <PriceGraph id={id} />
       </div>
-      <div className="h-72 w-full rounded bg-container-inner">
+      <div className="w-full rounded h-72 bg-container-inner">
         <ScatterGraph id={id} />
       </div>
     </>
