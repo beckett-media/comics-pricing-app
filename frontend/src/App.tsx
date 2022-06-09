@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
-import { API } from "aws-amplify";
+import { API } from "aws-amplify"
 
 import Home from "pages/Home"
 import Search from "pages/Search"
@@ -17,11 +17,14 @@ import SignUp from "./pages/SignUp"
 import Confirmation from "pages/Confirmation"
 import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
+import Landing from "pages/Landing/Landing"
 
 import { useAuth } from "providers/auth"
 
 function RequireAuth({ children }: { children: JSX.Element }) {
   let { isLoggedIn, isAuthChecking } = useAuth()
+  // const isLoggedIn = true;
+  // const isAuthChecking = false;
   let location = useLocation()
 
   if (isAuthChecking) {
@@ -41,6 +44,8 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 
 function OnlyNonAuth({ children }: { children: JSX.Element }) {
   let { isLoggedIn, isAuthChecking } = useAuth()
+  // const isLoggedIn = true;
+  // const isAuthChecking = false;
 
   if (isAuthChecking) {
     return <Box>Loading...</Box>
@@ -53,9 +58,9 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
-const apiName = 'comicsapi';
+const apiName = "comicsapi"
 const fetcher = (path: string) =>
-  API.get(apiName, `/api${path}`, { response: true }).then((response) => response.data);
+  API.get(apiName, `/api${path}`, { response: true }).then((response) => response.data)
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -87,6 +92,7 @@ export default function App() {
               </OnlyNonAuth>
             }
           />
+          <Route path={"/landing"} element={<Landing />} />
           <Route path={"/confirmation"} element={<Confirmation />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />
           <Route path={"/newPassword"} element={<NewPassword />} />

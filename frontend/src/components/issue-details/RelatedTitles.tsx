@@ -37,7 +37,7 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
       <div className={"flex flex-col items-center justify-items-center"}>
         {relatedTitles?.map(({ id, name }) => (
           <div className={"m-5 flex flex-col items-center justify-center"}>
-            <img className="object-fit w-8/12" alt="title cover" src={getTitleImage(id)} />
+            <img className="w-8/12 object-fit" alt="title cover" src={getTitleImage(id)} />
             <span>{name}</span>
           </div>
         ))}
