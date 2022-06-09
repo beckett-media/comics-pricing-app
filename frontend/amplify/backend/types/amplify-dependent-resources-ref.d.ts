@@ -36,5 +36,12 @@ export type AmplifyDependentResourcesAttributes = {
             "ApiName": "string",
             "ApiId": "string"
         }
+    },
+    "analytics": {
+        "comicsfrontend": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
+        }
     }
 }
