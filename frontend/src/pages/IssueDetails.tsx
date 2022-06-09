@@ -7,7 +7,8 @@ import ScatterGraph from "components/issue-details/ScatterGraph"
 import { getIssueImage } from "utils/imagePath"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
-import { API } from "aws-amplify"
+import { API, Storage } from "aws-amplify"
+import { AmplifyS3Album, AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
@@ -15,12 +16,20 @@ export default function IssueDetails() {
 
   const [issue, setData] = React.useState<IssueFull>()
   const [error, setError] = React.useState<any>()
+  const [images, setImages] = React.useState<string[]>([])
 
   const apiName = "comicsapi"
   const path = `/api/issue/'${issueId}'`
 
+  // function to read image from s3 buckett
+  const getImage = (key: string) => {
+    return Storage.get(`publishers/${issueId}`, { level: "public" }).then((result) => {
+      console.log(result)
+    })
+  }
   React.useEffect(() => {
     const myInit = {}
+    getImage(`${issueId}`)
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
@@ -55,11 +64,12 @@ function MainDetails({ issue }: { issue: IssueFull }) {
 
   return (
     <div className="grid w-full grid-cols-2 gap-10 rounded bg-container-outer py-10 px-12 text-common-text">
-      <img
+      {/* <img
         className="w-full object-contain"
         alt={`${issue?.title} #${issue?.issue}`}
         src={getIssueImage(issue?.id)}
-      />
+      /> */}
+      <AmplifyS3Image imgKey={"publishers/001efa98-55ff-4dec-abd7-87c513f0d2f6"} />
       <div className="flex min-w-0 grow flex-col gap-5">
         <div className="text-xl font-bold">{issue?.title}</div>
         <div className="text-sm">{metadata?.join(" | ")}</div>
