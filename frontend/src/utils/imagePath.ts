@@ -1,9 +1,9 @@
 export function getPublisherImage(id: string) {
-  return `https://comics-scans.s3.amazonaws.com/publishers/${id}`
+  return `https://comicss3bucket100929-dev.s3.us-west-1.amazonaws.com/publishers/${id}`
 }
 
 export function getTitleImage(id: string) {
-  return `https://comics-scans.s3.amazonaws.com/titles/${id}`
+  return `https://comicss3bucket100929-dev.s3.us-west-1.amazonaws.com/titles/${id}`
 }
 
 export function getIssueImage(id: string) {

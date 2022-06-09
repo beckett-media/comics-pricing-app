@@ -31,7 +31,6 @@ const Login = ({ ...props }) => {
   const [isResetPassword, setIsResetPassword] = React.useState(false)
   const [checkuser, setCheckuser] = React.useState("")
 
-  console.log(newPassword, confirmPassword)
 
   // check password match
   const checkPassword = () => {

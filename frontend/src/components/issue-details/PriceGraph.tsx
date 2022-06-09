@@ -12,7 +12,7 @@ export default function PriceGraph({ id }: { id: string }) {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/%27${id}%27/prices`
+  const path = `/api/issue/${id}/prices`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -22,7 +22,7 @@ export default function PriceGraph({ id }: { id: string }) {
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        console.log("pricegraph", response?.data)
+        setData(response.data)
       })
       .catch((error) => {
         console.log(error.response)
