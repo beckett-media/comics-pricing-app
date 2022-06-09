@@ -27,6 +27,8 @@ const awsmobile = {
       "region": "us-west-1"
     },
   ],
+  "aws_mobile_analytics_app_id": "96a9bdfe5bbf433796d9dac126a9531d",
+  "aws_mobile_analytics_app_region": "us-west-2"
 };
 
 export default awsmobile

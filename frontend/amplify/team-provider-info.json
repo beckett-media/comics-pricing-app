@@ -14,7 +14,8 @@
     },
     "categories": {
       "auth": {
-        "comicsfrontendffefd2ca": {}
+        "comicsfrontendffefd2ca": {},
+        "true": {}
       },
       "function": {
         "S3Trigger9ddabae6": {

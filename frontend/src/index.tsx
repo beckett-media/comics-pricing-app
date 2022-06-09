@@ -5,11 +5,16 @@ import App from "./App"
 import "@fortawesome/fontawesome-free/css/all.css"
 import "./index.css"
 import { ChakraProvider } from "@chakra-ui/react"
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { Analytics } from "aws-amplify"
 
-import awsconfig from './aws-exports';
-import { AuthProvider } from 'providers/auth';
-Amplify.configure(awsconfig);
+import awsconfig from "./aws-exports"
+import { AuthProvider } from "providers/auth"
+Amplify.configure({
+  Analytics: {
+    disabled: false,
+  },
+  ...awsconfig,
+})
 
 ReactDOM.render(
   <StrictMode>
