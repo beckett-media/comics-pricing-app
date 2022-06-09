@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   
   return (
-    <div className="px-10 my-10 space-y-10">
+    <div className="my-10 space-y-10">
       <div className="flex flex-row space-x-5 h-80">
         <News />
         <div className="flex flex-col w-5/12 space-y-2">

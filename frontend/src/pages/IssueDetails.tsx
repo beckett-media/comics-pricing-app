@@ -45,7 +45,7 @@ export default function IssueDetails() {
     return <div>{error?.toString()}</div>
   }
 
-  if (isLoading || !issue) {
+  if (!issue) {
     return <div>Loading...</div>
   }
 
