@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "comicsfrontendffefd2ca_identitypool_ffefd2ca",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "comicsffefd2ca",
     "userPoolName": "comicsfrontendffefd2ca_userpool_ffefd2ca",
     "autoVerifiedAttributes": [

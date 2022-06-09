@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
-import { API } from "aws-amplify";
+import { API } from "aws-amplify"
 
 import Home from "pages/Home"
 import Search from "pages/Search"
@@ -58,9 +58,9 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
-const apiName = 'comicsapi';
+const apiName = "comicsapi"
 const fetcher = (path: string) =>
-  API.get(apiName, `/api${path}`, { response: true }).then((response) => response.data);
+  API.get(apiName, `/api${path}`, { response: true }).then((response) => response.data)
 
 export default function App() {
   const AuthenticatedLayout = withCheckLoggedIn(Layout)
@@ -92,16 +92,11 @@ export default function App() {
               </OnlyNonAuth>
             }
           />
-          <Route
-            path={"/landing"}
-            element={
-                <Landing />
-            }
-          />
-        <Route path={"/confirmation"} element={<Confirmation />} />
-        <Route path={"/reset-password"} element={<ResetPassword />} />
-        <Route path={"/newPassword"} element={<NewPassword />} />
-      </Routes>
+          <Route path={"/landing"} element={<Landing />} />
+          <Route path={"/confirmation"} element={<Confirmation />} />
+          <Route path={"/reset-password"} element={<ResetPassword />} />
+          <Route path={"/newPassword"} element={<NewPassword />} />
+        </Routes>
 
         <Toaster
           position="top-right"

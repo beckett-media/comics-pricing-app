@@ -28,8 +28,6 @@ function AuthProvider(props: any) {
 
       // Possible event values can be found at https://docs.amplify.aws/guides/authentication/listening-for-auth-events/q/platform/js/
 
-      console.log("payload", payload)
-
       if (payload.event === "signIn") {
         // user sign in success
         setIsLoggedIn(true)
@@ -47,7 +45,6 @@ function AuthProvider(props: any) {
     })
       // Auth.currentUserInfo()
       .then((user) => {
-        console.log("current user", user)
         if (user) {
           setIsLoggedIn(true)
           setCurrentUser(user)

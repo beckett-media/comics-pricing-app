@@ -3,7 +3,8 @@ import { Link } from "react-router-dom"
 
 import { ReactComponent as TrendingIcon } from "assets/trending.svg"
 import { ReactComponent as Chevron } from "assets/chevron.svg"
-
+import * as React from "react"
+import { API } from "aws-amplify"
 import type { IssueMinimal } from "types/api"
 
 export default function TrendingTitles() {

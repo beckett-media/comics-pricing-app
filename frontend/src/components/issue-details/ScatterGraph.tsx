@@ -12,7 +12,7 @@ export default function ScatterGraph({ id }: { id: string }) {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/%27${id}%27/prices`
+  const path = `/api/issue/${id}/prices`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -22,7 +22,7 @@ export default function ScatterGraph({ id }: { id: string }) {
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        console.log("graphs", response?.data)
+        setData(response?.data)
       })
       .catch((error) => {
         console.log(error.response)
@@ -37,8 +37,8 @@ export default function ScatterGraph({ id }: { id: string }) {
   const data = bucket(prices)
 
   return (
-    <div className="flex h-full w-full flex-col py-4 px-5">
-      <div className="w-full text-center text-sm">Prices by Grade</div>
+    <div className="flex flex-col w-full h-full px-5 py-4">
+      <div className="w-full text-sm text-center">Prices by Grade</div>
       <div className="min-w-0 grow">
         <AutoSizer>
           {({ width, height }) => (
@@ -70,7 +70,7 @@ export default function ScatterGraph({ id }: { id: string }) {
               }}
               yFormat=".2f"
               tooltip={(p: any) => (
-                <div className="flex flex-col items-stretch justify-center rounded border bg-white p-2 text-xs text-black">
+                <div className="flex flex-col items-stretch justify-center p-2 text-xs text-black bg-white border rounded">
                   <div className="whitespace-nowrap">
                     <span className="font-bold">Date</span>: {p?.node?.data?.date}
                   </div>

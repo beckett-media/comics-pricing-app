@@ -7,17 +7,45 @@ import ScatterGraph from "components/issue-details/ScatterGraph"
 import { getIssueImage } from "utils/imagePath"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
-import useIssueDetails from "hooks/data/useIssueDetails"
+import { API, Storage } from "aws-amplify"
+import { AmplifyS3Album, AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
-  const { data: issue, isError, isLoading } = useIssueDetails(issueId);
+  // const { data: issue, isError, isLoading } = useIssueDetails(issueId);
 
-  if (isError) {
-    return <div>Error</div>
+  const [issue, setData] = React.useState<IssueFull>()
+  const [error, setError] = React.useState<any>()
+  const [images, setImages] = React.useState<string[]>([])
+
+  const apiName = "comicsapi"
+  const path = `/api/issue/'${issueId}'`
+
+  // function to read image from s3 buckett
+  const getImage = (key: string) => {
+    return Storage.get(`publishers/${issueId}`, { level: "public" }).then((result) => {
+      console.log(result)
+    })
+  }
+  React.useEffect(() => {
+    const myInit = {}
+    getImage(`${issueId}`)
+    API.get(apiName, path, myInit)
+      .then((response) => {
+        // Add your code here
+        setData(response)
+      })
+      .catch((error) => {
+        console.log(error.response)
+        setError(error)
+      })
+  }, [issueId])
+
+  if (error) {
+    return <div>{error?.toString()}</div>
   }
 
-  if (isLoading || !issue) {
+  if (!issue) {
     return <div>Loading...</div>
   }
 
@@ -36,10 +64,14 @@ function MainDetails({ issue }: { issue: IssueFull }) {
 
   return (
     <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
-      <img
+      {/* <img
         className="object-contain w-full"
         alt={`${issue?.title} #${issue?.issue}`}
         src={getIssueImage(issue?.id)}
+      /> */}
+      <AmplifyS3Image
+        className="object-contain w-full"
+        imgKey={"titles/0017f3ab-3474-4e84-b9f2-9255c2edb519"}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">
         <div className="text-xl font-bold">{issue?.title}</div>
@@ -56,7 +88,9 @@ function Chips({ issue }: { issue: IssueFull }) {
   return (
     <div className="flex w-full gap-2 text-xs">
       <div className="px-2 py-1 rounded bg-key-issue">Key Issue</div>
-      <div className={`rounded bg-${issue?.age?.toLowerCase()}-age py-1 px-2`}>{issue?.age} Age</div>
+      <div className={`rounded bg-${issue?.age?.toLowerCase()}-age py-1 px-2`}>
+        {issue?.age} Age
+      </div>
     </div>
   )
 }

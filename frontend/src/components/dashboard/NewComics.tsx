@@ -32,9 +32,9 @@ export default function NewComics() {
               <div className="w-7/12 truncate">
                 {title} #{issue}
               </div>
-              <Link key={id} to={`/details/${id}`}>
+              <Link key={id} to={`/details/'${id}'`}>
                 <div className="flex flex-row">
-                  ${Number.parseFloat(price).toFixed(2)}
+                  ${Number?.parseFloat(price)?.toFixed(2)}
                   <div className="pt-1 pl-3">
                     <Chevron />
                   </div>

@@ -11,7 +11,7 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/%27${issueId}%27/related/titles`
+  const path = `/api/issue/'${issueId}'/related/titles`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -21,7 +21,7 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        console.log("relates title",response?.data)
+        setData(response?.data)
       })
       .catch((error) => {
         console.log(error.response)
@@ -37,7 +37,7 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
       <div className={"flex flex-col items-center justify-items-center"}>
         {relatedTitles?.map(({ id, name }) => (
           <div className={"m-5 flex flex-col items-center justify-center"}>
-            <img className="object-fit w-8/12" alt="title cover" src={getTitleImage(id)} />
+            <img className="w-8/12 object-fit" alt="title cover" src={getTitleImage(id)} />
             <span>{name}</span>
           </div>
         ))}
