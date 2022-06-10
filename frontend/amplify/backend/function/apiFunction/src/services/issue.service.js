@@ -24,7 +24,7 @@ const getDetails = async (id) => {
       issues.comment,
       month publication_month,
       year publication_year, 
-      issues.cpg_id as img_id
+      issues.cpg_id
       --prices.price current_price
   FROM issues
     JOIN titles ON issues.title_id = titles.id
@@ -135,7 +135,7 @@ const getIssuePrices = async (id) => {
       price,
       date
     FROM sales
-    WHERE issue_id = ${id}
+    WHERE cpg_id = ${id}
     ORDER BY date DESC
   `)
 }

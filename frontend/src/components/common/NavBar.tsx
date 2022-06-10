@@ -1,6 +1,8 @@
 import { createContext, KeyboardEvent, useContext } from "react"
 import { Link } from "react-router-dom"
 import { Auth } from "aws-amplify"
+import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
+
 
 import { useNavigateWithSearchParams } from "utils/router"
 
@@ -30,14 +32,17 @@ export default function NavBar() {
 // function Logo() {
 //   const { setText } = useContext(NavBarContext)
 
-//   return (
-//     <div className="flex items-center justify-center">
-//       <Link to="/dashboard" onClick={() => setText("")}>
-//         <img src={logoSrc} alt="" />
-//       </Link>
-//     </div>
-//   )
-// }
+  return (
+    <div className="flex items-center justify-center">
+      <Link to="/dashboard" onClick={() => setText("")}>
+      <AmplifyS3Image
+        className="object-contain w-full"
+        imgKey={'resources/Beckett_Comic_Pricing_Logo.svg'}
+      />
+      </Link>
+    </div>
+  )
+}
 
 function Search() {
   const { text, setText } = useContext(NavBarContext)

@@ -23,6 +23,7 @@ export type IssueFull = IssueMinimal & {
   publication_month: number | null
   publication_year: number | null
   current_price: number
+  cpg_id: string
 }
 
 export type Title = {
