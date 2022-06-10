@@ -13,3 +13,10 @@ body {
   font-family: 'Roboto Flex', sans-serif;
   font-size: 0.875rem;
 }
+
+amplify-s3-image {}
+
+amplify-s3-image.issue {
+  --height: 75px;
+  --width: auto;
+}
