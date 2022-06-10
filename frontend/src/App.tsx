@@ -5,8 +5,6 @@ import { SWRConfig } from "swr"
 import { API } from "aws-amplify"
 
 
-import { API } from "aws-amplify"
-
 
 import Home from "pages/Home"
 import Search from "pages/Search"
