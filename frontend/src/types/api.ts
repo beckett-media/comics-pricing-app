@@ -3,6 +3,7 @@ export type IssueMinimal = {
   issue: string
   title: string
   publisher: string
+  img_id: string
 }
 
 export type IssueTrends = {
