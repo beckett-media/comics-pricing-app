@@ -6,7 +6,7 @@ import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
 import { useNavigateWithSearchParams } from "utils/router"
 
-import { ReactComponent as Logo } from '../../assets/beckett-comic-logo.svg'
+//import { ReactComponent as Logo } from '../../assets/beckett-comic-logo.svg'
 
 export const NavBarContext = createContext({
   text: "",
@@ -29,8 +29,8 @@ export default function NavBar() {
   )
 }
 
-// function Logo() {
-//   const { setText } = useContext(NavBarContext)
+function Logo() {
+  const { setText } = useContext(NavBarContext)
 
   return (
     <div className="flex items-center justify-center">
