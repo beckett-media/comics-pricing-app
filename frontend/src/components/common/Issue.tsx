@@ -38,16 +38,25 @@ export default function Issue({ id, issue, title, publisher, img_id }: IssueProp
   React.useEffect(() => {
     recordIssueView({ id, issue, title, publisher, img_id })
   }, [id])
+  
+  function imgError(evt: any) {
+    console.log('error', evt);
+    evt.target.remove();
+    
+  }
 
   return (
     <div className="flex flex-col items-center w-32">
       <div className="w-32 h-40">
-        <AmplifyS3Image className="issue" imgKey={`issues/${img_id}`} />
-        {/* <img
+        <AmplifyS3Image 
+          handleOnError = { imgError }
+          imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'100%'} }}  
+          imgKey={`issues/${img_id}`} />
+        {/* {<img
           className="object-contain w-full h-full"
           alt={`${title} #${issue}`}
           src={getIssueImage(id)}
-        /> */}
+        /> } */}
       </div>
       <div className="pt-3 text-xs font-semibold text-center">{title}</div>
       <div className="text-xxs">Issue #{issue}</div>
