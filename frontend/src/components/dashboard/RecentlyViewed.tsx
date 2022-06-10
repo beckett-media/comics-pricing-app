@@ -8,8 +8,7 @@ export default function RecentlyViewed() {
         <Issue />
         <Issue />
         <Issue />
-        <Issue />
-        <Issue />
+        <Issue /> */}
       </Gallery>
     </div>
   )

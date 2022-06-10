@@ -1,0 +1,9 @@
+
+
+type WatchList @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  imageId: String
+  publisher: String
+  name: String
+  issue: String
+}
