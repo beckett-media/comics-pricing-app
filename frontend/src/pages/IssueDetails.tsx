@@ -53,7 +53,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   const metadata = [issue?.publisher, issue?.volume, `Issue #${issue?.issue}`].filter((m) =>
     Boolean(m)
   )
-
+  console.log('nasser console', issue);
   return (
     <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
       {/* <img
@@ -63,7 +63,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
       /> */}
       <AmplifyS3Image
         className="object-contain w-full"
-        imgKey={"titles/0017f3ab-3474-4e84-b9f2-9255c2edb519"}
+        imgKey={`issues/${issue.img_id}`}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">
         <div className="text-xl font-bold">{issue?.title}</div>

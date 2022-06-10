@@ -23,7 +23,8 @@ const getDetails = async (id) => {
       titles.volume,
       issues.comment,
       month publication_month,
-      year publication_year
+      year publication_year, 
+      issues.cpg_id as img_id
       --prices.price current_price
   FROM issues
     JOIN titles ON issues.title_id = titles.id
@@ -89,11 +90,12 @@ const getRelatedTitles = async (id) => {
 const getPopularIssues = async () => {
   const res = await sql.query(
     `
-  SELECT
+    SELECT
     issues.id,
     issues.name AS issue,
     titles.name AS title,
-    publishers.name AS publisher
+    publishers.name AS publisher,
+    issues.cpg_id as img_id
   FROM issues
   JOIN titles ON titles.id = issues.title_id
   JOIN publishers ON publishers.id = titles.publisher_id
