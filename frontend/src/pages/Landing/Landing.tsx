@@ -19,12 +19,12 @@ const Landing = () => {
   return (
     <div className="page-wrapper page-landing">
 
-      <nav className="nav_component">
-        <div className="nav_content-wrapper">
-            <div className="nav_wrapper">
-              <HeroLogo className="nav_logo"></HeroLogo>
+      <nav className="landing-nav_component">
+        <div className="landing-nav_content-wrapper">
+            <div className="landing-nav_wrapper">
+              <HeroLogo className="landing-nav_logo"></HeroLogo>
             </div>
-            <a href="/" className="button button-primary text-base">Login</a>
+            <a href="/" className="landing-button landing-button-primary text-base">Login</a>
         </div>
       </nav>
 
@@ -37,22 +37,22 @@ const Landing = () => {
               <div className="landing-header_background-image-blur"></div>
               <img src={hero} alt="person looking up at the stars" className="landing-header_background-image"></img>
             </div>
-            <div className="page-padding">
+            <div className="landing-page-padding">
             <div className="landing-header_content-wrapper">
               <h1 className="text-5xl landing-heading mb-7 text-center font-medium">Comprehensive comic book pricing at your fingertips </h1>
               <p className="mb-20 text-center max-w-xl font-medium">Browse pricing data on millions of comic books available to find your favorite titles all in one place.</p>
-              <a href="/" className="button button-primary">Join the Waitlist</a>
+              <a href="/" className="landing-button landing-button-primary">Join the Waitlist</a>
             </div>
             </div>
           </div>
         </section>
 
         <div className="landing-content-wrapper">
-          <div className="page-padding  flex flex-col items-center">
-            <div className="container-large">
+          <div className="landing-page-padding  flex flex-col items-center">
+            <div className="landing-container-large">
 
         <section className="section-landing-titles">
-            <div className="container-medium flex flex-col items-center w-full">
+            <div className="landing-container-medium flex flex-col items-center w-full">
               <div className="layout1_component">
                 <h2 className="text-3xl landing-heading text-center mb-20 font-medium">Browse Millions of Titles</h2>
                 <div className="titles_component">
@@ -98,7 +98,7 @@ const Landing = () => {
 
         <section className="section-landing-value">
 
-          <div className="landing-value-item container-medium">
+          <div className="landing-value-item landing-container-medium">
             <div className="layout2_component">
               <div className="layout2_image-wrapper">
               <VisionOne className="layout2_image"></VisionOne>
@@ -110,7 +110,7 @@ const Landing = () => {
             </div>
           </div>
           
-          <div className="landing-value-item container-medium">
+          <div className="landing-value-item landing-container-medium">
             <div className="layout2_component">
               <div className="layout2_content-wrapper">
                 <h3 className="text-3xl landing-heading mb-8 font-semibold">Compare Market Sales</h3>
@@ -122,7 +122,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="landing-value-item container-medium">
+          <div className="landing-value-item landing-container-medium">
                 <div className="layout2_component">
                 <div className="layout2_image-wrapper">
                 <VisionThree className="layout2_image"></VisionThree>
@@ -139,15 +139,15 @@ const Landing = () => {
 
           </div>
         </div>
-        <div className="page-padding  flex flex-col items-center">
+        <div className="landing-page-padding  flex flex-col items-center">
         <section className="section-landing-cta">
-          <div className="page-padding flex flex-col items-center">
-            <div className="container-medium">
+          <div className="landing-page-padding flex flex-col items-center">
+            <div className="landing-container-medium">
               <div className="layout3_component">
               <h2 className="text-4xl landing-heading">Ready to get started?<br/>Sign up today.</h2>
-              <div className="layout3_buttons-wrapper">
-                <a href="/" className="button button-primary mr-8">Join the waitlist</a>
-                <a href="/" className="button button-secondary">Login</a>
+              <div className="layout3_landing-buttons-wrapper">
+                <a href="/" className="landing-button landing-button-primary mr-8">Join the waitlist</a>
+                <a href="/" className="landing-button landing-button-secondary">Login</a>
               </div>
               </div>
             </div>
@@ -158,35 +158,35 @@ const Landing = () => {
 
       </div>
 
-      <footer className="footer_component">
-        <div className="container-large">
+      <footer className="landing-footer_component">
+        <div className="landing-container-large">
         <div className="w-full h-px">
           <div className="page-divider_component"></div>
         </div>
-        <div className="footer_layout">
-          <div className="footer_left-wrapper">
-            <FooterLogo className="footer_logo mb-8"></FooterLogo>
+        <div className="landing-footer_layout">
+          <div className="landing-footer_left-wrapper">
+            <FooterLogo className="landing-footer_logo mb-8"></FooterLogo>
             <p className="mb-3">©2022</p>
             <a href="/">Terms of Service</a>
           </div>
-          <div className="footer_right-wrapper">
-            <div className="footer_content-column">
-              <p className="footer_content-heading">Features</p>
-              <a href="/" className="footer_content-item">Feature</a>
-              <a href="/" className="footer_content-item">Feature</a>
-              <a href="/" className="footer_content-item">Feature</a>
+          <div className="landing-footer_right-wrapper">
+            <div className="landing-footer_content-column">
+              <p className="landing-footer_content-heading">Features</p>
+              <a href="/" className="landing-footer_content-item">Feature</a>
+              <a href="/" className="landing-footer_content-item">Feature</a>
+              <a href="/" className="landing-footer_content-item">Feature</a>
             </div>
-            <div className="footer_content-column">
-              <p className="footer_content-heading">Resources</p>
-              <a href="/" className="footer_content-item">Resource</a>
-              <a href="/" className="footer_content-item">Resource</a>
-              <a href="/" className="footer_content-item">Resource</a>
+            <div className="landing-footer_content-column">
+              <p className="landing-footer_content-heading">Resources</p>
+              <a href="/" className="landing-footer_content-item">Resource</a>
+              <a href="/" className="landing-footer_content-item">Resource</a>
+              <a href="/" className="landing-footer_content-item">Resource</a>
             </div>
-            <div className="footer_content-column">
-              <p className="footer_content-heading">Company</p>
-              <a href="/" className="footer_content-item">Company</a>
-              <a href="/" className="footer_content-item">Company</a>
-              <a href="/" className="footer_content-item">Company</a>
+            <div className="landing-footer_content-column">
+              <p className="landing-footer_content-heading">Company</p>
+              <a href="/" className="landing-footer_content-item">Company</a>
+              <a href="/" className="landing-footer_content-item">Company</a>
+              <a href="/" className="landing-footer_content-item">Company</a>
             </div>
           </div>
         </div>

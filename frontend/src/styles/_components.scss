@@ -1,0 +1,26 @@
+.button {
+  font-size: 1.125rem;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  display: inline-block;
+
+  padding: 0.625rem 1.75rem;
+  border-radius: 2rem;
+  min-width: 7.5rem;
+
+  &:hover {
+    box-shadow: 0 0 1rem -0.175rem rgba(#fff, 0.5);
+  }
+
+  &-primary {
+    color: black;
+    background-image: linear-gradient(to bottom right, var(--button-light), var(--button-dark));
+  }
+
+  &-secondary{
+    outline: 2px solid #C3FAE4;
+    outline-offset: -2px;
+    font-size: 0.75rem;
+    padding: 0.5rem 1.75rem;
+  }
+}

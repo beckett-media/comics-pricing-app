@@ -8,7 +8,7 @@ module.exports = {
         "tmp-icon": "#FFFFFF",
         "grad-top": "#494752",
         "grad-bot": "#2D2833",
-        "hdr-ftr": "#161032",
+        "hdr-ftr": "#0C0822",
         "form-fields": "#42404D",
         "hdr-body-text": "#FFFFFF",
         "common-text": "#FFFFFF",
@@ -40,7 +40,6 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Roboto Flex"],
-        heading: ["Raleway"],
       },
       fontSize: {
         xxs: ["10px", "12px"],
