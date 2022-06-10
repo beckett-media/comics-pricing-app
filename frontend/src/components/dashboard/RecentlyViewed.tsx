@@ -4,11 +4,12 @@ import Issue from "./Issue"
 export default function RecentlyViewed() {
   return (
     <div className="overflow-hidden rounded">
-      <Gallery title="Recently Viewed" fullScreen={false}>
+      <Gallery title="Recently Viewed">
         {/* <Issue />
         <Issue />
         <Issue />
-        <Issue />  */}
+        <Issue />
+        <Issue /> */}
       </Gallery>
     </div>
   )

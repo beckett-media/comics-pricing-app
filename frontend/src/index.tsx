@@ -15,6 +15,7 @@ Amplify.configure({
     disabled: false,
   },
   ...awsconfig
+})
 
 ReactDOM.render(
   <StrictMode>

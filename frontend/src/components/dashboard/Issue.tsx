@@ -10,10 +10,10 @@ type IssueProps = {
 
 export default function Issue({ id, issue, title, publisher }: IssueProps) {
   return (
-    <div className="align-center flex w-32 flex-col items-center space-y-3">
-      {/* <div className="h-40 w-32 bg-slate-300"></div> */}
+    <div className="flex flex-col items-center w-32 space-y-3 align-center">
+      {/* <div className="w-32 h-40 bg-slate-300"></div> */}
       <AmplifyS3Image className="amplify-s3-image" imgKey={`titles/${id}`} />
-      <p className="text-center text-xs">{title}</p>
+      <p className="text-xs text-center">{title}</p>
       <p className="text-xs">{publisher}</p>
     </div>
   )

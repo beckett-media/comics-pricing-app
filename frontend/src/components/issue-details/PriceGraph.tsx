@@ -8,25 +8,29 @@ import { API } from "aws-amplify"
 export default function PriceGraph({ id }: { id: string }) {
   // const { data: prices } = useSWR<Price[]>(`/api/issue/${id}/prices`)
 
-  const [prices, setData] = React.useState<Price[]>()
+  const [prices, setPrices] = React.useState<Price[]>()
   const [error, setError] = React.useState<any>()
+  const [loading, setLoading] = React.useState(true)
 
   const apiName = "comicsapi"
-  const path = `/api/issue/${id}/prices`
+  const path = `/api/issue/'${id}'/prices`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
   }
 
   React.useEffect(() => {
+    setLoading(true);
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        setData(response.data)
+        setPrices(response.data.rows);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error.response)
         setError(error)
+        setLoading(false);
       })
   }, [id])
 
@@ -35,6 +39,7 @@ export default function PriceGraph({ id }: { id: string }) {
   }
 
   const data = bucket(prices)
+  
 
   return (
     <div className="flex flex-col w-full h-full px-5 py-4">
@@ -132,9 +137,11 @@ function bucket(prices: Price[]) {
   const high = []
   const med = []
   const low = []
-
+  
+  
   for (const p of prices) {
     const grade = Number(p?.grade)
+    //console.log('grade', p?.grade);
     if (grade > 8) {
       high?.push(p)
     } else if (grade > 4) {

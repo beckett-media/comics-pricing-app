@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { SWRConfig } from "swr"
-import { API } from "aws-amplify";
+
+import { API } from "aws-amplify"
+
 
 import { API } from "aws-amplify"
 

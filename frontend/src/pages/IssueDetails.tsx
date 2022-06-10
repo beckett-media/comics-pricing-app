@@ -37,15 +37,6 @@ export default function IssueDetails() {
   if (error) {
     return <div>{error?.toString()}</div>
   }
-  // import useIssueDetails from "hooks/data/useIssueDetails"
-
-  // export default function IssueDetails() {
-  //   const { issueId } = useParams<{ issueId: string }>()
-  //   const { data: issue, isError, isLoading } = useIssueDetails(issueId);
-
-  // if (isError) {
-  //   return <div>Error</div>
-  // }
 
   if (!issue) {
     return <div>Loading...</div>
@@ -63,7 +54,6 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   const metadata = [issue?.publisher, issue?.volume, `Issue #${issue?.issue}`].filter((m) =>
     Boolean(m)
   )
-
   return (
     <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
       {/* <img
@@ -73,14 +63,15 @@ function MainDetails({ issue }: { issue: IssueFull }) {
       /> */}
       <AmplifyS3Image
         className="object-contain w-full"
-        imgKey={"titles/0017f3ab-3474-4e84-b9f2-9255c2edb519"}
+
+        imgKey={`issues/${issue.cpg_id}`}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">
         <div className="text-xl font-bold">{issue?.title}</div>
         <div className="text-sm">{metadata?.join(" | ")}</div>
         <Chips issue={issue} />
         <Details issue={issue} />
-        <Graphs id={issue?.id} />
+        <Graphs id={issue?.cpg_id} />
       </div>
     </div>
   )
@@ -120,6 +111,7 @@ function Details({ issue }: { issue: IssueFull }) {
 }
 
 function Graphs({ id }: { id: string }) {
+  
   return (
     <>
       <div className="w-full rounded h-72 bg-container-inner">

@@ -48,6 +48,7 @@ export type AmplifyDependentResourcesAttributes = {
             "ApiId": "string"
         },
         "watchlistApi": {
+            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }

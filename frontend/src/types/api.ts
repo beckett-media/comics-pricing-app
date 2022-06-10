@@ -3,6 +3,7 @@ export type IssueMinimal = {
   issue: string
   title: string
   publisher: string
+  img_id: string
 }
 
 export type IssueTrends = {
@@ -22,6 +23,7 @@ export type IssueFull = IssueMinimal & {
   publication_month: number | null
   publication_year: number | null
   current_price: number
+  cpg_id: string
 }
 
 export type Title = {

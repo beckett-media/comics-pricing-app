@@ -4,4 +4,17 @@ type WatchList @model @auth(rules: [{allow: owner}]) {
   publisher: String
   name: String
   issue: String
-} 
+}
+
+enum ComicWaitingListStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+type ComicWaitingList @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  email: String
+  status: ComicWaitingListStatus
+}

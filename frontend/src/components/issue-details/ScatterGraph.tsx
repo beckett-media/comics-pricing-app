@@ -12,7 +12,7 @@ export default function ScatterGraph({ id }: { id: string }) {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/${id}/prices`
+  const path = `/api/issue/'${id}'/prices`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -22,7 +22,8 @@ export default function ScatterGraph({ id }: { id: string }) {
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        setData(response?.data)
+        setData(response?.data.rows)
+
       })
       .catch((error) => {
         console.log(error.response)
@@ -130,7 +131,7 @@ function bucket(prices: Price[]) {
   const high = []
   const med = []
   const low = []
-
+  
   for (const p of prices) {
     const grade = Number(p.grade)
     if (grade > 8) {
