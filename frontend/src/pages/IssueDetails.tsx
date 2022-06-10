@@ -63,6 +63,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
       /> */}
       <AmplifyS3Image
         className="object-contain w-full"
+
         imgKey={`issues/${issue.cpg_id}`}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">

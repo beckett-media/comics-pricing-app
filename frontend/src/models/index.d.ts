@@ -37,4 +37,5 @@ export declare class ComicWaitingList {
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<ComicWaitingList, ComicWaitingListMetaData>);
   static copyOf(source: ComicWaitingList, mutator: (draft: MutableModel<ComicWaitingList, ComicWaitingListMetaData>) => MutableModel<ComicWaitingList, ComicWaitingListMetaData> | void): ComicWaitingList;
+
 }

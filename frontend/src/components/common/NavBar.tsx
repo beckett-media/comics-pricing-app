@@ -29,8 +29,8 @@ export default function NavBar() {
   )
 }
 
-function Logo() {
-  const { setText } = useContext(NavBarContext)
+// function Logo() {
+//   const { setText } = useContext(NavBarContext)
 
   return (
     <div className="flex items-center justify-center">
