@@ -6,10 +6,9 @@ module.exports = {
       colors: {
         "tmp-search-text": "#0C0822",
         "tmp-icon": "#FFFFFF",
-
         "grad-top": "#494752",
         "grad-bot": "#2D2833",
-        "hdr-ftr": "#161032",
+        "hdr-ftr": "#0C0822",
         "form-fields": "#42404D",
         "hdr-body-text": "#FFFFFF",
         "common-text": "#FFFFFF",
@@ -34,12 +33,18 @@ module.exports = {
         "container-inner": "#45434E",
         "list-line": "#454156",
         headline: "#161032",
+        "landing-purple-dark": "#191237",
+        "landing-purple-start": "#353170",
+        "landing-purple-stop": "#463A79",
+        "landing-purple-overlay": "#302A95",
       },
       fontFamily: {
-        body: ["Roboto Flex"],
+        sans: ["Roboto Flex"],
       },
       fontSize: {
         xxs: ["10px", "12px"],
+        "4xl": ["2rem", "140%"],
+        "5xl": ["2.5rem", "140%"],
       },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",

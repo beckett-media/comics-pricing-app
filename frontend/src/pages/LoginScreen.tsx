@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import {
   Box,
   Button,
@@ -32,7 +31,6 @@ const Login = ({ ...props }) => {
   const [isResetPassword, setIsResetPassword] = React.useState(false)
   const [checkuser, setCheckuser] = React.useState("")
 
-  console.log(newPassword, confirmPassword)
 
   // check password match
   const checkPassword = () => {
@@ -48,44 +46,31 @@ const Login = ({ ...props }) => {
       setIsResetPassword(true)
       if (checkPassword()) {
         const loggedUser = await Auth.completeNewPassword(checkuser, newPassword)
-        alert(`User ${loggedUser.username} created a new password!`)
-        navigate("/confirmation")
+        // alert(`User ${loggedUser.username} created a new password!`)
+        navigate("/")
         setIsResetPassword(false)
       } else {
-        alert("Password not match")
+        // alert("Password not match")
         setIsResetPassword(true)
       }
     } catch (error) {
-      console.log("error", error)
       setError(error.message)
     }
   }
 
   async function signIn() {
     try {
-      await Auth.signIn(email, password).then(async (user) => {
+      await Auth.signIn(email, password).then((user) => {
         if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
           setIsResetPassword(true)
           setPassword("")
           setCheckuser(user)
         } else {
-          alert(`User ${user.username} has been signed in!`)
+          // alert(`User ${user.username} has been signed in!`)
         }
       })
     } catch (e) {
       setError(e.message)
-    }
-  }
-
-  async function signOut() {
-    try {
-      await Auth.signOut({ global: true })
-      setIsResetPassword(false)
-      setPassword("")
-      setEmail("")
-      setError(null)
-    } catch (error) {
-      console.log("error signing out: ", error)
     }
   }
 
@@ -257,4 +242,5 @@ const Login = ({ ...props }) => {
     </Box>
   )
 }
+
 export default Login

@@ -4,13 +4,18 @@ import { BrowserRouter } from "react-router-dom"
 import App from "./App"
 import "@fortawesome/fontawesome-free/css/all.css"
 import "./index.css"
+import "./styles/main.scss"
 import { ChakraProvider } from "@chakra-ui/react"
-import { Amplify } from "aws-amplify"
+import Amplify, { Analytics, Auth, AuthModeStrategyType } from "aws-amplify"
 
+import awsconfig from "./aws-exports"
 import { AuthProvider } from "providers/auth"
-import awsExports from "./aws-exports"
-
-Amplify.configure(awsExports)
+Amplify.configure({
+  Analytics: {
+    disabled: false,
+  },
+  ...awsconfig
+})
 
 ReactDOM.render(
   <StrictMode>

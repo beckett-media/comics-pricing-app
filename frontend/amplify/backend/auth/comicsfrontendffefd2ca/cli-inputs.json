@@ -44,7 +44,9 @@
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+      "admin"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
@@ -63,8 +65,8 @@
     "breakCircularDependency": true,
     "dependsOn": [],
     "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
+    "userPoolGroups": true,
+    "adminQueries": true,
     "triggers": {},
     "hostedUI": false,
     "verificationBucketName": "comicsfrontendffefd2caverificationbucket",
@@ -72,6 +74,7 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "adminQueryGroup": "admin"
   }
 }
