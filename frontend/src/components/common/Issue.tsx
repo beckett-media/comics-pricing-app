@@ -40,16 +40,16 @@ export default function Issue({ id, issue, title, publisher, img_id }: IssueProp
   }, [id])
 
   return (
-    <div className="flex w-32 flex-col items-center">
-      <div className="h-40 w-32">
-        <AmplifyS3Image className="h-32 w-40 object-contain" imgKey={`issues/${img_id}`} />
+    <div className="flex flex-col items-center w-32">
+      <div className="w-32 h-40">
+        <AmplifyS3Image className="issue" imgKey={`issues/${img_id}`} />
         {/* <img
-          className="h-full w-full object-contain"
+          className="object-contain w-full h-full"
           alt={`${title} #${issue}`}
           src={getIssueImage(id)}
         /> */}
       </div>
-      <div className="pt-3 text-center text-xs font-semibold">{title}</div>
+      <div className="pt-3 text-xs font-semibold text-center">{title}</div>
       <div className="text-xxs">Issue #{issue}</div>
       <div className="text-xxs">{publisher}</div>
     </div>

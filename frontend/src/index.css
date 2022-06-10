@@ -17,6 +17,6 @@ body {
 amplify-s3-image {}
 
 amplify-s3-image.issue {
-  --height: 75px;
+  --height: 160px;
   --width: auto;
 }
