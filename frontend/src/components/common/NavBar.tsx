@@ -82,6 +82,7 @@ function Buttons() {
   
   return (
     <div className="flex justify-end text-xl space-x-7 text-tmp-icon">
+
       <button>
         <i className="fa-regular fa-bell" />
       </button>

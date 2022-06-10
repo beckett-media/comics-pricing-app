@@ -12,6 +12,8 @@ import NavBar from "components/common/NavBar"
 import { API } from "aws-amplify"
 
 export default function Dashboard() {
+
+  
   return (
     <div className="my-10 space-y-10">
       <div className="flex flex-row space-x-5 h-80">

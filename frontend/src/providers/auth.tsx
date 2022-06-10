@@ -87,8 +87,6 @@ function AuthProvider(props: any) {
       })
   }, [])
 
-  
-
   return (
     <AuthContext.Provider
       value={{

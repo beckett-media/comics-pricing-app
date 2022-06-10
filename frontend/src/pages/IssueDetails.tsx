@@ -20,6 +20,7 @@ export default function IssueDetails() {
   const apiName = "comicsapi"
   const path = `/api/issue/'${issueId}'`
 
+
   React.useEffect(() => {
     const myInit = {}
     API.get(apiName, path, myInit)
@@ -36,6 +37,15 @@ export default function IssueDetails() {
   if (error) {
     return <div>{error?.toString()}</div>
   }
+  // import useIssueDetails from "hooks/data/useIssueDetails"
+
+  // export default function IssueDetails() {
+  //   const { issueId } = useParams<{ issueId: string }>()
+  //   const { data: issue, isError, isLoading } = useIssueDetails(issueId);
+
+  // if (isError) {
+  //   return <div>Error</div>
+  // }
 
   if (!issue) {
     return <div>Loading...</div>
