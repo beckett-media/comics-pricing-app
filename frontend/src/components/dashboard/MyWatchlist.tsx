@@ -56,7 +56,7 @@ export default function MyWatchlist() {
       <Button onClick={() => addToWatchlist()}>
         <Text>Add to Watchlist</Text>
       </Button>
-      <Gallery title="My Watchlist">
+      <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
         {watchlist.map(({ id, imageId, publisher, name, issue }) => (
           <Issue key={id} id={imageId} issue={issue} title={name} publisher={publisher} />
         ))}

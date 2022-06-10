@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "watchlistApi",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-0a9fa039-e31b-47e9-bdfe-59695f8edfb7/amplify/backend/api/watchlistApi/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-b1cfefd2-ac12-41af-a378-c6c43060bf8f/amplify/backend/api/watchlistApi/schema.graphql",
     "defaultAuthType": {
       "mode": "AMAZON_COGNITO_USER_POOLS",
       "cognitoUserPoolId": "authcomicsfrontendffefd2ca"
@@ -11,11 +11,6 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
-      },
-      {
-        "mode": "API_KEY",
-        "keyDescription": "api key description",
-        "expirationTime": 30
       }
     ],
     "conflictResolution": {

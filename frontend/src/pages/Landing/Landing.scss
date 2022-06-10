@@ -285,7 +285,7 @@ img {
   background-color: $button-light;
 }
 
-.button {
+.landing-button {
   font-size: 1.125rem;
   transition: all 0.2s ease-in-out;
   text-align: center;
@@ -310,7 +310,7 @@ img {
   }
 }
 
-.footer {
+.landing-footer {
   &_component{
     width: 100%;
     display:flex;

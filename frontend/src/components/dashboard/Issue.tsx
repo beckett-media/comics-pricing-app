@@ -1,4 +1,5 @@
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
+import "./amplifyS3Image.css"
 
 type IssueProps = {
   id: any
