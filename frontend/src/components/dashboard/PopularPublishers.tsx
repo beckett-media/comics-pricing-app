@@ -16,7 +16,7 @@ export default function PopularPublishers() {
   console.log(publishers)
 
   return (
-    <Gallery title="Popular Publishers" link="/">
+    <Gallery title="Browse by Publisher" link="/">
       {publishers.map(({ id, name }) => (
         <Publisher key={id} id={id} name={name} />
       ))}
