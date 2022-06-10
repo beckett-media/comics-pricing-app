@@ -14,7 +14,7 @@ export default function PopularComics() {
     return <div>loading</div>
   }
 
-  async function recordIssueView({ id, issue, title, publisher }: IssueMinimal) {
+  async function recordIssueView({ id, issue, title, publisher, img_id }: IssueMinimal) {
     Analytics.enable()
     Analytics.record({
       name: "viewIssue",
@@ -33,17 +33,17 @@ export default function PopularComics() {
 
   return (
     <Gallery title="Popular Comics">
-      {issues.map(({ id, issue, title, publisher }) => (
+      {issues.map(({ id, issue, title, publisher, img_id}) => (
         <Link
           key={id}
           to={`/details/${id}`}
           // analytics event for tracking clicks on the issue card
-          onClick={() => recordIssueView({ id, issue, title, publisher })}
+          onClick={() => recordIssueView({ id, issue, title, publisher, img_id})}
           data-amplify-analytics-on="click"
           data-amplify-analytics-name="click"
           data-amplify-analytics-attrs={`IssueimageId_Pospular:${id},IssueTitle_Popular:${title},IssuePub_Polular:${publisher}`}
         >
-          <Issue id={id} issue={issue} title={title} publisher={publisher} />
+          <Issue id={id} issue={issue} title={title} publisher={publisher} img_id={img_id} />
         </Link>
       ))}
     </Gallery>
