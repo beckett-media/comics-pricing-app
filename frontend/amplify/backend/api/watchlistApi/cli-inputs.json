@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "watchlistApi",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/tmp/amplify-b1cfefd2-ac12-41af-a378-c6c43060bf8f/amplify/backend/api/watchlistApi/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authcomicsfrontendffefd2ca"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AWS_IAM"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    }
+  }
+}

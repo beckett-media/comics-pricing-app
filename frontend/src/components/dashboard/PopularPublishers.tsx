@@ -7,16 +7,16 @@ import type { Publisher as PublisherData } from "types/api"
 import { API } from "aws-amplify"
 import usePopularPublishers from "hooks/data/usePopularPublishers"
 
-
 export default function PopularPublishers() {
-  const { data: publishers, isLoading } = usePopularPublishers();
+  const { data: publishers, isLoading } = usePopularPublishers()
 
   if (isLoading) {
     return <div>loading</div>
   }
+  console.log(publishers)
 
   return (
-    <Gallery title="Popular Publishers">
+    <Gallery title="Popular Publishers" link="/">
       {publishers.map(({ id, name }) => (
         <Publisher key={id} id={id} name={name} />
       ))}

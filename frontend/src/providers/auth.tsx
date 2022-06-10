@@ -1,10 +1,10 @@
 import * as React from "react"
-import { Auth, Hub } from "aws-amplify"
+import { Auth, Hub, Analytics } from "aws-amplify"
 
 type AuthData = {
   isLoggedIn: boolean
   isAuthChecking: boolean
-  currentUser: any // Not sure if this is worth it
+  currentUser: any
 }
 
 const AuthContext = React.createContext({} as AuthData)
@@ -20,7 +20,7 @@ function useAuth() {
 function AuthProvider(props: any) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
   const [isAuthChecking, setIsAuthChecking] = React.useState(true)
-  const [currentUser, setCurrentUser] = React.useState(null)
+  const [currentUser, setCurrentUser] = React.useState<any>(null)
 
   React.useEffect(() => {
     Hub.listen("auth", (data) => {
@@ -48,6 +48,34 @@ function AuthProvider(props: any) {
         if (user) {
           setIsLoggedIn(true)
           setCurrentUser(user)
+
+          Analytics.autoTrack("pageView", {
+            // REQUIRED, turn on/off the auto tracking
+            enable: true,
+            // OPTIONAL, the event name, by default is 'pageView'
+            eventName: "pageView",
+            // OPTIONAL, the attributes of the event, you can either pass an object or a function
+            // which allows you to define dynamic attributes
+            attributes: {
+                attr: user.attributes.email,
+            },
+            // OPTIONAL, events you want to track, by default is 'click'
+            events: ["click"],
+            // OPTIONAL, the prefix of the selectors, by default is 'data-amplify-analytics-'
+            // in order to avoid collision with the user agent, according to https://www.w3schools.com/tags/att_global_data.asp
+            // always put 'data' as the first prefix
+            selectorPrefix: "data-amplify-analytics-",
+            // OPTIONAL, by default is 'multiPageApp'
+            // you need to change it to 'SPA' if your app is a single-page app like React
+            type: "SPA",
+            // OPTIONAL, the service provider, by default is the Amazon Pinpoint
+            provider: "AWSPinpoint",
+            // OPTIONAL, to get the current page url
+            getUrl: () => {
+              // the default function
+              return window.location.origin + window.location.pathname
+            },
+          })
         }
       })
       .catch((e) => {

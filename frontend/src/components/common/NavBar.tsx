@@ -4,7 +4,7 @@ import { Auth } from "aws-amplify"
 
 import { useNavigateWithSearchParams } from "utils/router"
 
-const logoSrc = "https://beckett-assets.s3.amazonaws.com/beckett-comic-pricing-logo.svg"
+import { ReactComponent as Logo } from '../../assets/beckett-comic-logo.svg'
 
 export const NavBarContext = createContext({
   text: "",
@@ -13,25 +13,31 @@ export const NavBarContext = createContext({
 
 export default function NavBar() {
   return (
-    <div className="sticky top-0 z-10 grid items-center justify-center w-full h-24 grid-cols-navbar bg-hdr-ftr">
-      <Logo />
-      <Search />
-      <Buttons />
+    <div className="sticky top-0 z-10 w-full bg-hdr-ftr flex justify-center">
+      <div className="page-padding flex justify-center">
+        <div className="container-large ">
+          <div className="grid items-center justify-center w-full h-24 grid-cols-navbar ">
+            <Logo />
+            <Search />
+            <Buttons />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
-function Logo() {
-  const { setText } = useContext(NavBarContext)
+// function Logo() {
+//   const { setText } = useContext(NavBarContext)
 
-  return (
-    <div className="flex items-center justify-center">
-      <Link to="/dashboard" onClick={() => setText("")}>
-        <img src={logoSrc} alt="" />
-      </Link>
-    </div>
-  )
-}
+//   return (
+//     <div className="flex items-center justify-center">
+//       <Link to="/dashboard" onClick={() => setText("")}>
+//         <img src={logoSrc} alt="" />
+//       </Link>
+//     </div>
+//   )
+// }
 
 function Search() {
   const { text, setText } = useContext(NavBarContext)
@@ -75,7 +81,8 @@ function Buttons() {
   }
   
   return (
-    <div className="flex justify-center text-xl space-x-7 text-tmp-icon">
+    <div className="flex justify-end text-xl space-x-7 text-tmp-icon">
+
       <button>
         <i className="fa-regular fa-bell" />
       </button>

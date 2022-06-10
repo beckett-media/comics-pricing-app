@@ -33,8 +33,16 @@ const awsmobile = {
             "name": "comicsapi",
             "endpoint": "https://utk1bmixg3.execute-api.us-west-1.amazonaws.com/dev",
             "region": "us-west-1"
+        },
+        {
+            "name": "AdminQueries",
+            "endpoint": "https://vozbcd6p3b.execute-api.us-west-1.amazonaws.com/dev",
+            "region": "us-west-1"
         }
     ],
+    "aws_appsync_graphqlEndpoint": "https://2gazcw3hozeajnqdvin3flxd3q.appsync-api.us-west-1.amazonaws.com/graphql",
+    "aws_appsync_region": "us-west-1",
+    "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
     "aws_mobile_analytics_app_id": "96a9bdfe5bbf433796d9dac126a9531d",
     "aws_mobile_analytics_app_region": "us-west-2"
 };
