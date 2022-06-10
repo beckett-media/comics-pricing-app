@@ -15,7 +15,8 @@
     "categories": {
       "auth": {
         "comicsfrontendffefd2ca": {},
-        "true": {}
+        "true": {},
+        "userPoolGroups": {}
       },
       "function": {
         "S3Trigger9ddabae6": {
