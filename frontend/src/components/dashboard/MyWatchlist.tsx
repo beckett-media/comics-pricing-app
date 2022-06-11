@@ -58,7 +58,7 @@ export default function MyWatchlist() {
       </Button>
       <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
         {watchlist.map(({ id, imageId, publisher, name, issue }) => (
-          <Issue key={id} id={imageId} issue={issue} title={name} publisher={publisher} />
+          <Issue key={id} id={imageId} issue={issue} title={name} publisher={publisher} img_id={id}/>
         ))}
       </Gallery>
     </div>
