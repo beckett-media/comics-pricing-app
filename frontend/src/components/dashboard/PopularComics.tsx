@@ -1,7 +1,6 @@
 import useSWR from "swr"
-import { Link } from "react-router-dom"
 import React from "react"
-import Gallery from "./Gallery"
+import GalleryScroll  from "./GalleryScroll"
 import Issue from "components/common/Issue"
 import type { IssueMinimal } from "types/api"
 import { Auth, Analytics } from "aws-amplify"
@@ -34,22 +33,19 @@ export default function PopularComics() {
 
   return (
 
-    <Gallery title="Popular Comics">
+    <GalleryScroll title="Popular Comics">
       {issues.map(({ id, issue, title, publisher, img_id}) => (
-        <Link
-          key={id}
-          to={`/details/${id}`}
-          // analytics event for tracking clicks on the issue card
+        
+        <Issue 
+            id={id}
+            itemId={id} 
+            issue={issue} 
+            title={title} 
+            publisher={publisher} 
+            img_id={img_id}
+           />
 
-          onClick={() => recordIssueView({ id, issue, title, publisher, img_id})}
-          data-amplify-analytics-on="click"
-          data-amplify-analytics-name="click"
-          data-amplify-analytics-attrs={`IssueimageId_Pospular:${id},IssueTitle_Popular:${title},IssuePub_Polular:${publisher}`}
-        >
-
-          <Issue id={id} issue={issue} title={title} publisher={publisher} img_id={img_id} />
-        </Link>
       ))}
-    </Gallery>
+    </GalleryScroll >
   )
 }

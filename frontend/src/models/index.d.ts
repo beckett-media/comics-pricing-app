@@ -22,6 +22,7 @@ export declare class WatchList {
   readonly publisher?: string | null;
   readonly name?: string | null;
   readonly issue?: string | null;
+  readonly img_id?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<WatchList, WatchListMetaData>);
