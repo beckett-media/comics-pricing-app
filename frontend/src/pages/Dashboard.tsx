@@ -23,8 +23,8 @@ export default function Dashboard() {
       </div>
       <div className="flex flex-row space-x-2">
         <TrendingTitles />
-        {/* <RecentPriceDrops />
-        <NewComics /> */}
+        <RecentPriceDrops />
+        {/* <NewComics /> */}
       </div>
       <PopularComics />
       <PopularSeries />
