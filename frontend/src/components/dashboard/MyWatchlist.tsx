@@ -22,8 +22,7 @@ export default function MyWatchlist() {
           imageId: "017fa312-a1e2-4d55-9b67-a2d9facfc305",
           publisher: "Marvel",
           name: "Fantastic Four",
-          issue: "23",
-          img_id: "-wD0sSPEZoLHdeSEkedwMw=="
+          issue: "23"
         })
       )
       getWatchlist()
@@ -58,14 +57,14 @@ export default function MyWatchlist() {
         <Text>Add to Watchlist</Text>
       </Button>
       <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
-          {watchlist.map(({ id, imageId, publisher, name, issue, img_id }) => (
+          {watchlist.map(({ id, imageId, publisher, name, issue }) => (
             <Issue 
               key={id} 
               id={imageId} 
               issue={issue} 
               title={name}
               publisher={publisher} 
-              img_id={img_id} 
+              img_id={id} 
             />
           ))}
       </Gallery>
