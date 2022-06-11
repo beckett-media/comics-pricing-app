@@ -19,3 +19,18 @@ amplify-s3-image.issue {
   --height: 160px;
   --width: auto;
 }
+
+.b1 {
+  border:1px solid red;
+}
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  margin-left:50px;
+  margin-right:50px;
+}
