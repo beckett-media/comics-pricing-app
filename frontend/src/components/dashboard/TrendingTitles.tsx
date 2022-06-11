@@ -3,13 +3,14 @@ import { Link } from "react-router-dom"
 
 import { ReactComponent as TrendingIcon } from "assets/trending.svg"
 import { ReactComponent as Chevron } from "assets/chevron.svg"
+import useTrendingTitles from "hooks/data/useTrendingTitles"
 import * as React from "react"
 import { API } from "aws-amplify"
 import type { IssueMinimal } from "types/api"
 
-export default function TrendingTitles() {
-  const { data: issues } = useSWR<IssueMinimal[]>("/issue/trending")
-
+export default function TrendingIssues() {
+  const { data: titles, isLoading } = useTrendingTitles()
+  
   return (
     <div className="w-full">
       <div className="h-40 p-2 divide-y-2 rounded divide-list-line bg-container-outer">
@@ -20,7 +21,7 @@ export default function TrendingTitles() {
           Trending Titles
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line">
-          {issues?.map(({ id, issue, title }) => (
+          {titles?.map(({ id, issue, title }) => (
             <div className="flex flex-row justify-between p-2" key={id}>
               <div className="w-7/12 truncate">
                 {title} #{issue}

@@ -12,7 +12,6 @@ type TitleProps = {
 
 export default function Title({ id, name, publisher, itemId }: TitleProps) {
 
-  console.log('titlesid', id);
   return (
 
 <div className="flex w-48 px-8 flex-col items-center">

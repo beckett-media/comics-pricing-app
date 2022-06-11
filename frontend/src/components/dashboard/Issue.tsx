@@ -11,7 +11,6 @@ type IssueProps = {
 
 export default function Issue({ id, issue, title, publisher, img_id }: IssueProps) {
   
-  console.log('nq img id', img_id)
   return (
     <div className="flex flex-col items-center w-50 space-y-3 align-center">
       
