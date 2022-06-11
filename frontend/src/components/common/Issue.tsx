@@ -42,9 +42,7 @@ export default function Issue({ id, issue, title, publisher, img_id, itemId}: Is
   }, [id])
   
   function imgError(evt: any) {
-    console.log('error', evt);
     evt.target.remove();
-    
   }
 
   return (
