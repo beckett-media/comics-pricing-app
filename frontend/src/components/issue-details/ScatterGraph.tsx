@@ -138,7 +138,7 @@ function bucket(prices: Price[]) {
       high?.push(p)
     } else if (grade > 4) {
       med?.push(p)
-    } else {
+    } else if (grade > 0) {
       low?.push(p)
     }
   }
