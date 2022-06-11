@@ -22,8 +22,8 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="flex flex-row space-x-2">
-        {/* <TrendingTitles />
-        <RecentPriceDrops />
+        <TrendingTitles />
+        {/* <RecentPriceDrops />
         <NewComics /> */}
       </div>
       <PopularComics />

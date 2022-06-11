@@ -27,7 +27,6 @@ export default function PopularComics() {
       },
       immediate: true,
     })
-    console.log({ id, issue, title, publisher })
     Analytics.disable()
   }
 

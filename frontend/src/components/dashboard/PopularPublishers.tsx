@@ -12,7 +12,6 @@ export default function PopularPublishers() {
   if (isLoading) {
     return <div>loading</div>
   }
-  console.log(publishers)
 
   return (
     <GalleryScroll title="Browse by Publisher" link="/">

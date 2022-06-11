@@ -141,7 +141,6 @@ function bucket(prices: Price[]) {
   
   for (const p of prices) {
     const grade = Number(p?.grade)
-    //console.log('grade', p?.grade);
     if (grade > 8) {
       high?.push(p)
     } else if (grade > 4) {
