@@ -12,14 +12,6 @@ import useRecentPriceDrops from "hooks/data/useRecentPriceDrops"
 export default function RecentPriceDrops() {
   const { data: issues, isLoading, isError } = useRecentPriceDrops();
 
-  if (isError) {
-    return <div>Error...</div>
-  }
-
-  if (isLoading) {
-    return <div>loading...</div>
-  }
-
   return (
     <div className="w-full">
       <div className="h-40 p-2 divide-y-2 rounded divide-list-line bg-container-outer">
