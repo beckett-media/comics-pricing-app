@@ -1,23 +1,24 @@
 import useSWR from "swr"
-
-import Gallery from "./Gallery"
-import Title from "components/common/Title"
-import type { Title as TitleData } from "types/api"
-import { API } from "aws-amplify"
 import * as React from "react"
+import GalleryScroll from "./GalleryScroll"
+import Title from "components/common/Title"
+import type { Publisher as PublisherData } from "types/api"
+import { API } from "aws-amplify"
+import usePopularSeries from "hooks/data/usePopularSeries"
 
 export default function PopularSeries() {
-  const { data: titles } = useSWR<TitleData[]>("/title/popular")
+  const { data: titles, isLoading } = usePopularSeries()
 
-  if (!titles) {
+  if (isLoading) {
     return <div>loading</div>
   }
+  console.log('nq titles', titles)
 
   return (
-    <Gallery title="Popular Series" link={"/"}>
+    <GalleryScroll title="Browse by Series" link="/">
       {titles.map(({ id, name, publisher }) => (
-        <Title key={id} id={id} name={name} publisher={publisher} />
+        <Title key={id} id={id} itemId={id} name={name} publisher={publisher} />
       ))}
-    </Gallery>
+    </GalleryScroll>
   )
 }

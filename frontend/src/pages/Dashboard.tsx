@@ -27,9 +27,8 @@ export default function Dashboard() {
         <NewComics /> */}
       </div>
       <PopularComics />
+      <PopularSeries />
       <PopularPublishers />
-      
-      {/* <PopularSeries /> */}
       <BrowseByEra />
     </div>
   )
