@@ -24,6 +24,13 @@ amplify-s3-image.issue {
   border:1px solid red;
 }
 
+.b2 {
+  border:1px solid orange;
+}
+
+.b3 {
+  border:1px solid green;
+}
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
   display: none;
 }
