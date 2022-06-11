@@ -11,7 +11,7 @@ export default function NewComics() {
 
   return (
     <div className="w-full">
-      <div className="h-40 p-2 divide-y-2 rounded divide-list-line bg-container-outer">
+      <div className="h-60 p-2 divide-y-2 rounded divide-list-line bg-container-outer">
         <div className="flex gap-2 p-2 text-sm text-white">
           <div className="pt-1">
             <Sparkle />
@@ -19,7 +19,7 @@ export default function NewComics() {
           New Comics
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line">
-          {issues?.map(({ id, issue, title, price }) => (
+          {issues?.slice(0,5).map(({ id, issue, title, price }) => (
             <div className="flex flex-row justify-between p-2">
               <div className="w-7/12 truncate">
                 {title} #{issue}

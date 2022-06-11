@@ -10,10 +10,11 @@ import type { IssueMinimal } from "types/api"
 
 export default function TrendingIssues() {
   const { data: titles, isLoading } = useTrendingTitles()
+
   
   return (
     <div className="w-full">
-      <div className="h-40 p-2 divide-y-2 rounded divide-list-line bg-container-outer">
+      <div className="h-60 p-2 divide-y-2 rounded divide-list-line bg-container-outer">
         <div className="flex gap-2 p-2 text-sm text-white">
           <div className="pt-1">
             <TrendingIcon />
@@ -21,7 +22,7 @@ export default function TrendingIssues() {
           Trending Titles
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line">
-          {titles?.map(({ id, issue, title }) => (
+          {titles?.slice(0,5).map(({ id, issue, title }) => (
             <div className="flex flex-row justify-between p-2" key={id}>
               <div className="w-7/12 truncate">
                 {title} #{issue}
