@@ -52,7 +52,7 @@ export default function ManageWatchList({data}: any) {
   //removeFromWatchlist();
 
   return (
-    <Button onClick={() => addToWatchlist()}>
+    <Button variant='ghost' onClick={() => addToWatchlist()}>
       <Bookmark style={{height:35}} />  
     </Button>
   )
