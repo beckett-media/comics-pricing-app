@@ -12,7 +12,6 @@ export default function PopularSeries() {
   if (isLoading) {
     return <div>loading</div>
   }
-  console.log('nq titles', titles)
 
   return (
     <GalleryScroll title="Browse by Series" link="/">

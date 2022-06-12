@@ -8,39 +8,11 @@ import { Button, Text } from "@chakra-ui/react"
 export default function MyWatchlist() {
   const [watchlist, setWatchlist] = React.useState<WatchList[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
+
   async function getWatchlist() {
     const models = await DataStore.query(WatchList)
     setWatchlist(models)
     return models
-  }
-  console.log(watchlist)
-
-  async function addToWatchlist() {
-    try {
-      await DataStore.save(
-        new WatchList({
-          imageId: "017fa312-a1e2-4d55-9b67-a2d9facfc305",
-          publisher: "Marvel",
-          name: "Fantastic Four",
-          issue: "23",
-        })
-      )
-      getWatchlist()
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
-  }
-
-  async function removeFromWatchlist() {
-    try {
-      const modelToDelete = await DataStore.query(WatchList, "123456789")
-      // DataStore.delete(modelToDelete)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
   }
 
   React.useEffect(() => {
@@ -53,12 +25,11 @@ export default function MyWatchlist() {
 
   return (
     <div className="w-full overflow-hidden rounded">
-      <Button onClick={() => addToWatchlist()}>
-        <Text>Add to Watchlist</Text>
-      </Button>
-      <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
+
+      <Gallery
+       title="My Watchlist" link={"/"} fullScreen={false}>
         {watchlist.map(({ id, imageId, publisher, name, issue }) => (
-          <Issue key={id} id={imageId} issue={issue} title={name} publisher={publisher} img_id={id}/>
+          <Issue key={id} id={id} issue={issue} title={name} publisher={publisher} imageId={imageId}/>
         ))}
       </Gallery>
     </div>
