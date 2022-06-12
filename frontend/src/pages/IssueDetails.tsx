@@ -9,6 +9,8 @@ import type { IssueFull } from "types/api"
 import { API, Storage, Analytics, Auth } from "aws-amplify"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
+import ManageWatchList from "components/watchlist/ManageWatchList"
+
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
@@ -60,6 +62,13 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   
   const issue_comment = issue.comment || '';
   
+  const watchListData = {
+    'imageId': issue?.cpg_id,
+    'publisher': issue?.publisher,
+    'name': issue?.title,
+    'issue': issue?.issue,
+  }
+  
   return (
     <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
       <AmplifyS3Image
@@ -68,7 +77,17 @@ function MainDetails({ issue }: { issue: IssueFull }) {
         imgKey={`issues/${issue.cpg_id}`}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">
-        <div className="text-xl font-bold">{issue?.title}</div>
+        
+        <div className="flex flex-row justify-between">
+          <div className="text-xl font-bold">
+            {issue?.title}
+          </div>
+          <div className='text-right w-12'>
+            <ManageWatchList data = {watchListData}/>
+          </div>
+        </div>
+          
+
         <div className="text-sm">{metadata?.join(" | ")}</div>
         <IssueChips issue_comment={issue_comment} age={issue.age} />
         <Details issue={issue} />
