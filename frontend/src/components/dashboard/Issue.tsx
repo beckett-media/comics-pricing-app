@@ -11,11 +11,16 @@ type IssueProps = {
 
 export default function Issue({ id, issue, title, publisher, img_id }: IssueProps) {
   
+  function imgError(evt: any) {
+    evt.target.src='/Pow.svg';
+  }
+  
   return (
     <div className="flex flex-col items-center w-50 space-y-3 align-center">
       
       <div className="w-20 h-20">
         <AmplifyS3Image 
+              handleOnError={imgError}
               imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'100%'} }}  
               imgKey={`issues/${img_id}`} 
         />

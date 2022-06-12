@@ -1,7 +1,5 @@
 import {  AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
-import { getTitleImage } from "utils/imagePath"
 import { Analytics, Auth } from "aws-amplify"
-import * as React from "react"
 
 type TitleProps = {
   id: string
@@ -12,12 +10,16 @@ type TitleProps = {
 
 export default function Title({ id, name, publisher, itemId }: TitleProps) {
 
+  function imgError(evt: any) {
+    evt.target.src='/Pow.svg';
+  }
   return (
 
 <div className="flex w-48 px-8 flex-col items-center">
   <div className="h-32 w-40">
     {/* { <img className="h-32 w-40 object-contain" alt={name} src={image(id)} /> } */}
-    <AmplifyS3Image 
+    <AmplifyS3Image  
+      handleOnError={imgError}
       imgProps={ {'style': {'objectFit':'contain', 'height':'8rem', 'width':'10rem'} }}  
       imgKey={`titles/${id}`} 
     />
