@@ -41,14 +41,20 @@ export default function IssueTrend({ data }: IssueTrendProps) {
       "data":prices//.slice(-7)
     }
   ]
+  function imgError(evt: any) {
+    evt.target.src='/Pow.svg';
+  }
+
   
   return (
     <Link key={detail_id} to={`/details/${detail_id}`}>
     <div className='w-full flex flex-row bg-container-outer p-3 rounded'>
       
+    
       <div className='h-24'>
         <AmplifyS3Image 
-          imgProps={ {'style': {'objectFit':'contain', 'height':'100%'} }}  
+          handleOnError={imgError}
+          imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'max-width':'70px'} }}  
           imgKey={`issues/${img_id}`} 
         />
       </div>

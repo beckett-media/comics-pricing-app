@@ -4,11 +4,11 @@ import * as React from "react"
 import RelatedIssues from "components/issue-details/RelatedIssues"
 import PriceGraph from "components/issue-details/PriceGraph"
 import ScatterGraph from "components/issue-details/ScatterGraph"
-import { getIssueImage } from "utils/imagePath"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
 import { API, Storage, Analytics, Auth } from "aws-amplify"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
+import IssueChips from "components/common/IssueChips"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
@@ -54,22 +54,23 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   const metadata = [issue?.publisher, issue?.volume, `Issue #${issue?.issue}`].filter((m) =>
     Boolean(m)
   )
+  function imgError(evt: any) {
+    evt.target.src='/Pow.svg';
+  }
+  
+  const issue_comment = issue.comment || '';
+  
   return (
     <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
-      {/* <img
-        className="object-contain w-full"
-        alt={`${issue?.title} #${issue?.issue}`}
-        src={getIssueImage(issue?.id)}
-      /> */}
       <AmplifyS3Image
+        handleOnError={imgError}
         className="object-contain w-full"
-
         imgKey={`issues/${issue.cpg_id}`}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">
         <div className="text-xl font-bold">{issue?.title}</div>
         <div className="text-sm">{metadata?.join(" | ")}</div>
-        <Chips issue={issue} />
+        <IssueChips issue_comment={issue_comment} age={issue.age} />
         <Details issue={issue} />
         <Graphs id={issue?.cpg_id} />
       </div>
@@ -77,16 +78,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   )
 }
 
-function Chips({ issue }: { issue: IssueFull }) {
-  return (
-    <div className="flex w-full gap-2 text-xs">
-      <div className="px-2 py-1 rounded bg-key-issue">Key Issue</div>
-      <div className={`rounded bg-${issue?.age?.toLowerCase()}-age py-1 px-2`}>
-        {issue?.age} Age
-      </div>
-    </div>
-  )
-}
+
 
 function Details({ issue }: { issue: IssueFull }) {
   return (
