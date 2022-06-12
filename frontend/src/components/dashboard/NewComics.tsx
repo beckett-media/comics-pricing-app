@@ -1,9 +1,7 @@
 import useSWR from "swr"
 import { Link } from "react-router-dom"
-
 import { ReactComponent as Chevron } from "assets/chevron.svg"
 import { ReactComponent as Sparkle } from "assets/sparkle.svg"
-
 import useNewComics from "hooks/data/useNewComics"
 
 export default function NewComics() {
@@ -20,11 +18,11 @@ export default function NewComics() {
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line">
           {issues?.slice(0,5).map(({ id, issue, title, price }) => (
-            <div className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-50">
+            <div key={id} className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-50">
               <div className="w-7/12 truncate">
                 {title} #{issue}
               </div>
-              <Link key={id} to={`/details/'${id}'`}>
+              <Link to={`/details/'${id}'`}>
                 <div className="flex flex-row">
                   ${Number?.parseFloat(price)?.toFixed(2)}
                   <div className="pt-1 pl-3">

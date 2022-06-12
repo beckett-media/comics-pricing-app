@@ -6,10 +6,10 @@ type IssueProps = {
   issue: any
   title: any
   publisher: any
-  img_id: any
+  imageId: any
 }
 
-export default function Issue({ id, issue, title, publisher, img_id }: IssueProps) {
+export default function Issue({ id, issue, title, publisher, imageId }: IssueProps) {
   
   function imgError(evt: any) {
     evt.target.src='/Pow.svg';
@@ -22,7 +22,7 @@ export default function Issue({ id, issue, title, publisher, img_id }: IssueProp
         <AmplifyS3Image 
               handleOnError={imgError}
               imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'100%'} }}  
-              imgKey={`issues/${img_id}`} 
+              imgKey={`issues/${imageId}`} 
         />
       </div>
       
