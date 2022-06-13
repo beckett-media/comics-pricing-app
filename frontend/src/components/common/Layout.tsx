@@ -10,7 +10,7 @@ export default function Layout() {
   const [text, setText] = useState("")
 
   return (
-    <div className="bg-gradient-to-b from-grad-top to-grad-bot font-body relative flex flex-col items-center">
+    <div className="bg-gradient-to-b from-grad-top to-grad-bot font-body relative flex flex-col items-center overflow-hidden">
       <div className="bg-container absolute z-0 align-center">
         <img src={bg} alt="background graphic" className="absolute z-0 align-center object-cover"/>
       </div>
