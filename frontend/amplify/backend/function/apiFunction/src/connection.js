@@ -30,7 +30,9 @@ module.exports = {
     return pool.query(text, params, (err, res) => {
       const duration = Date.now() - start
       console.log('executed query', { text, duration, rows: res.rowCount })
-      callback(err, res)
+      if (callback) {
+        callback(err, res)
+      }
     })
   },
 };
