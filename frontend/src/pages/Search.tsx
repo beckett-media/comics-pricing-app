@@ -8,15 +8,13 @@ import {
   useInfiniteHits,
   UseInfiniteHitsProps,
   useSearchBox,
-  DynamicWidgets
+  DynamicWidgets,
 } from "react-instantsearch-hooks-web"
 
 import { NavBarContext } from "components/common/NavBar"
-
 import Filters from "components/search/Filters"
 import Results from "components/search/Results"
 import HotComics from "components/search/HotComics"
-
 import Result from "components/search/Result"
 import { Button } from "@chakra-ui/react"
 
@@ -58,7 +56,7 @@ function Page() {
   const { text: navBarText } = useContext(NavBarContext)
   //const { hits } = useHits<Issue>()
 
-  const { hits, isFirstPage, isLastPage, showMore, showPrevious } =
+  const { hits, isFirstPage, isLastPage, showMore, showPrevious, results } =
     useInfiniteHits<Issue>();
 
   if (navBarText) {
@@ -76,7 +74,7 @@ function Page() {
           {/* <HotComics /> */}
           
           <div className="flex w-full flex-col rounded bg-container-outer p-7 text-common-text">
-            <p className="text-xl">Results</p>
+            <p className="text-xl">{results?.nbHits} Results</p>
             
             
             <div className={cx('ais-InfiniteHits')}>
@@ -97,6 +95,7 @@ function Page() {
                   <Result key={hit.id} {...hit} />
                 ))}
                 </ol>
+                {results?.nbHits != 0 ? 
                 <Button
                   className={cx(
                     'ais-InfiniteHits-loadMore w-full',
@@ -107,6 +106,8 @@ function Page() {
                 >
                   Show more results
                 </Button>
+: <div className='w-full text-xl text-center'>No mathing results found.</div>
+} 
               </div>
             </div>
         </div>
