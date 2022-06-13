@@ -12,9 +12,9 @@ export default function PopularSeries() {
   if (isLoading) {
     return <div>loading</div>
   }
-
+  
   return (
-    <GalleryScroll title="Browse by Series" link="/">
+    <GalleryScroll title="Browse by Series" link="/search">
       {titles.map(({ id, name, publisher }) => (
         <Title key={id} id={id} itemId={id} name={name} publisher={publisher} />
       ))}
