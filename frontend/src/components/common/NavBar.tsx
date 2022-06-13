@@ -18,7 +18,7 @@ export default function NavBar() {
     <div className="sticky top-0 z-10 w-full bg-hdr-ftr flex justify-center">
       <div className="page-padding flex justify-center">
         <div className="container-large ">
-          <div className="grid items-center justify-center w-full h-24 grid-cols-navbar ">
+          <div className="flex items-center justify-between w-full h-24 grid-cols-navbar ">
             <Logo />
             <Search />
             <Buttons />
@@ -56,7 +56,7 @@ function Search() {
   }
 
   return (
-    <div className="flex justify-center gap-3">
+    <div className="flex justify-center gap-3 w-7/12">
       <div className="flex items-center w-full">
         <i className="fa-solid fa-magnifying-glass absolute ml-2.5 text-tmp-icon" />
         <input
