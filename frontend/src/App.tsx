@@ -55,7 +55,7 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   }
 
   if (isLoggedIn) {
-    return <Navigate to="/" />
+    return <Navigate to="/dashboard" />
   }
 
   return children
