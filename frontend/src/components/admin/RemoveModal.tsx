@@ -43,7 +43,7 @@ function RemoveModal({ isOpen, onClose, onRemove, user }: Props) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         {!done ? (
-          <ModalContent background={"#212022"}>
+          <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>REMOVE USER</ModalHeader>
             <ModalBody textAlign={"center"}>
               Are you sure you want to remove <b>{user.username}</b>?
@@ -58,7 +58,7 @@ function RemoveModal({ isOpen, onClose, onRemove, user }: Props) {
             </ModalFooter>
           </ModalContent>
         ) : (
-          <ModalContent background={"#212022"}>
+          <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>CONFIRMED</ModalHeader>
             <ModalBody textAlign={"center"}>
               <b>{user.username}</b>{`'s account has been deleted`}

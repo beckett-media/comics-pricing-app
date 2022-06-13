@@ -43,7 +43,7 @@ function ApproveModal({ isOpen, onClose, onApprove, user }: Props) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         {!done ? (
-          <ModalContent background={"#212022"}>
+          <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>APPROVE ACCESS</ModalHeader>
             <ModalBody textAlign={"center"}>
               Would you like to approve system access for <b>{user.username}</b>?
@@ -56,7 +56,7 @@ function ApproveModal({ isOpen, onClose, onApprove, user }: Props) {
             </ModalFooter>
           </ModalContent>
         ) : (
-          <ModalContent background={"#212022"}>
+          <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>CONFIRMED</ModalHeader>
             <ModalBody textAlign={"center"}>
               <b>{user.username}</b> has been approved! They will appear here once they have set up their

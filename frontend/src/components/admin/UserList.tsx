@@ -86,7 +86,7 @@ export default function UserList() {
                 <Tr key={user.email}>
                   <Td>{user.username}</Td>
                   <Td>{user.email}</Td>
-                  <Td isNumeric>
+                  <Td isNumeric color={"#66C9FF"}>
                     <button onClick={() => onApproveAccessHandler(user)}>Approve access</button>
                   </Td>
                 </Tr>
@@ -113,7 +113,7 @@ export default function UserList() {
                 <Tr key={user.email}>
                   <Td>{user.username}</Td>
                   <Td>{user.email}</Td>
-                  <Td isNumeric>
+                  <Td isNumeric color={"#66C9FF"}>
                     <button onClick={() => onRemoveAccountHandler(user)}>Remove account</button>
                   </Td>
                 </Tr>
