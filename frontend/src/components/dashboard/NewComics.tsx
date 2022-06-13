@@ -40,11 +40,11 @@ export default function NewComics() {
 }
 
 function IssueClean(issues: Array<IssueTrends>) {
+  const issueCheck: String[] = [];
   const issueClean: IssueTrends[] = [];
-  const issueCheck: any[] = [];
   issues.forEach(issue => {
-    const currentIssue = [issue.title, issue.issue];
-    if (!issueCheck.some(x => x.toString() === currentIssue.toString())) {
+    const currentIssue = `${issue.title}#${issue.issue}`;
+    if (!issueCheck.some(x => x === currentIssue)) {
       issueCheck.push(currentIssue);
       issueClean.push(issue);
     }
