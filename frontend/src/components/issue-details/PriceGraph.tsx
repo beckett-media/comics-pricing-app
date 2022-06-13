@@ -99,7 +99,6 @@ export default function PriceGraph({ id }: { id: string }) {
                   symbolShape: "circle",
                   symbolSize: 5,
                   translateY: 65,
-                  justify: false,
                 },
               ]}
               theme={{
@@ -138,7 +137,6 @@ function bucket(prices: Price[]) {
   const high = []
   const med = []
   const low = []
-  const ungraded = []
   
   
   for (const p of prices) {
