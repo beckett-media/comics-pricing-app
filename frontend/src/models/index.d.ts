@@ -19,6 +19,7 @@ type ComicWaitingListMetaData = {
 export declare class WatchList {
   readonly id: string;
   readonly imageId?: string | null;
+  readonly issueId?: string | null;
   readonly publisher?: string | null;
   readonly name?: string | null;
   readonly issue?: string | null;
@@ -37,5 +38,4 @@ export declare class ComicWaitingList {
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<ComicWaitingList, ComicWaitingListMetaData>);
   static copyOf(source: ComicWaitingList, mutator: (draft: MutableModel<ComicWaitingList, ComicWaitingListMetaData>) => MutableModel<ComicWaitingList, ComicWaitingListMetaData> | void): ComicWaitingList;
-
 }

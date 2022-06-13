@@ -8,23 +8,66 @@ import {
   TableContainer,
   Box,
   Heading,
+  useDisclosure,
 } from "@chakra-ui/react"
+import React from "react";
+import { DataStore } from '@aws-amplify/datastore';
+import { ComicWaitingList, ComicWaitingListStatus } from "../../models";
 import { APPROVED_ACCOUNTS, User, WAITLIST_REQUESTS } from "./data"
+import ApproveModal from "./ApproveModal";
+import RemoveModal from "./RemoveModal";
 
 export default function UserList() {
-  const onApproveAccessHandler = (user: User) => {
+  const { isOpen: isApproveOpen, onOpen: openApprove, onClose: closeApprove } = useDisclosure();
+  const { isOpen: isRemoveOpen, onOpen: openRemove, onClose: closeRemove } = useDisclosure();
+  const [userA, setUserA] = React.useState<User | null>(null);
+  const [userR, setUserR] = React.useState<User | null>(null);
 
+  const onApproveAccessHandler = async (user: User) => {
+    await DataStore.save(
+        new ComicWaitingList({
+        "name": user.username,
+        "email": user.email,
+        "status": ComicWaitingListStatus.PENDING
+      })
+    );
+
+    setUserA(user);
+    openApprove();
+  }
+
+  const approveUser = () => {
+    // approve user
+    return true;
   }
 
   const onRemoveAccountHandler = (user: User) => {
-
+    setUserR(user);
+    openRemove();
   }
+
+  const removeUser = () => {
+    // remove user
+    return true;
+  }
+
+  React.useEffect(() => {
+    const func = async () => {
+      const models = await DataStore.query(ComicWaitingList);
+
+      console.log('waitinglist users', models);
+    };
+
+    func();
+  }, []);
 
   return (
     <Box>
       <Heading fontSize={20} fontWeight={500}>
         Manage Users
       </Heading>
+      <ApproveModal user={userA} isOpen={isApproveOpen} onClose={closeApprove} onApprove={approveUser} />
+      <RemoveModal user={userR} isOpen={isRemoveOpen} onClose={closeRemove} onRemove={removeUser} />
       <Box mt={"40px"}>
         <Heading fontSize={16} fontWeight={500} mb={"16px"}>
           Waitlist Requests

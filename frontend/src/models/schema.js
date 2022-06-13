@@ -17,6 +17,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "issueId": {
+                    "name": "issueId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "publisher": {
                     "name": "publisher",
                     "isArray": false,
@@ -170,5 +177,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "0d2a56508f0876264a90999eb1deef0e"
+    "version": "263370732a23ccaf162a61e24b7bc63b"
 };
