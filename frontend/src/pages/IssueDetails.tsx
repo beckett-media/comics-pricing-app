@@ -46,7 +46,7 @@ export default function IssueDetails() {
   }
 
   return (
-    <div className="flex flex-col w-full px-24 py-10 space-y-10">
+    <div className="flex flex-col w-full py-10 space-y-10">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue?.id} />
     </div>
@@ -72,9 +72,9 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     'issue': issue?.issue,
   }
   return (
-    <div className="grid w-full gap-5 px-12 py-10 rounded bg-container-outer text-common-text">
-      <div className="grid grid-cols-2 w-full gap-5 grow">
-        <div>
+    <div className="grid w-full gap-5 px-24 py-10 rounded bg-container-outer text-common-text">
+      <div className="grid grid-cols-2 gap-2 w-full grow">
+        <div className="">
             <AmplifyS3Image
               key={issue?.id}
               handleOnError={imgError}
