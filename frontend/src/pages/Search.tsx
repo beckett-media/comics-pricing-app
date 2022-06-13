@@ -95,6 +95,7 @@ function Page() {
                   <Result key={hit.id} {...hit} />
                 ))}
                 </ol>
+                {results?.nbHits != 0 ? 
                 <Button
                   className={cx(
                     'ais-InfiniteHits-loadMore w-full',
@@ -105,6 +106,8 @@ function Page() {
                 >
                   Show more results
                 </Button>
+: <div className='w-full text-xl text-center'>No mathing results found.</div>
+} 
               </div>
             </div>
         </div>
