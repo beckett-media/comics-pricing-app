@@ -87,6 +87,32 @@ const getRelatedTitles = async (id) => {
   `)
 }
 
+// const getPopularIssues = async () => {
+//   const res = await sql.query(
+//     `
+//     SELECT
+//     issues.id,
+//     issues.name AS issue,
+//     titles.name AS title,
+//     publishers.name AS publisher,
+//     issues.cpg_id as img_id
+//   FROM issues
+//   JOIN titles ON titles.id = issues.title_id
+//   JOIN publishers ON publishers.id = titles.publisher_id
+//   limit 50
+//   `
+//   )
+//   try {
+//     return res.rows
+//   } catch (err) {
+//     console.log(err)
+//     return []
+//   } finally {
+//     sql.end()
+//   }
+// }
+
+
 const getPopularIssues = async () => {
   const res = await sql.query(
     `
@@ -96,10 +122,11 @@ const getPopularIssues = async () => {
     titles.name AS title,
     publishers.name AS publisher,
     issues.cpg_id as img_id
-  FROM issues
+  FROM popular_issues
+  JOIN issues ON issues.id = popular_issues.issue_id
   JOIN titles ON titles.id = issues.title_id
   JOIN publishers ON publishers.id = titles.publisher_id
-  limit 50
+  ORDER BY popular_issues.sales_count DESC
   `
   )
   try {
@@ -112,14 +139,15 @@ const getPopularIssues = async () => {
   }
 }
 
-// const getPopularIssues = () => {
-//   sql.connect();
-//   return sql.query(`
+// const getPopularIssues = async () => {
+//   //sql.connect();
+//   return await  sql.query(`
 //     SELECT
 //       issues.id,
 //       issues.name AS issue,
 //       titles.name AS title,
-//       publishers.name AS publisher
+//       publishers.name AS publisher,
+//       issues.cpg_id as img_id
 //     FROM popular_issues
 //     JOIN issues ON issues.id = popular_issues.issue_id
 //     JOIN titles ON titles.id = issues.title_id
@@ -134,8 +162,9 @@ const getIssuePrices = async (id) => {
       grade,
       price,
       date
-    FROM sales
-    WHERE cpg_id = ${id}
+    FROM sales s
+    join issues i on i.cpg_id = s.cpg_id 
+    WHERE i.id = ${id}
     ORDER BY date DESC
   `)
 }
@@ -150,7 +179,7 @@ const getTrendingIssues = async () => {
     JOIN titles ON titles.id = issues.title_id
     JOIN publishers ON publishers.id = titles.publisher_id
     JOIN sales_count ON sales_count.issue_id = issues.id
-    LIMIT 3
+    LIMIT 10
   `)
 }
 
@@ -164,22 +193,49 @@ const getRecentPriceDrops = async () => {
     FROM issues
     JOIN titles ON titles.id = issues.title_id
     JOIN recent_sales ON recent_sales.issue_id = issues.id
-    LIMIT 3
+    LIMIT 10
   `)
 }
 
 const getNewComics = async () => {
   return await sql.query(`
-    SELECT 
-      issues.id,
-      issues.name issue, 
+  SELECT 
+    issues.id,
+    issues.name issue, 
+    titles.name title,
+    sales.price as price
+  FROM issues 
+  JOIN titles ON issues.title_id = titles.id 
+  JOIN sales ON issues.cpg_id = sales.cpg_id
+  ORDER BY sales.date DESC 
+  LIMIT 10
+  `)
+}
+
+const getIssueSalesHistory = async () => {
+  return await sql.query(`
+  SELECT
+      issues.name issue,
       titles.name title,
-      sales.price as price
-    FROM issues 
-    JOIN titles ON issues.title_id = titles.id 
-    JOIN sales ON issues.id = sales.issue_id 
-    ORDER BY sales.date DESC 
-    LIMIT 3
+      sales_history.*
+    FROM issues
+    JOIN titles ON titles.id = issues.title_id
+    JOIN sales_history ON sales_history.issue_id = issues.id
+  `)
+}
+
+
+const getIssuePriceAnalytics = async (data) => {
+  return sql.query(`
+  SELECT
+    max(price), 
+    min(price), 
+    avg(price)
+    FROM sales s
+    join issues i on i.cpg_id=s.cpg_id 
+  where 
+    i.id =  ${data.id}
+    and date > CURRENT_DATE - INTERVAL '${data.num_months} months'
   `)
 }
 
@@ -192,4 +248,6 @@ module.exports = {
   getTrendingIssues,
   getRecentPriceDrops,
   getNewComics,
+  getIssueSalesHistory,
+  getIssuePriceAnalytics
 }
