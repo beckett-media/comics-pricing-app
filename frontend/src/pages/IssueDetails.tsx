@@ -58,7 +58,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     Boolean(m)
   )
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
   
   const issue_comment = issue.comment || '';

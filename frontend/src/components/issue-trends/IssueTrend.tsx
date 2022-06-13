@@ -43,7 +43,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
     }
   ]
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
 
   

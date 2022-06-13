@@ -8,6 +8,7 @@ import { Button, Text } from "@chakra-ui/react"
 export default function MyWatchlist() {
   const [watchlist, setWatchlist] = React.useState<WatchList[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
+  console.log('watchlist', watchlist)
 
   async function getWatchlist() {
     const models = await DataStore.query(WatchList)
