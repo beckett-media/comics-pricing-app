@@ -38,6 +38,7 @@ module.exports = {
         "landing-purple-stop": "#463A79",
         "landing-purple-overlay": "#302A95",
         "nav-hover": "#6A5D90",
+        notifications: "#66C9FF",
       },
       fontFamily: {
         sans: ["Roboto Flex"],

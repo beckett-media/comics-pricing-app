@@ -4,6 +4,7 @@ import { Auth } from "aws-amplify"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
 import NavMenu from "components/common/NavMenu"
+import NavNotifications from "./NavNotifications"
 
 import { useNavigateWithSearchParams } from "utils/router"
 
@@ -89,9 +90,7 @@ function Buttons() {
   return (
     <div className="flex justify-end text-xl space-x-7 text-tmp-icon">
 
-      <button>
-        <i className="fa-regular fa-bell" />
-      </button>
+      <NavNotifications/>
       <NavMenu />
     </div>
   )
