@@ -31,7 +31,7 @@ export default function PriceTable({ id}: { id: string }) {
   
   
   return (
-    <div className='mt-6'>
+    <div className='mt-6 w-full'>
       <TableContainer>
         <Table size='sm'>
           <Thead>
