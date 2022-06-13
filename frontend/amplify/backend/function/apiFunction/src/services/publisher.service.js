@@ -1,8 +1,8 @@
-const { sql } = require('../connection');
+const { query } = require('../connection');
 
 //  make a materialized view for this
 const getPopularPublishers = async () => {
-  return await sql.query(`
+  return await query(`
   SELECT
     publishers.id,
     publishers.name
@@ -10,7 +10,7 @@ const getPopularPublishers = async () => {
   LIMIT 10`)
 }
 // const getPopularPublishers = async () => {
-//   return await sql.query(`
+//   return await query(`
 //     SELECT
 //       publishers.id,
 //       publishers.name

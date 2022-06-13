@@ -2,7 +2,7 @@ const Pool = require("pg").Pool;
 
 // Read from .env
 // https://github.com/brianc/node-postgres/tree/master/packages/pg-pool#note
-const sql = new Pool({
+const pool = new Pool({
   user: "postgres",
   host: "prod-beckett-comic-db.cgq6lc7ttzjk.us-west-1.rds.amazonaws.com",
   database: "comics",
@@ -19,16 +19,18 @@ const sql = new Pool({
 //   connectionTimeoutMillis: 2000,
 // })
 
-sql.on("error", (err, client) => {
+pool.on("error", (err, client) => {
   console.error("Unexpected error on idle client", err, client);
   process.exit(-1);
 });
 
-const connect = () => {
-  sql.connect();
-};
-
 module.exports = {
-  sql,
-  connect
+  query: (text, params, callback) => {
+    const start = Date.now()
+    return pool.query(text, params, (err, res) => {
+      const duration = Date.now() - start
+      console.log('executed query', { text, duration, rows: res.rowCount })
+      callback(err, res)
+    })
+  },
 };

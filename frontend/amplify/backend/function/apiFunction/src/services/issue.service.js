@@ -1,7 +1,7 @@
-const { sql } = require('../connection');
+const { query } = require('../connection');
 
 const getDetails = async (id) => {
-  const issues = await sql.query(`
+  const issues = await query(`
     SELECT
       issues.id id,
       issues.name issue,
@@ -29,7 +29,7 @@ const getDetails = async (id) => {
 }
 
 const getRelatedIssues = async (id) => {
-  return sql.query(`
+  return query(`
     SELECT
       related.id,
       related.name issue,
@@ -48,7 +48,7 @@ const getRelatedIssues = async (id) => {
 
 const getRelatedTitles = async (id) => {
   const title = (
-    await sql.query(`
+    await query(`
     SELECT
       titles.id,
       titles.name,
@@ -62,7 +62,7 @@ const getRelatedTitles = async (id) => {
   `)
   )[0]
 
-  return sql.query(`
+  return query(`
     SELECT
       titles.id,
       titles.name,
@@ -79,7 +79,7 @@ const getRelatedTitles = async (id) => {
 }
 
 // const getPopularIssues = async () => {
-//   const res = await sql.query(
+//   const res = await query(
 //     `
 //     SELECT
 //     issues.id,
@@ -98,14 +98,12 @@ const getRelatedTitles = async (id) => {
 //   } catch (err) {
 //     console.log(err)
 //     return []
-//   } finally {
-//     sql.end()
 //   }
 // }
 
 
 const getPopularIssues = async () => {
-  const res = await sql.query(
+  const res = await query(
     `
     SELECT
     issues.id,
@@ -125,14 +123,12 @@ const getPopularIssues = async () => {
   } catch (err) {
     console.log(err)
     return []
-  } finally {
-    sql.end()
   }
 }
 
 // const getPopularIssues = async () => {
 //   //sql.connect();
-//   return await  sql.query(`
+//   return await  query(`
 //     SELECT
 //       issues.id,
 //       issues.name AS issue,
@@ -148,7 +144,7 @@ const getPopularIssues = async () => {
 // };
 
 const getIssuePrices = async (id) => {
-  return sql.query(`
+  return query(`
     SELECT
       grade,
       price,
@@ -161,7 +157,7 @@ const getIssuePrices = async (id) => {
 }
 
 const getTrendingIssues = async () => {
-  return sql.query(`
+  return query(`
     SELECT
       issues.id,
       issues.name issue,
@@ -175,7 +171,7 @@ const getTrendingIssues = async () => {
 }
 
 const getRecentPriceDrops = async () => {
-  return await sql.query(`
+  return await query(`
     SELECT
       issues.id,
       issues.name issue,
@@ -189,7 +185,7 @@ const getRecentPriceDrops = async () => {
 }
 
 const getNewComics = async () => {
-  return await sql.query(`
+  return await query(`
   SELECT 
     issues.id,
     issues.name issue, 
@@ -204,7 +200,7 @@ const getNewComics = async () => {
 }
 
 const getIssueSalesHistory = async () => {
-  return await sql.query(`
+  return await query(`
   SELECT
       issues.name issue,
       titles.name title,
@@ -217,7 +213,7 @@ const getIssueSalesHistory = async () => {
 
 
 const getIssuePriceAnalytics = async (data) => {
-  return sql.query(`
+  return query(`
   SELECT
     max(price), 
     min(price), 
