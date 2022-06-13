@@ -24,6 +24,7 @@ const {
 } = require("./services/issue.service.js")
 const { getPopularPublishers } = require("./services/publisher.service.js")
 const { getPopularTitles } = require("./services/title.service.js")
+const { connect } = require("./connection.js")
 
 // declare a new express app
 const app = express()
@@ -111,6 +112,8 @@ app.get("/api/publisher/popular", async (_req, res) => {
 app.get("/api/title/popular", async (_req, res) => {
   res.json(await getPopularTitles())
 })
+
+connect();
 
 app.listen(3000, function () {
   console.log("App started")
