@@ -32,7 +32,7 @@ export default function PopularComics() {
 
   return (
 
-    <GalleryScroll title="Popular Comics">
+    <GalleryScroll title="Popular Comics" link="/search">
       {issues?.map(({ id, issue, title, publisher, img_id}) => (
         
         <Issue 
