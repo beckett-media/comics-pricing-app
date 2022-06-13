@@ -5,8 +5,6 @@ const sql = new Pool({
   host: "prod-beckett-comic-db.cgq6lc7ttzjk.us-west-1.rds.amazonaws.com",
   database: "comics",
   password: "comicsDB",
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
 })
 
 const getDetails = async (id) => {
@@ -37,21 +35,40 @@ const getDetails = async (id) => {
   return issues.rows[0]
 }
 
+// const getRelatedIssues = async (id) => {
+//   return sql.query(`
+//     SELECT
+//       related.id,
+//       related.name issue,
+//       titles.name title,
+//       publishers.name publisher
+//     FROM issues related
+//       JOIN issues ON issues.title_id = related.title_id
+//       JOIN titles ON titles.id = related.title_id
+//       JOIN publishers ON publishers.id = titles.publisher_id
+//     WHERE
+//       related.id != ${id} AND
+//       issues.id = ${id}
+//     LIMIT 5
+//   `)
+// }
+
 const getRelatedIssues = async (id) => {
   return sql.query(`
-    SELECT
-      related.id,
-      related.name issue,
-      titles.name title,
-      publishers.name publisher
-    FROM issues related
-      JOIN issues ON issues.title_id = related.title_id
-      JOIN titles ON titles.id = related.title_id
-      JOIN publishers ON publishers.id = titles.publisher_id
-    WHERE
-      related.id != ${id} AND
-      issues.id = ${id}
-    LIMIT 5
+  SELECT
+    related.id,
+    related.name issue,
+    titles.name title,
+    publishers.name publisher,
+    related.cpg_id img_id
+  FROM issues related
+    JOIN issues ON issues.title_id = related.title_id
+    JOIN titles ON titles.id = related.title_id
+    JOIN publishers ON publishers.id = titles.publisher_id
+  WHERE
+    related.id != ${id} AND
+    issues.id = ${id}
+  LIMIT 5
   `)
 }
 
@@ -162,8 +179,9 @@ const getIssuePrices = async (id) => {
       grade,
       price,
       date
-    FROM sales
-    WHERE cpg_id = ${id}
+    FROM sales s
+    join issues i on i.cpg_id = s.cpg_id 
+    WHERE i.id = ${id}
     ORDER BY date DESC
   `)
 }
@@ -224,15 +242,17 @@ const getIssueSalesHistory = async () => {
 }
 
 
-const getIssuePriceAnalytics = async (id, num_months) => {
+const getIssuePriceAnalytics = async (data) => {
   return sql.query(`
   SELECT
     max(price), 
     min(price), 
     avg(price)
-  FROM sales
-    WHERE cpg_id = ${id}
-  and date > CURRENT_DATE - INTERVAL '${num_months} months'
+    FROM sales s
+    join issues i on i.cpg_id=s.cpg_id 
+  where 
+    i.id =  ${data.id}
+    and date > CURRENT_DATE - INTERVAL '${data.num_months} months'
   `)
 }
 

@@ -2,23 +2,28 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateWatchListInput = {
+export type CreateWaitingListComicsInput = {
   id?: string | null,
-  imageId?: string | null,
-  publisher?: string | null,
-  name?: string | null,
-  issue?: string | null,
+  username?: string | null,
+  email?: string | null,
+  status?: ComicWaitingListStatus | null,
   _version?: number | null,
 };
 
-export type ModelWatchListConditionInput = {
-  imageId?: ModelStringInput | null,
-  publisher?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  issue?: ModelStringInput | null,
-  and?: Array< ModelWatchListConditionInput | null > | null,
-  or?: Array< ModelWatchListConditionInput | null > | null,
-  not?: ModelWatchListConditionInput | null,
+export enum ComicWaitingListStatus {
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+}
+
+
+export type ModelWaitingListComicsConditionInput = {
+  username?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  status?: ModelComicWaitingListStatusInput | null,
+  and?: Array< ModelWaitingListComicsConditionInput | null > | null,
+  or?: Array< ModelWaitingListComicsConditionInput | null > | null,
+  not?: ModelWaitingListComicsConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -61,10 +66,63 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelComicWaitingListStatusInput = {
+  eq?: ComicWaitingListStatus | null,
+  ne?: ComicWaitingListStatus | null,
+};
+
+export type WaitingListComics = {
+  __typename: "WaitingListComics",
+  id: string,
+  username?: string | null,
+  email?: string | null,
+  status?: ComicWaitingListStatus | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateWaitingListComicsInput = {
+  id: string,
+  username?: string | null,
+  email?: string | null,
+  status?: ComicWaitingListStatus | null,
+  _version?: number | null,
+};
+
+export type DeleteWaitingListComicsInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateWatchListInput = {
+  id?: string | null,
+  imageId?: string | null,
+  issueId?: string | null,
+  publisher?: string | null,
+  name?: string | null,
+  issue?: string | null,
+  _version?: number | null,
+};
+
+export type ModelWatchListConditionInput = {
+  imageId?: ModelStringInput | null,
+  issueId?: ModelStringInput | null,
+  publisher?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  issue?: ModelStringInput | null,
+  and?: Array< ModelWatchListConditionInput | null > | null,
+  or?: Array< ModelWatchListConditionInput | null > | null,
+  not?: ModelWatchListConditionInput | null,
+};
+
 export type WatchList = {
   __typename: "WatchList",
   id: string,
   imageId?: string | null,
+  issueId?: string | null,
   publisher?: string | null,
   name?: string | null,
   issue?: string | null,
@@ -79,6 +137,7 @@ export type WatchList = {
 export type UpdateWatchListInput = {
   id: string,
   imageId?: string | null,
+  issueId?: string | null,
   publisher?: string | null,
   name?: string | null,
   issue?: string | null,
@@ -90,15 +149,14 @@ export type DeleteWatchListInput = {
   _version?: number | null,
 };
 
-export type ModelWatchListFilterInput = {
+export type ModelWaitingListComicsFilterInput = {
   id?: ModelIDInput | null,
-  imageId?: ModelStringInput | null,
-  publisher?: ModelStringInput | null,
-  name?: ModelStringInput | null,
-  issue?: ModelStringInput | null,
-  and?: Array< ModelWatchListFilterInput | null > | null,
-  or?: Array< ModelWatchListFilterInput | null > | null,
-  not?: ModelWatchListFilterInput | null,
+  username?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  status?: ModelComicWaitingListStatusInput | null,
+  and?: Array< ModelWaitingListComicsFilterInput | null > | null,
+  or?: Array< ModelWaitingListComicsFilterInput | null > | null,
+  not?: ModelWaitingListComicsFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -117,11 +175,90 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelWaitingListComicsConnection = {
+  __typename: "ModelWaitingListComicsConnection",
+  items:  Array<WaitingListComics | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelWatchListFilterInput = {
+  id?: ModelIDInput | null,
+  imageId?: ModelStringInput | null,
+  issueId?: ModelStringInput | null,
+  publisher?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  issue?: ModelStringInput | null,
+  and?: Array< ModelWatchListFilterInput | null > | null,
+  or?: Array< ModelWatchListFilterInput | null > | null,
+  not?: ModelWatchListFilterInput | null,
+};
+
 export type ModelWatchListConnection = {
   __typename: "ModelWatchListConnection",
   items:  Array<WatchList | null >,
   nextToken?: string | null,
   startedAt?: number | null,
+};
+
+export type CreateWaitingListComicsMutationVariables = {
+  input: CreateWaitingListComicsInput,
+  condition?: ModelWaitingListComicsConditionInput | null,
+};
+
+export type CreateWaitingListComicsMutation = {
+  createWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateWaitingListComicsMutationVariables = {
+  input: UpdateWaitingListComicsInput,
+  condition?: ModelWaitingListComicsConditionInput | null,
+};
+
+export type UpdateWaitingListComicsMutation = {
+  updateWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteWaitingListComicsMutationVariables = {
+  input: DeleteWaitingListComicsInput,
+  condition?: ModelWaitingListComicsConditionInput | null,
+};
+
+export type DeleteWaitingListComicsMutation = {
+  deleteWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
 export type CreateWatchListMutationVariables = {
@@ -134,6 +271,7 @@ export type CreateWatchListMutation = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,
@@ -156,6 +294,7 @@ export type UpdateWatchListMutation = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,
@@ -178,6 +317,7 @@ export type DeleteWatchListMutation = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,
@@ -190,6 +330,78 @@ export type DeleteWatchListMutation = {
   } | null,
 };
 
+export type GetWaitingListComicsQueryVariables = {
+  id: string,
+};
+
+export type GetWaitingListComicsQuery = {
+  getWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListWaitingListComicsQueryVariables = {
+  filter?: ModelWaitingListComicsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListWaitingListComicsQuery = {
+  listWaitingListComics?:  {
+    __typename: "ModelWaitingListComicsConnection",
+    items:  Array< {
+      __typename: "WaitingListComics",
+      id: string,
+      username?: string | null,
+      email?: string | null,
+      status?: ComicWaitingListStatus | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncWaitingListComicsQueryVariables = {
+  filter?: ModelWaitingListComicsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncWaitingListComicsQuery = {
+  syncWaitingListComics?:  {
+    __typename: "ModelWaitingListComicsConnection",
+    items:  Array< {
+      __typename: "WaitingListComics",
+      id: string,
+      username?: string | null,
+      email?: string | null,
+      status?: ComicWaitingListStatus | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type GetWatchListQueryVariables = {
   id: string,
 };
@@ -199,6 +411,7 @@ export type GetWatchListQuery = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,
@@ -224,6 +437,7 @@ export type ListWatchListsQuery = {
       __typename: "WatchList",
       id: string,
       imageId?: string | null,
+      issueId?: string | null,
       publisher?: string | null,
       name?: string | null,
       issue?: string | null,
@@ -253,6 +467,7 @@ export type SyncWatchListsQuery = {
       __typename: "WatchList",
       id: string,
       imageId?: string | null,
+      issueId?: string | null,
       publisher?: string | null,
       name?: string | null,
       issue?: string | null,
@@ -268,6 +483,51 @@ export type SyncWatchListsQuery = {
   } | null,
 };
 
+export type OnCreateWaitingListComicsSubscription = {
+  onCreateWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateWaitingListComicsSubscription = {
+  onUpdateWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteWaitingListComicsSubscription = {
+  onDeleteWaitingListComics?:  {
+    __typename: "WaitingListComics",
+    id: string,
+    username?: string | null,
+    email?: string | null,
+    status?: ComicWaitingListStatus | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
 export type OnCreateWatchListSubscriptionVariables = {
   owner?: string | null,
 };
@@ -277,6 +537,7 @@ export type OnCreateWatchListSubscription = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,
@@ -298,6 +559,7 @@ export type OnUpdateWatchListSubscription = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,
@@ -319,6 +581,7 @@ export type OnDeleteWatchListSubscription = {
     __typename: "WatchList",
     id: string,
     imageId?: string | null,
+    issueId?: string | null,
     publisher?: string | null,
     name?: string | null,
     issue?: string | null,

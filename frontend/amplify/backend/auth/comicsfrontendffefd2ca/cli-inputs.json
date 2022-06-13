@@ -36,7 +36,7 @@
       "preferred_username"
     ],
     "userpoolClientLambdaRole": "comicsffefd2ca_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": true,
+    "userpoolClientSetAttributes": false,
     "sharedId": "ffefd2ca",
     "resourceName": "comicsfrontendffefd2ca",
     "authSelections": "identityPoolAndUserPool",
@@ -45,7 +45,8 @@
       "email"
     ],
     "userPoolGroupList": [
-      "admin"
+      "admin",
+      "superadmin"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -66,7 +67,7 @@
     "dependsOn": [],
     "thirdPartyAuth": false,
     "userPoolGroups": true,
-    "adminQueries": true,
+    "adminQueries": false,
     "triggers": {},
     "hostedUI": false,
     "verificationBucketName": "comicsfrontendffefd2caverificationbucket",

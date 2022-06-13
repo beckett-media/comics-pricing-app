@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.4.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "Lambda resource stack creation using Amplify CLI",
   "Parameters": {
     "env": {
       "Type": "String"
@@ -14,6 +14,54 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "functionS3Trigger9ddabae6Name": {
+      "Type": "String",
+      "Default": "functionS3Trigger9ddabae6Name"
+    },
+    "functionapiFunctionName": {
+      "Type": "String",
+      "Default": "functionapiFunctionName"
+    },
+    "storagecomicss3imageBucketName": {
+      "Type": "String",
+      "Default": "storagecomicss3imageBucketName"
+    },
+    "apiwatchlistApiGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apiwatchlistApiGraphQLAPIIdOutput"
+    },
+    "apicomicsapiApiName": {
+      "Type": "String",
+      "Default": "apicomicsapiApiName"
+    },
+    "apicomicsapiApiId": {
+      "Type": "String",
+      "Default": "apicomicsapiApiId"
+    },
+    "apiAdminQueriesApiName": {
+      "Type": "String",
+      "Default": "apiAdminQueriesApiName"
+    },
+    "apiAdminQueriesApiId": {
+      "Type": "String",
+      "Default": "apiAdminQueriesApiId"
+    },
+    "apiwatchlistApiGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apiwatchlistApiGraphQLAPIEndpointOutput"
+    },
+    "apiwatchlistApiGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "apiwatchlistApiGraphQLAPIKeyOutput"
+    },
+    "analyticscomicsfrontendId": {
+      "Type": "String",
+      "Default": "analyticscomicsfrontendId"
+    },
+    "analyticscomicsfrontendRegion": {
+      "Type": "String",
+      "Default": "analyticscomicsfrontendRegion"
     }
   },
   "Conditions": {
@@ -61,6 +109,126 @@
             "GROUP": "admin",
             "USERPOOL": {
               "Ref": "authcomicsfrontendffefd2caUserPoolId"
+            },
+            "REGION": {
+              "Ref": "AWS::Region"
+            },
+            "AUTH_COMICSFRONTENDFFEFD2CA_USERPOOLID": {
+              "Ref": "authcomicsfrontendffefd2caUserPoolId"
+            },
+            "FUNCTION_S3TRIGGER9DDABAE6_NAME": {
+              "Ref": "functionS3Trigger9ddabae6Name"
+            },
+            "FUNCTION_APIFUNCTION_NAME": {
+              "Ref": "functionapiFunctionName"
+            },
+            "STORAGE_COMICSS3IMAGE_BUCKETNAME": {
+              "Ref": "storagecomicss3imageBucketName"
+            },
+            "API_WATCHLISTAPI_WAITINGLISTCOMICSTABLE_NAME": {
+              "Fn::ImportValue": {
+                "Fn::Sub": "${apiwatchlistApiGraphQLAPIIdOutput}:GetAtt:WaitingListComicsTable:Name"
+              }
+            },
+            "API_WATCHLISTAPI_WAITINGLISTCOMICSTABLE_ARN": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:dynamodb:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":table/",
+                  {
+                    "Fn::ImportValue": {
+                      "Fn::Sub": "${apiwatchlistApiGraphQLAPIIdOutput}:GetAtt:WaitingListComicsTable:Name"
+                    }
+                  }
+                ]
+              ]
+            },
+            "API_WATCHLISTAPI_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apiwatchlistApiGraphQLAPIIdOutput"
+            },
+            "API_WATCHLISTAPI_WATCHLISTTABLE_NAME": {
+              "Fn::ImportValue": {
+                "Fn::Sub": "${apiwatchlistApiGraphQLAPIIdOutput}:GetAtt:WatchListTable:Name"
+              }
+            },
+            "API_WATCHLISTAPI_WATCHLISTTABLE_ARN": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:dynamodb:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":table/",
+                  {
+                    "Fn::ImportValue": {
+                      "Fn::Sub": "${apiwatchlistApiGraphQLAPIIdOutput}:GetAtt:WatchListTable:Name"
+                    }
+                  }
+                ]
+              ]
+            },
+            "API_WATCHLISTAPI_RECENTLYVIEWTABLE_NAME": {
+              "Fn::ImportValue": {
+                "Fn::Sub": "${apiwatchlistApiGraphQLAPIIdOutput}:GetAtt:RecentlyViewTable:Name"
+              }
+            },
+            "API_WATCHLISTAPI_RECENTLYVIEWTABLE_ARN": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:aws:dynamodb:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":table/",
+                  {
+                    "Fn::ImportValue": {
+                      "Fn::Sub": "${apiwatchlistApiGraphQLAPIIdOutput}:GetAtt:RecentlyViewTable:Name"
+                    }
+                  }
+                ]
+              ]
+            },
+            "API_COMICSAPI_APINAME": {
+              "Ref": "apicomicsapiApiName"
+            },
+            "API_COMICSAPI_APIID": {
+              "Ref": "apicomicsapiApiId"
+            },
+            "API_ADMINQUERIES_APINAME": {
+              "Ref": "apiAdminQueriesApiName"
+            },
+            "API_ADMINQUERIES_APIID": {
+              "Ref": "apiAdminQueriesApiId"
+            },
+            "API_WATCHLISTAPI_GRAPHQLAPIENDPOINTOUTPUT": {
+              "Ref": "apiwatchlistApiGraphQLAPIEndpointOutput"
+            },
+            "API_WATCHLISTAPI_GRAPHQLAPIKEYOUTPUT": {
+              "Ref": "apiwatchlistApiGraphQLAPIKeyOutput"
+            },
+            "ANALYTICS_COMICSFRONTEND_ID": {
+              "Ref": "analyticscomicsfrontendId"
+            },
+            "ANALYTICS_COMICSFRONTEND_REGION": {
+              "Ref": "analyticscomicsfrontendRegion"
             }
           }
         },
@@ -194,6 +362,55 @@
                   ]
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "apigateway:POST",
+                "apigateway:PUT",
+                "apigateway:GET",
+                "apigateway:HEAD",
+                "apigateway:OPTIONS",
+                "apigateway:PATCH",
+                "apigateway:DELETE"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "::/restapis/",
+                      {
+                        "Ref": "apiAdminQueriesApiName"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }

@@ -2,6 +2,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createWaitingListComics = /* GraphQL */ `
+  mutation CreateWaitingListComics(
+    $input: CreateWaitingListComicsInput!
+    $condition: ModelWaitingListComicsConditionInput
+  ) {
+    createWaitingListComics(input: $input, condition: $condition) {
+      id
+      username
+      email
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateWaitingListComics = /* GraphQL */ `
+  mutation UpdateWaitingListComics(
+    $input: UpdateWaitingListComicsInput!
+    $condition: ModelWaitingListComicsConditionInput
+  ) {
+    updateWaitingListComics(input: $input, condition: $condition) {
+      id
+      username
+      email
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteWaitingListComics = /* GraphQL */ `
+  mutation DeleteWaitingListComics(
+    $input: DeleteWaitingListComicsInput!
+    $condition: ModelWaitingListComicsConditionInput
+  ) {
+    deleteWaitingListComics(input: $input, condition: $condition) {
+      id
+      username
+      email
+      status
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createWatchList = /* GraphQL */ `
   mutation CreateWatchList(
     $input: CreateWatchListInput!
@@ -10,6 +64,7 @@ export const createWatchList = /* GraphQL */ `
     createWatchList(input: $input, condition: $condition) {
       id
       imageId
+      issueId
       publisher
       name
       issue
@@ -30,6 +85,7 @@ export const updateWatchList = /* GraphQL */ `
     updateWatchList(input: $input, condition: $condition) {
       id
       imageId
+      issueId
       publisher
       name
       issue
@@ -50,6 +106,7 @@ export const deleteWatchList = /* GraphQL */ `
     deleteWatchList(input: $input, condition: $condition) {
       id
       imageId
+      issueId
       publisher
       name
       issue

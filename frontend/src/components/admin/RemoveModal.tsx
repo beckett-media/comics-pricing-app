@@ -46,7 +46,7 @@ function RemoveModal({ isOpen, onClose, onRemove, user }: Props) {
           <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>REMOVE USER</ModalHeader>
             <ModalBody textAlign={"center"}>
-              Are you sure you want to remove <b>{user.username}</b>?
+              Are you sure you want to remove <b>{user?.name}</b>?
               <br />
               This will revoke their access to the system and cannot be undone.
             </ModalBody>
@@ -61,7 +61,7 @@ function RemoveModal({ isOpen, onClose, onRemove, user }: Props) {
           <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>CONFIRMED</ModalHeader>
             <ModalBody textAlign={"center"}>
-              <b>{user.username}</b>{`'s account has been deleted`}
+              <b>{user?.name}</b>{`'s account has been deleted`}
             </ModalBody>
 
             <ModalFooter>

@@ -1,4 +1,9 @@
-/* eslint-disable */
+/* Amplify Params - DO NOT EDIT
+	API_ADMINQUERIES_APIID
+	API_ADMINQUERIES_APINAME
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//* eslint-disable */
 /*
  * Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -27,6 +32,7 @@ const {
   listGroupsForUser,
   listUsersInGroup,
   signUserOut,
+  createUser,
 } = require('./cognitoActions');
 
 const app = express();
@@ -254,6 +260,21 @@ app.post('/signUserOut', async (req, res, next) => {
 
   try {
     const response = await signUserOut(req.body.username);
+    res.status(200).json(response);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post("/createUser", async (req, res, next) => {
+  if (!req.body.username || !req.body.password) {
+    const err = new Error("username and password are required");
+    err.statusCode = 400;
+    return next(err);
+  }
+
+  try {
+    const response = await createUser(req.body.username, req.body.password);
     res.status(200).json(response);
   } catch (err) {
     next(err);

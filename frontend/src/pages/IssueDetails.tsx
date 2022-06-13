@@ -6,11 +6,12 @@ import PriceGraph from "components/issue-details/PriceGraph"
 import ScatterGraph from "components/issue-details/ScatterGraph"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
-import { API, Storage, Analytics, Auth } from "aws-amplify"
+import { API, Storage, Analytics, Auth, DataStore } from "aws-amplify"
+import { WaitingListComics, RecentlyView, RecentlyViewMetaData } from "../models"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
-
+import { ModelInit } from "@aws-amplify/datastore"
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
@@ -22,13 +23,22 @@ export default function IssueDetails() {
   const apiName = "comicsapi"
   const path = `/api/issue/'${issueId}'`
 
-
   React.useEffect(() => {
     const myInit = {}
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
         setData(response)
+
+        DataStore.save(
+          new RecentlyView({
+            imageId: "test",
+            issueId: "test",
+            publisher: "test",
+            name: "test",
+            issue: "test",
+          })
+        )
       })
       .catch((error) => {
         console.log(error.response)
@@ -57,18 +67,18 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     Boolean(m)
   )
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src = "/Pow.svg"
   }
-  
-  const issue_comment = issue.comment || '';
-  
+
+  const issue_comment = issue.comment || ""
+
   const watchListData = {
-    'imageId': issue?.cpg_id,
-    'publisher': issue?.publisher,
-    'name': issue?.title,
-    'issue': issue?.issue,
+    imageId: issue?.cpg_id,
+    publisher: issue?.publisher,
+    name: issue?.title,
+    issue: issue?.issue,
   }
-  
+
   return (
     <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
       <AmplifyS3Image
@@ -77,16 +87,12 @@ function MainDetails({ issue }: { issue: IssueFull }) {
         imgKey={`issues/${issue.cpg_id}`}
       />
       <div className="flex flex-col min-w-0 gap-5 grow">
-        
         <div className="flex flex-row justify-between">
-          <div className="text-xl font-bold">
-            {issue?.title}
-          </div>
-          <div className='text-right w-12'>
-            <ManageWatchList data = {watchListData}/>
+          <div className="text-xl font-bold">{issue?.title}</div>
+          <div className="text-right w-12">
+            <ManageWatchList data={watchListData} />
           </div>
         </div>
-          
 
         <div className="text-sm">{metadata?.join(" | ")}</div>
         <IssueChips issue_comment={issue_comment} age={issue.age} />
@@ -96,8 +102,6 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     </div>
   )
 }
-
-
 
 function Details({ issue }: { issue: IssueFull }) {
   return (
@@ -122,7 +126,6 @@ function Details({ issue }: { issue: IssueFull }) {
 }
 
 function Graphs({ id }: { id: string }) {
-  
   return (
     <>
       <div className="w-full rounded h-72 bg-container-inner">

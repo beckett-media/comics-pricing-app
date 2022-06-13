@@ -16,6 +16,7 @@ const { CognitoIdentityServiceProvider } = require('aws-sdk');
 
 const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
 const userPoolId = process.env.USERPOOL;
+const aws = require('aws-sdk');
 
 async function addUserToGroup(username, groupname) {
   const params = {
@@ -243,6 +244,34 @@ async function signUserOut(username) {
     throw err;
   }
 }
+async function createUser(username, password) {
+  var cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({
+    apiVersion: "2016-04-18",
+  });
+  return new Promise((resolve, reject) => {
+    var params = {
+      UserPoolId: userPoolId,
+      Username: username,
+      TemporaryPassword: password,
+      UserAttributes: [
+        {
+          Name: "email",
+          Value: username,
+        },
+      ],
+    };
+    cognitoidentityserviceprovider.adminCreateUser(
+      params,
+      function (err, data) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      }
+    );
+  });
+}
 
 module.exports = {
   addUserToGroup,
@@ -256,4 +285,5 @@ module.exports = {
   listGroupsForUser,
   listUsersInGroup,
   signUserOut,
+  createUser,
 };
