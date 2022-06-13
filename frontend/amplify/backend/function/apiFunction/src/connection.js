@@ -1,5 +1,7 @@
 const Pool = require("pg").Pool;
 
+// Read from .env
+// https://github.com/brianc/node-postgres/tree/master/packages/pg-pool#note
 const sql = new Pool({
   user: "postgres",
   host: "prod-beckett-comic-db.cgq6lc7ttzjk.us-west-1.rds.amazonaws.com",
