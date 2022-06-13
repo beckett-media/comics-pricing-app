@@ -43,3 +43,10 @@ export type Price = {
   price: string
   grade: string
 }
+
+export type PriceListing = {
+  date: string
+  price: string
+  grade: string
+  url: string
+}

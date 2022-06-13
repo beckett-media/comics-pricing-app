@@ -24,11 +24,7 @@ export default function PriceTable({ id}: { id: string }) {
 
   if (isLoading) {
     return <div>loading</div>
-  }
-  
-
-  console.log('pricesal', pricesAll);
-  
+  }  
   
   return (
     <div className='mt-6 w-full'>

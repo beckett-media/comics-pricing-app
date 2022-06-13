@@ -11,6 +11,7 @@ import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
 import PriceTable from "components/issue-details/PriceTable"
+import EbayListings from "components/issue-details/EbayListings"
 
 
 export default function IssueDetails() {
@@ -97,11 +98,13 @@ function MainDetails({ issue }: { issue: IssueFull }) {
           <div className="w-full rounded bg-container-inner">
             <div className="w-full text-center mt-2 text-md font-semibold">Price Analysis</div>
             <PriceTable id={issue?.id} /> 
-            
-          </div> 
+          </div>
+          <div className="w-full rounded bg-container-inner">
+            <div className="w-full text-center mt-2 text-md font-semibold">Top eBay Listings</div>
+              <EbayListings id={issue?.id} /> 
+          </div>
         </div>
       </div>
-      
       <span className="w-full heading mr-5 text-xl font-semibold">Pricing Details</span>
       <div className="grid grid-cols-2 w-full gap-5 grow">
         <Graphs id={issue?.id} />

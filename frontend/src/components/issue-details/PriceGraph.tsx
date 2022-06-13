@@ -23,7 +23,6 @@ export default function PriceGraph({ id }: { id: string }) {
     setLoading(true);
     API.get(apiName, path, myInit)
       .then((response) => {
-        // Add your code here
         setPrices(response.data.rows);
         setLoading(false);
       })
