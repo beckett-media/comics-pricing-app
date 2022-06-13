@@ -62,6 +62,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   }
   
   const issue_comment = issue.comment || '';
+  const issue_img = issue.cpg_id || '';
   
   const watchListData = {
     'imageId': issue?.cpg_id,
@@ -75,9 +76,10 @@ function MainDetails({ issue }: { issue: IssueFull }) {
       <div className="grid grid-cols-2 w-full gap-5 grow">
         <div>
             <AmplifyS3Image
+              key={issue?.id}
               handleOnError={imgError}
               className="object-contain w-full"
-              imgKey={`issues/${issue?.cpg_id.replace('/', '-')}`}
+              imgKey={`issues/${issue_img.replace('/', '-')}`}
             />          
         </div>
         <div className="flex flex-col min-w-0 gap-5 grow">
