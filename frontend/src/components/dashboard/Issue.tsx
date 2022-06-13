@@ -22,7 +22,7 @@ export default function Issue({ id, issue, title, publisher, imageId }: IssuePro
         <AmplifyS3Image 
               handleOnError={imgError}
               imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'100%'} }}  
-              imgKey={`issues/${imageId}`} 
+              imgKey={`issues/${imageId?.replace('/', '-')}`} 
         />
       </div>
       

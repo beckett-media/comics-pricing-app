@@ -11,7 +11,7 @@ export default function MyWatchlist() {
 
   async function getWatchlist() {
     const models = await DataStore.query(WatchList)
-    setWatchlist(models)
+    setWatchlist(models);
     return models
   }
 
@@ -26,8 +26,7 @@ export default function MyWatchlist() {
   return (
     <div className="w-full overflow-hidden rounded">
 
-      <Gallery
-       title="My Watchlist" link={"/"} fullScreen={false}>
+      <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
         {watchlist.map(({ id, imageId, publisher, name, issue }) => (
           <Issue key={id} id={id} issue={issue} title={name} publisher={publisher} imageId={imageId}/>
         ))}

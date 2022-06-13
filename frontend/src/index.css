@@ -41,3 +41,25 @@ amplify-s3-image.issue {
   margin-left:50px;
   margin-right:50px;
 }
+
+
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #AAA;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+  transition: opacity 2s;
+}
