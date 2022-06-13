@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Auth } from "aws-amplify"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
+import NavMenu from "components/common/NavMenu"
 
 import { useNavigateWithSearchParams } from "utils/router"
 
@@ -91,12 +92,7 @@ function Buttons() {
       <button>
         <i className="fa-regular fa-bell" />
       </button>
-      <button onClick={signOut}>
-        <i className="fa-solid fa-arrow-right-from-bracket" />
-      </button>
-      <button>
-        <i className="fa-solid fa-bars" />
-      </button>
+      <NavMenu />
     </div>
   )
 }
