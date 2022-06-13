@@ -117,7 +117,7 @@ function Page() {
 
 export default function Search() {
   return (
-    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
+    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME} routing={true}>
       <Configure hitsPerPage={HITS_PER_PAGE} />
       <Page />
     </InstantSearch>
