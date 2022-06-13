@@ -25,6 +25,21 @@
   }
 }
 
+.nav-hover {
+  position: relative;
+
+
+  &-content{
+    display:none;
+    opacity: 0;
+  }
+}
+
+.nav-hover:hover .nav-hover-content {
+  display: block;
+  opacity: 1;
+}
+
 .bg-container {
   width: 100rem;
 }

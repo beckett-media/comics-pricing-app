@@ -14,7 +14,7 @@ import TrendsContainer from "components/dashboard/TrendsContainer"
 
 export default function Dashboard() {
   return (
-    <div className="px-10 my-10 space-y-10">
+    <div className="my-10 space-y-10">
       
       <div className="w-full">
         <TrendsContainer />

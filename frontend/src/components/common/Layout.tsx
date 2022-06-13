@@ -17,11 +17,9 @@ export default function Layout() {
       <NavBarContext.Provider value={{ text, setText }}>
         <div className="relative z-10 w-full flex flex-col items-center">
           <NavBar />
-          <div className="px-24">
-            <div className="page-padding">
+          <div className="page-padding">
             <div className="container-large">
               <Outlet />
-            </div>
             </div>
           </div>
         </div>
