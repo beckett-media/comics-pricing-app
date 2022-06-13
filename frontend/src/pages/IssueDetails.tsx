@@ -21,7 +21,7 @@ export default function IssueDetails() {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/'${issueId}'`
+  const path = `/api/issue/${issueId}`
 
 
   React.useEffect(() => {
@@ -72,7 +72,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   }
   return (
     <div className="grid w-full gap-5 px-12 py-10 rounded bg-container-outer text-common-text">
-      <div className="grid grid-cols-2 w-full gap-5 grow">
+      <div className="grid w-full grid-cols-2 gap-5 grow">
         <div>
             <AmplifyS3Image
               handleOnError={imgError}
@@ -85,7 +85,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
             <div className="text-xl font-bold">
               {issue?.title}
             </div>
-            <div className='text-right w-12'>
+            <div className='w-12 text-right'>
               <ManageWatchList data = {watchListData}/>
             </div>
           </div>
@@ -93,15 +93,15 @@ function MainDetails({ issue }: { issue: IssueFull }) {
           <IssueChips issue_comment={issue_comment} age={issue.age} />
           <Details issue={issue} />    
           <div className="w-full rounded bg-container-inner">
-            <div className="w-full text-center mt-2 text-md font-semibold">Price Analysis</div>
+            <div className="w-full mt-2 font-semibold text-center text-md">Price Analysis</div>
             <PriceTable id={issue?.id} /> 
             
           </div> 
         </div>
       </div>
       
-      <span className="w-full heading mr-5 text-xl font-semibold">Pricing Details</span>
-      <div className="grid grid-cols-2 w-full gap-5 grow">
+      <span className="w-full mr-5 text-xl font-semibold heading">Pricing Details</span>
+      <div className="grid w-full grid-cols-2 gap-5 grow">
         <Graphs id={issue?.id} />
       </div>
       
@@ -124,7 +124,7 @@ function Details({ issue }: { issue: IssueFull }) {
       {issue?.comment && (
         <div className="w-full px-5 py-4 text-sm rounded bg-container-inner">
           <div className="mb-5">
-            <div className="font-semibold text-md text-center">Issue Details</div>
+            <div className="font-semibold text-center text-md">Issue Details</div>
           </div>
           <div>{issue?.comment}</div>
         </div>
