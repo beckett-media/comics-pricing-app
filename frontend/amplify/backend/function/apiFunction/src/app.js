@@ -19,6 +19,8 @@ const {
   getRelatedTitles,
   getRelatedIssues,
   getTrendingIssues,
+  getIssueSalesHistory,
+  getIssuePriceAnalytics
 } = require("./services/issue.service.js")
 const { getPopularPublishers } = require("./services/publisher.service.js")
 const { getPopularTitles } = require("./services/title.service.js")
@@ -60,6 +62,11 @@ app.get("/api/issue/recent-price-drops", async (_req, res) => {
   res.json(await getRecentPriceDrops())
 })
 
+
+app.get("/api/issue/sales-history", async (_req, res) => {
+  res.json(await getIssueSalesHistory())
+})
+
 app.get("/api/issue/:id", async (_req, res) => {
   const { id } = _req.params
   res.json(await getDetails(id))
@@ -76,6 +83,20 @@ app.get("/api/issue/:id/related/issues", async (_req, res) => {
 app.get("/api/issue/:id/related/titles", async (_req, res) => {
   res.json(await getRelatedTitles(_req.params.id))
 })
+
+app.get("/api/issue/:id/:num_months/issue-price-analytics", async (_req, res) => {
+  res.json(await getIssuePriceAnalytics(_req.params))
+})
+
+// app.get("/api/issue/issue-price-analytics", async (_req, res) => {
+//   const id = _req.query.id;
+//   //const num_months = _req.query.num_months;
+  
+//   res.json(await getIssuePriceAnalytics({
+//     'id': id,
+//     'num_months': id
+//   }))
+// })
 
 // ##########################################################
 // ############## GET PUBLISHERS ############################
