@@ -52,7 +52,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
         <AmplifyS3Image 
           handleOnError={imgError}
           imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'max-width':'70px'} }}  
-          imgKey={`issues/${img_id}`} 
+          imgKey={`issues/${img_id?.replace('/', '-')}`} 
         />
       </div>
       <div className='w-full flex flex-col'>

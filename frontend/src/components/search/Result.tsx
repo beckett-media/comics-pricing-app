@@ -28,6 +28,7 @@ export default function Result({ id,
 
     const watchListData = {
       'imageId': cpg_id,
+      'issueId': id,
       'publisher': publisher_name,
       'name': title_name,
       'issue': issue_num,
@@ -44,7 +45,7 @@ export default function Result({ id,
                 <AmplifyS3Image 
                     handleOnError = { imgError }
                     imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'8rem'} }}  
-                    imgKey={`issues/${cpg_id}`} 
+                    imgKey={`issues/${cpg_id?.replace('/', '-')}`} 
                   />
             </div>
           </Link>

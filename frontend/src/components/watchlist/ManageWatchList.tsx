@@ -18,6 +18,7 @@ export default function ManageWatchList({data}: any) {
       await DataStore.save(
         new WatchList({
           imageId: data.imageId,
+          issueId: data.issueId,
           publisher: data.publisher,
           name: data.name,
           issue: data.issue,
@@ -42,7 +43,7 @@ export default function ManageWatchList({data}: any) {
 
   async function removeFromWatchlist() {
     try {
-      const modelToDelete:any = await DataStore.query(WatchList, "16db1d34-908d-4d13-9a30-12b24e717c72")
+      const modelToDelete:any = await DataStore.query(WatchList, "a87f17a0-b66b-400c-9442-0fee2d22fd98")
       DataStore.delete(modelToDelete)
     } catch (error) {
       console.log(error)

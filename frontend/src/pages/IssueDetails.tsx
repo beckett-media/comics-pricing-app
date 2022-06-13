@@ -10,6 +10,7 @@ import { API, Storage, Analytics, Auth } from "aws-amplify"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
+import PriceTable from "components/issue-details/PriceTable"
 
 
 export default function IssueDetails() {
@@ -64,35 +65,46 @@ function MainDetails({ issue }: { issue: IssueFull }) {
   
   const watchListData = {
     'imageId': issue?.cpg_id,
+    'issueId': issue?.id,
     'publisher': issue?.publisher,
     'name': issue?.title,
     'issue': issue?.issue,
   }
-  
   return (
-    <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
-      <AmplifyS3Image
-        handleOnError={imgError}
-        className="object-contain w-full"
-        imgKey={`issues/${issue.cpg_id}`}
-      />
-      <div className="flex flex-col min-w-0 gap-5 grow">
-        
-        <div className="flex flex-row justify-between">
-          <div className="text-xl font-bold">
-            {issue?.title}
-          </div>
-          <div className='text-right w-12'>
-            <ManageWatchList data = {watchListData}/>
-          </div>
+    <div className="grid w-full gap-5 px-12 py-10 rounded bg-container-outer text-common-text">
+      <div className="grid grid-cols-2 w-full gap-5 grow">
+        <div>
+            <AmplifyS3Image
+              handleOnError={imgError}
+              className="object-contain w-full"
+              imgKey={`issues/${issue?.cpg_id.replace('/', '-')}`}
+            />          
         </div>
-          
-
-        <div className="text-sm">{metadata?.join(" | ")}</div>
-        <IssueChips issue_comment={issue_comment} age={issue.age} />
-        <Details issue={issue} />
-        <Graphs id={issue?.cpg_id} />
+        <div className="flex flex-col min-w-0 gap-5 grow">
+          <div className="flex flex-row justify-between">
+            <div className="text-xl font-bold">
+              {issue?.title}
+            </div>
+            <div className='text-right w-12'>
+              <ManageWatchList data = {watchListData}/>
+            </div>
+          </div>
+          <div className="text-sm">{metadata?.join(" | ")}</div>
+          <IssueChips issue_comment={issue_comment} age={issue.age} />
+          <Details issue={issue} />    
+          <div className="w-full rounded bg-container-inner">
+            <div className="w-full text-center mt-2 text-md font-semibold">Price Analysis</div>
+            <PriceTable id={issue?.id} /> 
+            
+          </div> 
+        </div>
       </div>
+      
+      <span className="w-full heading mr-5 text-xl font-semibold">Pricing Details</span>
+      <div className="grid grid-cols-2 w-full gap-5 grow">
+        <Graphs id={issue?.id} />
+      </div>
+      
     </div>
   )
 }
@@ -107,12 +119,12 @@ function Details({ issue }: { issue: IssueFull }) {
           Cover Date: {monthText(issue?.publication_month ?? -1)} {issue?.publication_year}
         </div>
         <div>Cover Price: ${issue?.cover_price}</div>
-        <div>Current Value: ${issue?.current_price?.toFixed(2)}</div>
+        <div>Current Value: ${issue?.cover_price}</div>
       </div>
       {issue?.comment && (
         <div className="w-full px-5 py-4 text-sm rounded bg-container-inner">
-          <div className="mb-2">
-            <span className="font-semibold">Issue Details</span>
+          <div className="mb-5">
+            <div className="font-semibold text-md text-center">Issue Details</div>
           </div>
           <div>{issue?.comment}</div>
         </div>

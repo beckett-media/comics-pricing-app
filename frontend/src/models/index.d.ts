@@ -19,6 +19,7 @@ type ComicWaitingListMetaData = {
 export declare class WatchList {
   readonly id: string;
   readonly imageId?: string | null;
+  readonly issueId?: string | null;
   readonly publisher?: string | null;
   readonly name?: string | null;
   readonly issue?: string | null;
