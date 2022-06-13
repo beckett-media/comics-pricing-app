@@ -43,7 +43,7 @@ module.exports = {
         heading: ["Raleway"],
       },
       fontSize: {
-        xxs: ["10px", "12px"],
+        xxs: ["0.625rem", "0.75rem"],
         "4xl": ["2rem", "140%"],
         "5xl": ["2.5rem", "140%"],
       },
