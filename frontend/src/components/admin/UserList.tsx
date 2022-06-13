@@ -76,8 +76,8 @@ export default function UserList() {
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>User name</Th>
-                <Th>Email</Th>
+                <Th color={"white"}>User name</Th>
+                <Th color={"white"}>Email</Th>
                 <Th isNumeric></Th>
               </Tr>
             </Thead>
@@ -103,8 +103,8 @@ export default function UserList() {
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>User name</Th>
-                <Th>Email</Th>
+                <Th color={"white"}>User name</Th>
+                <Th color={"white"}>Email</Th>
                 <Th isNumeric></Th>
               </Tr>
             </Thead>
