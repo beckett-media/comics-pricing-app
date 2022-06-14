@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom"
 import {  AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 type PublisherProps = {
   id: string
@@ -11,11 +12,12 @@ function image(id: string) {
 
 export default function Publisher({ id, name, itemId }: PublisherProps) {
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
   return (
     <div className="flex w-48 px-8 flex-col items-center">
       <div className="h-32 w-40">
+        <Link to={`/search?comic_dev%5BrefinementList%5D%5Bpublisher_name%5D%5B0%5D=${name}`} className="">
         {/* { <img className="h-32 w-40 object-contain" alt={name} src={image(id)} /> } */}
         <AmplifyS3Image 
           handleOnError={imgError}
@@ -23,6 +25,7 @@ export default function Publisher({ id, name, itemId }: PublisherProps) {
           imgKey={`publishers/${id}`} 
         />
         {/* <AmplifyS3Image imgKey={"publishers/001efa98-55ff-4dec-abd7-87c513f0d2f6"} /> */}
+        </Link>
       </div>
       <p className="text-center text-xs">
         {name}

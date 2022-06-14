@@ -37,13 +37,15 @@ module.exports = {
         "landing-purple-start": "#353170",
         "landing-purple-stop": "#463A79",
         "landing-purple-overlay": "#302A95",
+        "nav-hover": "#6A5D90",
+        notifications: "#66C9FF",
       },
       fontFamily: {
         sans: ["Roboto Flex"],
         heading: ["Raleway"],
       },
       fontSize: {
-        xxs: ["10px", "12px"],
+        xxs: ["0.625rem", "0.75rem"],
         "4xl": ["2rem", "140%"],
         "5xl": ["2.5rem", "140%"],
       },

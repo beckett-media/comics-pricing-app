@@ -5,14 +5,32 @@ import {
   Configure,
   InstantSearch,
   useHits,
+  useInfiniteHits,
+  UseInfiniteHitsProps,
   useSearchBox,
+  DynamicWidgets,
 } from "react-instantsearch-hooks-web"
 
 import { NavBarContext } from "components/common/NavBar"
-
 import Filters from "components/search/Filters"
 import Results from "components/search/Results"
 import HotComics from "components/search/HotComics"
+import Result from "components/search/Result"
+import { Button } from "@chakra-ui/react"
+
+
+function cx(
+  ...classNames: Array<string | number | boolean | undefined | null>
+) {
+  return classNames.filter(Boolean).join(' ');
+}
+
+
+export type InfiniteHitsProps<THit> = React.ComponentProps<'div'> &
+  UseInfiniteHitsProps & {
+    hitComponent: (props: { hit: THit }) => JSX.Element;
+  };
+
 
 const INDEX_NAME = "comic_dev"
 const HITS_PER_PAGE = 10
@@ -33,11 +51,13 @@ type Issue = {
 }
 
 
-
 function Page() {
   const { clear, refine } = useSearchBox()
   const { text: navBarText } = useContext(NavBarContext)
-  const { hits } = useHits<Issue>()
+  //const { hits } = useHits<Issue>()
+
+  const { hits, isFirstPage, isLastPage, showMore, showPrevious, results } =
+    useInfiniteHits<Issue>();
 
   if (navBarText) {
     refine(navBarText)
@@ -50,8 +70,46 @@ function Page() {
       <div className="mt-10 flex w-full">
         <div className="flex w-full gap-10">
           <Filters />
-          <Results hits={hits} />
+          {/* <Results hits={hits} /> */}
           {/* <HotComics /> */}
+          
+          <div className="flex w-full flex-col rounded bg-container-outer p-7 text-common-text">
+            <p className="text-xl">{results?.nbHits} Results</p>
+            
+            
+            <div className={cx('ais-InfiniteHits')}>
+                {/* {showPrevious && (
+                  <Button
+                    className={cx(
+                      'ais-InfiniteHits-loadPrevious',
+                      isFirstPage && 'ais-InfiniteHits-loadPrevious--disabled'
+                    )}
+                    onClick={showPrevious}
+                    disabled={isFirstPage}
+                  >
+                    Show previous results
+                  </Button>
+                )} */}
+                <ol className="ais-InfiniteHits-list">
+                  {hits.map((hit) => (
+                  <Result key={hit.id} {...hit} />
+                ))}
+                </ol>
+                {results?.nbHits != 0 ? 
+                <Button
+                  className={cx(
+                    'ais-InfiniteHits-loadMore w-full',
+                    isLastPage && 'ais-InfiniteHits-loadMore--disabled'
+                  )}
+                  onClick={showMore}
+                  disabled={isLastPage}
+                >
+                  Show more results
+                </Button>
+: <div className='w-full text-xl text-center'>No mathing results found.</div>
+} 
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -60,9 +118,11 @@ function Page() {
 
 export default function Search() {
   return (
-    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME}>
+    <InstantSearch searchClient={searchClient} indexName={INDEX_NAME} routing={true}>
       <Configure hitsPerPage={HITS_PER_PAGE} />
       <Page />
     </InstantSearch>
   )
 }
+
+

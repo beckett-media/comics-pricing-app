@@ -1,9 +1,13 @@
+import {ReactComponent as Logo} from "../../assets/beckett-logo.svg"
+
 export default function Footer() {
   return (
-    <div className="flex h-24 w-full flex-row items-center justify-center space-x-10 bg-hdr-ftr bg-slate-300 text-hdr-body-text">
-      <div>Link 1</div>
-      <div>Beckett Logo</div>
-      <div>Link 2</div>
+    <div className="bottom-0 z-10 w-full bg-hdr-ftr flex items-center gap-20 justify-center py-9 font-semibold">
+      <div className="grid grid-cols-3 justify-items-center items-center gap-12">
+      <a href="https://www.beckettmedia.com/">Visit Site</a>
+      <Logo/>
+      <div>Terms of Service</div>
+      </div>
     </div>
   )
 }

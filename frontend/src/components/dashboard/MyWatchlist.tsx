@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Gallery from "./Gallery"
 import Issue from "./Issue"
 import * as React from "react"
@@ -8,10 +9,11 @@ import { Button, Text } from "@chakra-ui/react"
 export default function MyWatchlist() {
   const [watchlist, setWatchlist] = React.useState<WatchList[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
+  console.log('watchlist', watchlist)
 
   async function getWatchlist() {
     const models = await DataStore.query(WatchList)
-    setWatchlist(models)
+    setWatchlist(models);
     return models
   }
 
@@ -26,12 +28,15 @@ export default function MyWatchlist() {
   return (
     <div className="w-full overflow-hidden rounded">
 
-      <Gallery
-       title="My Watchlist" link={"/"} fullScreen={false}>
-        {watchlist.map(({ id, imageId, publisher, name, issue }) => (
+      <Gallery title="My Watchlist" link={"/watchlist"} fullScreen={false}>
+        {watchlist.map(({ id, issueId, imageId, publisher, name, issue }) => (
+          <Link to={`/details/${issueId}`} >
           <Issue key={id} id={id} issue={issue} title={name} publisher={publisher} imageId={imageId}/>
+          </Link>
         ))}
+        {watchlist.length == 0 ? <div className='w-full text-xl text-center'>You have no watchlisted items.</div>: ''}
       </Gallery>
+      
     </div>
   )
 }

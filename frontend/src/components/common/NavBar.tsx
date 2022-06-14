@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { Auth } from "aws-amplify"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 
+import NavMenu from "components/common/NavMenu"
+import NavNotifications from "./NavNotifications"
 
 import { useNavigateWithSearchParams } from "utils/router"
 
@@ -18,7 +20,7 @@ export default function NavBar() {
     <div className="sticky top-0 z-10 w-full bg-hdr-ftr flex justify-center">
       <div className="page-padding flex justify-center">
         <div className="container-large ">
-          <div className="grid items-center justify-center w-full h-24 grid-cols-navbar ">
+          <div className="flex items-center justify-between w-full h-24 grid-cols-navbar ">
             <Logo />
             <Search />
             <Buttons />
@@ -56,7 +58,7 @@ function Search() {
   }
 
   return (
-    <div className="flex justify-center gap-3">
+    <div className="flex justify-center gap-3 w-7/12">
       <div className="flex items-center w-full">
         <i className="fa-solid fa-magnifying-glass absolute ml-2.5 text-tmp-icon" />
         <input
@@ -88,15 +90,8 @@ function Buttons() {
   return (
     <div className="flex justify-end text-xl space-x-7 text-tmp-icon">
 
-      <button>
-        <i className="fa-regular fa-bell" />
-      </button>
-      <button onClick={signOut}>
-        <i className="fa-solid fa-arrow-right-from-bracket" />
-      </button>
-      <button>
-        <i className="fa-solid fa-bars" />
-      </button>
+      <NavNotifications/>
+      <NavMenu />
     </div>
   )
 }

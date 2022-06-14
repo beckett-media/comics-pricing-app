@@ -65,7 +65,7 @@ export default function IssueDetails() {
   }
 
   return (
-    <div className="flex flex-col w-full px-24 py-10 space-y-10">
+    <div className="flex flex-col w-full py-10 space-y-10">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue?.id} />
     </div>
@@ -109,6 +109,11 @@ function MainDetails({ issue }: { issue: IssueFull }) {
         <Details issue={issue} />
         <Graphs id={issue?.cpg_id} />
       </div>
+      <span className="w-full heading mr-5 text-xl font-semibold">Pricing Details</span>
+      <div className="grid grid-cols-2 w-full gap-5 grow">
+        <Graphs id={issue?.id} />
+      </div>
+      
     </div>
   )
 }
@@ -121,12 +126,12 @@ function Details({ issue }: { issue: IssueFull }) {
           Cover Date: {monthText(issue?.publication_month ?? -1)} {issue?.publication_year}
         </div>
         <div>Cover Price: ${issue?.cover_price}</div>
-        <div>Current Value: ${issue?.current_price?.toFixed(2)}</div>
+        <div>Current Value: ${issue?.cover_price}</div>
       </div>
       {issue?.comment && (
         <div className="w-full px-5 py-4 text-sm rounded bg-container-inner">
-          <div className="mb-2">
-            <span className="font-semibold">Issue Details</span>
+          <div className="mb-5">
+            <div className="font-semibold text-md text-center">Issue Details</div>
           </div>
           <div>{issue?.comment}</div>
         </div>

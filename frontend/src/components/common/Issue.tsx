@@ -42,7 +42,7 @@ export default function Issue({ id, issue, title, publisher, img_id, itemId}: Is
   }, [id])
   
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
 
   return (
@@ -61,7 +61,7 @@ export default function Issue({ id, issue, title, publisher, img_id, itemId}: Is
           <AmplifyS3Image 
             handleOnError = { imgError }
             imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'100%'} }}  
-            imgKey={`issues/${img_id}`} 
+            imgKey={`issues/${img_id?.replace('/', '-')}`} 
           />
           {/* {<img
             className="object-contain w-full h-full"

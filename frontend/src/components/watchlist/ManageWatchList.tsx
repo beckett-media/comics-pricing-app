@@ -6,10 +6,8 @@ import { ReactComponent as Bookmark } from "assets/bookmark.svg"
 import { useToast } from '@chakra-ui/react'
 
 
-
 export default function ManageWatchList({data}: any) {
   const toast = useToast()
-
   const [isLoading, setIsLoading] = useState(true)
 
   async function addToWatchlist() {
@@ -18,6 +16,7 @@ export default function ManageWatchList({data}: any) {
       await DataStore.save(
         new WatchList({
           imageId: data.imageId,
+          issueId: data.issueId,
           publisher: data.publisher,
           name: data.name,
           issue: data.issue,
@@ -33,28 +32,15 @@ export default function ManageWatchList({data}: any) {
         isClosable: true,
       })
 
-
     } catch (error) {
       console.log(error)
       setIsLoading(false)
     }
   }
-
-  async function removeFromWatchlist() {
-    try {
-      const modelToDelete:any = await DataStore.query(WatchList, "16db1d34-908d-4d13-9a30-12b24e717c72")
-      DataStore.delete(modelToDelete)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
-  }
-  //removeFromWatchlist();
 
   return (
     <Button variant='ghost' onClick={() => addToWatchlist()}>
       <Bookmark style={{height:35}} />  
     </Button>
-  )
-  
+  ) 
 }
