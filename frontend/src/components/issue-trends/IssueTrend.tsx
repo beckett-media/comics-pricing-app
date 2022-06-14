@@ -53,7 +53,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
       <div className='h-24'>
         <AmplifyS3Image 
           handleOnError={imgError}
-          imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'max-width':'70px'} }}  
+          imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'max-width':'80px'} }}  
           imgKey={`issues/${img_id?.replace('/', '-')}`} 
         />
       </div>
@@ -64,7 +64,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
             {price_diff> 0 ? '+' :''}${price_diff.toFixed(2)} ({price_diff> 0 ? '+' :''}{price_diff_percent}%)
             </h4>
         </div>
-        <div className='w-24 ml-2 h-full'>
+        <div className='w-40 ml-2 h-full'>
           <SalesTicker data={price_data}/>    
         </div>
       </div>
