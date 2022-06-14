@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Gallery from "./Gallery"
 import Issue from "./Issue"
 import React from "react"
@@ -24,8 +25,10 @@ export default function RecentlyViewed() {
   return (
     <div className="overflow-hidden rounded">
       <Gallery title="Recently Viewed" fullScreen={false}>
-        {recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue }) => (
-          <Issue
+        {recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue, issueId}) => (
+          
+          <Link to={`/details/${issueId}`} >
+            <Issue
             key={id}
             id={id}
             issue={issue}
@@ -33,6 +36,7 @@ export default function RecentlyViewed() {
             publisher={publisher}
             imageId={imageId}
           />
+          </Link>
         ))}
       </Gallery>
     </div>
