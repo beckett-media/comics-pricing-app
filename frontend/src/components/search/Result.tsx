@@ -34,7 +34,7 @@ export default function Result({ id,
       'issue': issue_num,
     }
     function imgError(evt: any) {
-      evt.target.src='/Pow.svg';
+      evt.target.src='/no-image.svg';
     }
 
       
