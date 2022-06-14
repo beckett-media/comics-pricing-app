@@ -31,10 +31,10 @@ export default function Dashboard() {
         <RecentPriceDrops />
         <NewComics />
       </div>
+      <BrowseByEra />
       <PopularComics />
       <PopularSeries />
       <PopularPublishers />
-      <BrowseByEra />
     </div>
   )
 }
