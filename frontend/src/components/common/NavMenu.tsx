@@ -12,7 +12,7 @@ const NavMenu = () => {
     {
       icon: "fa-regular fa-bookmark",
       text: "My Watchlist",
-      url: "/",
+      url: "/watchlist",
     },
   ]
 
