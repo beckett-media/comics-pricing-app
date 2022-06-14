@@ -6,12 +6,14 @@ import PriceGraph from "components/issue-details/PriceGraph"
 import ScatterGraph from "components/issue-details/ScatterGraph"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
-import { API, Storage, Analytics, Auth } from "aws-amplify"
+import { API, Storage, Analytics, Auth, DataStore } from "aws-amplify"
+import { WaitingListComics, RecentlyView, RecentlyViewMetaData } from "../models"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
-import PriceTable from "components/issue-details/PriceTable"
-import EbayListings from "components/issue-details/EbayListings"
+import { ModelInit } from "@aws-amplify/datastore"
+import Issue from '../components/common/Issue';
+
 
 
 export default function IssueDetails() {
@@ -24,6 +26,18 @@ export default function IssueDetails() {
   const apiName = "comicsapi"
   const path = `/api/issue/${issueId}`
 
+ const addToHistory = async (issue: IssueFull) => {
+   await DataStore.save(
+      new RecentlyView({
+        imageId: issue?.cpg_id,
+        publisher: issue?.publisher,
+        name: issue?.title,
+        issue: issue?.issue,
+        issueId: issue?.id,
+      })
+    )
+  }
+
 
   React.useEffect(() => {
     const myInit = {}
@@ -31,6 +45,10 @@ export default function IssueDetails() {
       .then((response) => {
         // Add your code here
         setData(response)
+        if (!issue) {
+          addToHistory(response)
+          alert("Added to recently viewed")
+        }
       })
       .catch((error) => {
         console.log(error.response)
@@ -59,51 +77,37 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     Boolean(m)
   )
   function imgError(evt: any) {
-    evt.target.src='/no-image.svg';
+    evt.target.src = "/Pow.svg"
   }
-  
-  const issue_comment = issue.comment || '';
-  const issue_img = issue.cpg_id || '';
-  
+
+  const issue_comment = issue.comment || ""
+
   const watchListData = {
-    'imageId': issue?.cpg_id,
-    'issueId': issue?.id,
-    'publisher': issue?.publisher,
-    'name': issue?.title,
-    'issue': issue?.issue,
+    imageId: issue?.cpg_id,
+    publisher: issue?.publisher,
+    name: issue?.title,
+    issue: issue?.issue,
   }
+
   return (
-    <div className="grid w-full gap-5 px-24 py-10 rounded bg-container-outer text-common-text">
-      <div className="grid w-full grid-cols-2 gap-2 grow">
-        <div className="">
-            <AmplifyS3Image
-              key={issue?.id}
-              handleOnError={imgError}
-              className="object-contain w-full"
-              imgKey={`issues/${issue_img.replace('/', '-')}`}
-            />          
-        </div>
-        <div className="flex flex-col min-w-0 gap-5 grow">
-          <div className="flex flex-row justify-between">
-            <div className="text-xl font-bold">
-              {issue?.title}
-            </div>
-            <div className='w-12 text-right'>
-              <ManageWatchList data = {watchListData}/>
-            </div>
-          </div>
-          <div className="text-sm">{metadata?.join(" | ")}</div>
-          <IssueChips issue_comment={issue_comment} age={issue.age} />
-          <Details issue={issue} />    
-          <div className="w-full rounded bg-container-inner">
-            <div className="w-full mt-2 font-semibold text-center text-md">Price Analysis</div>
-            <PriceTable id={issue?.id} /> 
-          </div>
-          <div className="w-full rounded bg-container-inner">
-            <div className="w-full mt-2 font-semibold text-center text-md">Top eBay Listings</div>
-              <EbayListings id={issue?.id} /> 
+    <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
+      <AmplifyS3Image
+        handleOnError={imgError}
+        className="object-contain w-full"
+        imgKey={`issues/${issue.cpg_id}`}
+      />
+      <div className="flex flex-col min-w-0 gap-5 grow">
+        <div className="flex flex-row justify-between">
+          <div className="text-xl font-bold">{issue?.title}</div>
+          <div className="w-12 text-right">
+            <ManageWatchList data={watchListData} />
           </div>
         </div>
+
+        <div className="text-sm">{metadata?.join(" | ")}</div>
+        <IssueChips issue_comment={issue_comment} age={issue.age} />
+        <Details issue={issue} />
+        <Graphs id={issue?.cpg_id} />
       </div>
       <span className="w-full mr-5 text-xl font-semibold heading">Pricing Details</span>
       <div className="grid w-full grid-cols-2 gap-5 grow">
@@ -113,8 +117,6 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     </div>
   )
 }
-
-
 
 function Details({ issue }: { issue: IssueFull }) {
   return (
@@ -139,7 +141,6 @@ function Details({ issue }: { issue: IssueFull }) {
 }
 
 function Graphs({ id }: { id: string }) {
-  
   return (
     <>
       <div className="w-full rounded h-72 bg-container-inner">

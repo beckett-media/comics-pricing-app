@@ -12,7 +12,7 @@ function image(id: string) {
 
 export default function Publisher({ id, name, itemId }: PublisherProps) {
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
   return (
     <div className="flex w-48 px-8 flex-col items-center">

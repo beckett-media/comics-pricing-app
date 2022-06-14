@@ -12,7 +12,7 @@ type TitleProps = {
 export default function Title({ id, name, publisher, itemId }: TitleProps) {
 
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
   return (
 

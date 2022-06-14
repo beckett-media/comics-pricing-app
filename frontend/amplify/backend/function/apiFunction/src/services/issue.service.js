@@ -28,21 +28,40 @@ const getDetails = async (id) => {
   return issues.rows[0]
 }
 
+// const getRelatedIssues = async (id) => {
+//   return sql.query(`
+//     SELECT
+//       related.id,
+//       related.name issue,
+//       titles.name title,
+//       publishers.name publisher
+//     FROM issues related
+//       JOIN issues ON issues.title_id = related.title_id
+//       JOIN titles ON titles.id = related.title_id
+//       JOIN publishers ON publishers.id = titles.publisher_id
+//     WHERE
+//       related.id != ${id} AND
+//       issues.id = ${id}
+//     LIMIT 5
+//   `)
+// }
+
 const getRelatedIssues = async (id) => {
   return query(`
-    SELECT
-      related.id,
-      related.name issue,
-      titles.name title,
-      publishers.name publisher
-    FROM issues related
-      JOIN issues ON issues.title_id = related.title_id
-      JOIN titles ON titles.id = related.title_id
-      JOIN publishers ON publishers.id = titles.publisher_id
-    WHERE
-      related.id != ${id} AND
-      issues.id = ${id}
-    LIMIT 5
+  SELECT
+    related.id,
+    related.name issue,
+    titles.name title,
+    publishers.name publisher,
+    related.cpg_id img_id
+  FROM issues related
+    JOIN issues ON issues.title_id = related.title_id
+    JOIN titles ON titles.id = related.title_id
+    JOIN publishers ON publishers.id = titles.publisher_id
+  WHERE
+    related.id != ${id} AND
+    issues.id = ${id}
+  LIMIT 5
   `)
 }
 

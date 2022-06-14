@@ -26,7 +26,7 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "AdminQueriese42f3901": {
+        "AdminQueries933d2e83": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
@@ -50,7 +50,7 @@ export type AmplifyDependentResourcesAttributes = {
             "ApiName": "string",
             "ApiId": "string"
         },
-        "watchlistApi": {
+        "comicsfrontend": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"

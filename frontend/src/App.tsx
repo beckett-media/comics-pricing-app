@@ -4,8 +4,6 @@ import { SWRConfig } from "swr"
 
 import { API } from "aws-amplify"
 
-
-
 import Home from "pages/Home"
 import Search from "pages/Search"
 import IssueDetails from "pages/IssueDetails"
@@ -21,6 +19,7 @@ import Confirmation from "pages/Confirmation"
 import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
 import Landing from "pages/Landing/Landing"
+import WatchListMain from "pages/WatchListMain"
 
 import { useAuth } from "providers/auth"
 
@@ -55,7 +54,7 @@ function OnlyNonAuth({ children }: { children: JSX.Element }) {
   }
 
   if (isLoggedIn) {
-    return <Navigate to="/" />
+    return <Navigate to="/dashboard" />
   }
 
   return children
@@ -75,8 +74,9 @@ export default function App() {
           <Route path="/" element={<AuthenticatedLayout />}>
             <Route path={"dashboard"} element={<Dashboard />} />
             <Route path={"admin"} element={<Admin />} />
-            <Route path={"search"} element={<Search />} />
+            <Route path={"search"} element={<Search />} />            
             <Route path={"details/:issueId"} element={<IssueDetails />} />
+            <Route path={"watchlist"} element={<WatchListMain />} />
           </Route>
           {/* // TODO: Redirect it already authed */}
           <Route
@@ -87,14 +87,7 @@ export default function App() {
               </OnlyNonAuth>
             }
           />
-          <Route
-            path={"/signup"}
-            element={
-              <OnlyNonAuth>
-                <SignUp />
-              </OnlyNonAuth>
-            }
-          />
+          <Route path={"/signup"} element={<SignUp />} />
           <Route path={"/landing"} element={<Landing />} />
           <Route path={"/confirmation"} element={<Confirmation />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />
