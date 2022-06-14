@@ -4,11 +4,11 @@ import { Auth } from "aws-amplify"
 
 const NavMenu = () => {
   const basicItems = [
-    {
-      icon: "fa-regular fa-user",
-      text: "My Profile",
-      url: "/",
-    },
+    // {
+    //   icon: "fa-regular fa-user",
+    //   text: "My Profile",
+    //   url: "/",
+    // },
     {
       icon: "fa-regular fa-bookmark",
       text: "My Watchlist",
@@ -17,11 +17,11 @@ const NavMenu = () => {
   ]
 
   const adminItems = [
-    {
-      icon: "fa-regular fa-user",
-      text: "My Profile",
-      url: "/",
-    },
+    // {
+    //   icon: "fa-regular fa-user",
+    //   text: "My Profile",
+    //   url: "/",
+    // },
     {
       icon: "fa-regular fa-users",
       text: "Manage Users",
