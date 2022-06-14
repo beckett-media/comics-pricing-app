@@ -10,9 +10,12 @@ export default function RecentlyViewed() {
 
   async function getRecentlyView() {
     const models = await DataStore.query(RecentlyView)
-    setRecentlyView(models)
+    const uniqueModels = [...new Map(models.map(item =>
+      [item['issueId'], item])).values()];
+    ;
+    setRecentlyView(uniqueModels);
     setIsLoading(false)
-    return models
+    return uniqueModels
   }
 
   React.useEffect(() => {
