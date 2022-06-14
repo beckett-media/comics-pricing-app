@@ -60,7 +60,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
       <div className='w-full flex flex-col'>
         <div className='ml-2 font-medium'>
             <h3 className="mb-1">{truncate(title, 17)}</h3>
-            <h4 className={price_diff> 0 ? 'text-yellow-300' :'text-green-600'} >
+            <h4 className={price_diff> 0 ? 'text-green-600' :'text-red-400'} >
             {price_diff> 0 ? '+' :''}${price_diff.toFixed(2)} ({price_diff> 0 ? '+' :''}{price_diff_percent}%)
             </h4>
         </div>

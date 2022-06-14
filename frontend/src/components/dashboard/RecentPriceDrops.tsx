@@ -28,8 +28,8 @@ export default function RecentPriceDrops() {
                 {title} #{issue}
               </div>
               <Link key={id} to={`/details/${id}`}>
-                <div className="flex flex-row text-emerald-500">
-                  <div className="fill-emerald-500 p-1.5">
+                <div className="flex flex-row text-red-400">
+                  <div className="fill-red-400 p-1.5">
                     <DownTriangle />
                   </div>
                   <p className="pr-3">${Number?.parseFloat(price)?.toFixed(2)}</p>
