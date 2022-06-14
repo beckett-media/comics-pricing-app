@@ -13,7 +13,6 @@ export default function RecentlyViewed() {
     const uniqueModels = [...new Map(models.map(item =>
       [item['issueId'], item])).values()];
     ;
-    console.log('recently viweewe', uniqueModels);
     setRecentlyView(uniqueModels);
     setIsLoading(false)
     return uniqueModels
