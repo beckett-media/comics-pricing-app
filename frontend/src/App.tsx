@@ -20,6 +20,8 @@ import NewPassword from "pages/NewPassword"
 import ResetPassword from "pages/ResetPassword"
 import Landing from "pages/Landing/Landing"
 import WatchListMain from "pages/WatchListMain"
+import RecentlyViewedMain from "pages/RecentlyViewedMain"
+
 
 import { useAuth } from "providers/auth"
 
@@ -77,6 +79,7 @@ export default function App() {
             <Route path={"search"} element={<Search />} />            
             <Route path={"details/:issueId"} element={<IssueDetails />} />
             <Route path={"watchlist"} element={<WatchListMain />} />
+            <Route path={"recent"} element={<RecentlyViewedMain />} />
           </Route>
           {/* // TODO: Redirect it already authed */}
           <Route

@@ -24,7 +24,7 @@ export default function RecentlyViewed() {
   }, [isLoading])
   return (
     <div className="overflow-hidden rounded">
-      <Gallery title="Recently Viewed" fullScreen={false}>
+      <Gallery title="Recently Viewed" fullScreen={false} link='/recent'>
         {recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue, issueId}) => (
           
           <Link to={`/details/${issueId}`} >
