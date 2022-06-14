@@ -7,7 +7,9 @@ import useSalesHistory from "hooks/data/useSalesHistory"
 import SalesTicker from "./SalesTicker"
 import {  AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import {Link} from "react-router-dom"
+
 import {truncate} from "../../utils/utils"
+
 
 type IssueTrendProps = {
   data: any
@@ -61,6 +63,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
         <div className='ml-2 font-medium'>
             <h3 className="mb-1">{truncate(title, 17)}</h3>
             <h4 className={price_diff> 0 ? 'text-green-600' :'text-red-400'} >
+            <div className={price_diff < 0 ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-up'}></div>
             {price_diff> 0 ? '+' :''}${price_diff.toFixed(2)} ({price_diff> 0 ? '+' :''}{price_diff_percent}%)
             </h4>
         </div>
