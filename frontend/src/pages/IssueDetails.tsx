@@ -79,7 +79,8 @@ function MainDetails({ issue }: { issue: IssueFull }) {
             <AmplifyS3Image
               key={issue?.id}
               handleOnError={imgError}
-              className="object-contain w-full"
+              //className="object-contain w-full"
+              imgProps={ {'style': {'objectFit':'contain', 'width':'95%', 'top':'0'} }}  
               imgKey={`issues/${issue_img.replace('/', '-')}`}
             />          
         </div>
