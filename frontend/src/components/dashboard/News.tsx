@@ -22,9 +22,9 @@ export default function News() {
           className="h-full w-full overflow-hidden rounded object-cover"
           alt={title}
         />
-        <span className="absolute z-0 m-2 bg-headline p-2 text-lg text-white">
-          <p>Headline Comic Article</p>
-          {title}
+        {/* <span className="absolute z-0 m-0 bg-headline p-4 font-large text-white"> */}
+        <span className="react-news">
+        {title}
         </span>
       </a>
     </div>
@@ -38,7 +38,7 @@ function useNews() {
     params: { q: "comics", lang: "en", media: "True" },
     headers: {
       "X-RapidAPI-Host": "newscatcher.p.rapidapi.com",
-      "X-RapidAPI-Key": "8a599490f2msh4847247ae5bac50p156765jsndd01faa397d7",
+      "X-RapidAPI-Key": "9cb228928cmshe7f478c68d6fea6p1066bbjsn9688eb278974",
     },
   }
 
