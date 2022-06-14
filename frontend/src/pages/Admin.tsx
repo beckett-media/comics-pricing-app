@@ -62,7 +62,7 @@ export default function Admin() {
   // return <div className={"my-0 mx-auto w-fit"}>{table}</div>
 
   return (
-    <div className={"my-0 mx-auto w-full"}>
+    <div className={"my-0 mx-auto w-full bg-container-outer p-7"}>
       <UserList />
     </div>
   )

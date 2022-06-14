@@ -70,8 +70,7 @@ const Confirmation = () => {
                 </Heading>
                 <HStack spacing="10" justify="center">
                   <Text color="white" px={10}>
-                    Thanks for signing up! Check your inbox for your login link and temporary
-                    password.
+                    Thanks for signing up! We will send you a sign-in link once your request has been approved.
                   </Text>
                 </HStack>
               </Stack>
