@@ -3,7 +3,6 @@ import React from "react"
 import Issue from "components/common/Issue"
 import type { IssueMinimal } from "types/api"
 import { Auth, Analytics } from "aws-amplify"
-
 import { ResponsiveLine } from '@nivo/line';
 type SalesTickerProps = {
   data: any
@@ -12,6 +11,8 @@ type SalesTickerProps = {
 export default function SalesTicker({ data }: SalesTickerProps) {
 
   return (
+  
+
     <ResponsiveLine
       data={data}
       // margin={{
