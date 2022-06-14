@@ -31,9 +31,9 @@ export default function Title({ id, name, publisher, itemId }: TitleProps) {
     </Link>
   </div>
 
-  <p className="text-center text-xs">
+  <p className="text-center text-s">
     {name}
-    {publisher && <p className="text-xs">{publisher}</p>}
+    {publisher && <p className="text-s">{publisher}</p>}
   </p>
   </div>
   )
