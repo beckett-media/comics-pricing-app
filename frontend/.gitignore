@@ -3,7 +3,7 @@ build/
 node_modules/
 yarn-error.log
 
-/amplify
+amplify/
 /amplify
 
 #amplify-do-not-edit-begin
