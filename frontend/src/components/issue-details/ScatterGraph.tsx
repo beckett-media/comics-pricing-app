@@ -12,7 +12,7 @@ export default function ScatterGraph({ id }: { id: string }) {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/'${id}'/prices`
+  const path = `/api/issue/${id}/prices`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)

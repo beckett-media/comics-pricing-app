@@ -62,14 +62,12 @@ app.get("/api/issue/recent-price-drops", async (_req, res) => {
   res.json(await getRecentPriceDrops())
 })
 
-
 app.get("/api/issue/sales-history", async (_req, res) => {
   res.json(await getIssueSalesHistory())
 })
 
 app.get("/api/issue/:id", async (_req, res) => {
-  const { id } = _req.params
-  res.json(await getDetails(id))
+  res.json(await getDetails(_req.params.id))
 })
 
 app.get("/api/issue/:id/prices", async (_req, res) => {

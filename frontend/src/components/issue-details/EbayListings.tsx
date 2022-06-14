@@ -16,7 +16,7 @@ import useSWR, { useSWRConfig } from "swr";
 
 export default function EbayListings({ id }: { id: string }) {
     const dateRegex = /(\d{4})-(\d{2})-(\d{2})T.*/;
-    const { data, error } = useSWR<any>(`/issue/'${id}'/prices/listing`);
+    const { data, error } = useSWR<any>(`/issue/${id}/prices/listing`);
 
     if (!data) {
         return 'loading';

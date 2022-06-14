@@ -1,17 +1,7 @@
-const { Pool, Client } = require("pg");
+const { sql } = require('../connection');
 
-const sql = new Pool({
-  user: "postgres",
-  host: "prod-beckett-comic-db.cgq6lc7ttzjk.us-west-1.rds.amazonaws.com",
-  database: "comics",
-  password: "comicsDB",
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-});
-
-
-const getPopularTitles = async () => {
-  return await sql.query(`
+const getPopularTitles = () => {
+  return sql.query(`
     SELECT
       titles.id,
       titles.name,

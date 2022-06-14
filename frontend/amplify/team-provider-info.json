@@ -14,8 +14,7 @@
     },
     "categories": {
       "auth": {
-        "comicsfrontendffefd2ca": {},
-        "true": {}
+        "comicsfrontendffefd2ca": {}
       },
       "function": {
         "S3Trigger9ddabae6": {
@@ -24,7 +23,7 @@
         },
         "apiFunction": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
-          "s3Key": "amplify-builds/apiFunction-716b6151614e74336c72-build.zip"
+          "s3Key": "amplify-builds/apiFunction-7746316e532f776b4176-build.zip"
         },
         "AdminQueries933d2e83": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",

@@ -11,7 +11,7 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/'${issueId}'/related/titles`
+  const path = `/api/issue/${issueId}/related/titles`
   const myInit = {
     // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)

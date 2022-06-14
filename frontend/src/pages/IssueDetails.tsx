@@ -24,7 +24,7 @@ export default function IssueDetails() {
   const [error, setError] = React.useState<any>()
 
   const apiName = "comicsapi"
-  const path = `/api/issue/'${issueId}'`
+  const path = `/api/issue/${issueId}`
 
  const addToHistory = async (issue: IssueFull) => {
    await DataStore.save(
@@ -47,7 +47,7 @@ export default function IssueDetails() {
         setData(response)
         if (!issue) {
           addToHistory(response)
-          alert("Added to recently viewed")
+          // alert("Added to recently viewed")
         }
       })
       .catch((error) => {
@@ -99,7 +99,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
       <div className="flex flex-col min-w-0 gap-5 grow">
         <div className="flex flex-row justify-between">
           <div className="text-xl font-bold">{issue?.title}</div>
-          <div className="text-right w-12">
+          <div className="w-12 text-right">
             <ManageWatchList data={watchListData} />
           </div>
         </div>
@@ -109,8 +109,8 @@ function MainDetails({ issue }: { issue: IssueFull }) {
         <Details issue={issue} />
         <Graphs id={issue?.cpg_id} />
       </div>
-      <span className="w-full heading mr-5 text-xl font-semibold">Pricing Details</span>
-      <div className="grid grid-cols-2 w-full gap-5 grow">
+      <span className="w-full mr-5 text-xl font-semibold heading">Pricing Details</span>
+      <div className="grid w-full grid-cols-2 gap-5 grow">
         <Graphs id={issue?.id} />
       </div>
       
@@ -131,7 +131,7 @@ function Details({ issue }: { issue: IssueFull }) {
       {issue?.comment && (
         <div className="w-full px-5 py-4 text-sm rounded bg-container-inner">
           <div className="mb-5">
-            <div className="font-semibold text-md text-center">Issue Details</div>
+            <div className="font-semibold text-center text-md">Issue Details</div>
           </div>
           <div>{issue?.comment}</div>
         </div>

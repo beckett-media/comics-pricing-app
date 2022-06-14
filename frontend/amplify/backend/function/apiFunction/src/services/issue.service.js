@@ -1,11 +1,4 @@
-const { Pool, Client } = require("pg")
-
-const sql = new Pool({
-  user: "postgres",
-  host: "prod-beckett-comic-db.cgq6lc7ttzjk.us-west-1.rds.amazonaws.com",
-  database: "comics",
-  password: "comicsDB",
-})
+const { sql } = require('../connection');
 
 const getDetails = async (id) => {
   const issues = await sql.query(`
@@ -28,9 +21,9 @@ const getDetails = async (id) => {
     JOIN titles ON issues.title_id = titles.id
     JOIN publishers ON publishers.id = titles.publisher_id
     --JOIN prices ON prices.issue_id = issues.id
-  WHERE issues.id = ${id}
+  WHERE issues.id = $1
   LIMIT 1
-  `)
+  `, [id])
 
   return issues.rows[0]
 }
@@ -47,10 +40,10 @@ const getDetails = async (id) => {
 //       JOIN titles ON titles.id = related.title_id
 //       JOIN publishers ON publishers.id = titles.publisher_id
 //     WHERE
-//       related.id != ${id} AND
-//       issues.id = ${id}
+//       related.id != $1 AND
+//       issues.id = $1
 //     LIMIT 5
-//   `)
+//   `, [id])
 // }
 
 const getRelatedIssues = async (id) => {
@@ -66,10 +59,10 @@ const getRelatedIssues = async (id) => {
     JOIN titles ON titles.id = related.title_id
     JOIN publishers ON publishers.id = titles.publisher_id
   WHERE
-    related.id != ${id} AND
-    issues.id = ${id}
+    related.id != $1 AND
+    issues.id = $1
   LIMIT 5
-  `)
+  `, [id])
 }
 
 const getRelatedTitles = async (id) => {
@@ -83,9 +76,9 @@ const getRelatedTitles = async (id) => {
     FROM issues
       JOIN titles ON titles.id = issues.title_id
       JOIN publishers ON publishers.id = titles.publisher_id
-    WHERE issues.id = ${id}
+    WHERE issues.id = $1
     LIMIT 1
-  `)
+  `, [id])
   )[0]
 
   return sql.query(`
@@ -124,35 +117,30 @@ const getRelatedTitles = async (id) => {
 //   } catch (err) {
 //     console.log(err)
 //     return []
-//   } finally {
-//     sql.end()
 //   }
 // }
 
 
 const getPopularIssues = async () => {
-  const res = await sql.query(
-    `
-    SELECT
-    issues.id,
-    issues.name AS issue,
-    titles.name AS title,
-    publishers.name AS publisher,
-    issues.cpg_id as img_id
-  FROM popular_issues
-  JOIN issues ON issues.id = popular_issues.issue_id
-  JOIN titles ON titles.id = issues.title_id
-  JOIN publishers ON publishers.id = titles.publisher_id
-  ORDER BY popular_issues.sales_count DESC
-  `
-  )
   try {
+    const res = await sql.query(
+      `SELECT
+        issues.id,
+        issues.name AS issue,
+        titles.name AS title,
+        publishers.name AS publisher,
+        issues.cpg_id as img_id
+      FROM popular_issues
+      JOIN issues ON issues.id = popular_issues.issue_id
+      JOIN titles ON titles.id = issues.title_id
+      JOIN publishers ON publishers.id = titles.publisher_id
+      ORDER BY popular_issues.sales_count DESC
+      `
+    )
     return res.rows
   } catch (err) {
     console.log(err)
     return []
-  } finally {
-    sql.end()
   }
 }
 
@@ -181,9 +169,9 @@ const getIssuePrices = async (id) => {
       date
     FROM sales s
     join issues i on i.cpg_id = s.cpg_id 
-    WHERE i.id = ${id}
+    WHERE i.cpg_id = $1
     ORDER BY date DESC
-  `)
+  `, [id])
 }
 
 const getTrendingIssues = async () => {
@@ -200,8 +188,8 @@ const getTrendingIssues = async () => {
   `)
 }
 
-const getRecentPriceDrops = async () => {
-  return await sql.query(`
+const getRecentPriceDrops = () => {
+  return sql.query(`
     SELECT
       issues.id,
       issues.name issue,
@@ -214,8 +202,8 @@ const getRecentPriceDrops = async () => {
   `)
 }
 
-const getNewComics = async () => {
-  return await sql.query(`
+const getNewComics = () => {
+  return sql.query(`
   SELECT 
     issues.id,
     issues.name issue, 
@@ -229,8 +217,8 @@ const getNewComics = async () => {
   `)
 }
 
-const getIssueSalesHistory = async () => {
-  return await sql.query(`
+const getIssueSalesHistory = () => {
+  return sql.query(`
   SELECT
       issues.name issue,
       titles.name title,
@@ -241,7 +229,6 @@ const getIssueSalesHistory = async () => {
   `)
 }
 
-
 const getIssuePriceAnalytics = async (data) => {
   return sql.query(`
   SELECT
@@ -251,9 +238,9 @@ const getIssuePriceAnalytics = async (data) => {
     FROM sales s
     join issues i on i.cpg_id=s.cpg_id 
   where 
-    i.id =  ${data.id}
-    and date > CURRENT_DATE - INTERVAL '${data.num_months} months'
-  `)
+    i.id = $1
+    and date > CURRENT_DATE - INTERVAL '$2 months'
+  `, [data.id, data.num_months])
 }
 
 module.exports = {
