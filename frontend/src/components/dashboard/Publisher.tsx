@@ -27,7 +27,7 @@ export default function Publisher({ id, name, itemId }: PublisherProps) {
         {/* <AmplifyS3Image imgKey={"publishers/001efa98-55ff-4dec-abd7-87c513f0d2f6"} /> */}
         </Link>
       </div>
-      <p className="text-center text-xs">
+      <p className="text-center text-s">
         {name}
       </p>
     </div>

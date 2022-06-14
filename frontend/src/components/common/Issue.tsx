@@ -69,9 +69,9 @@ export default function Issue({ id, issue, title, publisher, img_id, itemId}: Is
             src={getIssueImage(id)}
           /> } */}
         </div>
-        <div className="pt-3 text-xs font-semibold text-center">{title}</div>
-        <div className="text-xxs">Issue #{issue}</div>
-        <div className="text-xxs">{publisher}</div>
+        <div className="pt-3 text-s font-semibold text-center">{title}</div>
+        <div className="text-xs">Issue #{issue}</div>
+        <div className="text-xs">{publisher}</div>
       </div>
     </Link>
   )
