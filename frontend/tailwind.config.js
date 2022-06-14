@@ -32,6 +32,7 @@ module.exports = {
         "container-outer": "#212022",
         "container-inner": "#45434E",
         "list-line": "#454156",
+        "refinement-count": "#B0ABBF",
         headline: "#161032",
         "landing-purple-dark": "#191237",
         "landing-purple-start": "#353170",
