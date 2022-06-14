@@ -7,6 +7,8 @@ import useSalesHistory from "hooks/data/useSalesHistory"
 import SalesTicker from "./SalesTicker"
 import {  AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import {Link} from "react-router-dom"
+import {truncate} from "../../utils/utils"
+
 type IssueTrendProps = {
   data: any
 }
@@ -41,7 +43,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
     }
   ]
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
 
   
@@ -57,12 +59,12 @@ export default function IssueTrend({ data }: IssueTrendProps) {
       </div>
       <div className='w-full flex flex-col'>
         <div className='ml-2 font-medium'>
-            <h3>{title}</h3>
+            <h3 className="mb-1">{truncate(title, 17)}</h3>
             <h4 className={price_diff> 0 ? 'text-yellow-300' :'text-green-600'} >
             {price_diff> 0 ? '+' :''}${price_diff.toFixed(2)} ({price_diff> 0 ? '+' :''}{price_diff_percent}%)
             </h4>
         </div>
-        <div className='w-32 ml-2 h-full'>
+        <div className='w-24 ml-2 h-full'>
           <SalesTicker data={price_data}/>    
         </div>
       </div>

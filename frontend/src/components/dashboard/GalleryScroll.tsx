@@ -12,14 +12,13 @@ type GalleryScrollProps = {
 }
 
 function GalleryScroll({ title, children, link, fullScreen }: GalleryScrollProps) {
-
   return (
      
     <div className="flex w-full flex-col rounded bg-container-outer p-7 text-common-text">
       
       {fullScreen && (<div className="flex justify-between items-center">
         <span className="heading mr-5 text-xl font-semibold">{title}</span>
-        <Link to={link} className="button button-secondary">View All ›</Link>
+        { link!='' ?  <Link to={link} className="button button-secondary">View All ›</Link> : <span></span> }
       </div>)}
       
       {!fullScreen && (<div className="flex justify-center items-center">

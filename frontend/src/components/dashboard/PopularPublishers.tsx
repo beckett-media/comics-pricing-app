@@ -14,7 +14,7 @@ export default function PopularPublishers() {
   }
 
   return (
-    <GalleryScroll title="Browse by Publisher" link="/">
+    <GalleryScroll title="Browse by Publisher" link="/search">
       {publishers.map(({ id, name }) => (
         <Publisher key={id} id={id} itemId={id} name={name} />
       ))}

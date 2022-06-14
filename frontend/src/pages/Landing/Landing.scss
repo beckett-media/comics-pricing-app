@@ -49,7 +49,7 @@ img {
 }
 
 
-.container {
+.landing-container {
   &-large{max-width: 73.125rem; width:100%}
   &-medium{max-width: 66.875rem; width:100%}
   &-small{max-width: 54.375rem; width:100%}
@@ -97,7 +97,7 @@ img {
 //COMPONENTS
 
 
-.nav {
+.landing-nav {
   &_component {
     width: 100%;
     padding: 4rem;

@@ -11,6 +11,7 @@ import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
 import PriceTable from "components/issue-details/PriceTable"
+import EbayListings from "components/issue-details/EbayListings"
 
 
 export default function IssueDetails() {
@@ -46,7 +47,7 @@ export default function IssueDetails() {
   }
 
   return (
-    <div className="flex flex-col w-full px-24 py-10 space-y-10">
+    <div className="flex flex-col w-full py-10 space-y-10">
       <MainDetails issue={issue} />
       <RelatedIssues issueId={issue?.id} />
     </div>
@@ -58,10 +59,11 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     Boolean(m)
   )
   function imgError(evt: any) {
-    evt.target.src='/Pow.svg';
+    evt.target.src='/no-image.svg';
   }
   
   const issue_comment = issue.comment || '';
+  const issue_img = issue.cpg_id || '';
   
   const watchListData = {
     'imageId': issue?.cpg_id,
@@ -71,13 +73,14 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     'issue': issue?.issue,
   }
   return (
-    <div className="grid w-full gap-5 px-12 py-10 rounded bg-container-outer text-common-text">
-      <div className="grid w-full grid-cols-2 gap-5 grow">
-        <div>
+    <div className="grid w-full gap-5 px-24 py-10 rounded bg-container-outer text-common-text">
+      <div className="grid w-full grid-cols-2 gap-2 grow">
+        <div className="">
             <AmplifyS3Image
+              key={issue?.id}
               handleOnError={imgError}
               className="object-contain w-full"
-              imgKey={`issues/${issue?.cpg_id.replace('/', '-')}`}
+              imgKey={`issues/${issue_img.replace('/', '-')}`}
             />          
         </div>
         <div className="flex flex-col min-w-0 gap-5 grow">
@@ -95,11 +98,13 @@ function MainDetails({ issue }: { issue: IssueFull }) {
           <div className="w-full rounded bg-container-inner">
             <div className="w-full mt-2 font-semibold text-center text-md">Price Analysis</div>
             <PriceTable id={issue?.id} /> 
-            
-          </div> 
+          </div>
+          <div className="w-full rounded bg-container-inner">
+            <div className="w-full mt-2 font-semibold text-center text-md">Top eBay Listings</div>
+              <EbayListings id={issue?.id} /> 
+          </div>
         </div>
       </div>
-      
       <span className="w-full mr-5 text-xl font-semibold heading">Pricing Details</span>
       <div className="grid w-full grid-cols-2 gap-5 grow">
         <Graphs id={issue?.id} />

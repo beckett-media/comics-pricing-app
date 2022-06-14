@@ -2,6 +2,7 @@ import useSWR from "swr"
 import React from "react"
 import { Link } from "react-router-dom"
 
+import GalleryScroll from "components/dashboard/GalleryScroll"
 import Gallery from "components/dashboard/Gallery"
 import Issue from "components/common/Issue"
 import type { IssueMinimal } from "types/api"
@@ -32,13 +33,11 @@ const RelatedIssues: React.FC<{ issueId: string }> = ({ issueId }) => {
   }, [issueId])
 
   return (
-    <Gallery title="Related Issues">
+    <GalleryScroll title="Related Issues" link=''>
       {relatedIssues?.map(({ id, issue, title, publisher, img_id }) => (
-        <Link key={id} to={`/details/%27${id}%27`}>
           <Issue id={id} itemId={id} issue={issue} title={title} publisher={publisher} img_id={img_id}/>
-        </Link>
       ))}
-    </Gallery>
+    </GalleryScroll>
   )
 }
 

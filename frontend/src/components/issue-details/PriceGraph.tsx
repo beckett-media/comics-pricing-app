@@ -23,7 +23,6 @@ export default function PriceGraph({ id }: { id: string }) {
     setLoading(true);
     API.get(apiName, path, myInit)
       .then((response) => {
-        // Add your code here
         setPrices(response.data.rows);
         setLoading(false);
       })
@@ -145,7 +144,7 @@ function bucket(prices: Price[]) {
       high?.push(p)
     } else if (grade > 4) {
       med?.push(p)
-    } else if (grade >= 0) {
+    } else if (grade > 0) {
       low?.push(p)
     }
   }
