@@ -4,8 +4,6 @@ import { SWRConfig } from "swr"
 
 import { API } from "aws-amplify"
 
-
-
 import Home from "pages/Home"
 import Search from "pages/Search"
 import IssueDetails from "pages/IssueDetails"
@@ -87,14 +85,7 @@ export default function App() {
               </OnlyNonAuth>
             }
           />
-          <Route
-            path={"/signup"}
-            element={
-              <OnlyNonAuth>
-                <SignUp />
-              </OnlyNonAuth>
-            }
-          />
+          <Route path={"/signup"} element={<SignUp />} />
           <Route path={"/landing"} element={<Landing />} />
           <Route path={"/confirmation"} element={<Confirmation />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />

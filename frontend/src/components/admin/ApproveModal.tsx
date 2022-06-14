@@ -11,7 +11,7 @@ import React from "react"
 
 interface Props {
   isOpen: boolean
-  user: { name: string; email: string; status: any }
+  user: { username: string; email: string; status: any }
   onClose: () => unknown
   onApprove: () => unknown
 }
@@ -46,7 +46,7 @@ function ApproveModal({ isOpen, onClose, onApprove, user }: Props) {
           <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>APPROVE ACCESS</ModalHeader>
             <ModalBody textAlign={"center"}>
-              Would you like to approve system access for <b>{user?.name}</b>?
+              Would you like to approve system access for <b>{user?.username}</b>?
             </ModalBody>
 
             <ModalFooter>
@@ -59,7 +59,7 @@ function ApproveModal({ isOpen, onClose, onApprove, user }: Props) {
           <ModalContent background={"#212022"} top="50px">
             <ModalHeader textAlign={"center"}>CONFIRMED</ModalHeader>
             <ModalBody textAlign={"center"}>
-              <b>{user?.name}</b> has been approved! They will appear here once they have set up their
+              <b>{user?.username}</b> has been approved! They will appear here once they have set up their
               account.
             </ModalBody>
 

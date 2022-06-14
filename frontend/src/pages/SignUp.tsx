@@ -17,15 +17,27 @@ import {
   Image,
 } from "@chakra-ui/react"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
+import { DataStore } from "@aws-amplify/datastore"
+import { WaitingListComics, ComicWaitingListStatus } from "../models"
 
 import { useNavigate } from "react-router-dom"
 
-
 const SignUp = ({ ...props }) => {
   const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const [username, setUsername] = React.useState("")
 
   let navigate = useNavigate()
+
+  const onSubmit = async () => {
+    await DataStore.save(
+      new WaitingListComics({
+        email,
+        username,
+        status: ComicWaitingListStatus.PENDING,
+      })
+    )
+    navigate("/confirmation")
+  }
 
   return (
     <Box
@@ -111,8 +123,8 @@ const SignUp = ({ ...props }) => {
                     type="email"
                     bg="#42404D"
                     h={12}
-                    value={props.value}
-                    onChange={props.onChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </FormControl>
                 <FormControl>
@@ -121,12 +133,12 @@ const SignUp = ({ ...props }) => {
                   </FormLabel>
                   <Input
                     borderColor={"transparent"}
-                    id="name"
-                    type="name"
+                    id="username"
+                    type="text"
                     bg="#42404D"
                     h={12}
-                    value={props.value}
-                    onChange={props.onChange}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </FormControl>
               </Stack>
@@ -140,9 +152,7 @@ const SignUp = ({ ...props }) => {
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
                   my={5}
-                  onClick={() => {
-                    navigate("/confirmation")
-                  }}
+                  onClick={() => onSubmit()}
                 >
                   Continue
                 </Button>

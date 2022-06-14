@@ -4,7 +4,6 @@ import React from "react"
 import { DataStore } from "@aws-amplify/datastore"
 import { RecentlyView } from "../../models"
 
-
 export default function RecentlyViewed() {
   const [recentlyView, setRecentlyView] = React.useState<RecentlyView[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
@@ -18,15 +17,11 @@ export default function RecentlyViewed() {
 
   React.useEffect(() => {
     getRecentlyView().then(setRecentlyView)
-    const subscription = DataStore.observe(RecentlyView).subscribe(() => {
-      getRecentlyView().then(setRecentlyView)
-    })
-    return () => subscription.unsubscribe()
   }, [isLoading])
   return (
     <div className="overflow-hidden rounded">
       <Gallery title="Recently Viewed" fullScreen={false}>
-        {recentlyView.map(({ id, imageId, publisher, name, issue }) => (
+        {recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue }) => (
           <Issue
             key={id}
             id={id}

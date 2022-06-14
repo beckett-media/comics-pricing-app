@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
@@ -86,6 +85,60 @@ export const onUpdateWatchList = /* GraphQL */ `
 export const onDeleteWatchList = /* GraphQL */ `
   subscription OnDeleteWatchList($owner: String) {
     onDeleteWatchList(owner: $owner) {
+      id
+      imageId
+      issueId
+      publisher
+      name
+      issue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const onCreateRecentlyView = /* GraphQL */ `
+  subscription OnCreateRecentlyView($owner: String) {
+    onCreateRecentlyView(owner: $owner) {
+      id
+      imageId
+      issueId
+      publisher
+      name
+      issue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const onUpdateRecentlyView = /* GraphQL */ `
+  subscription OnUpdateRecentlyView($owner: String) {
+    onUpdateRecentlyView(owner: $owner) {
+      id
+      imageId
+      issueId
+      publisher
+      name
+      issue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const onDeleteRecentlyView = /* GraphQL */ `
+  subscription OnDeleteRecentlyView($owner: String) {
+    onDeleteRecentlyView(owner: $owner) {
       id
       imageId
       issueId

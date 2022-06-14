@@ -12,6 +12,9 @@ import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
 import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
 import { ModelInit } from "@aws-amplify/datastore"
+import Issue from '../components/common/Issue';
+
+
 
 export default function IssueDetails() {
   const { issueId } = useParams<{ issueId: string }>()
@@ -23,22 +26,29 @@ export default function IssueDetails() {
   const apiName = "comicsapi"
   const path = `/api/issue/'${issueId}'`
 
+ const addToHistory = async (issue: IssueFull) => {
+   await DataStore.save(
+      new RecentlyView({
+        imageId: issue?.cpg_id,
+        publisher: issue?.publisher,
+        name: issue?.title,
+        issue: issue?.issue,
+        issueId: issue?.id,
+      })
+    )
+  }
+
+
   React.useEffect(() => {
     const myInit = {}
     API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
         setData(response)
-
-        DataStore.save(
-          new RecentlyView({
-            imageId: "test",
-            issueId: "test",
-            publisher: "test",
-            name: "test",
-            issue: "test",
-          })
-        )
+        if (!issue) {
+          addToHistory(response)
+          alert("Added to recently viewed")
+        }
       })
       .catch((error) => {
         console.log(error.response)

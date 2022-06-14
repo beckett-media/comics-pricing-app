@@ -12,8 +12,8 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 import { DataStore } from "@aws-amplify/datastore"
-import { WaitingListComics, RecentlyView } from "../../models"
-import { APPROVED_ACCOUNTS, User, WAITLIST_REQUESTS } from "./data"
+import { WaitingListComics, ComicWaitingListStatus } from "../../models"
+import { User } from "./data"
 import ApproveModal from "./ApproveModal"
 import RemoveModal from "./RemoveModal"
 import { Auth, API } from "aws-amplify"
@@ -22,8 +22,8 @@ import { v4 as uuidv4 } from "uuid"
 export default function UserList() {
   const { isOpen: isApproveOpen, onOpen: openApprove, onClose: closeApprove } = useDisclosure()
   const { isOpen: isRemoveOpen, onOpen: openRemove, onClose: closeRemove } = useDisclosure()
-  const [userA, setUserA] = React.useState<User | WaitingListComics[] | any>()
-  const [userR, setUserR] = React.useState<User | WaitingListComics>()
+  const [userA, setUserA] = React.useState<User | any>()
+  const [userR, setUserR] = React.useState<User | any>()
 
   const [waitList, setWaitList] = React.useState<WaitingListComics[] | any>([])
   const [userPool, setUserPool] = React.useState<any>()
@@ -43,23 +43,14 @@ export default function UserList() {
 
   const approveUser = async () => {
     const { username, email } = userA
-    // approve user
-    // await DataStore.save(
-    //   new WaitingListComics({
-    //     username: "christian",
-    //     email: "chri@gmail.com",
-    //     status: ComicWaitingListStatus.PENDING,
-    //   })
-    // )
-    createUser(username, email)
-
-    console.log("APPROVE USER", username, email)
-    createUser(username, email)
+    await createUser(username, email)
     return true
   }
 
-  const onRemoveAccountHandler = (user: User) => {
+  const onRemoveAccountHandler = async (user: any) => {
     setUserR(user)
+    console.log(user.Username)
+    DisableUser(user.Username)
     openRemove()
   }
 
@@ -85,6 +76,25 @@ export default function UserList() {
     })
   }
 
+  // get list of users pool from AdminAPIQuery
+  async function DisableUser(email: string) {
+    let apiName = "AdminQueries"
+    let path = "/disableUser"
+    let myInit = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`,
+      },
+      body: {
+        username: email,
+      },
+    }
+    await API.get(apiName, path, myInit).then((response) => {
+      console.log(response)
+      setLoading(false)
+    })
+  }
+
   const getData = async () => {
     await DataStore.query(WaitingListComics)
       .then((response) => {
@@ -96,7 +106,7 @@ export default function UserList() {
   }
 
   // create a new user in cognito
-  async function createUser(username: string, password: string) {
+  async function createUser(username: string, email: string) {
     let apiName = "AdminQueries"
     let path = "/createUser"
     let myInit = {
@@ -106,7 +116,8 @@ export default function UserList() {
       },
       body: {
         password: `Temp@${tempPassword}!`,
-        username: "chris@gmail.com",
+        username: email,
+        name: username,
       },
     }
     await API.post(apiName, path, myInit).then((response) => {
@@ -150,10 +161,10 @@ export default function UserList() {
               </Tr>
             </Thead>
             <Tbody>
-              {WAITLIST_REQUESTS.map((user: { email: any; username: any }) => (
-                <Tr key={user.email}>
-                  <Td>{user.username}</Td>
-                  <Td>{user.email}</Td>
+              {waitList.map((user: { email: any; username: any }) => (
+                <Tr key={user?.email}>
+                  <Td>{user?.username}</Td>
+                  <Td>{user?.email}</Td>
                   <Td isNumeric color={"#66C9FF"}>
                     <button onClick={() => onApproveAccessHandler(user)}>Approve access</button>
                   </Td>
@@ -198,11 +209,14 @@ export default function UserList() {
                   const { Username, Attributes, UserCreateDate, index } = user
                   return (
                     <Tr key={index}>
-                      <Td>{Username}</Td>
-                      <Td>{Attributes.find((a: { Name: string }) => a.Name === "email").Value}</Td>
+                      {user.Attributes.length <= 2 && <Td>{Username}</Td>}
+                      {user.Attributes.length >= 3 && <Td>{Attributes[1].Value}</Td>}
+                      <Td>
+                        {Attributes?.find((a: { Name: string }) => a?.Name === "email").Value}
+                      </Td>
                       <Td isNumeric color={"#66C9FF"}>
                         <button
-                        // onClick={() => onRemoveAccountHandler(user)}
+                        onClick={() => onRemoveAccountHandler(user)}
                         >
                           Remove account
                         </button>

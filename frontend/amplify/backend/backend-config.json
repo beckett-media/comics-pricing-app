@@ -25,22 +25,6 @@
           "EMAIL"
         ]
       }
-    },
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "comicsfrontendffefd2ca",
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ]
-        }
-      ]
     }
   },
   "function": {
@@ -54,7 +38,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "AdminQueriese42f3901": {
+    "AdminQueries933d2e83": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true,
@@ -115,7 +99,7 @@
         },
         {
           "category": "function",
-          "resourceName": "AdminQueriese42f3901",
+          "resourceName": "AdminQueries933d2e83",
           "attributes": [
             "Arn",
             "Name"
@@ -123,7 +107,7 @@
         }
       ]
     },
-    "watchlistApi": {
+    "comicsfrontend": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
@@ -138,22 +122,17 @@
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authcomicsfrontendffefd2ca"
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
             }
           },
           "additionalAuthenticationProviders": [
             {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 365,
-                "apiKeyExpirationDate": "2023-06-13T21:01:03.847Z",
-                "description": "api key IAM and cognito"
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authcomicsfrontendffefd2ca"
               }
-            },
-            {
-              "authenticationType": "AWS_IAM"
             }
           ]
         }

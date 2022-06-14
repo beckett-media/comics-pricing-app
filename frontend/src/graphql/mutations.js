@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
@@ -104,6 +103,69 @@ export const deleteWatchList = /* GraphQL */ `
     $condition: ModelWatchListConditionInput
   ) {
     deleteWatchList(input: $input, condition: $condition) {
+      id
+      imageId
+      issueId
+      publisher
+      name
+      issue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const createRecentlyView = /* GraphQL */ `
+  mutation CreateRecentlyView(
+    $input: CreateRecentlyViewInput!
+    $condition: ModelRecentlyViewConditionInput
+  ) {
+    createRecentlyView(input: $input, condition: $condition) {
+      id
+      imageId
+      issueId
+      publisher
+      name
+      issue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const updateRecentlyView = /* GraphQL */ `
+  mutation UpdateRecentlyView(
+    $input: UpdateRecentlyViewInput!
+    $condition: ModelRecentlyViewConditionInput
+  ) {
+    updateRecentlyView(input: $input, condition: $condition) {
+      id
+      imageId
+      issueId
+      publisher
+      name
+      issue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+export const deleteRecentlyView = /* GraphQL */ `
+  mutation DeleteRecentlyView(
+    $input: DeleteRecentlyViewInput!
+    $condition: ModelRecentlyViewConditionInput
+  ) {
+    deleteRecentlyView(input: $input, condition: $condition) {
       id
       imageId
       issueId
