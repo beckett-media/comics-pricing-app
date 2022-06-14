@@ -6,6 +6,8 @@ import PriceGraph from "components/issue-details/PriceGraph"
 import ScatterGraph from "components/issue-details/ScatterGraph"
 import { monthText } from "utils/dates"
 import type { IssueFull } from "types/api"
+import PriceTable from "components/issue-details/PriceTable"
+import EbayListings from "components/issue-details/EbayListings"
 import { API, Storage, Analytics, Auth, DataStore } from "aws-amplify"
 import { WaitingListComics, RecentlyView, RecentlyViewMetaData } from "../models"
 import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy"
@@ -77,37 +79,56 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     Boolean(m)
   )
   function imgError(evt: any) {
-    evt.target.src = "/Pow.svg"
+    evt.target.src = "/no-image.svg"
   }
 
-  const issue_comment = issue.comment || ""
+  const issue_comment = issue.comment || '';
+  const issue_img = issue.cpg_id || '';
+
 
   const watchListData = {
     imageId: issue?.cpg_id,
+    issueId: issue?.id,
     publisher: issue?.publisher,
     name: issue?.title,
     issue: issue?.issue,
   }
 
   return (
-    <div className="grid w-full grid-cols-2 gap-10 px-12 py-10 rounded bg-container-outer text-common-text">
-      <AmplifyS3Image
-        handleOnError={imgError}
-        className="object-contain w-full"
-        imgKey={`issues/${issue.cpg_id}`}
-      />
-      <div className="flex flex-col min-w-0 gap-5 grow">
-        <div className="flex flex-row justify-between">
-          <div className="text-xl font-bold">{issue?.title}</div>
-          <div className="w-12 text-right">
-            <ManageWatchList data={watchListData} />
+    <div className="grid w-full gap-5 px-24 py-10 rounded bg-container-outer text-common-text">
+      <div className="grid grid-cols-2 gap-2 w-full grow">
+        <div className="">
+            <AmplifyS3Image
+              key={issue?.id}
+              handleOnError={imgError}
+              //className="object-contain w-full"
+              imgProps={ {'style': {'objectFit':'contain', 'width':'95%', 'top':'0'} }}  
+              imgKey={`issues/${issue_img.replace('/', '-')}`}
+            />          
+        </div>
+        <div className="flex flex-col min-w-0 gap-5 grow">
+          <div className="flex flex-row justify-between">
+            <div className="text-xl font-bold">
+              {issue?.title}
+            </div>
+            <div className='text-right w-12'>
+              <ManageWatchList data = {watchListData}/>
+            </div>
+          </div>
+          <div className="text-sm">{metadata?.join(" | ")}</div>
+          <IssueChips issue_comment={issue_comment} age={issue.age} />
+          <Details issue={issue} />    
+          <div className="w-full rounded bg-container-inner">
+            <div className="w-full text-center mt-2 text-md font-semibold">Price Analysis</div>
+            <PriceTable id={issue?.id} /> 
+          </div>
+          <div className="w-full rounded bg-container-inner">
+            <div className="w-full text-center mt-2 text-md font-semibold">Top eBay Listings</div>
+              <EbayListings id={issue?.id} /> 
+              
+              
           </div>
         </div>
-
-        <div className="text-sm">{metadata?.join(" | ")}</div>
-        <IssueChips issue_comment={issue_comment} age={issue.age} />
-        <Details issue={issue} />
-        <Graphs id={issue?.cpg_id} />
       </div>
       <span className="w-full mr-5 text-xl font-semibold heading">Pricing Details</span>
       <div className="grid w-full grid-cols-2 gap-5 grow">
