@@ -15,7 +15,7 @@ export default function NewComics() {
           <div className="pt-1">
             <Sparkle />
           </div>
-          New Comics
+          Recent Sales
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line">
           {issueClean.slice(0,5).map(({ id, issue, title, price }) => (
