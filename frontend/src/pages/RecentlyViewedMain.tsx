@@ -1,4 +1,3 @@
-import { WatchList } from "../models"
 import { DataStore } from "@aws-amplify/datastore"
 import { useEffect, useState, useContext } from "react"
 import { Link } from "react-router-dom"
@@ -7,7 +6,6 @@ import RecentlyViewedBig from "components/recently-viewed/RecentlyViewedBig"
 import { useToast } from '@chakra-ui/react'
 import { RecentlyView } from "../models"
 
-  
 export default function RecentlyViewedMain() {
   const toast = useToast()
 
@@ -44,27 +42,6 @@ export default function RecentlyViewedMain() {
                 />
         ))}
       </div>
-    
-
-
-  
-  //   <div className="flex flex-wrap space-x-2 items-center">
-  //     <div className="mt-10 flex w-full">
-  //       <div className="flex w-full gap-10">
-          
-  //         <div className="flex w-full flex-col rounded bg-container-outer p-7 text-common-text">
-  //           <p className="text-xl">3 Results</p>
-  //           <div>
-                
-              
-  //               {/* <div className='w-full text-xl text-center'>No mathing results found.</div> */}
-                
-  //             </div> 
-
-  //           </div>
-  //       </div>
-  //    </div>
-  // </div>    
   
   )
 }
