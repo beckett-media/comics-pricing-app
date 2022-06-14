@@ -81,27 +81,6 @@ export default function WatchListMain() {
                 />
         ))}
       </div>
-    
-
-
-  
-  //   <div className="flex flex-wrap space-x-2 items-center">
-  //     <div className="mt-10 flex w-full">
-  //       <div className="flex w-full gap-10">
-          
-  //         <div className="flex w-full flex-col rounded bg-container-outer p-7 text-common-text">
-  //           <p className="text-xl">3 Results</p>
-  //           <div>
-                
-              
-  //               {/* <div className='w-full text-xl text-center'>No mathing results found.</div> */}
-                
-  //             </div> 
-
-  //           </div>
-  //       </div>
-  //    </div>
-  // </div>    
   
   )
 }
