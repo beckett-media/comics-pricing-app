@@ -4,16 +4,16 @@ import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
 
 type Issue = {
-    id: string
-    title_name: string
-    issue_num: string
-    publisher_name: string
-    cpg_id: string
-    volume: string
-    year: string
-    cover_price:string
-    issue_comment:string
-    age:string
+    id: string | null | undefined
+    title_name: string | null | undefined
+    issue_num: string | null | undefined
+    publisher_name: string | null | undefined
+    cpg_id: string | null | undefined
+    volume: string | null | undefined
+    year: string | null | undefined
+    cover_price:string | null | undefined
+    issue_comment:string | null | undefined
+    age:string | null | undefined
   }
 export default function Result({ id, 
   title_name, 
@@ -22,8 +22,8 @@ export default function Result({ id,
   cpg_id, 
   volume, 
   year,
-   cover_price,
-    issue_comment ,
+  cover_price,
+  issue_comment ,
   age}: Issue) {
 
     const watchListData = {
@@ -52,9 +52,9 @@ export default function Result({ id,
           <div className="ml-2 flex flex-col mr-auto">
             <p className="text-lg font-semibold">{`${title_name} - #${issue_num}`}</p>
             <p className="">{publisher_name} | {volume} ({year}) | Issue # {issue_num}  </p>
-            <IssueChips issue_comment={issue_comment} age={age} />
-            <p className={cover_price == '' ? 'hidden' : 'mt-20'} >Cover Price: ${parseFloat(cover_price).toFixed(2)}</p>
-            <p className={cover_price == '' ? 'hidden' : ''} >Current Price: ${parseFloat(cover_price).toFixed(2)}</p>
+            {issue_comment && age  ? <IssueChips issue_comment={issue_comment} age={age} /> : ''}
+            {cover_price  ? <p className={cover_price == '' ? 'hidden' : 'mt-20'} >Cover Price: ${parseFloat(cover_price).toFixed(2)}</p> : ''}
+            {cover_price  ? <p className={cover_price == '' ? 'hidden' : 'mt-20'} >Current Price: ${parseFloat(cover_price).toFixed(2)}</p> : ''}
           </div>   
           <div className="flex flex-col justify-between">
               <div className="ml-auto text-right">

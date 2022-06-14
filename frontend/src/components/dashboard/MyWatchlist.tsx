@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Gallery from "./Gallery"
 import Issue from "./Issue"
 import * as React from "react"
@@ -27,11 +28,15 @@ export default function MyWatchlist() {
   return (
     <div className="w-full overflow-hidden rounded">
 
-      <Gallery title="My Watchlist" link={"/"} fullScreen={false}>
-        {watchlist.map(({ id, imageId, publisher, name, issue }) => (
+      <Gallery title="My Watchlist" link={"/watchlist"} fullScreen={false}>
+        {watchlist.map(({ id, issueId, imageId, publisher, name, issue }) => (
+          <Link to={`/details/${issueId}`} >
           <Issue key={id} id={id} issue={issue} title={name} publisher={publisher} imageId={imageId}/>
+          </Link>
         ))}
+        {watchlist.length == 0 ? <div className='w-full text-xl text-center'>You have no watchlisted items.</div>: ''}
       </Gallery>
+      
     </div>
   )
 }
