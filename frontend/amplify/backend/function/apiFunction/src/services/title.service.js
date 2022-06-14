@@ -1,7 +1,7 @@
-const { query } = require('../connection');
+const { sql } = require('../connection');
 
-const getPopularTitles = async () => {
-  return await query(`
+const getPopularTitles = () => {
+  return sql.query(`
     SELECT
       titles.id,
       titles.name,

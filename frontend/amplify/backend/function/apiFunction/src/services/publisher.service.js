@@ -1,8 +1,8 @@
-const { query } = require('../connection');
+const { sql } = require('../connection');
 
 //  make a materialized view for this
 const getPopularPublishers = async () => {
-  return await query(`
+  return sql.query(`
   SELECT
     publishers.id,
     publishers.name

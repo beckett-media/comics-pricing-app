@@ -47,7 +47,7 @@ export default function IssueDetails() {
         setData(response)
         if (!issue) {
           addToHistory(response)
-          alert("Added to recently viewed")
+          // alert("Added to recently viewed")
         }
       })
       .catch((error) => {
