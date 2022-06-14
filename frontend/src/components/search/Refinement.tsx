@@ -24,7 +24,7 @@ export function Refinement({ attribute, title }: RefinementProps) {
           classNames={{
             label: "flex gap-2 items-center",
             labelText: "",
-            count: "text-slate-500",
+            count: "text-refinement-count",
           }}
         />
       </div>
@@ -43,7 +43,7 @@ export function RefinementEra( { attribute, title }: RefinementProps ) {
         classNames={{
           label: "flex gap-2 items-center",
           labelText: "",
-          count: "text-slate-500",
+          count: "text-refinement-count",
         }}
       />
       </div>
