@@ -12,7 +12,7 @@ type IssueProps = {
 export default function Issue({ id, issue, title, publisher, imageId }: IssueProps) {
   
   function imgError(evt: any) {
-    evt.target.src='/no-image.svg';
+    evt.target.src='/empty-image-state.svg';
   }
   
   return (
