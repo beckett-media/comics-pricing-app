@@ -26,6 +26,7 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+      "given_name",
       "name",
       "preferred_username",
       "email"
@@ -36,7 +37,7 @@
       "preferred_username"
     ],
     "userpoolClientLambdaRole": "comicsffefd2ca_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": true,
+    "userpoolClientSetAttributes": false,
     "sharedId": "ffefd2ca",
     "resourceName": "comicsfrontendffefd2ca",
     "authSelections": "identityPoolAndUserPool",
@@ -44,9 +45,7 @@
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroupList": [
-      "admins"
-    ],
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
@@ -65,8 +64,8 @@
     "breakCircularDependency": true,
     "dependsOn": [],
     "thirdPartyAuth": false,
-    "userPoolGroups": true,
-    "adminQueries": true,
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": {},
     "hostedUI": false,
     "verificationBucketName": "comicsfrontendffefd2caverificationbucket",
@@ -75,6 +74,6 @@
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "adminQueryGroup": "admin"
+    "adminQueryGroup": "users"
   }
 }

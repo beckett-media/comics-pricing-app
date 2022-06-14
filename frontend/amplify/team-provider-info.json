@@ -15,7 +15,7 @@
     "categories": {
       "auth": {
         "comicsfrontendffefd2ca": {},
-        "userPoolGroups": {}
+        "true": {}
       },
       "function": {
         "S3Trigger9ddabae6": {
@@ -24,11 +24,11 @@
         },
         "apiFunction": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
-          "s3Key": "amplify-builds/apiFunction-534c304a782b77455157-build.zip"
+          "s3Key": "amplify-builds/apiFunction-716b6151614e74336c72-build.zip"
         },
-        "AdminQueriese42f3901": {
+        "AdminQueries933d2e83": {
           "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
-          "s3Key": "amplify-builds/AdminQueriese42f3901-52307048516c62366a64-build.zip"
+          "s3Key": "amplify-builds/AdminQueries933d2e83-6949457356356475454d-build.zip"
         }
       }
     }

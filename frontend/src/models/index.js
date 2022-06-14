@@ -8,10 +8,11 @@ const ComicWaitingListStatus = {
   "REJECTED": "REJECTED"
 };
 
-const { WatchList, ComicWaitingList } = initSchema(schema);
+const { WaitingListComics, WatchList, RecentlyView } = initSchema(schema);
 
 export {
+  WaitingListComics,
   WatchList,
-  ComicWaitingList,
+  RecentlyView,
   ComicWaitingListStatus
 };
