@@ -28,3 +28,8 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+.eslintignore
+amplify/
+package-lock.json
+src/
+yarn.lock
