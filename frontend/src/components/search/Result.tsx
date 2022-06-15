@@ -73,7 +73,7 @@ export default function Result({ id,
             <p className="">{publisher_name} | {volume} ({year}) | Issue # {issue_num}  </p>
             {issue_comment && age  ? <IssueChips issue_comment={issue_comment} age={age} /> : ''}
             {cover_price  ? <p className={cover_price == '' ? 'hidden' : 'mt-20'} >Cover Price: ${parseFloat(cover_price).toFixed(2)}</p> : ''}
-            {cover_price  ? <p className={cover_price == '' ? 'hidden' : 'mt-20'} >Current Price: ${parseFloat(cover_price).toFixed(2)}</p> : ''}
+            {cover_price  ? <p className={cover_price == '' ? 'hidden' : ''} >Current Price: ${parseFloat(cover_price).toFixed(2)}</p> : ''}
           </div>   
           <div className="flex flex-col justify-between">
               <div className="ml-auto text-right">
