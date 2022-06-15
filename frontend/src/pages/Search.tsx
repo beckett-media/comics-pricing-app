@@ -96,16 +96,16 @@ function Page() {
                 ))}
                 </ol>
                 {results?.nbHits != 0 ? 
-                <Button
+                <button
                   className={cx(
-                    'ais-InfiniteHits-loadMore w-full',
-                    isLastPage && 'ais-InfiniteHits-loadMore--disabled'
+                    'ais-InfiniteHits-loadMore w-full button button-primary fold-bold',
+                    isLastPage && 'ais-InfiniteHits-loadMore--disabled button-disabled'
                   )}
                   onClick={showMore}
                   disabled={isLastPage}
                 >
                   Show more results
-                </Button>
+                </button>
 : <div className='w-full text-xl text-center'>No mathing results found.</div>
 } 
               </div>
