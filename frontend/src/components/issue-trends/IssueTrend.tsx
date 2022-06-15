@@ -51,7 +51,7 @@ export default function IssueTrend({ data }: IssueTrendProps) {
   
   return (
     <Link key={detail_id} to={`/details/${detail_id}`}>
-    <div className='w-full flex flex-row bg-container-outer p-3 rounded'>
+    <div className='w-full flex flex-row bg-container-outer p-3 rounded max-h-29'>
       <div className='h-24'>
         <AmplifyS3Image 
           handleOnError={imgError}
