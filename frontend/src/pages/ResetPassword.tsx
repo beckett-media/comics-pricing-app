@@ -15,12 +15,25 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react"
+import React from "react"
 
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 import { useNavigate } from "react-router-dom"
+import { Auth } from "aws-amplify"
 
 const ResetPassword = ({ ...props }) => {
   let navigate = useNavigate()
+
+  const [email, setEmail] = React.useState("")
+
+  const onSubmit = async () => {
+    // Send confirmation code to user's email
+    Auth.forgotPassword(email)
+      .then((data) => {
+        navigate("/newPassword", { state: { email: email } })
+      })
+      .catch((err) => console.log(err))
+  }
 
   return (
     <Box
@@ -95,8 +108,8 @@ const ResetPassword = ({ ...props }) => {
                     type="email"
                     bg="#42404D"
                     h={12}
-                    value={props.value}
-                    onChange={props.onChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </FormControl>
               </Stack>
@@ -110,7 +123,7 @@ const ResetPassword = ({ ...props }) => {
                   color={"black"}
                   fontWeight={"bold"}
                   _focus={{ boxShadow: "none" }}
-                  onClick={() => (window.location.href = "/newPassword")}
+                  onClick={() => onSubmit()}
                 >
                   Send Code
                 </Button>

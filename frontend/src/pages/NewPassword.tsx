@@ -10,15 +10,42 @@ import {
   useBreakpointValue,
   useColorModeValue,
   Image,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom"
-
+import { useNavigate, useLocation } from "react-router-dom"
+import React from "react"
 import { PasswordField } from "components/NewPassword/PasswordField"
-
+import { Auth } from "aws-amplify"
 import Background_Pattern_1280_w from "../assets/Background_Pattern_1280_w.svg"
 
+type NewEmailProps = {
+  email: string
+}
+
 const NewPassword = ({ ...props }) => {
-  let navigate = useNavigate()
+  const { state } = useLocation()
+  const navigate = useNavigate()
+
+  const { email } = state as NewEmailProps
+
+  const [new_password, setPassword] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("")
+  const [code, setCode] = React.useState("")
+
+  const [show, setShow] = React.useState(false)
+  const handleClick = () => setShow(!show)
+
+  const onSubmit = async () => {
+    // Collect confirmation code and new password, then
+    Auth.forgotPasswordSubmit(email, code, new_password)
+      .then((data) => {
+        console.log(data)
+        navigate("/login")
+      })
+      .catch((err) => console.log(err))
+  }
+
   return (
     <Box
       w={"100%"}
@@ -91,12 +118,12 @@ const NewPassword = ({ ...props }) => {
                   </FormLabel>
                   <Input
                     borderColor={"transparent"}
-                    id="email"
-                    type="email"
+                    id="code"
+                    type="text"
                     bg="#42404D"
                     h={12}
-                    value={props.value}
-                    onChange={props.onChange}
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
                   />
                 </FormControl>
               </Stack>
@@ -104,13 +131,58 @@ const NewPassword = ({ ...props }) => {
 
             <Stack spacing="6" mt={5}>
               <Stack spacing="5">
-                <PasswordField value={props.value} onChange={props.onChange} />
+                <FormLabel htmlFor="email" color="white">
+                  New Password
+                </FormLabel>
+                <InputGroup size="md">
+                  <Input
+                    borderColor={"transparent"}
+                    id="newpassword"
+                    type={show ? "text" : "password"}
+                    placeholder="New password"
+                    bg="#42404D"
+                    autoComplete="current-password"
+                    required
+                    security="high"
+                    h={12}
+                    value={new_password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Box h="1.75rem" fontSize={12} onClick={handleClick}>
+                      {show ? "Hide" : "Show"}
+                    </Box>
+                  </InputRightElement>
+                </InputGroup>
+              </Stack>
+              <Stack spacing="5">
+                <FormLabel htmlFor="email" color="white">
+                  Confirm Password
+                </FormLabel>
+                <InputGroup size="md">
+                  <Input
+                    borderColor={"transparent"}
+                    id="confirmpassword"
+                    type={show ? "text" : "password"}
+                    placeholder="confirm password"
+                    bg="#42404D"
+                    autoComplete="current-password"
+                    required
+                    security="high"
+                    h={12}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Box h="1.75rem" fontSize={12} onClick={handleClick}>
+                      {show ? "Hide" : "Show"}
+                    </Box>
+                  </InputRightElement>
+                </InputGroup>
               </Stack>
               <Box display={"flex"} justifyContent={"center"}>
                 <Button
-                  onClick={() => {
-                    navigate("/login")
-                  }}
+                  onClick={() => onSubmit()}
                   my={5}
                   borderRadius={100}
                   w={200}
