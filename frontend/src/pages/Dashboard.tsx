@@ -19,7 +19,7 @@ export default function Dashboard() {
       <div className="w-full">
         <TrendsContainer />
       </div>
-      <div className="flex flex-row space-x-5 h-80">
+      <div className="flex flex-row space-x-5 h-84">
         <News />
         <div className="flex flex-col w-5/12 space-y-2">
           <RecentlyViewed />

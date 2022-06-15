@@ -50,6 +50,9 @@ module.exports = {
         "4xl": ["2rem", "140%"],
         "5xl": ["2.5rem", "140%"],
       },
+      height: {
+        "84": "23.125rem" 
+      },
       gridTemplateColumns: {
         navbar: "1fr 40% 1fr",
       },

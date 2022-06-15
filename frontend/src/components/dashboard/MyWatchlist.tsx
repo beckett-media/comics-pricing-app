@@ -28,12 +28,17 @@ export default function MyWatchlist() {
   return (
     <div className="w-full overflow-hidden rounded">
       <Gallery title="My Watchlist" link={"/watchlist"} fullScreen={false}>
-        {watchlist.map(({ id, issueId, imageId, publisher, name, issue }) => (
+        {watchlist.length === 0 && (
+          <div className="flex justify-center">
+            <div className="flex justify-center items-center text-center w-6/12 px-2">You have not saved any comics yet. Go explore!</div>
+            <div className="flex justify-center items-center w-6/12 px-2"><Link to="/search" className="button button-secondary">View hot comics</Link></div>
+          </div>
+        )}
+        {watchlist && watchlist.map(({ id, issueId, imageId, publisher, name, issue }) => (
           <Link to={`/details/${issueId}`} >
           <Issue key={id} id={id} issue={issue} title={name} publisher={publisher} imageId={imageId}/>
           </Link>
         ))}
-        {watchlist.length == 0 ? <div className='w-full text-xl text-center'>You have no watchlisted items.</div>: ''}
       </Gallery>
       
     </div>

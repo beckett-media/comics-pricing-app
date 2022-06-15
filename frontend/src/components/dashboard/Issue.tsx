@@ -16,7 +16,7 @@ export default function Issue({ id, issue, title, publisher, imageId }: IssuePro
   }
   
   return (
-    <div className="flex flex-col items-center w-50 space-y-3 align-center">
+    <div className="flex flex-col items-center w-50 align-center">
       
       <div className="w-20 h-20">
         <AmplifyS3Image 
