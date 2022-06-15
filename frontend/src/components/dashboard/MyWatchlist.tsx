@@ -26,7 +26,7 @@ export default function MyWatchlist() {
   }, [isLoading])
 
   return (
-    <div className="w-full overflow-hidden rounded">
+    <div className="w-full h-3/6 overflow-hidden rounded">
       <Gallery title="My Watchlist" link={"/watchlist"} fullScreen={false}>
         {watchlist.length === 0 && (
           <div className="flex justify-center">
