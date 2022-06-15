@@ -33,7 +33,7 @@ export default function RecentlyViewed() {
         )}
         {recentlyView && recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue, issueId}) => (
           
-          <Link to={`/details/${issueId}`} className="bg-green-300 justify-center items-center">
+          <Link to={`/details/${issueId}`} className="justify-center items-center">
             <Issue
             key={id}
             id={id}
