@@ -32,14 +32,13 @@ export function Refinement({ attribute, title }: RefinementProps) {
 }
 
 export function RefinementEra( { attribute, title }: RefinementProps ) {
-  console.log("RefinementEra");
     return (
       <div className="flex flex-col">
       <p className="text-lg">{title}</p>
       <RefinementList
         attribute={attribute}
         limit={REFINEMENT_LIST_LIMIT}
-        sortBy={(a,b) => sortEra(a.name, b.name)}
+        sortBy={(a,b) => sortEra(b.name, a.name)}
         classNames={{
           label: "flex gap-2 items-center",
           labelText: "",

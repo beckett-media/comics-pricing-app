@@ -27,7 +27,6 @@ export default function MyWatchlist() {
 
   return (
     <div className="w-full overflow-hidden rounded">
-
       <Gallery title="My Watchlist" link={"/watchlist"} fullScreen={false}>
         {watchlist.map(({ id, issueId, imageId, publisher, name, issue }) => (
           <Link to={`/details/${issueId}`} >
