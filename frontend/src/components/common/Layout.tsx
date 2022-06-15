@@ -10,7 +10,7 @@ export default function Layout() {
   const [text, setText] = useState("")
 
   return (
-    <div className="bg-gradient-to-b from-grad-top to-grad-bot font-body relative flex flex-col items-center overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-grad-top to-grad-bot font-body relative flex flex-col items-center overflow-hidden">
       <div className="bg-container absolute z-0 align-center">
         <img src={bg} alt="background graphic" className="absolute z-0 align-center object-cover"/>
       </div>
@@ -24,7 +24,7 @@ export default function Layout() {
           </div>
         </div>
       </NavBarContext.Provider>
-      <div className="relative z-10 w-full">
+      <div className="absolute bottom-0 z-10 w-full">
         <Footer />
       </div>
       <div className="bg-container absolute bottom-0 z-0 align-center">
