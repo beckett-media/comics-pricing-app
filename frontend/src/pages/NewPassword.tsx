@@ -27,7 +27,7 @@ const NewPassword = ({ ...props }) => {
   const { state } = useLocation()
   const navigate = useNavigate()
 
-  const { email } = state as NewEmailProps
+  const { email } = (state || {} ) as NewEmailProps
 
   const [new_password, setPassword] = React.useState("")
   const [confirmPassword, setConfirmPassword] = React.useState("")
@@ -44,6 +44,10 @@ const NewPassword = ({ ...props }) => {
         navigate("/login")
       })
       .catch((err) => console.log(err))
+  }
+
+  if (!email) {
+    navigate("/reset-password");
   }
 
   return (
@@ -113,7 +117,7 @@ const NewPassword = ({ ...props }) => {
             <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl>
-                  <FormLabel htmlFor="email" color="white">
+                  <FormLabel htmlFor="code" color="white">
                     Code
                   </FormLabel>
                   <Input
