@@ -6,6 +6,8 @@ import { NavBarContext } from "components/common/NavBar"
 import WatchListResultBig from "components/watchlist/WatchListResultBig"
 import { useToast } from '@chakra-ui/react'
 
+import {ReactComponent as Image} from '../assets/empty.svg'
+
 
 type Issue = {
   id: string
@@ -67,8 +69,22 @@ export default function WatchListMain() {
   
       <div className="flex flex-wrap -m-1 md:-m-2 py-8">
         
-        {watchlist.length==0 ? <div className='h-64 w-full text-xl text-center rounded bg-container-outer md:py-2 px align-middle'>You have no items in your watchlist.</div> : ''}
-       {watchlist.map(({id, issueId, imageId, publisher, name, issue}) => (
+        {watchlist.length==0 ? <div className='flex flex-col items-center w-full text-xl text-center rounded bg-container-outer pt-12 pb-36 px align-middle'>
+          <div className="flex items-center">
+            <div className="mr-4 fa-regular fa-bookmark"></div>
+            <div className="text-l font-medium">My Watchlist</div>
+          </div>
+          <div className="w-full flex justify-center mt-14">
+            <Image></Image>
+          </div>
+          <div className="w-full flex justify-center mt-10">
+            <div className="text-base font-medium w-80">Currently you have no comics saved to the watchlist.</div>
+          </div>
+          <div className="w-full flex justify-center mt-10">
+            <Link to="/search" className="button button-primary text-base font-medium">View popular comics</Link>
+          </div>
+        </div> : ''}
+        {watchlist.map(({id, issueId, imageId, publisher, name, issue}) => (
             
             <WatchListResultBig 
               key={id} 
