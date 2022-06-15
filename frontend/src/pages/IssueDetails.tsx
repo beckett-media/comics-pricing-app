@@ -1,3 +1,4 @@
+import { useEffect, useState} from "react"
 import { useParams } from "react-router-dom"
 import useSWR from "swr"
 import * as React from "react"
@@ -15,6 +16,7 @@ import IssueChips from "components/common/IssueChips"
 import ManageWatchList from "components/watchlist/ManageWatchList"
 import { ModelInit } from "@aws-amplify/datastore"
 import Issue from '../components/common/Issue';
+import { WatchList } from "../models"
 
 
 
@@ -40,7 +42,7 @@ export default function IssueDetails() {
     )
   }
 
-
+  
   React.useEffect(() => {
     const myInit = {}
     API.get(apiName, path, myInit)
@@ -94,6 +96,19 @@ function MainDetails({ issue }: { issue: IssueFull }) {
     issue: issue?.issue,
   }
 
+
+  const [watchlist, setWatchlist] = useState<WatchList[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  async function getWatchlist() {
+    const models = await DataStore.query(WatchList)
+    setWatchlist(models);
+    return models
+  }
+
+  useEffect(() => {
+    getWatchlist().then(setWatchlist)
+  }, [isLoading])
+
   return (
     <div className="grid w-full gap-5 px-24 py-10 rounded bg-container-outer text-common-text">
       <div className="grid grid-cols-2 gap-2 w-full grow">
@@ -112,7 +127,7 @@ function MainDetails({ issue }: { issue: IssueFull }) {
               {issue?.title}
             </div>
             <div className='text-right w-12'>
-              <ManageWatchList data = {watchListData}/>
+              <ManageWatchList data = {watchListData} currentWatchList={watchlist}/>
             </div>
           </div>
           <div className="text-sm">{metadata?.join(" | ")}</div>
