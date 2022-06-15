@@ -33,14 +33,14 @@ export default function PriceTable({ id}: { id: string }) {
           <Thead>
             <Tr>
               <Th></Th>
-              <Th className='text-gray-400'>Last 1 month</Th>
-              <Th className='text-gray-400'>Last 3 months</Th>
-              <Th className='text-gray-400'>All-time</Th>
+              <Th><span className='text-gray-400'>Last 1 month</span></Th>
+              <Th><span className='text-gray-400'>Last 3 months</span></Th>
+              <Th><span className='text-gray-400'>All-time</span></Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
-              <Td>Low</Td>
+              <Td className='border-b-amber-800'>Low</Td>
               <Td textAlign="center">
                 {prices1.rows && prices1?.rows[0].min !== null ? '$' + prices1?.rows[0].min.toFixed(2) : '-'}
               </Td>
