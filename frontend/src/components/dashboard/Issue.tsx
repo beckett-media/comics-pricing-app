@@ -18,7 +18,7 @@ export default function Issue({ id, issue, title, publisher, imageId }: IssuePro
   return (
     <div className="flex flex-col items-center w-50 align-center">
       
-      <div className="w-fit-content h-20">
+      <div className="w-20 h-20">
         <AmplifyS3Image 
               handleOnError={imgError}
               imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'width':'100%'} }}  

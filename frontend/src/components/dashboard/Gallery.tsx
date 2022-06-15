@@ -18,7 +18,7 @@ function Gallery({ title, children, link, fullScreen }: GalleryProps) {
       {!fullScreen && (<div className="flex justify-center items-center">
       <Link to={link}><span className="heading font-semibold">{title}</span></Link>
       </div>)}
-      <div className="w-full flex mt-3 gap-5 overflow-x-auto p-3 bg-container-inner rounded">
+      <div className="w-full flex mt-3 gap-2 overflow-x-auto p-3 bg-container-inner rounded">
         {children}
       </div>
     </div>
