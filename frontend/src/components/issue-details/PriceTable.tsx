@@ -33,7 +33,7 @@ export default function PriceTable({ id}: { id: string }) {
           <Thead>
             <Tr>
               <Th></Th>
-              <Th>Last 1 month</Th>
+              <Th className='text-gray-400'>Last 1 month</Th>
               <Th>Last 3 months</Th>
               <Th>All-time</Th>
             </Tr>
