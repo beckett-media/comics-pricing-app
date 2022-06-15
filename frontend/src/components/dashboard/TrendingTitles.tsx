@@ -23,7 +23,7 @@ export default function TrendingIssues() {
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line ">
           {titles?.slice(0,5).map(({ id, issue, title }) => (
-            <div className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-50" key={id}>
+            <div className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-600" key={id}>
               <div className="w-7/12 truncate">
                 {title} #{issue}
               </div>

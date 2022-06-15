@@ -19,7 +19,7 @@ export default function NewComics() {
         </div>
         <div className="text-xs text-white divide-y-2 divide-list-line">
           {issueClean.slice(0,5).map(({ id, issue, title, price }) => (
-            <div key={id} className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-50">
+            <div key={id} className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-600">
               <div className="w-7/12 truncate">
                 {title} #{issue}
               </div>
