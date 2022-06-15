@@ -6,7 +6,7 @@ export default function Filters() {
       <div className="flex flex-col bg-container-outer p-7 text-common-text w-96 gap-y-10">
         <Refinement title="Publisher" attribute="publisher_name" />
         <Refinement title="Title" attribute="title_name" />
-        <RefinementEra title="Era" attribute="age" />
+        <Refinement title="Era" attribute="age" />
         <Refinement title="Publication Year" attribute="year" />
       </div>
     )
