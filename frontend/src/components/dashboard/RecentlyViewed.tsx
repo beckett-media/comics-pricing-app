@@ -25,9 +25,15 @@ export default function RecentlyViewed() {
   return (
     <div className="overflow-hidden rounded">
       <Gallery title="Recently Viewed" fullScreen={false} link='/recent'>
-        {recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue, issueId}) => (
+        {recentlyView.length === 0 && (
+          <div className="flex justify-center">
+            <div className="flex justify-center items-center text-center w-6/12 px-2">You have not viewed any comics yet. Go explore!</div>
+            <div className="flex justify-center items-center w-6/12 px-2"><Link to="/search" className="button button-secondary">View hot comics</Link></div>
+          </div>
+        )}
+        {recentlyView && recentlyView.slice(0, 10).map(({ id, imageId, publisher, name, issue, issueId}) => (
           
-          <Link to={`/details/${issueId}`} >
+          <Link to={`/details/${issueId}`} className="bg-green-300 justify-center items-center">
             <Issue
             key={id}
             id={id}
