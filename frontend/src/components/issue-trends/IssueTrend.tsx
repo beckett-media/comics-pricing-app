@@ -59,15 +59,15 @@ export default function IssueTrend({ data }: IssueTrendProps) {
           imgKey={`issues/${img_id?.replace('/', '-')}`} 
         />
       </div>
-      <div className='w-full flex flex-col'>
+      <div className='w-full flex flex-col text-xxs'>
         <div className='ml-2 font-medium'>
             <h3 className="mb-1">{truncate(title, 17)}</h3>
             <h4 className={price_diff> 0 ? 'text-green-600' :'text-red-400'} >
-            <div className={price_diff < 0 ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-up'}></div>
-            {price_diff> 0 ? '+' :''}${price_diff.toFixed(2)} ({price_diff> 0 ? '+' :''}{price_diff_percent}%)
+            <div className={`${price_diff < 0 ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-up'} mr-1`}></div>
+            ${price_diff> 0 ? '+' :''}{price_diff.toFixed(2)} ({price_diff> 0 ? '+' :''}{price_diff_percent}%)
             </h4>
         </div>
-        <div className='w-40 ml-2 h-full'>
+        <div className='w-28 ml-2 h-full'>
           <SalesTicker data={price_data}/>    
         </div>
       </div>

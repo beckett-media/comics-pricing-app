@@ -21,7 +21,7 @@ export default function Dashboard() {
       </div>
       <div className="flex flex-row space-x-5 h-84">
         <News />
-        <div className="flex flex-col w-5/12 space-y-2">
+        <div className="flex flex-col w-5/12 space-y-6">
           <RecentlyViewed />
           <MyWatchlist />
         </div>

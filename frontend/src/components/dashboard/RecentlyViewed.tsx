@@ -23,7 +23,7 @@ export default function RecentlyViewed() {
     getRecentlyView().then(setRecentlyView)
   }, [isLoading])
   return (
-    <div className="overflow-hidden rounded">
+    <div className="overflow-hidden rounded h-3/6">
       <Gallery title="Recently Viewed" fullScreen={false} link='/recent'>
         {recentlyView.length === 0 && (
           <div className="flex justify-center">
