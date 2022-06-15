@@ -21,7 +21,7 @@ export default function NewComics() {
           {issueClean.slice(0,5).map(({ id, issue, title, price }) => (
             <div key={id} className="flex flex-row justify-between p-2 border-t-2 border-solid border-gray-600">
               <div className="w-7/12 truncate">
-                {title} #{issue}
+              <Link to={`/details/${id}`}>{title} #{issue} </Link>
               </div>
               <Link to={`/details/${id}`}>
                 <div className="flex flex-row">
