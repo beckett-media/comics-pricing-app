@@ -28,10 +28,13 @@ export default function TrendsContainer() {
     return <div>loading</div>
   }
 
-  return (
-    <div className="flex flex-row w-full space-x-2 justify-between">
+  console.log(listData?.slice(6));
+  
 
-      {listData?.slice(6).map((objData: any) => (
+  return (
+    <div className="flex flex-row w-full space-x-2 justify-between overflow-x-auto">
+
+      {listData?.slice(5).map((objData: any) => (
         <IssueTrend data={objData[1].slice(-10)}/>
       ))}
      
