@@ -144,7 +144,7 @@ const Login = ({ ...props }) => {
                       navigate("/signup")
                     }}
                   >
-                    join waiting list
+                    Join the waiting list
                   </Button>
                 </HStack>
               </Stack>
