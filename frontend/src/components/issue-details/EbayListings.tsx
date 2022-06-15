@@ -39,10 +39,10 @@ export default function EbayListings({ id }: { id: string }) {
                         {prices.map((price: any) => (
                             <Tr>
                                 <Td key={price.date}>
-                                    <Link href={price.ebayurl}>{price.date.replace(dateRegex, '$2-$3-$1')}</Link> 
+                                    <Link target="_blank" href={price.ebayurl}>{price.date.replace(dateRegex, '$2-$3-$1')}</Link> 
                                 </Td>
                                 <Td key={price.price}>
-                                    <Link href={price.ebayurl}>{'$' + price.price.toFixed(2)}</Link>
+                                    <Link target="_blank" href={price.ebayurl}>{'$' + price.price.toFixed(2)}</Link>
                                 </Td>
                             </Tr>
                     ))}
