@@ -24,6 +24,7 @@ export default function Layout() {
           </div>
         </div>
       </NavBarContext.Provider>
+      <div className="mt-40"></div>
       <div className="absolute bottom-0 z-10 w-full">
         <Footer />
       </div>
