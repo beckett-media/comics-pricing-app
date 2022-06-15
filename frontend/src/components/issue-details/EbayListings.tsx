@@ -31,8 +31,8 @@ export default function EbayListings({ id }: { id: string }) {
                 <Table size='sm'>
                     <Thead>
                         <Tr>
-                            <Th>{"Date"}</Th>
-                            <Th>{"Price"}</Th>
+                            <Th><span className='text-gray-400'>{"Date"}</span></Th>
+                            <Th><span className='text-gray-400'>{"Price"}</span></Th>
                         </Tr>
                     </Thead>
                     <Tbody>
