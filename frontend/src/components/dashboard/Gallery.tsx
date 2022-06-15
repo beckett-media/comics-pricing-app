@@ -16,7 +16,7 @@ function Gallery({ title, children, link, fullScreen }: GalleryProps) {
         <Link to={link} className="button button-secondary">View All ›</Link>
       </div>)}
       {!fullScreen && (<div className="flex justify-center items-center">
-      <Link to={link}><span className="heading font-semibold">{title}</span></Link>
+      <Link to={link}><span className="heading text-base font-semibold">{title}</span></Link>
       </div>)}
       <div className="w-full flex mt-3 gap-2 overflow-x-auto p-3 bg-container-inner rounded">
         {children}
