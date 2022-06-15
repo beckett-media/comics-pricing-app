@@ -65,8 +65,9 @@ export default function WatchListMain() {
   
   return (
   
-      <div className="flex flex-wrap -m-1 md:-m-2 py-8 ">
-     
+      <div className="flex flex-wrap -m-1 md:-m-2 py-8">
+        
+        {watchlist.length==0 ? <div className='h-64 w-full text-xl text-center rounded bg-container-outer md:py-2 px align-middle'>You have no items in your watchlist.</div> : ''}
        {watchlist.map(({id, issueId, imageId, publisher, name, issue}) => (
             
             <WatchListResultBig 
@@ -79,7 +80,7 @@ export default function WatchListMain() {
               issue_num={issue} 
               removeFromWatchlist = {removeFromWatchlist}
                 />
-        ))}
+        ))}  
       </div>
   
   )
