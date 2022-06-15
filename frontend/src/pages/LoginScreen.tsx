@@ -134,8 +134,8 @@ const Login = ({ ...props }) => {
                 >
                   LOGIN
                 </Heading>
-                <HStack spacing="1" justify="center">
-                  <Text color="white">Don't have an account?</Text>
+                <div>
+                  <Text color="white">Don't have an account?</Text> 
                   <Button
                     variant="link"
                     colorScheme="blue"
@@ -146,7 +146,7 @@ const Login = ({ ...props }) => {
                   >
                     Join the waiting list
                   </Button>
-                </HStack>
+                </div>
               </Stack>
             </Stack>
             <Stack spacing="6">
