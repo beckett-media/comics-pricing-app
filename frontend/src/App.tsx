@@ -94,7 +94,7 @@ export default function App() {
           <Route path={"/landing"} element={<Landing />} />
           <Route path={"/confirmation"} element={<Confirmation />} />
           <Route path={"/reset-password"} element={<ResetPassword />} />
-          <Route path={"/newPassword"} element={<NewPassword />} />
+          <Route path={"/new-password"} element={<NewPassword />} />
         </Routes>
 
         <Toaster

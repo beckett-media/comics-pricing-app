@@ -30,7 +30,7 @@ const ResetPassword = ({ ...props }) => {
     // Send confirmation code to user's email
     Auth.forgotPassword(email)
       .then((data) => {
-        navigate("/newPassword", { state: { email: email } })
+        navigate("/new-password", { state: { email: email } })
       })
       .catch((err) => console.log(err))
   }
