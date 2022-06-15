@@ -11,6 +11,7 @@ import {
     Link,
     LinkOverlay,
     LinkBox,
+    DarkMode,
   } from '@chakra-ui/react'
 import useSWR, { useSWRConfig } from "swr";
 
@@ -27,28 +28,30 @@ export default function EbayListings({ id }: { id: string }) {
     const prices = (cleanPrices(data.rows));
     return (
         <div className='mt-6'>
-            <TableContainer>
-                <Table size='sm'>
-                    <Thead>
-                        <Tr>
-                            <Th><span className='text-gray-400'>{"Date"}</span></Th>
-                            <Th><span className='text-gray-400'>{"Price"}</span></Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {prices.map((price: any) => (
+            <DarkMode>
+                <TableContainer>
+                    <Table size='sm'>
+                        <Thead>
                             <Tr>
-                                <Td key={price.date} borderBottomColor='gray.700'>
-                                    <Link target="_blank" href={price.ebayurl}>{price.date.replace(dateRegex, '$2-$3-$1')}</Link> 
-                                </Td>
-                                <Td key={price.price} borderBottomColor='gray.700'>
-                                    <Link target="_blank" href={price.ebayurl}>{'$' + price.price.toFixed(2)}</Link>
-                                </Td>
+                                <Th>{"Date"}</Th>
+                                <Th>{"Price"}</Th>
                             </Tr>
-                    ))}
-                    </Tbody>
-                </Table>
-            </TableContainer>
+                        </Thead>
+                        <Tbody>
+                            {prices.map((price: any) => (
+                                <Tr>
+                                    <Td>
+                                        <Link target="_blank" href={price.ebayurl}>{price.date.replace(dateRegex, '$2-$3-$1')}</Link> 
+                                    </Td>
+                                    <Td>
+                                        <Link target="_blank" href={price.ebayurl}>{'$' + price.price.toFixed(2)}</Link>
+                                    </Td>
+                                </Tr>
+                        ))}
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+            </DarkMode>
         </div>
     )
 }

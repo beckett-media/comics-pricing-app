@@ -9,6 +9,7 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  DarkMode,
 } from '@chakra-ui/react'
 import usePriceAnalytics from "hooks/data/usePriceAnalytics"
 
@@ -28,68 +29,70 @@ export default function PriceTable({ id}: { id: string }) {
   
   return (
     <div className='mt-6 w-full'>
-      <TableContainer>
-        <Table size='sm'>
-          <Thead>
-            <Tr>
-              <Th></Th>
-              <Th><span className='text-gray-400'>Last 1 month</span></Th>
-              <Th><span className='text-gray-400'>Last 3 months</span></Th>
-              <Th><span className='text-gray-400'>All-time</span></Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td borderBottomColor='gray.700'>Low</Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices1.rows && prices1?.rows[0].min !== null ? '$' + prices1?.rows[0].min.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices3.rows && prices3.rows[0].min !== null   ? '$' + prices3?.rows[0].min.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {pricesAll.rows && pricesAll.rows[0].min !== null   ? '$' + pricesAll?.rows[0].min.toFixed(2) : '-'}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td borderBottomColor='gray.700' >High</Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices1.rows && prices1.rows[0].max !== null   ? '$' + prices1?.rows[0].max.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices3.rows && prices3.rows[0].max !== null   ? '$' + prices3?.rows[0].max.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {pricesAll.rows && pricesAll.rows[0].max !== null  ? '$' + pricesAll?.rows[0].max.toFixed(2) : '-'}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td borderBottomColor='gray.700'>Average</Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices1.rows && prices1.rows[0].avg !== null   ? '$' + prices1?.rows[0].avg.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices3.rows && prices3.rows[0].avg !== null   ? '$' + prices3?.rows[0].avg.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {pricesAll.rows && pricesAll.rows[0].avg !== null   ? '$' + pricesAll?.rows[0].avg.toFixed(2) : '-'}
-              </Td>
-            </Tr>
-            <Tr>
-              <Td borderBottomColor='gray.700' >Estimate</Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices1.rows && prices1.rows[0].avg !== null    ? '$' + prices1?.rows[0].avg.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {prices3.rows && prices3.rows[0].avg !== null    ? '$' + prices3?.rows[0].avg.toFixed(2) : '-'}
-              </Td>
-              <Td borderBottomColor='gray.700' textAlign="center">
-                {pricesAll.rows && pricesAll.rows[0].avg !== null   ? '$' + pricesAll?.rows[0].avg.toFixed(2) : '-'}
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
-    </TableContainer>
+      <DarkMode>
+        <TableContainer>
+          <Table size='sm'>
+            <Thead>
+              <Tr>
+                <Th></Th>
+                <Th>Last 1 month</Th>
+                <Th>Last 3 months</Th>
+                <Th>All-time</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>Low</Td>
+                <Td textAlign="center">
+                  {prices1.rows && prices1?.rows[0].min !== null ? '$' + prices1?.rows[0].min.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {prices3.rows && prices3.rows[0].min !== null   ? '$' + prices3?.rows[0].min.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {pricesAll.rows && pricesAll.rows[0].min !== null   ? '$' + pricesAll?.rows[0].min.toFixed(2) : '-'}
+                </Td>
+              </Tr>
+              <Tr>
+                <Td >High</Td>
+                <Td textAlign="center">
+                  {prices1.rows && prices1.rows[0].max !== null   ? '$' + prices1?.rows[0].max.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {prices3.rows && prices3.rows[0].max !== null   ? '$' + prices3?.rows[0].max.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {pricesAll.rows && pricesAll.rows[0].max !== null  ? '$' + pricesAll?.rows[0].max.toFixed(2) : '-'}
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>Average</Td>
+                <Td textAlign="center">
+                  {prices1.rows && prices1.rows[0].avg !== null   ? '$' + prices1?.rows[0].avg.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {prices3.rows && prices3.rows[0].avg !== null   ? '$' + prices3?.rows[0].avg.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {pricesAll.rows && pricesAll.rows[0].avg !== null   ? '$' + pricesAll?.rows[0].avg.toFixed(2) : '-'}
+                </Td>
+              </Tr>
+              <Tr>
+                <Td >Estimate</Td>
+                <Td textAlign="center">
+                  {prices1.rows && prices1.rows[0].avg !== null    ? '$' + prices1?.rows[0].avg.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {prices3.rows && prices3.rows[0].avg !== null    ? '$' + prices3?.rows[0].avg.toFixed(2) : '-'}
+                </Td>
+                <Td textAlign="center">
+                  {pricesAll.rows && pricesAll.rows[0].avg !== null   ? '$' + pricesAll?.rows[0].avg.toFixed(2) : '-'}
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+      </TableContainer>
+    </DarkMode>
 
       </div>
   )

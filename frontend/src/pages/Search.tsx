@@ -16,7 +16,7 @@ import Filters from "components/search/Filters"
 import Results from "components/search/Results"
 import HotComics from "components/search/HotComics"
 import Result from "components/search/Result"
-import { Button } from "@chakra-ui/react"
+import { Button, DarkMode } from "@chakra-ui/react"
 
 
 function cx(
@@ -96,16 +96,18 @@ function Page() {
                 ))}
                 </ol>
                 {results?.nbHits != 0 ? 
-                <button
-                  className={cx(
-                    'ais-InfiniteHits-loadMore w-full button button-primary fold-bold',
-                    isLastPage && 'ais-InfiniteHits-loadMore--disabled button-disabled'
-                  )}
-                  onClick={showMore}
-                  disabled={isLastPage}
-                >
-                  Show more results
-                </button>
+                <DarkMode>
+                  <Button
+                    className={cx(
+                      'ais-InfiniteHits-loadMore w-full',
+                      isLastPage && 'ais-InfiniteHits-loadMore--disabled'
+                    )}
+                    onClick={showMore}
+                    disabled={isLastPage}
+                  >
+                    Show more results
+                  </Button>
+                </DarkMode>
 : <div className='w-full text-xl text-center'>No mathing results found.</div>
 } 
               </div>
@@ -118,6 +120,7 @@ function Page() {
 
 export default function Search() {
   return (
+    
     <InstantSearch searchClient={searchClient} indexName={INDEX_NAME} routing={true}>
       <Configure hitsPerPage={HITS_PER_PAGE} />
       <Page />
