@@ -38,10 +38,10 @@ export default function EbayListings({ id }: { id: string }) {
                     <Tbody>
                         {prices.map((price: any) => (
                             <Tr>
-                                <Td key={price.date}>
+                                <Td key={price.date} borderBottomColor='gray.700'>
                                     <Link target="_blank" href={price.ebayurl}>{price.date.replace(dateRegex, '$2-$3-$1')}</Link> 
                                 </Td>
-                                <Td key={price.price}>
+                                <Td key={price.price} borderBottomColor='gray.700'>
                                     <Link target="_blank" href={price.ebayurl}>{'$' + price.price.toFixed(2)}</Link>
                                 </Td>
                             </Tr>
@@ -52,7 +52,6 @@ export default function EbayListings({ id }: { id: string }) {
         </div>
     )
 }
-
 function cleanPrices(data: any) {
     const SortedPrices = data.sort((a: any, b: any) => b['price'] - a['price']).slice(0, 5);
     const sortedDates = SortedPrices.sort((a: any, b: any) => new Date(a['date']).getTime() - new Date(b['date']).getTime());
