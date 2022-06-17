@@ -1,6 +1,7 @@
 import BrowseByEra from "components/dashboard/BrowseByEra"
 import NewComics from "../components/dashboard/NewComics"
 import News from "components/dashboard/News"
+import NewsStatic from "components/dashboard/NewsStatic"
 import PopularComics from "components/dashboard/PopularComics"
 import PopularPublishers from "components/dashboard/PopularPublishers"
 import PopularSeries from "components/dashboard/PopularSeries"
@@ -20,7 +21,8 @@ export default function Dashboard() {
         <TrendsContainer />
       </div>
       <div className="flex flex-row space-x-5 h-84">
-        <News />
+        {/* <News /> */}
+        <NewsStatic />
         <div className="flex flex-col w-5/12 space-y-6">
           <RecentlyViewed />
           <MyWatchlist />
