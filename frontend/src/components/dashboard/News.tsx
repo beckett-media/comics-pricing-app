@@ -5,14 +5,14 @@ export default function News() {
   const { data: news } = useNews()
 
   if (!news) {
-    return <div>loading</div>
+    return <div>Loading</div>
   }
-
+  console.log('news', news);
   const {
     title,
     link,
     media_content: [media_url],
-  } = news.articles[0]
+  } = news.articles[10]
 
   return (
     <div className="w-7/12">

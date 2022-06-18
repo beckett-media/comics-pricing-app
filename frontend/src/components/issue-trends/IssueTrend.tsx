@@ -52,14 +52,14 @@ export default function IssueTrend({ data }: IssueTrendProps) {
   return (
     <Link key={detail_id} to={`/details/${detail_id}`}>
     <div className='w-full flex flex-row bg-container-outer p-3 rounded max-h-29 overflow-hidden whitespace-nowrap'>
-      <div className='h-24'>
+      <div className='h-32'>
         <AmplifyS3Image 
           handleOnError={imgError}
-          imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'max-width':'80px'} }}  
+          imgProps={ {'style': {'objectFit':'contain', 'height':'100%', 'max-width':'100px'} }}  
           imgKey={`issues/${img_id?.replace('/', '-')}`} 
         />
       </div>
-      <div className='w-full flex flex-col text-xs'>
+      <div className='w-full flex flex-col text-md'>
         <div className='ml-2 font-medium'>
             <h3 className="mb-1">{truncate(title, 17)}</h3>
             <h4 className={price_diff> 0 ? 'text-green-600' :'text-red-400'} >
