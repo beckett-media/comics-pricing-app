@@ -95,3 +95,7 @@ amplify-s3-image.issue {
   padding: 1rem 0;
   margin: 0 auto;
 }
+
+.ml-0-important {
+  margin-left:0 !important;
+}
