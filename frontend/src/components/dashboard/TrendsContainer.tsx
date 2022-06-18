@@ -34,7 +34,7 @@ export default function TrendsContainer() {
   return (
     <div className="flex flex-row w-full space-x-2 justify-between overflow-x-auto">
 
-      {listData?.slice(5).map((objData: any) => (
+      {listData?.slice(0,4).map((objData: any) => (
         <IssueTrend data={objData[1].slice(-10)}/>
       ))}
      

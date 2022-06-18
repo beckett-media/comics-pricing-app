@@ -27,6 +27,7 @@ function GalleryScroll({ title, children, link, fullScreen }: GalleryScrollProps
 
       <div className="w-full flex-row justify-between gap-10 overflow-x-auto pt-5 ">
         <ScrollMenu
+          scrollContainerClassName='ml-0-important'
           LeftArrow={LeftArrow}
           RightArrow={RightArrow}
           onWheel={onWheel}

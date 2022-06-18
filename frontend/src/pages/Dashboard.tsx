@@ -1,6 +1,6 @@
 import BrowseByEra from "components/dashboard/BrowseByEra"
 import NewComics from "../components/dashboard/NewComics"
-import News from "components/dashboard/News"
+// import News from "components/dashboard/News"
 import NewsStatic from "components/dashboard/NewsStatic"
 import PopularComics from "components/dashboard/PopularComics"
 import PopularPublishers from "components/dashboard/PopularPublishers"

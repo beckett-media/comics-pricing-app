@@ -2,7 +2,8 @@ import { WatchList } from "../../models"
 import { DataStore } from "@aws-amplify/datastore"
 import { Button, Text } from "@chakra-ui/react"
 import {useState}  from "react"
-import { ReactComponent as Bookmark } from "assets/bookmark.svg"
+// import { ReactComponent as Bookmark } from "assets/bookmark.svg"
+import { ReactComponent as Bookmark } from "assets/bookmark_star.svg"
 import { useToast, Tooltip } from '@chakra-ui/react'
 
 
