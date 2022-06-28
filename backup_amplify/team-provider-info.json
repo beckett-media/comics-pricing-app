@@ -1,0 +1,68 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-comicsfrontend-staging-130138-authRole",
+      "UnauthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-staging-130138-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-staging-130138-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+      "UnauthRoleName": "amplify-comicsfrontend-staging-130138-unauthRole",
+      "StackName": "amplify-comicsfrontend-staging-130138",
+      "StackId": "arn:aws:cloudformation:us-west-1:548281136650:stack/amplify-comicsfrontend-staging-130138/d64b8ff0-e35e-11ec-b80c-0678a9bc3a37",
+      "AmplifyAppId": "dml2msu0u28tp",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "comicsfrontendffefd2ca": {}
+      },
+      "function": {
+        "S3Trigger9ddabae6": {
+          "deploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+          "s3Key": "amplify-builds/S3Trigger9ddabae6-33644d65677454765758-build.zip"
+        },
+        "apiFunction": {
+          "deploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+          "s3Key": "amplify-builds/apiFunction-63584374536a5859524c-build.zip"
+        },
+        "AdminQueries933d2e83": {
+          "deploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+          "s3Key": "amplify-builds/AdminQueries933d2e83-6949457356356475454d-build.zip"
+        }
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-comicsfrontend-dev-100929-authRole",
+      "UnauthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-dev-100929-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-dev-100929-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+      "UnauthRoleName": "amplify-comicsfrontend-dev-100929-unauthRole",
+      "StackName": "amplify-comicsfrontend-dev-100929",
+      "StackId": "arn:aws:cloudformation:us-west-1:548281136650:stack/amplify-comicsfrontend-dev-100929/9fa71780-e27d-11ec-b777-06ec1b07324b",
+      "AmplifyAppId": "dml2msu0u28tp",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-comicsfrontend-dev-100929-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "comicsfrontendffefd2ca": {}
+      },
+      "function": {
+        "S3Trigger9ddabae6": {
+          "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+          "s3Key": "amplify-builds/S3Trigger9ddabae6-33644d65677454765758-build.zip"
+        },
+        "apiFunction": {
+          "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+          "s3Key": "amplify-builds/apiFunction-7746316e532f776b4176-build.zip"
+        },
+        "AdminQueries933d2e83": {
+          "deploymentBucketName": "amplify-comicsfrontend-dev-100929-deployment",
+          "s3Key": "amplify-builds/AdminQueries933d2e83-6949457356356475454d-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-comicsfrontend-staging-130138-authRole",
+      "UnauthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-staging-130138-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::548281136650:role/amplify-comicsfrontend-staging-130138-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+      "UnauthRoleName": "amplify-comicsfrontend-staging-130138-unauthRole",
+      "StackName": "amplify-comicsfrontend-staging-130138",
+      "StackId": "arn:aws:cloudformation:us-west-1:548281136650:stack/amplify-comicsfrontend-staging-130138/d64b8ff0-e35e-11ec-b80c-0678a9bc3a37",
+      "AmplifyAppId": "dml2msu0u28tp",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    }
+  },
+  "auth": {
+    "comicsfrontendffefd2ca": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "us-west-1_rJA7Ptt0P",
+        "AppClientIDWeb": "6g7fb76crpamtrouetb75ibe1j",
+        "AppClientID": "10tlggdm0qd3mi7ai78u8v37mm",
+        "IdentityPoolId": "us-west-1:56fd89c0-4429-4996-9377-f8c9187d7c39",
+        "UserPoolArn": "arn:aws:cognito-idp:us-west-1:548281136650:userpool/us-west-1_rJA7Ptt0P",
+        "IdentityPoolName": "comicsfrontendffefd2ca_identitypool_ffefd2ca__staging",
+        "UserPoolName": "comicsfrontendffefd2ca_userpool_ffefd2ca"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.317Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/auth/comicsfrontendffefd2ca-cloudformation-template.json",
+        "logicalId": "authcomicsfrontendffefd2ca"
+      }
+    }
+  },
+  "function": {
+    "S3Trigger9ddabae6": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "output": {
+        "Region": "us-west-1",
+        "Arn": "arn:aws:lambda:us-west-1:548281136650:function:S3Trigger9ddabae6-staging",
+        "Name": "S3Trigger9ddabae6-staging",
+        "LambdaExecutionRole": "S3Trigger9ddabae6LambdaRole9ddabae6-staging"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.917Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/function/S3Trigger9ddabae6-cloudformation-template.json",
+        "logicalId": "functionS3Trigger9ddabae6"
+      },
+      "lastBuildTimeStamp": "2022-06-28T12:25:59.239Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-28T12:25:59.327Z",
+      "distZipFilename": "S3Trigger9ddabae6-33644d65677454765758-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+        "s3Key": "amplify-builds/S3Trigger9ddabae6-33644d65677454765758-build.zip"
+      },
+      "lastPushDirHash": "E6aVXRLgrw5lUpH1PcxHsHQ7UBE="
+    },
+    "apiFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "us-west-1",
+        "Arn": "arn:aws:lambda:us-west-1:548281136650:function:apiFunction-staging",
+        "Name": "apiFunction-staging",
+        "LambdaExecutionRole": "comicsfrontendLambdaRolec56b2671-staging"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.917Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/function/apiFunction-cloudformation-template.json",
+        "logicalId": "functionapiFunction"
+      },
+      "lastBuildTimeStamp": "2022-06-28T12:25:59.244Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-28T12:26:00.839Z",
+      "distZipFilename": "apiFunction-63584374536a5859524c-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+        "s3Key": "amplify-builds/apiFunction-63584374536a5859524c-build.zip"
+      },
+      "lastPushDirHash": "+lLtgahxOfrkC2/D3T1erY+ITkk="
+    },
+    "AdminQueries933d2e83": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "comicsfrontendffefd2ca",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "Region": "us-west-1",
+        "Arn": "arn:aws:lambda:us-west-1:548281136650:function:AdminQueries933d2e83-staging",
+        "Name": "AdminQueries933d2e83-staging",
+        "LambdaExecutionRole": "AdminQueries933d2e83LambdaRole-staging"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.917Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/function/AdminQueries933d2e83-cloudformation-template.json",
+        "logicalId": "functionAdminQueries933d2e83"
+      },
+      "lastBuildTimeStamp": "2022-06-28T12:25:59.250Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-28T12:26:01.076Z",
+      "distZipFilename": "AdminQueries933d2e83-6949457356356475454d-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-comicsfrontend-staging-130138-deployment",
+        "s3Key": "amplify-builds/AdminQueries933d2e83-6949457356356475454d-build.zip"
+      },
+      "lastPushDirHash": "xJS7zvmI2bxNBWn66FkxoZ40u/8="
+    }
+  },
+  "storage": {
+    "comicss3image": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger9ddabae6",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ],
+      "output": {
+        "BucketName": "comicss3bucket130138-staging",
+        "Region": "us-west-1"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.381Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storagecomicss3image"
+      }
+    }
+  },
+  "api": {
+    "comicsapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "apiFunction",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "ApiName": "comicsapi",
+        "RootUrl": "https://stkltky625.execute-api.us-west-1.amazonaws.com/staging",
+        "ApiId": "stkltky625"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.405Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/api/comicsapi-cloudformation-template.json",
+        "logicalId": "apicomicsapi"
+      }
+    },
+    "AdminQueries": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "comicsfrontendffefd2ca",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdminQueries933d2e83",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "output": {
+        "ApiName": "AdminQueries",
+        "RootUrl": "https://x6l45z8gz2.execute-api.us-west-1.amazonaws.com/staging",
+        "ApiId": "x6l45z8gz2"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.412Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/api/AdminQueries-cloudformation-template.json",
+        "logicalId": "apiAdminQueries"
+      }
+    },
+    "comicsfrontend": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "comicsfrontendffefd2ca",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authcomicsfrontendffefd2ca"
+              }
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "76ao5bnuf5f2xbtwmnqldf447u",
+        "GraphQLAPIEndpointOutput": "https://zsyetalz2bempaz4enwqjrwo2m.appsync-api.us-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-wa7thpw3eff7dosmrveuw2jp24"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.419Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apicomicsfrontend"
+      }
+    }
+  },
+  "analytics": {
+    "comicsfrontend": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "appName": "comicsfrontend-staging",
+        "Region": "us-west-2",
+        "Id": "70cb183f789f4f62848a9fb7608cf47b"
+      },
+      "lastPushTimeStamp": "2022-06-28T12:27:12.917Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-comicsfrontend-staging-130138-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticscomicsfrontend"
+      },
+      "lastPushDirHash": "K5Xrlk4soBMBYhuPhBXYKew1yCE="
+    }
+  }
+}
